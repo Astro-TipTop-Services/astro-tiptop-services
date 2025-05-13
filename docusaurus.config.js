@@ -96,19 +96,19 @@ const config = {
             label: 'Astro-TipTop Modules',
             items: [
               {
-                label: 'Orion',
+                label: 'TipTop | Orion',
                 to: '/docs/orion/overview',
               },
               {
-                label: 'Aquila',
+                label: 'TipTop | Aquila',
                 to: '/docs/aquila/overview', 
               },
               {
-                label: 'Lyra',
+                label: 'TipTop | Lyra',
                 to: '/docs/lyra/overview', 
               },
               {
-                label: 'Phoenix',
+                label: 'TipTop | Phoenix',
                 to: '/docs/phoenix/overview', 
               },
             ]

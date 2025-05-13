@@ -87,6 +87,35 @@ body {
 }
 
 
+/* Large screens */
+@media screen and (min-width: 1024px) {
+  .navbar__item {
+    padding-right: 10px;
+  }
+}
+
+/* Medium screens (tablettes) */
+@media screen and (max-width: 1024px) {
+  .navbar__item {
+    padding-right: 5px;
+  }
+}
+
+/* Small screens (mobiles) */
+@media screen and (max-width: 768px) {
+  .navbar__items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+.navbar__item--mobile {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+}
+
 /* You can override the default Infima variables here. */
 /* :root {
   --ifm-color-primary: #151160;

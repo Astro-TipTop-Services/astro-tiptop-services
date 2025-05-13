@@ -21,7 +21,7 @@ body {
 }
 
 .navbar a:hover {
-  color: #ffcc00; /* Couleur de survol */
+  color: #ffcc00; 
 }
 
 .navbar__link--active {
@@ -85,14 +85,6 @@ body {
 .footer {
   background-color: #0f3661;  
 }
-
-
-/* Pour élargir la page */
-/* .main-wrapper { */
-  /* max-width: 1200px; */
-  /* margin: 0 auto; */
-/* } */
-
 
 
 /* You can override the default Infima variables here. */

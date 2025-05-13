@@ -1,0 +1,122 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+ :root {
+  --ifm-font-family-base: 'Inter', sans-serif;
+  --ifm-color-primary: #0f3661; 
+  --ifm-navbar-background-color: #0f3661;
+  --ifm-navbar-link-color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.home-page {
+  background-color: #0f3661;  
+}
+
+body {
+  background-color: #ebeff3;  
+}
+
+.navbar a:hover {
+  color: #ffcc00; /* Couleur de survol */
+}
+
+.navbar__link--active {
+  color: #ffcc00; 
+}
+
+.main-wrapper {
+  margin-top: 0.5rem; 
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  min-height: 80px; 
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 28px;
+  margin-right: 200px;
+}
+
+.navbar__items {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.navbar__link {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 22px; 
+  padding: 10 10px;
+}
+
+.navbar__logo {
+  height: 60px; 
+  object-fit: contain;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  align-items: center;
+}
+
+.navbar__item .dropdown__menu .dropdown__link {
+  font-size: 16px;
+}
+
+.theme-doc-sidebar-menu .menu__list .menu__list-item .menu__link.menu__link--sublist {
+  font-size: 1.5px; 
+  font-weight: bold; 
+}
+
+.menu__list-item-collapsible > .menu__link {
+  font-size: 1.5rem; 
+  font-weight: bold;
+}
+
+.footer {
+  background-color: #0f3661;  
+}
+
+
+/* Pour élargir la page */
+/* .main-wrapper { */
+  /* max-width: 1200px; */
+  /* margin: 0 auto; */
+/* } */
+
+
+
+/* You can override the default Infima variables here. */
+/* :root {
+  --ifm-color-primary: #151160;
+  --ifm-color-primary-dark: #130f56;
+  --ifm-color-primary-darker: #120e52;
+  --ifm-color-primary-darkest: #0f0c43;
+  --ifm-color-primary-light: #17136a;
+  --ifm-color-primary-lighter: #18146e;
+  --ifm-color-primary-lightest: #1b167d;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+} */
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* [data-theme='dark'] {
+  --ifm-color-primary: #151160;
+  --ifm-color-primary-dark: #130f56;
+  --ifm-color-primary-darker: #120e52;
+  --ifm-color-primary-darkest: #0f0c43;
+  --ifm-color-primary-light: #17136a;
+  --ifm-color-primary-lighter: #18146e;
+  --ifm-color-primary-lightest: #1b167d;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+} */
+

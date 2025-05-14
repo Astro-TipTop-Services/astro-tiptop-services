@@ -38,6 +38,8 @@ To run a simulation with **TipTop**, you need:
     - The first and second arguments of the `overallSimulation` function correspond respectively to the path of the folder containing the .ini input file, and the name of that .ini file.
     - The third and fourth arguments specify where to save the output results (in .fits format) and what name to give to the resulting .fits file.
 
+    A detailed documentation on the overallSimulation function is provided [here](/docs/orion/api_reference.md).
+
 - a parameter file in .ini format (e.g., `minimalPar.ini`) /
     Example, `minimalPar.ini`:
     ```python

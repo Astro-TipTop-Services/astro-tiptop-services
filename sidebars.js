@@ -53,6 +53,7 @@ const sidebars = {
         'orion/parameterfields',
         'orion/usage',
         'orion/examples',
+        'orion/api_reference',
       ],
     },
     {

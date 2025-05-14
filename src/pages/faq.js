@@ -6,7 +6,8 @@ export default function FAQPage() {
     <Layout title="FAQ & Support">
       <main className="container margin-vert--xl">
         <h1>FAQ & Support</h1>
-        <p>Coming soon...</p>
+        <p>Need help with Astro-TipTop? Our support team is ready to assist you. Whether you're facing installation issues, 
+          running simulations, or have any general questions about the software, we are here to help.</p>
       </main>
     </Layout>
   );

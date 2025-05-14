@@ -33,11 +33,11 @@ const FeatureList = [
     ),
   },
   {
-    title: 'To be complete',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Astro-TipTop Support',
+    img: 'img/tiptop_assistance.png',
     description: (
       <>
-        To be complete
+        Coming soon...
       </>
     ),
   },

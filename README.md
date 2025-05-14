@@ -98,7 +98,7 @@ Install VS Code here: [VS Code Download](https://code.visualstudio.com/)
 After the environment is set up and activated, there are two main ways to install **TipTop**:
 
 ### Install from PyPi
-To install the latest release of **TipTop** with its dependencies, run:
+To install the latest release of [**TipTop**](https://pypi.org/project/astro-tiptop/) with its dependencies, run:
 ```bash
 pip install astro-tiptop
 ```

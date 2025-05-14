@@ -22,7 +22,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'astro-tiptop', // Usually your GitHub org/user name.
+  organizationName: 'lmazzolo', // Usually your GitHub org/user name.
   projectName: 'astro-tiptop-services', // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -94,6 +94,7 @@ const config = {
             sidebarId: 'tipTopSidebar',  
             position: 'left',
             label: 'Astro-TipTop Modules',
+            to: '/pages/astro_tiptop_modules.js',
             items: [
               {
                 label: 'TipTop | Orion',

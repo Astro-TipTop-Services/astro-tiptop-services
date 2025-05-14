@@ -6,6 +6,8 @@ sidebar_label: Installation
 
 # TipTop Installation Tutorial
 
+**TipTop*** was designed from the ground up to be easily installed and used.
+
 ## Getting Started
 
 Get started by **installing TipTop**. Follow these simple steps to get up and running quickly.
@@ -99,7 +101,7 @@ Install VS Code here: [VS Code Download](https://code.visualstudio.com/)
 After the environment is set up and activated, there are two main ways to install **TipTop**:
 
 ### Install from PyPi
-To install the latest release of **TipTop** with its dependencies, run:
+To install the latest release of [**TipTop**](https://pypi.org/project/astro-tiptop/) with its dependencies, run:
 ```bash
 pip install astro-tiptop
 ```

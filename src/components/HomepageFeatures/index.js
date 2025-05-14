@@ -20,7 +20,7 @@ const FeatureList = [
   },
   {
     title: (
-      <a href="/pages/astro_tiptop_modules.js">
+      <a href="/astro-tiptop-services/astro_tiptop_modules">
         Astro-TipTop Modules
       </a>
     ),
@@ -28,7 +28,7 @@ const FeatureList = [
     description: (
       <>
         <strong>Astro-TipTop Services</strong> offers a suite of specialized modules, all powered by TipTop Core.{' '} <br />
-        <a href="/pages/astro_tiptop_modules.js">Click here to learn more.</a>
+        <a href="/astro-tiptop-services/astro_tiptop_modules">Click here to learn more.</a>
       </>
     ),
   },

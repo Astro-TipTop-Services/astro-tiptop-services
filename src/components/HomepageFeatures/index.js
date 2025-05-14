@@ -6,7 +6,7 @@ const FeatureList = [
   {
     title: (
       <a href="/docs/orion/overview.js">
-        TipTop Core (TipTop | Orion)
+        TipTop App (TipTop | Orion)
       </a>
     ),
     img: 'img/tiptop.jpg',
@@ -27,7 +27,7 @@ const FeatureList = [
     img: 'img/astro_tiptop_modules.jpg',
     description: (
       <>
-        <strong>Astro-TipTop Services</strong> offers a suite of specialized modules, all powered by TipTop Core.{' '} <br />
+        <strong>Astro-TipTop Services</strong> offers a suite of specialized modules, all powered by the <strong>TipTop</strong> tool.{' '} <br />
         <a href="/astro-tiptop-services/astro_tiptop_modules">Click here to learn more.</a>
       </>
     ),
@@ -75,7 +75,7 @@ export default function HomepageFeatures() {
             <strong>TipTop</strong> is an innovative tool designed to simplify the prediction of Adaptive Optics <a href="https://en.wikipedia.org/wiki/Adaptive_optics">(AO)</a> system performance, 
             which is heavily influenced by factors such as the availability of Natural Guide Stars (NGSs) and atmospheric conditions like seeing, Cn2, and windspeed. 
             Understanding the Point Spread Function (PSF) is crucial for scientific observations using AO, as the PSF exhibits complex spatial, spectral, and temporal variability. <br />
-            By predicting how the AO PSF will behave, TipTop helps researchers optimize their AO systems and improve the accuracy of their scientific observations. Whether you're working 
+            By predicting how the AO PSF will behave, <strong>TipTop</strong> helps researchers optimize their AO systems and improve the accuracy of their scientific observations. Whether you're working 
             with a specific AO system or exploring different atmospheric scenarios, <strong>TipTop</strong> offers a simple yet powerful tool to enhance your understanding and predictions of AO performance. <br />
             <u>Reference:</u> <a href="https://doi.org/10.48550/arXiv.2101.06486">https://doi.org/10.48550/arXiv.2101.06486</a>
             </p>

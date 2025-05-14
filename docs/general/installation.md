@@ -6,7 +6,7 @@ sidebar_label: Installation
 
 # TipTop Installation Tutorial
 
-**TipTop*** was designed from the ground up to be easily installed and used.
+**TipTop** was designed from the ground up to be easily installed and used.
 
 ## Getting Started
 

@@ -36,9 +36,10 @@ const sidebars = {
       label: 'General Documentation',
       collapsed: false,
       items: [
+        'general/whatistiptop',
+        'general/howdoestiptopworks',
+        'general/whatcanitbeusedfor',
         'general/installation',
-        'general/formats',
-        'general/interoperability',
       ],
     },
   ],
@@ -49,7 +50,7 @@ const sidebars = {
       label: 'Astro-TipTop | Orion',
       items: [
         'orion/overview',
-        'orion/installation',
+        'orion/parameterfields',
         'orion/usage',
         'orion/examples',
       ],

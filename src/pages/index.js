@@ -23,6 +23,13 @@ function HomepageHeader() {
             TipTop Installation Tutorial - 5min ⏱️
           </Link>
         </div>
+        <div className={styles.buttons}>
+          <Link
+            className="button button--secondary button--lg"
+            to="/docs/quickstart">
+            TipTop Quickstart Tutorial - 5min ⏱️
+          </Link>
+        </div>
       </div>
     </header>
   );

@@ -94,7 +94,7 @@ const config = {
             sidebarId: 'tipTopSidebar',  
             position: 'left',
             label: 'Astro-TipTop Modules',
-            to: '/pages/astro_tiptop_modules.js',
+            to: '/astro-tiptop-services/astro_tiptop_modules',
             items: [
               {
                 label: 'TipTop | Orion',

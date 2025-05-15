@@ -141,9 +141,9 @@ const config = {
         ],
       },
       colorMode: {
-        defaultMode: 'light',             // Met "dark" ici si tu veux forcer le mode sombre
-        disableSwitch: false,             // true = désactive le bouton de changement de thème
-        respectPrefersColorScheme: false, // ignore le thème du système
+        defaultMode: 'light',             
+        disableSwitch: true,             
+        respectPrefersColorScheme: false,
       },
       footer: {
         style: 'dark',

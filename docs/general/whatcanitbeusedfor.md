@@ -1,7 +1,11 @@
 ---
 id: whatcanitbeusedfor
-title: What can it be used for ?
-sidebar_label: What can it be used for ?
+title: What can TipTop be used for ?
+sidebar_label: What can TipTop be used for ?
 ---
 
 Coming soon ...
+
+<p align="center">
+![](/img/whatcanTipTopbeusedfor.png)
+</p>

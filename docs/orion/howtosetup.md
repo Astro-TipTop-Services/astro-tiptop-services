@@ -14,6 +14,10 @@ Before diving into the configuration sections, you should first determine which 
 
 **Note:** Regardless of the AO system, configuration always starts with defining the telescope and the atmospheric conditions.
 
+<p align="center">
+![](/img/AO_tel.png)
+</p>
+
 ## The telescope
 This section contains the parameters related to the telescope:
 

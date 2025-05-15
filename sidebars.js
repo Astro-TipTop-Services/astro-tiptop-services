@@ -50,8 +50,8 @@ const sidebars = {
       label: 'Astro-TipTop | Orion',
       items: [
         'orion/overview',
-        'orion/parameterfields',
         'orion/usage',
+        'orion/parameterfields',
         'orion/examples',
         'orion/api_reference',
       ],

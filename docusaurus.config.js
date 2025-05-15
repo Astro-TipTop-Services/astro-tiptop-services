@@ -113,19 +113,43 @@ const config = {
             items: [
               {
                 label: 'TipTop | Orion',
+                to: '#',
+                className: 'menu-section-header',
+              },
+              {
+                label: '• Overview',
                 to: '/docs/orion/overview',
+              },
+              {
+                label: '• Quickstart',
+                to: '/docs/orion/usage',
+              },
+              {
+                label: '• Parameter fields',
+                to: '/docs/orion/parameterfields',
+              },
+              {
+                label: '• Examples',
+                to: '/docs/orion/examples',
+              },
+              {
+                label: '• API Reference',
+                to: '/docs/orion/api_reference',
               },
               {
                 label: 'TipTop | Aquila',
                 to: '/docs/aquila/overview', 
+                className: 'menu-section-header',
               },
               {
                 label: 'TipTop | Lyra',
-                to: '/docs/lyra/overview', 
+                to: '/docs/lyra/overview',
+                className: 'menu-section-header', 
               },
               {
                 label: 'TipTop | Phoenix',
-                to: '/docs/phoenix/overview', 
+                to: '/docs/phoenix/overview',
+                className: 'menu-section-header', 
               },
             ]
           },

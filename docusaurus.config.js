@@ -84,10 +84,25 @@ const config = {
         },
         items: [
           {
-            type: 'docSidebar',
+            type: 'dropdown',
             sidebarId: 'generalSidebar',
             position: 'left',
             label: 'General Documentation',
+            to: '/docs/general/whatistiptop',
+            items: [
+              {
+                label: 'What is TipTop?',
+                to: '/docs/general/whatistiptop',
+              },
+              {
+                label: 'How does TipTop work?',
+                to: '/docs/general/howdoestiptopwork'
+              },
+              {
+                label: 'What can it be used for?',
+                to: '/docs/general/whatcanitbeusedfor'
+              },
+            ]
           },
           {
             type: 'dropdown',
@@ -124,6 +139,11 @@ const config = {
             position: 'right',
           },
         ],
+      },
+      colorMode: {
+        defaultMode: 'light',             // Met "dark" ici si tu veux forcer le mode sombre
+        disableSwitch: false,             // true = désactive le bouton de changement de thème
+        respectPrefersColorScheme: false, // ignore le thème du système
       },
       footer: {
         style: 'dark',

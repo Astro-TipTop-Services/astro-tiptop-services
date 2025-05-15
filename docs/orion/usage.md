@@ -40,7 +40,7 @@ To run a simulation with **TipTop**, you need:
 
     A detailed documentation on the overallSimulation function is provided [here](/docs/orion/api_reference.md).
 
-- a parameter file in .ini format (e.g., `minimalPar.ini`) /
+- a parameter file in .ini format (e.g., `minimalPar.ini`) \
     Example, `minimalPar.ini`:
     ```python
     [telescope]

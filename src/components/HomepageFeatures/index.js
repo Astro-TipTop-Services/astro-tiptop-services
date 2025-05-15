@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 const FeatureList = [
   {
     title: (
-      <a href="/docs/orion/overview.js">
+      <a href='docs/orion/overview'>
         TipTop App (TipTop | Orion)
       </a>
     ),
@@ -83,10 +83,10 @@ export default function HomepageFeatures() {
               <img src="img/logo_astro_tiptop.png" alt="Intro Image" style={{ width: '30%', height: 'auto', marginTop: '0.5rem' }} />
             </div>
             <p className={styles.introText} style={{ marginBottom: '0.05rem' }}>
-            Based on the core <strong>TipTop</strong> algorithm (<a href="/docs/orion/overview.js"><strong>TipTop | Orion</strong></a>), 
-            we offer several specialized modules: <br /> <a href="/docs/aquila/overview.js"><strong>TipTop | Aquila</strong></a>, 
-            <a href="/docs/lyra/overview.js"><strong> TipTop | Lyra</strong></a>, 
-            and <a href="/docs/phoenix/overview.js"><strong>TipTop | Phoenix</strong></a>, 
+            Based on the core <strong>TipTop</strong> algorithm (<a href="docs/orion/overview"><strong>TipTop | Orion</strong></a>), 
+            we offer several specialized modules: <br /> <a href="docs/aquila/overview"><strong>TipTop | Aquila</strong></a>, 
+            <a href="docs/lyra/overview"><strong> TipTop | Lyra</strong></a>, 
+            and <a href="docs/phoenix/overview"><strong>TipTop | Phoenix</strong></a>, 
             each tailored to specific needs and enhancing the overall capabilities of TipTop. 
             </p>
           </div>

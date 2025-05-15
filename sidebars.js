@@ -37,7 +37,7 @@ const sidebars = {
       collapsed: false,
       items: [
         'general/whatistiptop',
-        'general/howdoestiptopworks',
+        'general/howdoestiptopwork',
         'general/whatcanitbeusedfor',
         'general/installation',
       ],

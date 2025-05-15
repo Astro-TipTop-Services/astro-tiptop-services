@@ -1,7 +1,7 @@
 ---
 id: installation
-title: Installation
-sidebar_label: Installation
+title: How to install TipTop?
+sidebar_label: How to install TipTop?
 ---
 
 # TipTop Installation Tutorial

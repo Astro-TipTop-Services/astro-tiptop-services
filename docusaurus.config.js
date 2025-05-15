@@ -102,6 +102,10 @@ const config = {
                 label: 'What can it be used for?',
                 to: '/docs/general/whatcanitbeusedfor'
               },
+              {
+                label: 'How to install TipTop?',
+                to: '/docs/general/installation'
+              },
             ]
           },
           {

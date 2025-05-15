@@ -33,11 +33,11 @@ const FeatureList = [
     ),
   },
   {
-    title: 'Astro-TipTop Support',
+    title: (<a href="/astro-tiptop-services/faq"> Astro-TipTop Support </a>),
     img: 'img/tiptop_assistance.png',
     description: (
       <>
-        Coming soon...
+        Coming soon... <br />
       </>
     ),
   },

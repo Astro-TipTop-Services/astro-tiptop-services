@@ -80,7 +80,7 @@ export default function HomepageFeatures() {
             <u>Reference:</u> <a href="https://doi.org/10.48550/arXiv.2101.06486">https://doi.org/10.48550/arXiv.2101.06486</a>
             </p>
             <div className="text--center">
-              <img src="img/logo_astro_tiptop.png" alt="Intro Image" style={{ width: '30%', height: 'auto', marginTop: '0.5rem' }} />
+              <img src="img/logo_astro_tiptop.png" alt="Intro Image" style={{ width: '30rem', height: 'auto', marginTop: '0.5rem' }} />
             </div>
             <p className={styles.introText} style={{ marginBottom: '0.05rem' }}>
             Based on the core <strong>TipTop</strong> algorithm (<a href="docs/orion/overview"><strong>TipTop | Orion</strong></a>), 

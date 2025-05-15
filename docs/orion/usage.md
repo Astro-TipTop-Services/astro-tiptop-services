@@ -22,7 +22,7 @@ or
 
 To run a simulation with **TipTop**, you need:
 - a launch script (e.g., `TIPTOP-EXAMPLE.py`). This script:
-    - Loads the simulation parameters from a .ini file (e.g., minimalPar.ini)
+    - Loads the simulation parameters from a `.ini` file (e.g., `minimalPar.ini`)
     - Initializes the necessary modules
     - Starts the simulation 
 
@@ -35,12 +35,12 @@ To run a simulation with **TipTop**, you need:
     overallSimulation("./", "minimalPar", './', 'test')
     ```
     **Note:** 
-    - The first and second arguments of the `overallSimulation` function correspond respectively to the path of the folder containing the .ini input file, and the name of that .ini file.
-    - The third and fourth arguments specify where to save the output results (in .fits format) and what name to give to the resulting .fits file.
+    - The first and second arguments of the `overallSimulation` function correspond respectively to the path of the folder containing the `.ini` input file, and the name of that `.ini` file.
+    - The third and fourth arguments specify where to save the output results (in .fits format) and what name to give to the resulting `.fits` file. 
 
     A detailed documentation on the overallSimulation function is provided [here](/docs/orion/api_reference.md).
 
-- a parameter file in .ini format (e.g., `minimalPar.ini`) \
+- a parameter file in `.ini` format (e.g., `minimalPar.ini`) \
     Example, `minimalPar.ini`:
     ```python
     [telescope]
@@ -72,7 +72,7 @@ To run a simulation with **TipTop**, you need:
     NumberActuators = [20]
     DmPitchs = [0.25]
     ```
-    **Note:** An explanation of the structure and syntax of .ini parameter files is provided [here](/docs/orion/parameterfields.md).
+    **Note:**  For a detailed explanation of the structure and syntax of `.ini` parameter files, refer to the [Parameter Files page](/docs/orion/parameterfields.md). <br /> Guidance on how to configure **TipTop** based on your chosen adaptive optics system is provided [here](/docs/orion/howtosetup.md).
 
 ## Simulation Output (This section is under construction...)
 

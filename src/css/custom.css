@@ -128,11 +128,11 @@ body {
     justify-content: center;
   }
 
-.navbar__item--mobile {
+/* .navbar__item--mobile {
   display: block;
   width: 100%;
   text-align: center;
-}
+} */
 }
 
 /* You can override the default Infima variables here. */

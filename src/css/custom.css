@@ -140,6 +140,9 @@ body {
     text-overflow: ellipsis;
   }
 
+  .navbar__item {
+    color: #ffffff;
+  }
   /* .menu__list--mobile {
     text-align: right; 
   } */

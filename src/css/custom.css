@@ -12,18 +12,11 @@
   border-bottom: 2px solid #ebeff3;
 }
 
-/* /* Dark theme */
-/* html[data-theme='dark'] {
+Dark theme
+html[data-theme='dark'] {
   --ifm-color-primary: #0f3661;
-  --ifm-background-color: #121212;
-  --ifm-color-primary-darker: #121212;
-  --ifm-color-primary-lighter: #121212;
-  --ifm-font-color-base: #e0e0e0;
-  --ifm-navbar-background-color: #0f3661;
-  --ifm-footer-background-color: #0f3661;
-  --ifm-link-color: #ffcc00;
-  border-bottom: 2px solid #121212;
-} */
+  --ifm-mobile-colo
+}
 
 .home-page {
   background-color: #0f3661;  
@@ -129,8 +122,6 @@ body {
 } */ 
 
 @media (max-width: 600px) {
-  .navbar{style: 'dark',}
-
   .navbar__logo img {
     height: 40px; 
     width: auto;
@@ -143,8 +134,17 @@ body {
     text-overflow: ellipsis;
   }
 
-  .navbar__link {
-    color: #ffffff;
+  .navbar-sidebar {
+    background-color: #0f3661 ;
+    color: #fff ; /
+  }
+  
+  .navbar-sidebar .menu__link {
+    color: #fff ;
+  }
+  
+  .navbar-sidebar__brand {
+    color: #fff ;
   }
   /* .menu__list--mobile {
     text-align: right; 

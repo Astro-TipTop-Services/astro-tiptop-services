@@ -140,9 +140,9 @@ body {
     text-overflow: ellipsis;
   }
 
-  .menu__list--mobile {
+  /* .menu__list--mobile {
     text-align: right; 
-  }
+  } */
 }
 
 .menu__list--mobile a,

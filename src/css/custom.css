@@ -12,8 +12,8 @@
   border-bottom: 2px solid #ebeff3;
 }
 
-/* Dark theme
-html[data-theme='dark'] {
+/* /* Dark theme */
+/* html[data-theme='dark'] {
   --ifm-color-primary: #0f3661;
   --ifm-background-color: #121212;
   --ifm-color-primary-darker: #121212;
@@ -110,6 +110,7 @@ body {
 
 .footer {
   background-color: #0f3661;  
+  text-align: center;
 }
 
 
@@ -128,6 +129,8 @@ body {
 } */ 
 
 @media (max-width: 600px) {
+  .navbar{style: 'dark',}
+
   .navbar__logo img {
     height: 40px; 
     width: auto;

@@ -179,47 +179,60 @@ const config = {
       },
       footer: {
         style: 'dark',
-        // links: [
-        //   {
-        //     title: 'Docs',
-        //     items: [
-        //       {
-        //         label: 'Tutorial',
-        //         to: '/docs/intro',
-        //       },
-        //     ],
-        //   },
-        //   {
-        //     title: 'Community',
-        //     items: [
-        //       {
-        //         label: 'Stack Overflow',
-        //         href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-        //       },
-        //       {
-        //         label: 'Discord',
-        //         href: 'https://discordapp.com/invite/docusaurus',
-        //       },
-        //       {
-        //         label: 'X',
-        //         href: 'https://x.com/docusaurus',
-        //       },
-        //     ],
-        //   },
-        //   {
-        //     title: 'More',
-        //     items: [
-        //       {
-        //         label: 'Blog',
-        //         to: '/blog',
-        //       },
-        //       {
-        //         label: 'GitHub',
-        //         href: 'https://github.com/facebook/docusaurus',
-        //       },
-        //     ],
-        //   },
-        // ],
+        links: [
+          {
+            title: 'Docs',
+            items: [
+              {
+                label: 'TipTop Installation Tutorial',
+                to: '/docs/intro',
+              },
+              {
+                label: 'TipTop Quickstart Tutorial',
+                to: '/docs/quickstart',
+              },
+            ],
+          },
+          // {
+          //   title: 'Community',
+          //   items: [
+          //     {
+          //       label: 'Stack Overflow',
+          //       href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+          //     },
+          //     {
+          //       label: 'Discord',
+          //       href: 'https://discordapp.com/invite/docusaurus',
+          //     },
+          //   ],
+          // },
+          {
+            title: 'Terms & Conditions',
+            items: [
+              {
+                label: 'Terms & Conditions',
+                to: '/astro-tiptop-services/terms',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              // {
+              //   label: 'Blog',
+              //   to: '/blog',
+              // },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/astro-tiptop/TIPTOP',
+              },
+              {
+                label: 'PyPi',
+                href: 'https://pypi.org/project/astro-tiptop/',
+              },
+            ],
+          },
+        ],
         copyright: `Copyright © ${new Date().getFullYear()} Astro-TipTop Team. Built with Docusaurus.`,
       },
       prism: {

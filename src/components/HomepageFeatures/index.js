@@ -72,12 +72,12 @@ export default function HomepageFeatures() {
             <p className={styles.introText}>
             A dedicated website for the presentation, documentation, and dissemination of <strong>Astro-TipTop services</strong> based on the <strong>TipTop</strong> algorithm. 
             The site provides easy access to the source code, usage examples, and technical documentation. <br />
-            <strong>TipTop</strong> is an innovative tool designed to simplify the prediction of Adaptive Optics <a href="https://en.wikipedia.org/wiki/Adaptive_optics">(AO)</a> system performance, 
+            <strong>TipTop</strong> is an innovative tool designed to simplify the prediction of Adaptive Optics <a href="https://en.wikipedia.org/wiki/Adaptive_optics" target="_blank">(AO)</a> system performance, 
             which is heavily influenced by factors such as the availability of Natural Guide Stars (NGSs) and atmospheric conditions like seeing, Cn2, and windspeed. 
             Understanding the Point Spread Function (PSF) is crucial for scientific observations using AO, as the PSF exhibits complex spatial, spectral, and temporal variability. <br />
             By predicting how the AO PSF will behave, <strong>TipTop</strong> helps researchers optimize their AO systems and improve the accuracy of their scientific observations. Whether you're working 
             with a specific AO system or exploring different atmospheric scenarios, <strong>TipTop</strong> offers a simple yet powerful tool to enhance your understanding and predictions of AO performance. <br />
-            <u>Reference:</u> <a href="https://doi.org/10.48550/arXiv.2101.06486">https://doi.org/10.48550/arXiv.2101.06486</a>
+            <u>Reference:</u> <a href="https://doi.org/10.48550/arXiv.2101.06486" target="_blank">https://doi.org/10.48550/arXiv.2101.06486</a>
             </p>
             <div className="text--center">
               <img src="img/logo_astro_tiptop.png" alt="Intro Image" style={{ width: '30rem', height: 'auto', marginTop: '0.5rem' }} />

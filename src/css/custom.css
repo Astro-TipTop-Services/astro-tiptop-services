@@ -144,6 +144,13 @@ body {
     text-align: right; 
   }
 }
+
+.menu__list--mobile a,
+.menu__list--mobile .menu__link {
+  color: #ffffff;
+  text-align: left; 
+}
+
 /* .navbar__item--mobile {
   display: block;
   width: 100%;

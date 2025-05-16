@@ -143,12 +143,12 @@ body {
   /* .menu__list--mobile {
     text-align: right; 
   } */
-}
-
-.menu__list--mobile a,
-.menu__list--mobile .menu__link {
-  color: #ffffff;
-  text-align: left; 
+  .menu__list--mobile a,
+  .menu__list--mobile .menu__link,
+  .menu__list--mobile .navbar__link {
+    color: #ffffff;
+    text-align: left;   
+  } 
 }
 
 /* .navbar__item--mobile {

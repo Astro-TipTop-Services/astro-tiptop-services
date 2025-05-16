@@ -12,11 +12,10 @@
   border-bottom: 2px solid #ebeff3;
 }
 
-Dark theme
+/* Dark theme
 html[data-theme='dark'] {
   --ifm-color-primary: #0f3661;
-  --ifm-mobile-colo
-}
+} */
 
 .home-page {
   background-color: #0f3661;  
@@ -136,7 +135,7 @@ body {
 
   .navbar-sidebar {
     background-color: #0f3661 ;
-    color: #fff ; /
+    color: #fff ;
   }
   
   .navbar-sidebar .menu__link {

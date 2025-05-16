@@ -113,7 +113,7 @@ body {
 }
 
 
-/* Large screens */
+/* Large screens
 @media screen and (min-width: 1024px) {
   .navbar__item {
     padding-right: 10px;
@@ -121,15 +121,15 @@ body {
 }
 
 /* Medium screens (tablettes) */
-@media screen and (max-width: 1024px) {
+/* @media screen and (max-width: 1024px) {
   .navbar__item {
     padding-right: 5px;
   }
-}
+} */ 
 
 @media (max-width: 600px) {
   .navbar__logo img {
-    height: 40px !important; 
+    height: 40px; 
     width: auto;
   }
 
@@ -143,11 +143,12 @@ body {
   /* .menu__list--mobile {
     text-align: right; 
   } */
-  .menu__list--mobile a,
+  .menu__list--mobile a:active,
+  .menu__list--mobile a:focus,
   .menu__list--mobile .menu__link,
   .menu__list--mobile .navbar__link {
     color: #ffffff;
-    text-align: left;   
+    text-align: right;   
   } 
 }
 

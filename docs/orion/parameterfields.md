@@ -6,9 +6,11 @@ sidebar_label: Parameter fields
 
 ## Introduction
 
+<p align="justify">
 This page provides an explanation of the structure and syntax of the .ini parameter files required by TipTop (see the [TipTop Quickstart Tutorial](/docs/orion/usage.md)). It details what your parameter file should contain and the various parameters you can set. Example parameter files are available in our [GitHub repository](https://github.com/astro-tiptop/TIPTOP), and one is also presented in the [TipTop Quickstart Tutorial](/docs/orion/usage.md).
 
 The parameter files are divided in sections and they can contain multiple parameter. It is very important that each parameter be placed in the appropriate section. The section starts with its name between `[]` and ends either with the end of file or with the next section. The order they are placed in the file does not matter.
+</p>
 
 ## Overview
 
@@ -106,8 +108,10 @@ Detailed descriptions of each section are provided below.
 
 ### `[sources_Focus]`
 
+<p align="justify">
 **Note:** This section is completely optional. The `[sources_Focus]` section is required to have the global focus part simulated considering specific focus sensors and not the LO sensors. This happens when the key glFocusOnNGS in the `[telescope]` section is True and multiple DMs are present. \
 Note that the coordinates (Zenith and Azimuth) of the NGSs are the same of the `[sources_LO]` section.
+</p>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
@@ -121,8 +125,10 @@ Note that the coordinates (Zenith and Azimuth) of the NGSs are the same of the `
 | `FieldOfView` | Yes | `float` | Field of view of the camera in pixel/spaxel. <br /> _Warning_: confusing error message if missing. |
 
 ### **Note**
+<p align="justify">
 Following parameters were added to uniformise all the sensor (HO and LO), but they are not used.\
 Binning, NumberPhotons, SpotFWHM, SpectralBandwidth, Transmittance, Dispersion, SigmaRON, Dark, SkyBackground, Gain, ExcessNoiseFactor, Wavelength, FieldOfView
+</p>
 
 ### `[sensor_HO]`
 
@@ -147,8 +153,9 @@ The High Order WaveFront Sensor can be a **Pyramid WFS** or a **Shack-Hartmann**
 | `addMcaoWFsensConeError` | No | `string` | _Default_: `False` <br /> Additional error to consider the reduced sensing volume due to the cone effect. Multi-conjugate systems only.|
 
 ### Wavefront sensor requirements
-
-In the two following section we list the parameters that are specific to each wavefront sensor. If you define a parameter for one WFS while another WFS is defined The parameter will be ignired. For example, if you define the parameter SigmaRON, while WfsType is ‘Pyramid’, SigmaRON is ignored
+<p align="justify">
+In the two following section we list the parameters that are specific to each wavefront sensor. If you define a parameter for one WFS while another WFS is defined The parameter will be ignired. For example, if you define the parameter `SigmaRON`, while WfsType is `Pyramid`, `SigmaRON` is ignored.
+</p>
 
 #### Shack-Hartmann requirements
 
@@ -200,8 +207,9 @@ In the two following section we list the parameters that are specific to each wa
 | `Algorithm` | not used | `string` | _Default_: `wcog` <br /> CoG computation algorithm. |
 
 ### `[sensor_Focus]`
-
+<p align="justify">
 **Note:** This section is completely optional. The `[sensor_Focus]` section is required to have the global focus part simulated considering specific focus sensors and not the LO sensors. This happens when the key glFocusOnNGS in the `[telescope]` section is True and multiple DMs are present.
+</p>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|

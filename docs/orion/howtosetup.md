@@ -4,6 +4,7 @@ title: How to set up?
 sidebar_label: How to set up?
 ---
 
+<p align="justify">
 This page explains how to configure TipTop depending on the type of adaptive optics (AO) system you want to simulate.
 
 Before diving into the configuration sections, you should first determine which AO system you intend to model. TipTop supports the following modes:
@@ -13,6 +14,7 @@ Before diving into the configuration sections, you should first determine which 
 - [Ground Layer Adaptive Optics](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#glao)
 
 **Note:** Regardless of the AO system, configuration always starts with defining the telescope and the atmospheric conditions.
+</p>
 
 <p align="center">
 ![](/img/AO_tel.png)
@@ -150,8 +152,9 @@ Azimuth = [0.0]
 Height = 0.0
 ```
 #### The deformable mirror
-
+<p align="justify">
 The deformable mirror is used to achieve wavefront control and correction and this section contains the following parameters:
+</p>
 
 ```python
 [DM]
@@ -194,11 +197,12 @@ LoopDelaySteps_HO = 1
 
 
 ### MCAO: Multi Conjugate Adaptive Optics
-
+<p align="justify">
 #### The wavefront sensor
 For an **MCAO** system with multiple NAtural Guide Stars (NGSs), the difference here is that `NumberPhotons` and `NumberLenslets` are vectors as are `Zenith` and `Azimuth` in the `soruces_HO` section.
 
 If the system have Laser Guide Stars (LGSs) and NGSs these sections are present:
+</p>
 
 ```python
 [sources_LO]
@@ -233,8 +237,9 @@ filtZernikeCov = True
 ```
 
 #### The deformable mirror
-
+<p align="justify">
 For an **MCAO** system with multiple DM, the difference here is that `NumberActuators`, `DmPitchs`, `InfCoupling` and `DmHeights` are vectors.
+</p>
 
 #### The real time controler
 

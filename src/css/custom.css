@@ -127,20 +127,29 @@ body {
   }
 }
 
-/* Small screens (mobiles) */
-@media screen and (max-width: 768px) {
-  .navbar__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+@media (max-width: 600px) {
+  .navbar__logo img {
+    height: 40px !important; 
+    width: auto;
   }
 
+  .navbar__title {
+    font-size: 1.2rem;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+  }
+
+  .menu__list--mobile {
+    text-align: right; 
+  }
+}
 /* .navbar__item--mobile {
   display: block;
   width: 100%;
   text-align: center;
 } */
-}
+
 
 /* You can override the default Infima variables here. */
 /* :root {

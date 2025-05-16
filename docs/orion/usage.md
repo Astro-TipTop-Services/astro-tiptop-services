@@ -5,7 +5,7 @@ sidebar_label: Quickstart
 ---
 
 # TipTop Quickstart Tutorial
-
+<p align="justify">
 **Note:** We recommend that you first test your **TipTop** installation using the provided example: `TIPTOP-EXAMPLE.py` or `TIPTOP-EXAMPLE.ipynb` (if you're using Jupyter).
 
 First, open a terminal or command prompt and activate the virtual environment you previously created: (see the [TipTop Installation Tutorial](/docs/general/installation.md)):
@@ -17,6 +17,7 @@ or
 # Windows PowerShell
 .\venv\Scripts\activate
 ```
+</p>
 
 ## Running a Simulation with TipTop
 

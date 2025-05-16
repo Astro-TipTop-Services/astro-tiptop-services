@@ -140,7 +140,7 @@ body {
     text-overflow: ellipsis;
   }
 
-  .navbar__item {
+  .navbar__link {
     color: #ffffff;
   }
   /* .menu__list--mobile {

@@ -104,7 +104,7 @@ Detailed descriptions of each section are provided below.
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Wavelength` | Yes | `float` | Sensing wavelength for Low Order modes in meters. |
 | `Zenith` | Yes | `list of float` | Zenithal coordinate of each guide stars in arcsec (distance from axis). Must be the same length as `Azimuth`. |
-| `Azimuth` | Yes
+| `Azimuth` | Yes | `list of float` | Azimuthal coordinate in degree (angle from the reference direction: polar axis is x-axis) of each guide stars. Must be the same length as `Zenith`. |
 
 ### `[sources_Focus]`
 
@@ -187,8 +187,8 @@ In the two following section we list the parameters that are specific to each wa
 | :--------------- |:---------------|:---------------:|:---------------|
 | `PixelScale` | Yes | `float` | LO WFS pixel scale in **_[mas]_**. <br /> _Warning_: gives a confusing error message if missing. |
 | `FieldOfView` | Yes | `integer` | Not used. Number of pixels per subaperture. <br /> _Warning_: gives a confusing error message if missing. |
-| `NumberPhotons` | Yes | `list if int` | Detected flux in **_[nph/frame/subaperture]_**. Must be the same length as `NumberLenslet`. <br /> It can be computed as: `(0-magn-flux [ph/s/m2]) * (size of subaperture [m])**2 * (1/SensorFrameRate_LO) * (total throughput) * (10**(-0.4*magn_source_LO))`.|
-| `NumberLenslets` | Yes | `list if int` | _Default_: `[1]` <br /> Number of WFS lenslets. Must be the same length as `NumberPhotons`.|
+| `NumberPhotons` | Yes | `list of int` | Detected flux in **_[nph/frame/subaperture]_**. Must be the same length as `NumberLenslet`. <br /> It can be computed as: `(0-magn-flux [ph/s/m2]) * (size of subaperture [m])**2 * (1/SensorFrameRate_LO) * (total throughput) * (10**(-0.4*magn_source_LO))`.|
+| `NumberLenslets` | Yes | `list of int` | _Default_: `[1]` <br /> Number of WFS lenslets. Must be the same length as `NumberPhotons`.|
 | `SigmaRON` | Yes | `float` | _Default_: `0.0` <br /> Read out noise in **_[e-]_**. |
 | `Dark` | Yes | `float` | _Default_: `0.0` <br /> Dark current **_[e-/s/pix]_**.|
 | `SkyBackground` | Yes |  `float` | _Default_: `0.0` <br /> Sky background **_[e-/s/pix]_**.|
@@ -215,8 +215,8 @@ In the two following section we list the parameters that are specific to each wa
 | :--------------- |:---------------|:---------------:|:---------------|
 | `PixelScale` | Yes | `float` | Focus WFS pixel scale in **_[mas]_**. <br /> _Warning_: gives a confusing error message if missing. |
 | `FieldOfView` | Yes | `integer` | Not used. Number of pixels per subaperture. <br /> _Warning_: gives a confusing error message if missing. |
-| `NumberPhotons` | Yes | `list if int` | Detected flux in **_[nph/frame/subaperture]_**. Must be the same length as `NumberLenslet`. <br /> It can be computed as: `(0-magn-flux [ph/s/m2]) * (size of subaperture [m])**2 * (1/SensorFrameRate_Focus) * (total throughput) * (10**(-0.4*magn_source_Focus))`.|
-| `NumberLenslets` | Yes | `list if int` | _Default_: `[1]` <br /> Number of WFS lenslets. Must be the same length as `NumberPhotons`.|
+| `NumberPhotons` | Yes | `list of int` | Detected flux in **_[nph/frame/subaperture]_**. Must be the same length as `NumberLenslet`. <br /> It can be computed as: `(0-magn-flux [ph/s/m2]) * (size of subaperture [m])**2 * (1/SensorFrameRate_Focus) * (total throughput) * (10**(-0.4*magn_source_Focus))`.|
+| `NumberLenslets` | Yes | `list of int` | _Default_: `[1]` <br /> Number of WFS lenslets. Must be the same length as `NumberPhotons`.|
 | `SigmaRON` | Yes | `float` | _Default_: `0.0` <br /> Read out noise in **_[e-]_**. |
 | `Dark` | Yes | `float` | _Default_: `0.0` <br /> Dark current **_[e-/s/pix]_**.|
 | `SkyBackground` | Yes |  `float` | _Default_: `0.0` <br /> Sky background **_[e-/s/pix]_**.|

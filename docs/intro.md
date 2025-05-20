@@ -51,12 +51,12 @@ python3 -m venv tiptop
 
 ```bash
 # Unix
-source ./venv/bin/activate
+source ./tiptop/bin/activate
 ```
 or
 ```bash
 # Windows PowerShell
-.\venv\Scripts\activate
+.\tiptop\Scripts\activate
 ```
 **Note**: We only support Python >= 3.11.
 

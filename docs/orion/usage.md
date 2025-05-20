@@ -15,7 +15,7 @@ conda activate tiptop
 or
 ```bash
 # Windows PowerShell
-.\venv\Scripts\activate
+.\tiptop\Scripts\activate
 ```
 </p>
 

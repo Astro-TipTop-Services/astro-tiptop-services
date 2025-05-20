@@ -162,9 +162,34 @@ const config = {
             ]
           },
           {to: '/news', label: 'News & Updates', position: 'left'},
-          {to: '/faq', label: 'FAQ & Support', position: 'left'},
-          {to: '/about_contact', label: 'About / Contact', position: 'left'},
+          {
+            type: 'dropdown',
+            sidebarId: 'Ressources',
+            position: 'left',
+            label: 'Resources',
+            items: [
+              {
+                label: 'About us',
+                to: 'resources/about_us',
+              },
+              // {
+              //   label: 'FAQ',
+              //   to: '/faq',
+              // },
+              {
+                label: 'Contact Support',
+                to: 'resources/contact',
+              },
+              // {
+              //   label: 'Forum',
+              //   to: '/blog',
+              // },
+            ]
+          },
+          // {to: '/faq', label: 'FAQ & Support', position: 'left'},
+          // {to: '/about_contact', label: 'About / Contact', position: 'left'},
           // {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/terms', label: 'Terms & Conditions', position: 'left'},
           {
             href: 'https://github.com/astro-tiptop/TIPTOP',
             label: 'GitHub',
@@ -207,11 +232,15 @@ const config = {
           //   ],
           // },
           {
-            title: 'Terms & Conditions',
+            title: 'About',
             items: [
               {
                 label: 'Terms & Conditions',
                 to: '/astro-tiptop-services/terms',
+              },
+              {
+                label: 'Contact us',
+                to: '/astro-tiptop-services/resources/contact',
               },
             ],
           },

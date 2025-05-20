@@ -145,6 +145,20 @@ body {
   .navbar-sidebar__brand {
     color: #fff ;
   }
+
+
+  .custom-sidebar {
+    width: 200px;
+    padding: 1rem;
+    border-right: 1px solid #ddd;
+  }
+  
+  .page-with-sidebar {
+    display: flex;
+    flex-direction: row;
+  }
+
+
   /* .menu__list--mobile {
     text-align: right; 
   } */

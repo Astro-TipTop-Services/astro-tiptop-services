@@ -27,14 +27,11 @@
 <p><img decoding="async" loading="lazy" alt="Docusaurus Plushie" src="https://lmazzolo.github.io/astro-tiptop-services/assets/images/docusaurus-plushie-banner-a60f7593abca1e3eef26a9afa244e4fb.jpeg" width="1500" height="500" class="img_ev3q"></p>
 <p>The blog supports tags as well!</p>
 <p><strong>And if you don't want a blog</strong>: just delete this directory, and use <code>blog: false</code> in your Docusaurus config.</p>]]></content:encoded>
-            <category>Facebook</category>
-            <category>Hello</category>
-            <category>Docusaurus</category>
         </item>
         <item>
-            <title><![CDATA[MDX Blog Post]]></title>
-            <link>https://lmazzolo.github.io/astro-tiptop-services/blog/mdx-blog-post</link>
-            <guid>https://lmazzolo.github.io/astro-tiptop-services/blog/mdx-blog-post</guid>
+            <title><![CDATA[Astro-TipTop Forum]]></title>
+            <link>https://lmazzolo.github.io/astro-tiptop-services/blog/Astro-TipTop Forum</link>
+            <guid>https://lmazzolo.github.io/astro-tiptop-services/blog/Astro-TipTop Forum</guid>
             <pubDate>Sun, 01 Aug 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[Blog posts support Docusaurus Markdown features, such as MDX.]]></description>
             <content:encoded><![CDATA[<p>Blog posts support <a href="https://docusaurus.io/docs/markdown-features" target="_blank" rel="noopener noreferrer">Docusaurus Markdown features</a>, such as <a href="https://mdxjs.com/" target="_blank" rel="noopener noreferrer">MDX</a>.</p>

@@ -26,22 +26,11 @@
 <p><img decoding="async" loading="lazy" alt="Docusaurus Plushie" src="https://lmazzolo.github.io/astro-tiptop-services/assets/images/docusaurus-plushie-banner-a60f7593abca1e3eef26a9afa244e4fb.jpeg" width="1500" height="500" class="img_ev3q"></p>
 <p>The blog supports tags as well!</p>
 <p><strong>And if you don't want a blog</strong>: just delete this directory, and use <code>blog: false</code> in your Docusaurus config.</p>]]></content>
-        <author>
-            <name>Sébastien Lorber</name>
-            <uri>https://sebastienlorber.com</uri>
-        </author>
-        <author>
-            <name>Yangshun Tay</name>
-            <uri>https://github.com/yangshun</uri>
-        </author>
-        <category label="Facebook" term="Facebook"/>
-        <category label="Hello" term="Hello"/>
-        <category label="Docusaurus" term="Docusaurus"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[MDX Blog Post]]></title>
-        <id>https://lmazzolo.github.io/astro-tiptop-services/blog/mdx-blog-post</id>
-        <link href="https://lmazzolo.github.io/astro-tiptop-services/blog/mdx-blog-post"/>
+        <title type="html"><![CDATA[Astro-TipTop Forum]]></title>
+        <id>https://lmazzolo.github.io/astro-tiptop-services/blog/Astro-TipTop Forum</id>
+        <link href="https://lmazzolo.github.io/astro-tiptop-services/blog/Astro-TipTop Forum"/>
         <updated>2021-08-01T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Blog posts support Docusaurus Markdown features, such as MDX.]]></summary>
         <content type="html"><![CDATA[<p>Blog posts support <a href="https://docusaurus.io/docs/markdown-features" target="_blank" rel="noopener noreferrer">Docusaurus Markdown features</a>, such as <a href="https://mdxjs.com/" target="_blank" rel="noopener noreferrer">MDX</a>.</p>

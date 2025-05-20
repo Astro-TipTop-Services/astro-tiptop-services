@@ -124,9 +124,8 @@ Note that the coordinates (Zenith and Azimuth) of the NGSs are the same of the `
 | `PixelScale` | Yes | `float` | Pixel/spaxel scale in **_milliarcsec_**. <br /> _Warning_: confusing error message if missing. |
 | `FieldOfView` | Yes | `float` | Field of view of the camera in pixel/spaxel. <br /> _Warning_: confusing error message if missing. |
 
-### **Note**
 <p align="justify">
-Following parameters were added to uniformise all the sensor (HO and LO), but they are not used.\
+**Note:** following parameters were added to uniformise all the sensor (HO and LO), but they are not used. <br />
 Binning, NumberPhotons, SpotFWHM, SpectralBandwidth, Transmittance, Dispersion, SigmaRON, Dark, SkyBackground, Gain, ExcessNoiseFactor, Wavelength, FieldOfView
 </p>
 

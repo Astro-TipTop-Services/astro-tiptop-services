@@ -125,8 +125,9 @@ Note that the coordinates (Zenith and Azimuth) of the NGSs are the same of the `
 | `FieldOfView` | Yes | `float` | Field of view of the camera in pixel/spaxel. <br /> _Warning_: confusing error message if missing. |
 
 <p align="justify">
+
 **Note:** following parameters were added to uniformise all the sensor (HO and LO), but they are not used. <br />
-Binning, NumberPhotons, SpotFWHM, SpectralBandwidth, Transmittance, Dispersion, SigmaRON, Dark, SkyBackground, Gain, ExcessNoiseFactor, Wavelength, FieldOfView
+`Binning`, `NumberPhotons`, `SpotFWHM`, `SpectralBandwidth`, `Transmittance`, `Dispersion`, `SigmaRON`, `Dark`, `SkyBackground`, `Gain`, `ExcessNoiseFactor`, `Wavelength`, `FieldOfView`
 </p>
 
 ### `[sensor_HO]`

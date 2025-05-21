@@ -162,12 +162,13 @@ const config = {
             ]
           },
           // {to: '/news', label: 'News & Updates', position: 'left'},
-          {to: '/blog', label: 'News & Update', position: 'left'},
+          {to: '/blog', label: 'News & Updates', position: 'left'},
           {
             type: 'dropdown',
-            sidebarId: 'Ressources',
+            sidebarId: 'Resources',
             position: 'left',
             label: 'Resources',
+            className: 'navbar__item--small',
             items: [
               {
                 label: 'About us',

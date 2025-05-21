@@ -44,9 +44,9 @@ body {
 }
 
 .navbar__title {
-  white-space: normal !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
+  white-space: normal ;
+  overflow: visible ;
+  text-overflow: clip ;
   word-wrap: break-word;
 }
 
@@ -55,20 +55,28 @@ body {
   align-items: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.4rem;
-  margin-right: 4rem;
+  margin-right: 3.2rem;
 }
 
 .navbar__items {
   display: flex;
+  gap: 1rem;
   align-items: center;
   margin-top: auto;
   margin-bottom: auto;
 }
 
+.navbar__item--small {
+  padding-left: 0.rem;
+  padding-right: 1.2rem;
+  font-size: 0.9rem; 
+  white-space: nowrap;
+}
+
 .navbar__link {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.3rem; 
-  padding: 10 10px;
+  /* padding: 10 10px; */
 }
 
 .navbar__logo {
@@ -96,7 +104,7 @@ body {
 }
 
 .menu__list-item-collapsible > .menu__link {
-  font-size: 1.5rem; 
+  font-size: 1.2rem; 
   font-weight: bold;
 }
 

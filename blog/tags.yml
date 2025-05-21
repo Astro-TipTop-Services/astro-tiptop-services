@@ -17,3 +17,20 @@ hola:
   label: Hola
   permalink: /hola
   description: Hola tag description
+
+welcome:
+  label: Welcome
+  permalink: /welcome
+  description: Welcome tag description
+
+updates:
+  label: Updates
+  permalink: /updates
+  description: Updates tag description
+
+publications:
+  label: Publications
+  permalink: /publications
+  description: Publications tag description
+
+

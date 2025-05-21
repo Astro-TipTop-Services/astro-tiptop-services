@@ -161,7 +161,8 @@ const config = {
               },
             ]
           },
-          {to: '/news', label: 'News & Updates', position: 'left'},
+          // {to: '/news', label: 'News & Updates', position: 'left'},
+          {to: '/blog', label: 'News & Update', position: 'left'},
           {
             type: 'dropdown',
             sidebarId: 'Ressources',
@@ -176,6 +177,10 @@ const config = {
               //   label: 'FAQ',
               //   to: '/faq',
               // },
+              {
+                label: 'Key Publications & References',
+                to: 'resources/references',
+              },
               {
                 label: 'Contact Support',
                 to: 'resources/contact',

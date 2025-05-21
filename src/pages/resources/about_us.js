@@ -11,8 +11,11 @@ export default function AboutPage() {
           <div className="col col--3">
             <nav style={{ position: 'sticky', top: '4rem' }}>
               <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                <li>
+              <li style={{ marginBottom: '0.5rem' }}>
                   <Link to="/resources/about_us">ℹ️ About us</Link>
+                </li>
+                <li style={{ marginBottom: '0.5rem' }}>
+                    <Link to="/resources/references">📘 Key Publications & References </Link>
                 </li>
                 <li style={{ marginBottom: '1rem' }}>
                   <Link to="/resources/contact">📬 Contact Support </Link>

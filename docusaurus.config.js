@@ -106,6 +106,10 @@ const config = {
                 label: 'How to install TipTop?',
                 to: '/docs/general/installation'
               },
+              {
+                label: 'Available AO instruments',
+                to: '/docs/general/aoinstruments'
+              },
             ]
           },
           {
@@ -181,6 +185,14 @@ const config = {
               {
                 label: 'Key Publications & References',
                 to: 'resources/references',
+              },
+              {
+                label: 'Users Area',
+                to: 'resources/users',
+              },
+              {
+                label: 'Contributors Area',
+                to: 'resources/contributors',
               },
               {
                 label: 'Contact Support',

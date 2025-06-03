@@ -34,6 +34,12 @@ export default function Contact_us() {
                     <li style={{ marginBottom: '0.5rem' }}>
                        <Link to="/resources/references">📘 Key Publications & References </Link>
                     </li>
+                <li style={{ marginBottom: '0.5rem' }}>
+                    <Link to="/resources/users">👥 Users Area </Link>
+                </li>
+                <li style={{ marginBottom: '0.5rem' }}>
+                    <Link to="/resources/contributors">🔑 Contributors Area </Link>
+                </li>
                     <li style={{ marginBottom: '1rem' }}>
                       <Link to="/resources/contact">📬 Contact Support </Link>
                     </li>

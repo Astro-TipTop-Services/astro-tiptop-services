@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://lmazzolo.github.io/astro-tiptop-services/blog</id>
+    <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog</id>
     <title>Astro-TipTop Services Blog</title>
     <updated>2025-05-21T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://lmazzolo.github.io/astro-tiptop-services/blog"/>
+    <link rel="alternate" href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog"/>
     <subtitle>Astro-TipTop Services Blog</subtitle>
-    <icon>https://lmazzolo.github.io/astro-tiptop-services/img/logo_astro-tiptop.png</icon>
+    <icon>https://astro-tiptop-services.github.io/astro-tiptop-services/img/logo_astro-tiptop.png</icon>
     <entry>
         <title type="html"><![CDATA[Exciting News!]]></title>
-        <id>https://lmazzolo.github.io/astro-tiptop-services/blog/new_publication</id>
-        <link href="https://lmazzolo.github.io/astro-tiptop-services/blog/new_publication"/>
+        <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_publication</id>
+        <link href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_publication"/>
         <updated>2025-05-21T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[We're thrilled to announce that the first science paper to make use of TipTop has been accepted for publication in MNRAS! It is now available on arXiv!]]></summary>
         <content type="html"><![CDATA[<p>We're thrilled to announce that the first science paper to make use of TipTop has been accepted for publication in <a href="https://academic.oup.com/mnras" target="_blank" rel="noopener noreferrer">MNRAS</a>! It is now available on <a href="https://arxiv.org/abs/2505.13611" target="_blank" rel="noopener noreferrer">arXiv</a>! <br></p>
 <hr>
-<p><strong><a href="https://lmazzolo.github.io/astro-tiptop-services/resources/references">INSPIRE: INvestigating Stellar Populations In RElics. IX.</a></strong> <br>
-<strong><a href="https://lmazzolo.github.io/astro-tiptop-services/resources/references">KiDS J0842+0059: the first fully confirmed relic beyond the local Universe</a></strong></p>
+<p><strong><a href="https://astro-tiptop-services.github.io/astro-tiptop-services/resources/references">INSPIRE: INvestigating Stellar Populations In RElics. IX.</a></strong> <br>
+<strong><a href="https://astro-tiptop-services.github.io/astro-tiptop-services/resources/references">KiDS J0842+0059: the first fully confirmed relic beyond the local Universe</a></strong></p>
 <p><strong>Autors:</strong>
 C. Tortora, G. Tozzi, G. Agapito, F. La Barbera, C. Spiniello, R. Li, G. Carlà, G. D'Ago, E. Ghose, F. Mannucci, N. R. Napolitano, E. Pinna, M. Arnaboldi, D. Bevacqua, A. Ferré-Mateu, A. Gallazzi, J. Hartke, L. K. Hunt, M. Maksymowicz-Maciata, C. Pulsoni, P. Saracco, D. Scognamiglio, M. Spavone</p>
 <hr>
@@ -30,8 +30,8 @@ C. Tortora, G. Tozzi, G. Agapito, F. La Barbera, C. Spiniello, R. Li, G. Carlà,
     </entry>
     <entry>
         <title type="html"><![CDATA[Welcome to the Astro-TipTop Blog!]]></title>
-        <id>https://lmazzolo.github.io/astro-tiptop-services/blog/astro-tiptop-welcome</id>
-        <link href="https://lmazzolo.github.io/astro-tiptop-services/blog/astro-tiptop-welcome"/>
+        <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/astro-tiptop-welcome</id>
+        <link href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/astro-tiptop-welcome"/>
         <updated>2025-05-20T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[We're excited to launch the Astro-TipTop blog! Here we’ll share insights, release notes, research updates, and the latest publications from our team.]]></summary>
         <content type="html"><![CDATA[<p>We're excited to launch the Astro-TipTop blog! Here we’ll share insights, release notes, research updates, and the latest publications from our team.</p>]]></content>

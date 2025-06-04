@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Astro-TipTop Services Blog</title>
-        <link>https://lmazzolo.github.io/astro-tiptop-services/blog</link>
+        <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog</link>
         <description>Astro-TipTop Services Blog</description>
         <lastBuildDate>Wed, 21 May 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,14 +10,14 @@
         <language>en</language>
         <item>
             <title><![CDATA[Exciting News!]]></title>
-            <link>https://lmazzolo.github.io/astro-tiptop-services/blog/new_publication</link>
-            <guid>https://lmazzolo.github.io/astro-tiptop-services/blog/new_publication</guid>
+            <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_publication</link>
+            <guid>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_publication</guid>
             <pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate>
             <description><![CDATA[We're thrilled to announce that the first science paper to make use of TipTop has been accepted for publication in MNRAS! It is now available on arXiv!]]></description>
             <content:encoded><![CDATA[<p>We're thrilled to announce that the first science paper to make use of TipTop has been accepted for publication in <a href="https://academic.oup.com/mnras" target="_blank" rel="noopener noreferrer">MNRAS</a>! It is now available on <a href="https://arxiv.org/abs/2505.13611" target="_blank" rel="noopener noreferrer">arXiv</a>! <br></p>
 <hr>
-<p><strong><a href="https://lmazzolo.github.io/astro-tiptop-services/resources/references">INSPIRE: INvestigating Stellar Populations In RElics. IX.</a></strong> <br>
-<strong><a href="https://lmazzolo.github.io/astro-tiptop-services/resources/references">KiDS J0842+0059: the first fully confirmed relic beyond the local Universe</a></strong></p>
+<p><strong><a href="https://astro-tiptop-services.github.io/astro-tiptop-services/resources/references">INSPIRE: INvestigating Stellar Populations In RElics. IX.</a></strong> <br>
+<strong><a href="https://astro-tiptop-services.github.io/astro-tiptop-services/resources/references">KiDS J0842+0059: the first fully confirmed relic beyond the local Universe</a></strong></p>
 <p><strong>Autors:</strong>
 C. Tortora, G. Tozzi, G. Agapito, F. La Barbera, C. Spiniello, R. Li, G. Carlà, G. D'Ago, E. Ghose, F. Mannucci, N. R. Napolitano, E. Pinna, M. Arnaboldi, D. Bevacqua, A. Ferré-Mateu, A. Gallazzi, J. Hartke, L. K. Hunt, M. Maksymowicz-Maciata, C. Pulsoni, P. Saracco, D. Scognamiglio, M. Spavone</p>
 <hr>
@@ -27,8 +27,8 @@ C. Tortora, G. Tozzi, G. Agapito, F. La Barbera, C. Spiniello, R. Li, G. Carlà,
         </item>
         <item>
             <title><![CDATA[Welcome to the Astro-TipTop Blog!]]></title>
-            <link>https://lmazzolo.github.io/astro-tiptop-services/blog/astro-tiptop-welcome</link>
-            <guid>https://lmazzolo.github.io/astro-tiptop-services/blog/astro-tiptop-welcome</guid>
+            <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/astro-tiptop-welcome</link>
+            <guid>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/astro-tiptop-welcome</guid>
             <pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate>
             <description><![CDATA[We're excited to launch the Astro-TipTop blog! Here we’ll share insights, release notes, research updates, and the latest publications from our team.]]></description>
             <content:encoded><![CDATA[<p>We're excited to launch the Astro-TipTop blog! Here we’ll share insights, release notes, research updates, and the latest publications from our team.</p>]]></content:encoded>

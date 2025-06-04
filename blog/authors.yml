@@ -1,7 +1,7 @@
 astro-team:
   name: Astro-TipTop Team
   title: Research & Development Group
-  url: https://lmazzolo.github.io/astro-tiptop-services/
+  url: https://astro-tiptop-servoces.github.io/astro-tiptop-services/
   image_url: /img/logo_astro-tiptop_cropped.png
   socials:
     github: https://github.com/astro-tiptop/TIPTOP
@@ -18,27 +18,3 @@ bneichel:
   title: Scientist- CNRS
   socials:
     linkedin: https://www.linkedin.com/in/benoit-neichel-7225a383/
-
-yangshun:
-  name: Yangshun Tay
-  title: Front End Engineer @ Facebook
-  url: https://github.com/yangshun
-  image_url: https://github.com/yangshun.png
-  page: true
-  socials:
-    x: yangshunz
-    github: yangshun
-
-slorber:
-  name: Sébastien Lorber
-  title: Docusaurus maintainer
-  url: https://sebastienlorber.com
-  image_url: https://github.com/slorber.png
-  page:
-    # customize the url of the author page at /blog/authors/<permalink>
-    permalink: '/all-sebastien-lorber-articles'
-  socials:
-    x: sebastienlorber
-    linkedin: sebastienlorber
-    github: slorber
-    newsletter: https://thisweekinreact.com

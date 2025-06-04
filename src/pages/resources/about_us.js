@@ -34,7 +34,11 @@ export default function AboutPage() {
           <div className="col col--7">
             <h1 style={{ textAlign: 'center', marginTop: '0.rem' }}>About us</h1>
             <p style={{ textAlign: 'justify', marginBottom: '2rem' }}>
-            Coming soon... <br /> Contributors: ... <br /> Acknowledgments: ...
+            Coming soon... <br /> 
+            Key contributors: Guido Agapito, Carlo Felice Manara, Arseniy Kuznetsov, Benoit Neichel, Cedric Plantet, Fabio Rossi
+            <br /> 
+            
+            Acknowledgments: ...
             </p>
           </div>
           </div>

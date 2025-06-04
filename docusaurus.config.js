@@ -15,14 +15,14 @@ const config = {
   favicon: 'img/logo_astro-tiptop.png',
 
   // Set the production url of your site here
-  url: 'https://lmazzolo.github.io',
+  url: 'https://astro-tiptop-services.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/astro-tiptop-services/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'lmazzolo', // Usually your GitHub org/user name.
+  organizationName: 'Astro-TipTop-Services', // Usually your GitHub org/user name.
   projectName: 'astro-tiptop-services', // Usually your repo name.
 
   onBrokenLinks: 'throw',

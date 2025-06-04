@@ -53,7 +53,7 @@ export default function ContributorsPage() {
       <main style={horizontalCenterStyle}>
         <h1>Welcome, Contributor 👋</h1>
         <p style={{ maxWidth: '600px' }}>
-        Use the link below to open the shared Google Sheet for feedback, and ideas:</p>
+        Use the link below to open the shared Google Sheet for feedback, and ideas: </p>
 
         <h2 style={{ marginTop: '2rem' }}>📝 Shared Google Sheet</h2>
         <a

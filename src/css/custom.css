@@ -94,7 +94,7 @@ body {
 
 .menu-section-header {
   font-weight: bold;
-  pointer-events: none;
+  /* pointer-events: none; */
   opacity: 1;
 }
 

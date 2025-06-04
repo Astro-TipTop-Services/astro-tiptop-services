@@ -46,46 +46,52 @@ const sidebars = {
 
   tipTopSidebar: [
     {
+      type: 'link',
+      label: 'Astro-TipTop Features',
+      href: '/astro-tiptop-services/astro_tiptop_modules',
+    },
+    {
       type: 'category',
-      label: 'Astro-TipTop | Orion',
+      label: 'TipTop | Core Functionality',
       items: [
         'orion/overview',
         'orion/usage',
         'orion/parameterfields',
         'orion/howtosetup',
+        'orion/aoinstruments',
         'orion/examples',
         'orion/api_reference',
       ],
     },
     {
       type: 'category',
-      label: 'AstroTipTop | Aquila',
+      label: 'TipTop | Asterism selection',
       items: ['aquila/overview'],
     },
     {
       type: 'category',
-      label: 'AstroTipTop | Lyra',
+      label: 'TipTop | PSF Fitting / PSF Extrapolation',
       items: ['lyra/overview'],
     },
     {
       type: 'category',
-      label: 'AstroTipTop | Phoenix',
+      label: 'TipTop | PSF-R Service',
       items: ['phoenix/overview'],
     },
   ],
 
-  resourcesSidebar: [
-    {
-      type: 'link',
-      label: 'About us',
-      href: '/resources/about_us'
-    },
-    {
-      type: 'link',
-      label: 'Contact',
-      href: '/resources/contact'
-    },
-  ],
+  // resourcesSidebar: [
+  //   {
+  //     type: 'link',
+  //     label: 'About us',
+  //     href: '/resources/about_us'
+  //   },
+  //   {
+  //     type: 'link',
+  //     label: 'Contact',
+  //     href: '/resources/contact'
+  //   },
+  // ],
 
 };
 

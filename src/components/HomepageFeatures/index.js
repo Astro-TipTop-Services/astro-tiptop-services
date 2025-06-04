@@ -6,29 +6,30 @@ const FeatureList = [
   {
     title: (
       <a href='docs/orion/overview'>
-        TipTop App (TipTop | Orion)
+        TipTop | Core Functionality
       </a>
     ),
     img: 'img/tiptop.jpg',
     description: (
       <>
-        The foundation of it all: The <strong> TipTop </strong> fast algorithm was developed to enable AO PSF prediction for any existing AO observing modes 
+        This represents the standard way of using <strong> TipTop </strong>: a fast algorithm developed to enable AO PSF prediction for any existing AO observing modes 
         (Single-Conjugate-AO, Laser-Tomographic-AO, Multi-Conjugate-AO, Ground-Layer-AO) and any atmospheric conditions.
-        
+        It forms the foundation of the TipTop framework.
       </>
     ),
   },
   {
     title: (
       <a href="/astro-tiptop-services/astro_tiptop_modules">
-        Astro-TipTop Modules
+        Astro-TipTop Features
       </a>
     ),
     img: 'img/astro_tiptop_modules.jpg',
     description: (
       <>
-        <strong>Astro-TipTop Services</strong> offers a suite of specialized modules, all powered by the <strong>TipTop</strong> tool.{' '} <br />
-        <a href="/astro-tiptop-services/astro_tiptop_modules">Click here to learn more.</a>
+        <strong>Astro-TipTop Services</strong> offers a suite of advanced features, all powered by the core <strong>TipTop</strong> framework.{' '} 
+        Each feature builds on TipTop’s fast algorithm for AO PSF prediction, extending its capabilities to meet a variety of scientific and technical needs. <br /> 
+        Explore the available features <a href="/astro-tiptop-services/astro_tiptop_modules">here</a>. 
       </>
     ),
   },
@@ -37,7 +38,9 @@ const FeatureList = [
     img: 'img/tiptop_assistance.png',
     description: (
       <>
-        Coming soon... <br />
+        Need help with Astro-TipTop? <br /> <a href="resources/about_us"> Our support team </a> ready to assist you. 
+        Whether you're facing installation issues, running simulations, or have any general questions about the software, 
+        we are here to help. 
       </>
     ),
   },
@@ -87,11 +90,13 @@ export default function HomepageFeatures() {
               </p>
             </div>
             <p className={styles.introText} style={{ marginBottom: '0.05rem' }}>
-            Based on the core <strong>TipTop</strong> algorithm (<a href="docs/orion/overview"><strong>TipTop | Orion</strong></a>), 
-            we offer several specialized modules: <br /> <a href="docs/aquila/overview"><strong>TipTop | Aquila</strong></a>, 
-            <a href="docs/lyra/overview"><strong> TipTop | Lyra</strong></a>, 
-            and <a href="docs/phoenix/overview"><strong>TipTop | Phoenix</strong></a>, 
-            each tailored to specific needs and enhancing the overall capabilities of TipTop. 
+            Powered by the core <strong>TipTop</strong> algorithm, 
+            Astro-TipTop offers several advanced features tailored for different needs: <br /> 
+            <a href="docs/orion/overview"><strong> PSF Simulation </strong></a> (standard way of using <strong>TipTop</strong>), 
+            <a href="docs/aquila/overview"><strong> Asterism selection</strong></a>, 
+            <a href="docs/lyra/overview"><strong> PSF Fitting / PSF Extrapolation </strong></a>, 
+            and <a href="docs/phoenix/overview"><strong>PSF-R service</strong></a>. <br />
+            Building on TipTop’s core PSF delivery, each feature provides specialized functionality for advanced and diverse applications.
             </p>
           </div>
         </div>

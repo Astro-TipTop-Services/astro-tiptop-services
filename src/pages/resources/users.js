@@ -21,7 +21,7 @@ export default function UsersPage() {
           </div>
 
           {/* Main Content */}
-          <div className="col col--9">
+          <div className="col col--7">
             <h1 style={{ textAlign: 'center' }}>Community of TipTop Users</h1>
             <p style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 2rem' }}>
               If you’re using TipTop, let us know! Fill out the form to appear here and connect with other users.

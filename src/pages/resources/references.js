@@ -52,7 +52,7 @@ export default function ReferencesPage() {
             </div>
             <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>
-                    <a href="https://doi.org/10.48550/arXiv.2101.06486" target="_blank" rel="noopener noreferrer">
+                    <a href="https://doi.org/10.48550/arXiv.2505.13611" target="_blank" rel="noopener noreferrer">
                         [2] Tortora, C., Tozzi, G., Agapito, G., La Barbera, F., Spiniello, C. Li, R., Carlà, G., D'Ago, G., Ghose, E., Mannucci, F., Napolitano, N. R., Pinna, E., Arnaboldi, M.,
                          Bevacqua, D., Ferré-Mateu, A., Gallazzi, A., Hartke, J., Hunt, L. K., Maksymowicz-Maciata, M., Pulsoni, C., Saracco, P., Scognamiglio, D., Spavone, M.,
                         "INSPIRE: INvestigating Stellar Populations In RElics. IX. KiDS J0842+0059: the first fully confirmed relic beyond the local Universe", 

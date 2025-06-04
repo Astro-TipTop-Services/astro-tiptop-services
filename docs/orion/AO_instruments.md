@@ -5,6 +5,9 @@ sidebar_label: Available AO instruments
 ---
 
 ## ERIS
+<p align="justify">
+
+</p>
 
 ## HARMONI
 

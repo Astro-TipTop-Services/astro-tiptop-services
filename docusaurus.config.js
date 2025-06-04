@@ -106,28 +106,24 @@ const config = {
                 label: 'How to install TipTop?',
                 to: '/docs/general/installation'
               },
-              {
-                label: 'Available AO instruments',
-                to: '/docs/general/aoinstruments'
-              },
             ]
           },
           {
             type: 'dropdown',
             sidebarId: 'tipTopSidebar',  
             position: 'left',
-            label: 'Astro-TipTop Modules',
+            label: 'Astro-TipTop Features',
             to: '/astro-tiptop-services/astro_tiptop_modules',
             items: [
               {
-                label: 'TipTop | Orion',
-                to: '#',
+                label: 'TipTop | Core Functionality',
+                to: '/docs/orion/overview',
                 className: 'menu-section-header',
               },
-              {
-                label: '• Overview',
-                to: '/docs/orion/overview',
-              },
+              // {
+              //   label: '• Overview',
+              //   to: '/docs/orion/overview',
+              // },
               {
                 label: '• Quickstart',
                 to: '/docs/orion/usage',
@@ -141,6 +137,10 @@ const config = {
                 to: '/docs/orion/howtosetup',
               },
               {
+                label: '• Available AO instruments',
+                to: '/docs/orion/aoinstruments'
+              },
+              {
                 label: '• Examples',
                 to: '/docs/orion/examples',
               },
@@ -149,19 +149,19 @@ const config = {
                 to: '/docs/orion/api_reference',
               },
               {
-                label: 'TipTop | Aquila',
+                label: 'TipTop | Asterism selection',
                 to: '/docs/aquila/overview', 
                 className: 'menu-section-header',
               },
               {
-                label: 'TipTop | Lyra',
+                label: 'TipTop | PSF Fitting / PSF Extrapolation',
                 to: '/docs/lyra/overview',
                 className: 'menu-section-header', 
               },
               {
-                label: 'TipTop | Phoenix',
-                to: '/docs/phoenix/overview',
+                label: 'TipTop | PSF-R service',
                 className: 'menu-section-header', 
+                to: '/docs/phoenix/overview',
               },
             ]
           },
@@ -224,7 +224,7 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Tutorials',
             items: [
               {
                 label: 'TipTop Installation Tutorial',

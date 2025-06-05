@@ -15,6 +15,8 @@ sidebar_label: Available AO instruments
 
 ## MORFEO
 
+## MUSE
+
 ## SOUL
 
 ## SPHERE

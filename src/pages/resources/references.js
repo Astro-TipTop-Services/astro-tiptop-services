@@ -34,7 +34,7 @@ export default function ReferencesPage() {
           <div className="col col--7">
             <h1 style={{ textAlign: 'center', marginTop: '0.rem' }}>Key Publications & References</h1>
             <p style={{ textAlign: 'justify', marginBottom: '2rem' }}>
-            Below is a list of scientific publications authored by the Astro-TipTop team.
+            {/* Below is a list of scientific publications authored by the Astro-TipTop team. */}
             </p>
             <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>

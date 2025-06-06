@@ -70,6 +70,34 @@ export default function ReferencesPage() {
 
                 </p>
             </div>
+                        <div style={{ marginBottom: '1.5rem' }}>
+                <h3 style={{ marginBottom: '0.5rem' }}>
+                    <a href="https://doi.org/10.48550/arXiv.2410.08563" target="_blank" rel="noopener noreferrer">
+                        [2] Berdeu, A., Le Bouquin, J.-B., Mella, G., Bourgès, L., Berger, J.-P. Bourdarot, G., 
+                        Paumard, T., Eisenhauer, F., Straubmeier, C., Garcia, P., Hönig, S., Millour, F., Kreidberg, L.,
+                        Defrèrek, D., Soulezl, F. and Shimizu, T.
+                        "Simplified model(s) of the GRAVITY+ adaptive optics system(s) for performance prediction", 
+                        Adaptive Optics Systems IX, Jun 2024
+                    </a>
+                </h3>
+                <p> In the context of the GRAVITY+ upgrade, the adaptive optics (AO) systems of the GRAVITY interferometer
+                  are undergoing a major lifting. The current CILAS deformable mirrors (DM, 90 actuators) will be replaced by
+                  ALPAO kilo-DMs (43 × 43, 1432 actuators). On top of the already existing 9 × 9 Shack-Hartmann wavefront
+                  sensors (SH-WFS) for infrared (IR) natural guide star (NGS), new 40 × 40 SH-WFSs for visible (VIS) NGS
+                  will be deployed. Lasers will also be installed on the four units of the Very Large Telescope to provide a laser
+                  guide star (LGS) option with 30 × 30 SH-WFSs and with the choice to either use the 9 × 9 IR-WFSs or 2 × 2
+                  VIS-WFSs for low order sensing. Thus, four modes will be available for the GRAVITY+ AO system (GPAO):
+                  IR-NGS, IR-LGS, VIS-NGS and VIS-LGS. To prepare the instrument commissioning and help the observers to
+                  plan their observations, a tool is needed to predict the performances of the different modes and for different
+                  observing conditions (NGS magnitude, science object magnitude, turbulence conditions, ...). We developed
+                  models based on a Maréchal approximation to predict the Strehl ratio of the four GPAO modes in order to
+                  feed the already existing tool that simulates the GRAVITY performances. Waiting for commissioning data, our
+                  model was validated and calibrated using the TIPTOP toolbox, a Point Spread Function simulator based on the
+                  computation of Power Spectrum Densities. In this work, we present our models of the NGS modes of GPAO
+                  and their calibration with TIPTOP.
+
+                </p>
+            </div>
           </div>
           </div>
         </div>

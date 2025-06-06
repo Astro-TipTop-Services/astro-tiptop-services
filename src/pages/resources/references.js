@@ -39,7 +39,7 @@ export default function ReferencesPage() {
             <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>
                     <a href="https://doi.org/10.48550/arXiv.2101.06486" target="_blank" rel="noopener noreferrer">
-                        [1] Neichel, B., Beltramo-Martin, O., Plantet, C., Rossi, F., Agapito, G., Fusco, T., Carolo, E., Carla, G., Cirasuolo, M., van der Burg, R.,
+                        [1] Neichel, B., Beltramo-Martin, O., Plantet, C., Rossi, F., Agapito, G., Fusco, T., Carolo, E., Carla, G., Cirasuolo, M., van der Burg, R. <br />
                         "TIPTOP: a new tool to efficiently predict your favorite AO PSF", Adaptive Optics Systems VII, 2021
                     </a>
                 </h3>
@@ -54,7 +54,7 @@ export default function ReferencesPage() {
                 <h3 style={{ marginBottom: '0.5rem' }}>
                     <a href="https://doi.org/10.48550/arXiv.2505.13611" target="_blank" rel="noopener noreferrer">
                         [2] Tortora, C., Tozzi, G., Agapito, G., La Barbera, F., Spiniello, C. Li, R., Carlà, G., D'Ago, G., Ghose, E., Mannucci, F., Napolitano, N. R., Pinna, E., Arnaboldi, M.,
-                         Bevacqua, D., Ferré-Mateu, A., Gallazzi, A., Hartke, J., Hunt, L. K., Maksymowicz-Maciata, M., Pulsoni, C., Saracco, P., Scognamiglio, D., Spavone, M.,
+                         Bevacqua, D., Ferré-Mateu, A., Gallazzi, A., Hartke, J., Hunt, L. K., Maksymowicz-Maciata, M., Pulsoni, C., Saracco, P., Scognamiglio, D., Spavone, M. <br />
                         "INSPIRE: INvestigating Stellar Populations In RElics. IX. KiDS J0842+0059: the first fully confirmed relic beyond the local Universe", 
                         MNRAS, 2025
                     </a>
@@ -73,9 +73,9 @@ export default function ReferencesPage() {
                         <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>
                     <a href="https://doi.org/10.48550/arXiv.2410.08563" target="_blank" rel="noopener noreferrer">
-                        [2] Berdeu, A., Le Bouquin, J.-B., Mella, G., Bourgès, L., Berger, J.-P. Bourdarot, G., 
+                        [3] Berdeu, A., Le Bouquin, J.-B., Mella, G., Bourgès, L., Berger, J.-P. Bourdarot, G., 
                         Paumard, T., Eisenhauer, F., Straubmeier, C., Garcia, P., Hönig, S., Millour, F., Kreidberg, L.,
-                        Defrèrek, D., Soulezl, F. and Shimizu, T.
+                        Defrèrek, D., Soulezl, F. and Shimizu, T. <br />
                         "Simplified model(s) of the GRAVITY+ adaptive optics system(s) for performance prediction", 
                         Adaptive Optics Systems IX, Jun 2024
                     </a>

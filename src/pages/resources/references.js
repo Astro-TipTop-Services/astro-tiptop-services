@@ -39,12 +39,12 @@ export default function ReferencesPage() {
             <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>
                     <a href="https://doi.org/10.48550/arXiv.2101.06486" target="_blank" rel="noopener noreferrer">
-                        [1] Neichel, B., Beltramo-Martin, O., Plantet, C., Rossi, F., Agapito, G., Fusco, T., Carolo, E., Carla, G., Cirasuolo, M., 
-                        van der Burg, R., <br />
-                        "TIPTOP: a new tool to efficiently predict your favorite AO PSF", Adaptive Optics Systems VII, 2021
+                        [1] "TIPTOP: a new tool to efficiently predict your favorite AO PSF" <br />
                     </a>
                 </h3>
-                <p>
+                <p align="justify">
+                <strong>Neichel, B., Beltramo-Martin, O., Plantet, C., Rossi, F., Agapito, G., Fusco, T., Carolo, E., Carla, G., Cirasuolo, M., van der Burg, R., 
+                Adaptive Optics Systems VII, 2021</strong> <br />
                 The Adaptive Optics (AO) performance significantly depends on the available Natural Guide Stars (NGSs) and a wide range of atmospheric 
                 conditions (seeing, Cn2, windspeed,...). 
                 In order to be able to easily predict the AO performance, we have developed a fast algorithm - called TIPTOP - producing the expected AO 
@@ -57,11 +57,12 @@ export default function ReferencesPage() {
             <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>
                     <a href="https://doi.org/10.1117/12.2629455" target="_blank" rel="noopener noreferrer">
-                        [2] Turchi, A., Agapito, A., Masciadri, E., Beltramo-Martin, O., Milli, J., Plantet, C., Rossi, F., Pinna, E., Sauvage, J.-F., Neichel, B., Fusco, T., <br />
-                        "PSF nowcast using PASSATA simulations: towards a PSF forecast ", Proceedings of the SPIE, Volume 12185, SPIE Astronomical Telescopes + Instrumentation, 2022
+                        [2] "PSF nowcast using PASSATA simulations: towards a PSF forecast "
                     </a>
                 </h3>
-                <p>
+                <p align="justify">
+                  <strong>Turchi, A., Agapito, A., Masciadri, E., Beltramo-Martin, O., Milli, J., Plantet, C., Rossi, F., Pinna, E., Sauvage, J.-F., Neichel, B., Fusco, T.,
+                Proceedings of the SPIE, Volume 12185, SPIE Astronomical Telescopes + Instrumentation, 2022</strong> <br />
                 Characterizing the PSF of adaptive optics instruments is of paramount importance both for instrument design and observation planning/optimization. 
                 Simulation software, such as PASSATA, have been successfully utilized for PSF characterization in instrument design, which make use of standardized 
                 atmospheric turbulence profiles to produce PSFs that represent the typical instrument performance. In this contribution we study the feasibility of 
@@ -80,11 +81,11 @@ export default function ReferencesPage() {
             <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>
                     <a href="https://hal.science/AO4ELT7/hal-04402888" target="_blank" rel="noopener noreferrer">
-                        [3] Kuznetsov, A., Neichel, B., Oberti, S., Fusco, T., <br />
-                        "Prediction of AO corrected PSF for SPHERE / AOF NFM.", AO4ELT7, June 2023
+                        [3] "Prediction of AO corrected PSF for SPHERE / AOF NFM."
                     </a>
                 </h3>
-                <p>
+                <p align="justify">
+                <strong>Kuznetsov, A., Neichel, B., Oberti, S., Fusco, T., AO4ELT7, June 2023 </strong> <br/>
                 The prediction of Adaptive Optics (AO)-corrected PSFs offers considerable potential, with implications ranging from enhanced observational planning 
                 to the post-processing of astronomical data. The intricate nature of AO-corrected PSFs necessitated the development of advanced analytical models 
                 capable of efficiently capturing their intricate morphology. In this work, we utilize the TIPTOP PSF model to predict on-axis PSFs produced by 
@@ -101,11 +102,11 @@ export default function ReferencesPage() {
             <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>
                     <a href="https://doi.org/10.48550/arXiv.2310.08168" target="_blank" rel="noopener noreferrer">
-                        [4] Agapito, G., Plantet, C., Rossi, F., Carlà, G., Cheffot, A.-L., Vassallo, D., Kuznetsov, A., Conseil, S., Neichel, B. <br />
-                        "TIPTOP: cone effect for single laser adaptive optics systems.", AO4ELT7, June 2023
+                        [4] "TIPTOP: cone effect for single laser adaptive optics systems."
                     </a>
                 </h3>
-                <p>
+                <p align="justify">
+                <strong>Agapito, G., Plantet, C., Rossi, F., Carlà, G., Cheffot, A.-L., Vassallo, D., Kuznetsov, A., Conseil, S., Neichel, B., AO4ELT7, June 2023</strong> <br />
                 TIPTOP is a python library that is able to quickly compute Point Spread Functions (PSF) of any kind of Adaptive Optics systems. This library has 
                 multiple objectives: support the exposure time calculators of future VLT and ELT instruments, support adaptive optics systems design activities, 
                 be part of PSF reconstruction pipelines and support the selection of the best asterism of natural guide stars for observation preparation. 
@@ -123,14 +124,14 @@ export default function ReferencesPage() {
             <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>
                     <a href="https://doi.org/10.48550/arXiv.2410.08563" target="_blank" rel="noopener noreferrer">
-                        [5] Berdeu, A., Le Bouquin, J.-B., Mella, G., Bourgès, L., Berger, J.-P. Bourdarot, G., 
-                        Paumard, T., Eisenhauer, F., Straubmeier, C., Garcia, P., Hönig, S., Millour, F., Kreidberg, L.,
-                        Defrèrek, D., Soulezl, F. and Shimizu, T., <br />
-                        "Simplified model(s) of the GRAVITY+ adaptive optics system(s) for performance prediction", 
-                        Adaptive Optics Systems IX, June 2024
+                        [5] "Simplified model(s) of the GRAVITY+ adaptive optics system(s) for performance prediction"
                     </a>
                 </h3>
-                <p> In the context of the GRAVITY+ upgrade, the adaptive optics (AO) systems of the GRAVITY interferometer
+                <p align="justify">
+                  <strong> Berdeu, A., Le Bouquin, J.-B., Mella, G., Bourgès, L., Berger, J.-P. Bourdarot, G., Paumard, T., Eisenhauer, F., 
+                  Straubmeier, C., Garcia, P., Hönig, S., Millour, F., Kreidberg, L.,
+                  Defrèrek, D., Soulezl, F. and Shimizu, T., Adaptive Optics Systems IX, June 2024</strong> <br />
+                  In the context of the GRAVITY+ upgrade, the adaptive optics (AO) systems of the GRAVITY interferometer
                   are undergoing a major lifting. The current CILAS deformable mirrors (DM, 90 actuators) will be replaced by
                   ALPAO kilo-DMs (43 × 43, 1432 actuators). On top of the already existing 9 × 9 Shack-Hartmann wavefront
                   sensors (SH-WFS) for infrared (IR) natural guide star (NGS), new 40 × 40 SH-WFSs for visible (VIS) NGS
@@ -151,12 +152,12 @@ export default function ReferencesPage() {
             <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>
                     <a href="https://doi.org/10.1117/12.3020159" target="_blank" rel="noopener noreferrer">
-                        [6] Rossi, F., Agapito, G., Plantet, C., Neichel, B., Rigaut, F., <br />
-                        "Efficient asterism selection for wide field adaptive optics systems with TIPTOP", 
-                        Adaptive Optics Systems IX, Proceedings of the SPIE, Volume 13097, August 2024
+                        [6] "Efficient asterism selection for wide field adaptive optics systems with TIPTOP"
                     </a>
                 </h3>
-                <p>  Wide Field Adaptive Optics (WFAO) systems play a pivotal role in enhancing the imaging and spectroscopic capabilities of 
+                <p align="justify">  
+                  <strong>Rossi, F., Agapito, G., Plantet, C., Neichel, B., Rigaut, F., Adaptive Optics Systems IX, Proceedings of the SPIE, Volume 13097, August 2024
+                  </strong> <br/> Wide Field Adaptive Optics (WFAO) systems play a pivotal role in enhancing the imaging and spectroscopic capabilities of 
                   astronomical telescopes. In the context of MCAO, with MAVIS (Multi-conjugate Adaptive Optics Assisted Visible Imager and 
                   Spectrograph) as a representative example, the careful selection of an appropriate NGS (Natural Guide Star) asterism, 
                   consisting of natural guide stars within the instrument's field of view, is crucial. Here we present our solution to the 
@@ -169,13 +170,13 @@ export default function ReferencesPage() {
             <div style={{ marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.5rem' }}>
                     <a href="https://doi.org/10.48550/arXiv.2505.13611" target="_blank" rel="noopener noreferrer">
-                        [7] Tortora, C., Tozzi, G., Agapito, G., La Barbera, F., Spiniello, C. Li, R., Carlà, G., D'Ago, G., Ghose, E., Mannucci, F., Napolitano, N. R., Pinna, E., Arnaboldi, M.,
-                         Bevacqua, D., Ferré-Mateu, A., Gallazzi, A., Hartke, J., Hunt, L. K., Maksymowicz-Maciata, M., Pulsoni, C., Saracco, P., Scognamiglio, D., Spavone, M., <br />
-                        "INSPIRE: INvestigating Stellar Populations In RElics. IX. KiDS J0842+0059: the first fully confirmed relic beyond the local Universe", 
-                        MNRAS, 2025
+                        [7] "INSPIRE: INvestigating Stellar Populations In RElics. IX. KiDS J0842+0059: the first fully confirmed relic beyond the local Universe"
+                         <br />
                     </a>
                 </h3>
-                <p>
+                <p align="justify">
+                  <strong>Tortora, C., Tozzi, G., Agapito, G., La Barbera, F., Spiniello, C. Li, R., Carlà, G., D'Ago, G., Ghose, E., Mannucci, F., Napolitano, N. R., Pinna, E., Arnaboldi, M.,
+                Bevacqua, D., Ferré-Mateu, A., Gallazzi, A., Hartke, J., Hunt, L. K., Maksymowicz-Maciata, M., Pulsoni, C., Saracco, P., Scognamiglio, D., Spavone, M., MNRAS, 2025</strong> <br /> 
                 Relics are massive, compact and quiescent galaxies that assembled the majority of their stars in the early Universe and lived untouched until today, completely missing any subsequent size-growth caused by mergers and interactions. 
                 They provide the unique opportunity to put constraints on the first phase of mass assembly in the Universe with the ease of being nearby. 
                 While only a few relics have been found in the local Universe, the INSPIRE project has confirmed 38 relics at higher redshifts (z ~ 0.2-0.4), fully characterising their integrated kinematics and stellar populations. 

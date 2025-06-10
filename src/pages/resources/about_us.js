@@ -33,7 +33,7 @@ import Link from '@docusaurus/Link';
         )}
         {linkedin && (
           <p style={{ margin: '0.2rem 0' }}>
-            🔗 <a href={linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            🔗 <a href={linkedin} target="_blank" rel="noopener noreferrer"> LinkedIn</a>
           </p>
         )}
       </div>
@@ -80,7 +80,7 @@ export default function AboutPage() {
                 role="INAF - Osservatorio Astrofisico di Arcetri"
                 location="Florence, Italy"
                 email="guido.agapito@inaf.it"
-                linkedin="www.linkedin.com/in/guido-agapito-a2029339"
+                linkedin="https://www.linkedin.com/in/guido-agapito-a2029339/"
                 bio="He is a senior researcher in the Adaptive Optics group at INAF – Osservatorio Astrofisico di Arcetri. 
                 An automation engineer by training, he specializes in the control, modeling, and simulation of dynamical systems, as well as data reduction.
                 With over 10 years of experience in astronomical adaptive optics, he leads the numerical simulation team at Arcetri. He contributed to the 
@@ -98,6 +98,15 @@ export default function AboutPage() {
 
               <AuthorCard
                 name="Benoit Neichel"
+                role="Laboratoire d'Astrophysique de Marseille"
+                location="Marseille, France"
+                email="benoit.neichel@lam.fr"
+                linkedin="https://www.linkedin.com/in/benoit-neichel-7225a383/"
+                bio="Benoit Neichel is a CNRS researcher at the Laboratoire d’Astrophysique de Marseille where he leads the research 
+                and development group. He obtained his doctorate in 2008, conducting integral field spectroscopy observations of distant 
+                galaxies using Wide Field Adaptive Optics. He then worked at the Gemini South Telescope for nearly five years as the scientific 
+                lead for the GeMS instrument. In 2013, he joined LAM, and he is currently involved in preparing for the future Extremely Large 
+                Telescope, serving as the deputy-PI for the HARMONI project."
               />
 
               <AuthorCard
@@ -105,11 +114,12 @@ export default function AboutPage() {
                 role="INAF - Osservatorio Astrofisico di Arcetri"
                 location="Florence, Italy"
                 email="cedric.plantet@inaf.it"
-                linkedin="www.linkedin.com/in/guido-agapito-a2029339" 
               />
 
               <AuthorCard
                 name="Fabio Rossi"
+                role="INAF - Istituto Nazionale di Astrofisica"
+                location="Florence, Italy"
               />
           
             </p>

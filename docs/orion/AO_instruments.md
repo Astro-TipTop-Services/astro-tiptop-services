@@ -4,20 +4,470 @@ title: Currently Available AO Instruments
 sidebar_label: Available AO instruments 
 ---
 
-## ERIS
+🗂️ This page provide `.ini` configuration files tailored for various instruments.
+
+## ERIS (Enhanced Resolution Imager and Spectrograph)
+
+The Enhanced Resolution Imager and Spectrograph (ERIS) is a near-infrared instrument at the Cassegrain focus of UT4. ERIS instrument has two science cameras; SPIFFIER, an integral field spectrograph covering J to K bands, and NIX, an imager covering J to M bands. <br />
+_(More information can be found at: [https://www.eso.org/sci/facilities/paranal/instruments/eris.html](https://www.eso.org/sci/facilities/paranal/instruments/eris.html))_ <br />
+
+### AO modes used (AO) :
+**Single Conjugate Adaptive Optics (SCAO)**
+- **Natural Guide Star (NGS)**: requires guide star with `R<11` mag, either on and off-axis (up to `60"` possible, although `<30"` recommended due to anisoplanatism)
+- **Laser Guide Star (LGS)**: requires tip-tilt star within <code>60"</code> with R magnitude in the range `7–18` mag . Laser spot is initially on-axis, moving relative to target as telescope offsets are applied.
+
+### Parameter file (.ini format) - NGS
+
 <p align="justify">
+
+```python
+[telescope]
+TelescopeDiameter = 8.
+ZenithAngle = 30.0
+ObscurationRatio = 0.16
+Resolution = 128
+TechnicalFoV = 120
+
+[atmosphere]
+Wavelength = 500e-9
+Seeing = 0.8
+L0 = 22.0
+Cn2Weights = [0.59, 0.02, 0.04, 0.06, 0.01, 0.05, 0.09, 0.04, 0.05, 0.05]
+Cn2Heights = [30, 140, 281, 562, 1125, 2250, 4500, 7750, 11000, 14000]
+WindSpeed = [6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]
+WindDirection = [0., 0., 0., 0., 90., -90., -90., 90., 0., 0.]
+r0_Value = 0
+testWindspeed = 0
+
+[sources_science]
+Wavelength = [1.650e-06]
+Zenith = [0.0]
+Azimuth = [0.0]
+
+[sources_HO]
+Wavelength = [750e-9]
+Zenith = [0.0]
+Azimuth = [0.0]
+Height = 0
+
+[sensor_science]
+PixelScale = 14
+FieldOfView = 256
+
+[sensor_HO]
+WfsType = 'Shack-Hartmann'
+Modulation = None
+PixelScale = 832
+FieldOfView = 6
+Binning = 1
+NumberPhotons = [100.0]
+SigmaRON = 0.2
+ExcessNoiseFactor = 2.0
+Algorithm = 'wcog'
+NumberLenslets = [40]
+NoiseVariance = [None]
+
+[DM]
+NumberActuators = [40]
+DmPitchs = [0.2]
+DmHeights = [0.0]
+AoArea = 'circle'
+
+[RTC]
+LoopGain_HO = 0.3
+SensorFrameRate_HO = 1000.0
+LoopDelaySteps_HO = 3
+```
+
+### Parameter file (.ini format) - LGS
+
+```python
+
+[telescope]
+TelescopeDiameter = 8.
+ZenithAngle = 30.0
+ObscurationRatio = 0.16
+Resolution = 128
+TechnicalFoV = 60
+
+[atmosphere]
+Wavelength = 500e-9
+Seeing = 0.8
+L0 = 22.0
+Cn2Weights = [0.59, 0.02, 0.04, 0.06, 0.01, 0.05, 0.09, 0.04, 0.05, 0.05]
+Cn2Heights = [30, 140, 281, 562, 1125, 2250, 4500, 7750, 11000, 14000]
+WindSpeed = [6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]
+WindDirection = [0., 0., 0., 0., 90., -90., -90., 90., 0., 0.]
+
+[sources_science]
+Wavelength = [1.650e-06]
+Zenith = [0.0]
+Azimuth = [0.0]
+
+[sources_HO]
+Wavelength = [589e-9]
+Zenith = [0.0]
+Azimuth = [0.0]
+Height = 90000
+
+[sources_LO]
+Wavelength = [750e-09]
+Zenith = [0.0]
+Azimuth = [0.0]
+
+[sensor_science]
+PixelScale = 14
+FieldOfView = 256
+
+[sensor_HO]
+WfsType = 'Shack-Hartmann'
+Modulation = None
+PixelScale = 832
+FieldOfView = 6
+Binning = 1
+NumberPhotons = [100.0]
+SigmaRON = 0.2
+ExcessNoiseFactor = 2.0
+Algorithm = 'cog'
+NumberLenslets = [40]
+NoiseVariance = [None]
+
+[sensor_LO]
+WfsType = 'Shack-Hartmann'
+Modulation = None
+PixelScale = 417
+FieldOfView = 48
+Binning = 1
+NumberPhotons = [100.0]
+SigmaRON = 0.2
+Dark = 0.0
+SkyBackground = 0.0
+ExcessNoiseFactor = 2.0
+NumberLenslets = [4]
+NoiseVariance = [None]
+WindowRadiusWCoG = 6
+ThresholdWCoG = 0.0
+NewValueThrPix = 0.0
+
+[DM]
+NumberActuators = [40]
+DmPitchs = [0.2]
+DmHeights = [0.0]
+AoArea = 'circle'
+
+[RTC]
+LoopGain_HO = 0.3
+LoopGain_LO = 'optimize'
+SensorFrameRate_HO = 1000.0
+LoopDelaySteps_HO = 3
+SensorFrameRate_LO = 500.0
+LoopDelaySteps_LO = 2
+
+```
 
 </p>
 
-## HARMONI
+
+
+
+## HARMONI (High Angular Resolution Monolithic Optical and Near-infrared Integral field spectrograph)
+
+HARMONI will be one of the first generation of ELT instruments and will transform the visible and near-infrared astronomy landscape. This workhorse instrument, a 3D spectrograph, will disperse the light from astronomical objects into its component wavelengths, allowing scientists to study them in fine detail and go beyond what we can achieve with current spectrographs. <br/>
+_(Text sourced from: [https://elt.eso.org/instrument/HARMONI/](https://elt.eso.org/instrument/HARMONI/))_ <br />
+
+### AO modes used (AO) :
+- **Single Conjugate Adaptive Optics (SCAO)**
+
+- **Laser Tomography Adaptive Optics (LTAO)**
 
 ## MAVIS
 
-## MORFEO
+## MICADO (Multi-AO Imaging Camera for Deep Observations)
 
-## MUSE
+A first-generation ELT instrument, MICADO will take high-resolution images of the Universe at near-infrared wavelengths. This makes the instrument ideal for identifying exoplanets, but also for resolving individual stars in other galaxies and investigating the mysterious centre of the Milky Way. <br />
+_(Text sourced from: [https://elt.eso.org/instrument/MICADO/](https://elt.eso.org/instrument/MICADO/))_ <br />
 
-## SOUL
+### AO modes used (AO) :
+- **Single Conjugate Adaptive Optics (SCAO)**
+ 
 
-## SPHERE
+- **Multi Conjugate Adaptive Optics (MCAO)**
 
+
+
+### Parameter file (.ini format) - 
+
+```python
+
+[telescope]
+; telescope diameter in meters - required
+TelescopeDiameter = 38.5
+; telescope zenith angle in degrees - optional - default: 0.0
+ZenithAngle = 30.0
+; pupil obstruction ratio due to the secondary in relative unites to the telescope diameter - optional - default: 0.0
+ObscurationRatio = 0.28
+; pupil resolution in pixels - required
+Resolution = 480
+; path to the pupil model in .fits file - optional (if provided, the pupil model is interpolated) - default: ''
+PathPupil = 'tiptop/data/EELT480pp0.0803m_obs0.283_spider2023.fits'
+; path to a map of static aberrations (nm) in .fits file - optional - default: ''
+# 44 nm RMS static WF error from M1 (ESO datapackage version 2)
+PathStaticOn = 'tiptop/data/ELT_M1_static_wfe_480px.fits'
+#zCoefStaticOn = [0,0,1000]
+; path to a model of amplitude apodizaton of the electric field in the pupil in .fits file - optional - default: ''
+PathApodizer = ''
+; path to a model of a basis of modes to describe addtionnal static aberrations - optional - default: ''
+PathStatModes = '' 
+; pupil angle in degrees - optional - default: 0.0
+PupilAngle = 0.0
+# ELT tip & tilt wind shake when wind speed on M2 is 8 m/s
+windPsdFile = 'tiptop/data/morfeo_windshake8ms_psd_2022_1k.fits'
+TechnicalFoV = 10
+# additional error budget coming from sources not included in the simulation
+# M1 missing segments + M1 reflectivity + NCPA
+# see Vidal+ 2022
+extraErrorNm = 50
+# jitter_FWHM --> 10 nm RMS tip error is 0.505arcesc for a 38.5 m pupil
+# extra error on tip/tilt 138 nm (6.9706) to consider tilt error due to windshake and vibrations
+# see Vidal+ 2022
+#jitter_FWHM = 6.9706
+# 65 nm RMS
+jitter_FWHM = 3.26
+
+[atmosphere]
+; wavelength of definition of atmosphere statistics  -  optional - default 500e-9
+Wavelength = 500e-9
+; seeing at zenith in arcsec- required
+Seeing = 0.65
+L0 = 25.0
+Cn2Heights = [30.0000, 90.0000, 150.000, 200.000, 245.000, 300.000, 390.000, 600.000, 1130.00, 1880.00, 2630.00, 3500.00, 4500.00, 5500.00, 6500.00, 7500.00, 8500.00, 9500.00, 10500.0, 11500.0, 12500.0, 13500.0, 14500.0, 15500.0, 16500.0, 17500.0, 18500.0, 19500.0, 20500.0, 21500.0, 22500.0, 23500.0, 24500.0, 25500.0, 26500.0]      
+Cn2Weights = [0.241954, 0.119977, 0.0968817, 0.0589889, 0.0472911, 0.0472911, 0.0472911, 0.0472911, 0.0398925, 0.0323939, 0.0161969, 0.0260951, 0.0155971, 0.0103980, 0.00999811, 0.0119977, 0.00400924, 0.0139974, 0.0129975, 0.00700868, 0.0159970, 0.0258951, 0.0190964, 0.00986813, 0.00616883, 0.00400924, 0.00246953, 0.00215959, 0.00184965, 0.00135974, 0.00110979, 0.000616883, 0.000925825, 0.000493907, 0.000431918]
+WindSpeed = [5.5, 5.5, 5.1, 5.5, 5.6, 5.7, 5.8, 6.0, 6.5, 7.0, 7.5, 8.5, 9.5, 11.5, 17.5, 23.0, 26.0, 29.0, 32.0, 27.0, 22.0, 14.5, 9.5, 6.3, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.0]
+WindDirection = [0, -180, 0, 0, 90, 180, 0, 0, 0, -180, 0, 0, -90, 0, 90, -180, 90, 0, -90, -90, 0, -90, 0, 0, 180, 180, 0, -180, 90, 0, 0, 180, -90, 90, -90]
+
+[sources_science]
+;list of central wavelengths for each frame - required (currenlty only a list of one value is supported)
+Wavelength = [2200e-9]
+;list of polar coordinates of the sciences sources; zenith in arcsec and azimuth in degrees - optional -  default: [0.0]
+Zenith = [0.0]
+Azimuth = [0.0]
+
+[sources_HO]
+;Sensing wavelength for HO modes in meters - required
+Wavelength = 700e-9
+;list of polar coordinates of the guide stars sources; zenith in arcsec and azimuth in degrees - optional - default [0.0]
+Zenith = [0.0]
+Azimuth = [0.0]
+;altitude of the guide stars (0 if infinite) - optional - default: 0.0
+Height = 0.0
+
+[sensor_science]
+;pixel/spaxel scale in mas - required
+PixelScale = 4
+FieldOfView = 2048
+
+[sensor_HO]
+;WFS type - optional - default : Shack-Hartmann
+WfsType = 'Pyramid'
+;Spot modulation radius in lambda/D units for pyramid WFS - optional - default : None
+Modulation = 3
+;HO WFS pixel scale in [mas] - required
+PixelScale = 220      
+;Number of pixels per subaperture - required
+FieldOfView = 2  
+;binning factor - optional - default: 1
+Binning = 1
+;Flux return in [nph/frame/subaperture] - required
+NumberPhotons = [1000]                     
+;read-out noise std in [e-] - required
+SigmaRON = 0.2              
+;excess noise factor - optional - default: 2.0                     
+ExcessNoiseFactor = 2.0 
+;Number of WFS lenslets - required
+NumberLenslets = [90]    
+;Size of WFS lenslets in meters- optional
+SizeLenslets = [0.4]                                                     
+
+ 
+[DM]
+;DM actuators pitch in meters - required
+NumberActuators = [80]
+;DM actuators pitch in meters - required
+DmPitchs = [0.5]
+;DM influence function model - optional - default: 'gaussian'
+InfModel = 'gaussian'
+;DM influence function model  mechanical coupling- optional - default: [0.2]
+InfCoupling = [0.2]
+;DM altitude in m - optional - default: [0.0]
+DmHeights = [600.0] 
+;Zenith position in arcsec - optional - default: [0.0]
+OptimizationZenith = [0] 
+;Azimuth in degrees - optional - default: [0.0]
+OptimizationAzimuth = [0] 
+;Weights - optional - default: [1.0]
+OptimizationWeight  = [1]   
+;Matrix Conditioning - optional - default: 1e2
+OptimizationConditioning = 1.0e2 
+; Number of reconstructed layers for tomographic systems - optional - default: 10
+NumberReconstructedLayers= 10
+;Shape of the AO-corrected area - optional - default: 'circle'
+AoArea = 'circle'
+
+[RTC]
+;HO Loop gain - required
+LoopGain_HO = 0.5                               
+;HO loop frequency in [Hz] - required
+SensorFrameRate_HO = 500.0
+;HO loop frame delay - required
+LoopDelaySteps_HO = 2   
+
+```
+
+## MORFEO (Multiconjugate adaptive Optics Relay For ELT Observations)
+
+As a first-generation ELT instrument, MORFEO, will help compensate for the distortion of light caused by turbulence in the Earth’s atmosphere which makes astronomical images blurry. MORFEO will not make observations itself; rather, it will enable other instruments, such as MICADO in the first instance, to take exceptional images. <br />
+_(Text sourced from: [https://elt.eso.org/instrument/MORFEO/](https://elt.eso.org/instrument/MORFEO/))_
+
+## MUSE (Multi-Unit Spectroscopic Explorer)
+
+MUSE is an Integral Field Spectrograph located at the Nasmyth B focus of Yepun, the VLT UT4 telescope. It has a modular structure composed of 24 identical integral-field units (IFU) that together sample, in Wide Field Mode (WFM), a near-contiguous 1 squared arcmin field of view. Spectrally the instrument samples almost the full optical domain with a mean resolution of 3000. Spatially, the instrument  samples the sky with 0.2 arcseconds spatial pixels in the Wide Field Mode with natural seeing (WFM-noAO). <br />
+_(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/muse/overview.html](https://www.eso.org/sci/facilities/paranal/instruments/muse/overview.html))_
+
+### AO modes used (AO) :
+- **Ground Layer Adaptive Optics (GLAO)**
+
+- **Laser Tomography Adaptive Optics (LTAO)**
+
+
+## SOUL (Single conjugated adaptive Optics Upgrade for LBT)
+
+### AO modes used (AO) :
+**Single Conjugate Adaptive Optics (SCAO)**
+
+### Parameter file (.ini format) - NGS
+
+```python
+[telescope]
+TelescopeDiameter = 8.222
+ZenithAngle = 30.0
+ObscurationRatio = 0.111
+Resolution = 150
+TechnicalFoV = 10
+
+[atmosphere]
+Wavelength = 500e-9
+Seeing = 0.8
+L0 = 40.0
+Cn2Weights = [0.70, 0.06, 0.14, 0.10]
+Cn2Heights = [119.,  837., 3045., 12780.]
+WindSpeed = [5., 10., 30., 20.]
+WindDirection = [0., 0., 0., 0.]
+
+[sources_science]
+Wavelength = [2150e-9]
+Zenith = [0.0]
+Azimuth = [0.0]
+
+[sources_HO]
+Wavelength = 750e-9
+Zenith = [0.0]
+Azimuth = [0.0]
+Height = 0.0
+
+[sensor_science]
+PixelScale = 14.9
+FieldOfView = 256
+
+[sensor_HO]
+WfsType = 'Pyramid'
+Modulation = 3
+PixelScale = 1000      
+FieldOfView = 2  
+NumberPhotons = [10]    
+SigmaRON = 0.0               
+ExcessNoiseFactor = 2.0 
+NumberLenslets = [40]    
+SizeLenslets = [0.2]  
+NoiseVariance = [None]
+
+[DM]
+NumberActuators = [30]
+DmPitchs = [0.275]
+DmHeights = [0.0] 
+AoArea = 'circle'
+
+[RTC]
+LoopGain_HO = 0.3                               
+SensorFrameRate_HO = 1700.0
+LoopDelaySteps_HO = 3   
+```
+
+## SPHERE (Spectro-Polarimetric High-contrast Exoplanet REsearch)
+
+SPHERE is an extreme adaptive optics system and coronagraphic facility feeding three science instruments: IRDIS, IFS, and ZIMPOL. The primary science goal of SPHERE is imaging, low-resolution spectroscopic, and polarimetric characterization of extra-solar planetary systems. The instrument design is optimized to provide the highest image quality and contrast performance in a narrow field of view around bright targets that are observed in the visible or near infrared. SPHERE is installed at the UT3 Nasmyth focus of the VLT. <br />
+_(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/sphere/overview.html](https://www.eso.org/sci/facilities/paranal/instruments/sphere/overview.html)), More information can be found at: [https://www.eso.org/sci/facilities/paranal/instruments/sphere.html](https://www.eso.org/sci/facilities/paranal/instruments/sphere.html)_ <br />
+
+### AO modes used (AO) :
+**Single Conjugate Adaptive Optics (SCAO)**
+
+### Parameter file (.ini format) - NGS
+
+```python
+
+[telescope]
+TelescopeDiameter = 8.0
+ZenithAngle = 30.0
+ObscurationRatio = 0.16
+Resolution = 128
+TechnicalFoV=10
+
+[atmosphere]
+Wavelength = 500e-9
+Seeing = 0.7
+L0 = 22.0
+Cn2Weights = [0.59, 0.02, 0.04, 0.06, 0.01, 0.05, 0.09, 0.04, 0.05, 0.05]
+Cn2Heights = [30, 140, 281, 562, 1125, 2250, 4500, 7750, 11000, 14000]
+WindSpeed = [6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]
+WindDirection = [0., 0., 0., 0., 90., -90., -90., 90., 0., 0.]
+r0_Value=0
+testWindspeed=0
+
+[sources_science]
+Wavelength = [1.65e-06]
+Zenith = [0.0]
+Azimuth = [0.0]
+
+[sources_HO]
+Wavelength = 7e-07
+Zenith = [0.0]
+Azimuth = [0.0]
+Height = 0.0
+
+[sensor_science]
+PixelScale = 12.25
+FieldOfView = 256
+
+[sensor_HO]
+WfsType = 'Shack-Hartmann'
+Modulation = None
+PixelScale = 417
+FieldOfView = 6
+NumberPhotons = [20.0]
+SigmaRON = 0.2
+ExcessNoiseFactor = 2.0
+Algorithm = 'wcog'
+NumberLenslets = [40]
+NoiseVariance = [None]
+
+[DM]
+NumberActuators = [40]
+DmPitchs = [0.2]
+DmHeights = [0.0]
+AoArea = 'square'
+
+[RTC]
+LoopGain_HO = 0.3
+SensorFrameRate_HO = 1380.0
+LoopDelaySteps_HO = 3
+
+```

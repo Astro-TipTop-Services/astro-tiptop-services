@@ -4,9 +4,15 @@ title: Currently Available AO Instruments
 sidebar_label: Available AO instruments 
 ---
 
-🗂️ This page provide `.ini` configuration files tailored for various instruments.
+import IniGenerator from '@site/src/components/IniGenerator';
 
-## ERIS (Enhanced Resolution Imager and Spectrograph)
+🗂️ This page provide `.ini` configuration files tailored for various instruments: [ERIS](#eris), [HARMONI](#harmoni), [MAVIS](#mavis), [MORFEO](#morfeo), [MUSE](#muse), [SOUL](#soul), [SPHERE](#sphere).
+
+It also includes a custom `.ini` file generator interface. It also includes an interface that allows you to generate custom .ini files by selecting the desired instrument and parameter values below.
+
+<IniGenerator />
+
+## ERIS (Enhanced Resolution Imager and Spectrograph) {#eris}
 
 The Enhanced Resolution Imager and Spectrograph (ERIS) is a near-infrared instrument at the Cassegrain focus of UT4. ERIS instrument has two science cameras; SPIFFIER, an integral field spectrograph covering J to K bands, and NIX, an imager covering J to M bands. <br />
 _(More information can be found at: [https://www.eso.org/sci/facilities/paranal/instruments/eris.html](https://www.eso.org/sci/facilities/paranal/instruments/eris.html))_ <br />
@@ -179,7 +185,7 @@ LoopDelaySteps_LO = 2
 
 
 
-## HARMONI (High Angular Resolution Monolithic Optical and Near-infrared Integral field spectrograph)
+## HARMONI (High Angular Resolution Monolithic Optical and Near-infrared Integral field spectrograph) {#harmoni}
 
 HARMONI will be one of the first generation of ELT instruments and will transform the visible and near-infrared astronomy landscape. This workhorse instrument, a 3D spectrograph, will disperse the light from astronomical objects into its component wavelengths, allowing scientists to study them in fine detail and go beyond what we can achieve with current spectrographs. <br/>
 _(Text sourced from: [https://elt.eso.org/instrument/HARMONI/](https://elt.eso.org/instrument/HARMONI/))_ <br />
@@ -189,9 +195,9 @@ _(Text sourced from: [https://elt.eso.org/instrument/HARMONI/](https://elt.eso.o
 
 - **Laser Tomography Adaptive Optics (LTAO)**
 
-## MAVIS
+## MAVIS {#mavis}
 
-## MICADO (Multi-AO Imaging Camera for Deep Observations)
+## MICADO (Multi-AO Imaging Camera for Deep Observations) {#micado}
 
 A first-generation ELT instrument, MICADO will take high-resolution images of the Universe at near-infrared wavelengths. This makes the instrument ideal for identifying exoplanets, but also for resolving individual stars in other galaxies and investigating the mysterious centre of the Milky Way. <br />
 _(Text sourced from: [https://elt.eso.org/instrument/MICADO/](https://elt.eso.org/instrument/MICADO/))_ <br />
@@ -336,12 +342,12 @@ LoopDelaySteps_HO = 2
   </code></pre>
 </details> 
 
-## MORFEO (Multiconjugate adaptive Optics Relay For ELT Observations)
+## MORFEO (Multiconjugate adaptive Optics Relay For ELT Observations) {#morfeo}
 
 As a first-generation ELT instrument, MORFEO, will help compensate for the distortion of light caused by turbulence in the Earth’s atmosphere which makes astronomical images blurry. MORFEO will not make observations itself; rather, it will enable other instruments, such as MICADO in the first instance, to take exceptional images. <br />
 _(Text sourced from: [https://elt.eso.org/instrument/MORFEO/](https://elt.eso.org/instrument/MORFEO/))_
 
-## MUSE (Multi-Unit Spectroscopic Explorer)
+## MUSE (Multi-Unit Spectroscopic Explorer) {#muse}
 
 MUSE is an Integral Field Spectrograph located at the Nasmyth B focus of Yepun, the VLT UT4 telescope. It has a modular structure composed of 24 identical integral-field units (IFU) that together sample, in Wide Field Mode (WFM), a near-contiguous 1 squared arcmin field of view. Spectrally the instrument samples almost the full optical domain with a mean resolution of 3000. Spatially, the instrument  samples the sky with 0.2 arcseconds spatial pixels in the Wide Field Mode with natural seeing (WFM-noAO). <br />
 _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/muse/overview.html](https://www.eso.org/sci/facilities/paranal/instruments/muse/overview.html))_
@@ -352,7 +358,7 @@ _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/mus
 - **Laser Tomography Adaptive Optics (LTAO)**
 
 
-## SOUL (Single conjugated adaptive Optics Upgrade for LBT)
+## SOUL (Single conjugated adaptive Optics Upgrade for LBT) {#soul}
 
 ### AO modes used:
 **Single Conjugate Adaptive Optics (SCAO)**
@@ -419,7 +425,7 @@ LoopDelaySteps_HO = 3
   </code></pre>
 </details>
 
-## SPHERE (Spectro-Polarimetric High-contrast Exoplanet REsearch)
+## SPHERE (Spectro-Polarimetric High-contrast Exoplanet REsearch) {#sphere}
 
 SPHERE is an extreme adaptive optics system and coronagraphic facility feeding three science instruments: IRDIS, IFS, and ZIMPOL. The primary science goal of SPHERE is imaging, low-resolution spectroscopic, and polarimetric characterization of extra-solar planetary systems. The instrument design is optimized to provide the highest image quality and contrast performance in a narrow field of view around bright targets that are observed in the visible or near infrared. SPHERE is installed at the UT3 Nasmyth focus of the VLT. <br />
 _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/sphere/overview.html](https://www.eso.org/sci/facilities/paranal/instruments/sphere/overview.html)), More information can be found at: [https://www.eso.org/sci/facilities/paranal/instruments/sphere.html](https://www.eso.org/sci/facilities/paranal/instruments/sphere.html)_ <br />
@@ -431,7 +437,7 @@ _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/sph
 
 <details>
   <summary><strong>View parameter file contents (.ini)</strong></summary>
-  
+
  <pre><code>
 
 [telescope]
@@ -492,3 +498,4 @@ LoopDelaySteps_HO = 3
 
   </code></pre>
 </details>
+

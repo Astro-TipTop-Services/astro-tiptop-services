@@ -56,8 +56,9 @@ const sidebars = {
       items: [
         'orion/overview',
         'orion/usage',
-        'orion/parameterfields',
+        'orion/howtosetuplaunchfile',
         'orion/howtosetup',
+        'orion/parameterfiles',
         'orion/aoinstruments',
         'orion/examples',
         'orion/api_reference',

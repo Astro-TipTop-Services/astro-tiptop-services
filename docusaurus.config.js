@@ -129,12 +129,16 @@ const config = {
                 to: '/docs/orion/usage',
               },
               {
-                label: '• How to set up?',
+                label: '• How to set up a launch script for TipTop?',
+                to: '/docs/orion/howtosetuplaunchfile',
+              },
+              {
+                label: '• How to set up TipTop according to the AO mode?',
                 to: '/docs/orion/howtosetup',
               },
               {
-                label: '• Parameter fields',
-                to: '/docs/orion/parameterfields',
+                label: '• Parameter files',
+                to: '/docs/orion/parameterfiles',
               },
               {
                 label: '• Available AO instruments',

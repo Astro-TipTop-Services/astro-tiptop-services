@@ -1,0 +1,69 @@
+---
+id: howtosetuplaunchfile
+title: How to set up a launch script for TipTop?
+sidebar_label: How to set up a launch script for TipTop?
+---
+
+As explained in the [Quickstart](orion/usage.md) section, to run a simulation with TipTop, you need:
+
+    a launch script which:
+
+        - Loads the simulation parameters from a .ini file (e.g., minimalPar.ini)
+
+        - Initializes the necessary modules
+
+        - Starts the simulation
+
+The simplest file to launch a simulation is as follows:
+
+    ```python
+    from tiptop.tiptop import *
+    plt.ion()
+
+    overallSimulation("./", "minimalPar", './', 'test')
+    ```
+
+where:
+- The first and second arguments of the overallSimulation function correspond, respectively, to the path of the folder containing the .ini input file, and the name of that .ini file.
+- The third and fourth arguments specify where to save the output results (in .fits format) and what name to give to the resulting .fits file.
+
+However, the tiptop.**overallSimulation**, which runs the entire TipTop simulation based on the input file, can also take additional arguments that allow enabling or disabling certain features and selecting the desired outputs. <br/>
+All the parameters that can be passed as arguments are listed and explained below: <br/>
+
+<details>
+  <summary><strong>Parameters:</strong></summary>
+
+
+    - **path2param** (_str_) – required, path to the parameter file.
+
+    - **paramFileName** (_str_) – required, name of the parameter file to be used without the extention.
+
+    - **outpuDir** – required, path to the folder in which to write the output.
+
+    - **doConvolve** (_bool_) – optional default: False, if you want to use the natural convolution operation set to True.
+
+    - **doPlot** (_bool_) – optional default: False, if you want to see the result in python set this to True.
+
+    - **verbose** (_bool_) – optional default: False, If you want all messages set this to True
+
+    - **returnRes** (_bool_) – optional default: False, The function will return the result in the environment if set to True, else it saves the result only in a .fits file.
+
+    - **returnMetrics** (_bool_) – optional default: False, The function will return Strehl Ratio, fwhm and encircled energy within eeRadiusInMas if set to True
+
+    - **addSrAndFwhm** (_bool_) – optional default: False, The function will add in the header of the fits file SR anf FWHM for each PSF.
+
+    - **verbose** – optional default: False, If you want all messages set this to True.
+
+    - **getHoErrorBreakDown** (_bool_) – optional default: False, If you want HO error breakdown set this to True.
+
+    - **ensquaredEnergy** (_bool_) – optional default: False, If you want ensquared energy instead of encircled energy set this to True.
+
+    - **eeRadiusInMas** (_float_) – optional default: 50, used together with returnMetrics, radius used for the computation of the encirlced energy (if ensquaredEnergy is selected, this is half the side of the square)
+
+    - **savePSDs** (_bool_) – optional default: False, If you want to save PSD in the output fits file set this to True.
+
+    - **saveJson** (_bool_) – optional default: False, If you want to save the PSF profile in a json file
+
+    - **gpuIndex** (_int_) – optional default: 0, Target GPU index where the simulation will be run
+
+    </details> 

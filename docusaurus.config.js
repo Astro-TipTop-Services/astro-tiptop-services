@@ -129,12 +129,12 @@ const config = {
                 to: '/docs/orion/usage',
               },
               {
-                label: '• Parameter fields',
-                to: '/docs/orion/parameterfields',
-              },
-              {
                 label: '• How to set up?',
                 to: '/docs/orion/howtosetup',
+              },
+              {
+                label: '• Parameter fields',
+                to: '/docs/orion/parameterfields',
               },
               {
                 label: '• Available AO instruments',

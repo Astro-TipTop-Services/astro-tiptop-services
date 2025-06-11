@@ -7,17 +7,22 @@ sidebar_label: How to set up?
 <p align="justify">
 This page explains how to configure TipTop depending on the type of adaptive optics (AO) system you want to simulate.
 
+## AO Modes
+
 Before diving into the configuration sections, you should first determine which AO system you intend to model. TipTop supports the following modes:
 - [Single Conjugate Adaptive Optics](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#scao)
 - [Multi Conjugate Adaptive Optics](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#mcao)
 - [Laser Tomography Adaptive Optics](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#ltao)
 - [Ground Layer Adaptive Optics](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#glao)
 
-**Note:** Regardless of the AO system, configuration always starts with defining the telescope and the atmospheric conditions.
-</p>
+The different AO modes are described here: [ESO - AO MODES](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#scao).
 
 <p align="center">
-![](/img/AO_tel.png)
+![](/img/AO_Modes.jpg)
+ <em><small>Image source: Adapted from Arseniy Kuznetsov, “Towards the next generation of tomographic AO-assisted instruments : Self-learning techniques for system optimization & science exploitation,” PhD thesis, Aix Marseille Université, 2024.</small></em>
+</p>
+
+**Note:** Regardless of the AO system, configuration always starts with defining the telescope and the atmospheric conditions.
 </p>
 
 ## The telescope

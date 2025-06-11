@@ -12,6 +12,10 @@ This page provides an explanation of the structure and syntax of the .ini parame
 The parameter files are divided in sections and they can contain multiple parameter. It is very important that each parameter be placed in the appropriate section. The section starts with its name between `[]` and ends either with the end of file or with the next section. The order they are placed in the file does not matter.
 </p>
 
+<p align="center">
+![](/img/AO_tel.png)
+</p>
+
 ## Overview
 
 The following table resume the what the parameter file should contain and what is mandatory.
@@ -47,13 +51,14 @@ Detailed descriptions of each section are provided below.
 | `PupilAngle` | No | `float` |  _Default_: `0.0`<br /> Unknown effect |
 | `PathPupil` | No | `string` |  _Default_: `''`<br /> Path to the pupil model in .fits file (if provided, the pupil model is interpolated). if absent or `''`, not used.|
 | `PathStaticOn` | No | `string`  | _Default_: `None`<br /> Path to a map of static aberrations (**_nm_**) in .fits file. if absent or `''`, not used.|
+| `zCoefStaticOn` | No | `list of float`  | _Default_: `None`<br /> None, vector with zernike amplitudes (**_nm_**) of a static aberration. if absent not used.|
 | `PathStaticOff` | No | `string`  | _Default_: `None`<br />  No clue what this does. if absent or `''`, not used. From **P3**, not supported in **TipTop**. |
 | `PathStaticPos` | No | `string`  | _Default_: `None`<br /> No clue From **P3**, not supported in **TipTop**. |
 | `PathApodizer` | No | `string`  | _Default_: `''`<br /> Path to a fits file that contain a binary map corresponding to a pupil apodizer (TBC). if absent or `''`, not used. From **P3**, not supported in **TipTop**. |
 | `PathStatModes` | No | `string`  | _Default_: `''`<br /> Path to a .fits file that contain a cube of map of mode in amplitude which lead to a rms of 1 in nanometer of static aberation. if absent or `''`, not used. Unsure how this works. From **P3**, not supported in **TipTop**. |
 | `coefficientOfTheStaticMode` | No used | `string`  | _Default_: `''`<br /> Place holder (TBC) need to find how does the pathStatModes fits file work. From **P3**, not supported in **TipTop**. |
 | `windPsdFile` | No | `string`  | _Default_: `''`<br /> File name of a .fits file with a 2D array with a frequency vector and PSD of tip and tilt windshake. |
-| `extraErrorNm` | No | `float` | _Default_: `0.0` <br /> **_nm_** RMS of the additional error to be added (an error that is not otherwise considered). |
+| `extraErrorNm` | No | `float` | _Default_: `0.0` <br /> **_nm_** RMS of the additional wavefront error to be added (an error that is not otherwise considered). |
 | `extraErrorExp` | No |  `float` | _Default_: `-2.` <br /> Exponent of the power of spatial frequencies used to generate the PSD associated with `extraErrorNm`. |
 | `extraErrorMin` | No |  `float` | _Default_: `0.0` <br /> Minimum spatial frequency for which PSD associated with `extraErrorNm` is > 0|
 | `extraErrorMax` | No |  `float` | _Default_: `0.0` <br /> Maximum spatial frequency for which PSD associated with `extraErrorNm` is > 0 <br /> _Note_: 0 means maximum frequency is the one present in the spatial frequency array of the PSDs. |

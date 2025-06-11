@@ -11,7 +11,7 @@ sidebar_label: Available AO instruments
 The Enhanced Resolution Imager and Spectrograph (ERIS) is a near-infrared instrument at the Cassegrain focus of UT4. ERIS instrument has two science cameras; SPIFFIER, an integral field spectrograph covering J to K bands, and NIX, an imager covering J to M bands. <br />
 _(More information can be found at: [https://www.eso.org/sci/facilities/paranal/instruments/eris.html](https://www.eso.org/sci/facilities/paranal/instruments/eris.html))_ <br />
 
-### AO modes used (AO) :
+### AO modes used:
 **Single Conjugate Adaptive Optics (SCAO)**
 - **Natural Guide Star (NGS)**: requires guide star with `R<11` mag, either on and off-axis (up to `60"` possible, although `<30"` recommended due to anisoplanatism)
 - **Laser Guide Star (LGS)**: requires tip-tilt star within <code>60"</code> with R magnitude in the range `7–18` mag . Laser spot is initially on-axis, moving relative to target as telescope offsets are applied.
@@ -175,7 +175,7 @@ LoopDelaySteps_LO = 2
 HARMONI will be one of the first generation of ELT instruments and will transform the visible and near-infrared astronomy landscape. This workhorse instrument, a 3D spectrograph, will disperse the light from astronomical objects into its component wavelengths, allowing scientists to study them in fine detail and go beyond what we can achieve with current spectrographs. <br/>
 _(Text sourced from: [https://elt.eso.org/instrument/HARMONI/](https://elt.eso.org/instrument/HARMONI/))_ <br />
 
-### AO modes used (AO) :
+### AO modes used:
 - **Single Conjugate Adaptive Optics (SCAO)**
 
 - **Laser Tomography Adaptive Optics (LTAO)**
@@ -333,7 +333,7 @@ _(Text sourced from: [https://elt.eso.org/instrument/MORFEO/](https://elt.eso.or
 MUSE is an Integral Field Spectrograph located at the Nasmyth B focus of Yepun, the VLT UT4 telescope. It has a modular structure composed of 24 identical integral-field units (IFU) that together sample, in Wide Field Mode (WFM), a near-contiguous 1 squared arcmin field of view. Spectrally the instrument samples almost the full optical domain with a mean resolution of 3000. Spatially, the instrument  samples the sky with 0.2 arcseconds spatial pixels in the Wide Field Mode with natural seeing (WFM-noAO). <br />
 _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/muse/overview.html](https://www.eso.org/sci/facilities/paranal/instruments/muse/overview.html))_
 
-### AO modes used (AO) :
+### AO modes used:
 - **Ground Layer Adaptive Optics (GLAO)**
 
 - **Laser Tomography Adaptive Optics (LTAO)**
@@ -341,7 +341,7 @@ _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/mus
 
 ## SOUL (Single conjugated adaptive Optics Upgrade for LBT)
 
-### AO modes used (AO) :
+### AO modes used:
 **Single Conjugate Adaptive Optics (SCAO)**
 
 ### Parameter file (.ini format) - NGS
@@ -407,7 +407,7 @@ LoopDelaySteps_HO = 3
 SPHERE is an extreme adaptive optics system and coronagraphic facility feeding three science instruments: IRDIS, IFS, and ZIMPOL. The primary science goal of SPHERE is imaging, low-resolution spectroscopic, and polarimetric characterization of extra-solar planetary systems. The instrument design is optimized to provide the highest image quality and contrast performance in a narrow field of view around bright targets that are observed in the visible or near infrared. SPHERE is installed at the UT3 Nasmyth focus of the VLT. <br />
 _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/sphere/overview.html](https://www.eso.org/sci/facilities/paranal/instruments/sphere/overview.html)), More information can be found at: [https://www.eso.org/sci/facilities/paranal/instruments/sphere.html](https://www.eso.org/sci/facilities/paranal/instruments/sphere.html)_ <br />
 
-### AO modes used (AO) :
+### AO modes used:
 **Single Conjugate Adaptive Optics (SCAO)**
 
 ### Parameter file (.ini format) - NGS

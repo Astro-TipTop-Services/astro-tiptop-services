@@ -20,7 +20,11 @@ _(More information can be found at: [https://www.eso.org/sci/facilities/paranal/
 
 <p align="justify">
 
-```python
+<details>
+  <summary><strong>View parameter file contents (.ini)</strong></summary>
+
+
+<pre><code>
 [telescope]
 TelescopeDiameter = 8.
 ZenithAngle = 30.0
@@ -77,11 +81,15 @@ AoArea = 'circle'
 LoopGain_HO = 0.3
 SensorFrameRate_HO = 1000.0
 LoopDelaySteps_HO = 3
-```
+  </code></pre>
+</details> 
 
 ### Parameter file (.ini format) - LGS
 
-```python
+<details>
+  <summary><strong>View parameter file contents (.ini)</strong></summary>
+
+<pre><code>
 
 [telescope]
 TelescopeDiameter = 8.
@@ -163,7 +171,8 @@ LoopDelaySteps_HO = 3
 SensorFrameRate_LO = 500.0
 LoopDelaySteps_LO = 2
 
-```
+  </code></pre>
+</details> 
 
 </p>
 
@@ -197,7 +206,10 @@ _(Text sourced from: [https://elt.eso.org/instrument/MICADO/](https://elt.eso.or
 
 ### Parameter file (.ini format) - 
 
-```python
+<details>
+  <summary><strong>View parameter file contents (.ini)</strong></summary>
+
+<pre><code>
 
 [telescope]
 ; telescope diameter in meters - required
@@ -321,7 +333,8 @@ SensorFrameRate_HO = 500.0
 ;HO loop frame delay - required
 LoopDelaySteps_HO = 2   
 
-```
+  </code></pre>
+</details> 
 
 ## MORFEO (Multiconjugate adaptive Optics Relay For ELT Observations)
 
@@ -346,7 +359,10 @@ _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/mus
 
 ### Parameter file (.ini format) - NGS
 
-```python
+<details>
+  <summary><strong>View parameter file contents (.ini)</strong></summary>
+
+<pre><code>
 [telescope]
 TelescopeDiameter = 8.222
 ZenithAngle = 30.0
@@ -400,7 +416,8 @@ AoArea = 'circle'
 LoopGain_HO = 0.3                               
 SensorFrameRate_HO = 1700.0
 LoopDelaySteps_HO = 3   
-```
+  </code></pre>
+</details>
 
 ## SPHERE (Spectro-Polarimetric High-contrast Exoplanet REsearch)
 
@@ -412,7 +429,10 @@ _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/sph
 
 ### Parameter file (.ini format) - NGS
 
-```python
+<details>
+  <summary><strong>View parameter file contents (.ini)</strong></summary>
+  
+ <pre><code>
 
 [telescope]
 TelescopeDiameter = 8.0
@@ -470,4 +490,5 @@ LoopGain_HO = 0.3
 SensorFrameRate_HO = 1380.0
 LoopDelaySteps_HO = 3
 
-```
+  </code></pre>
+</details>

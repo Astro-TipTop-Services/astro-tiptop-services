@@ -36,7 +36,7 @@ reproducing real on-sky observed PSFs with an end-to-end code (PASSATA). In a su
 This work is part of a wider study which aims to use simulation tools joint to atmospheric turbulence forecasts performed nightly to forecast in
 advance the PSF and support science operations of ground-based telescopes facilities. The 'PSF forecast' option might therefore be added to ALTA
 Center or the operational forecast system that will be implemented soon at ESO.`,
-    collapsedHeight: '8.2rem'
+    collapsedHeight: '10.2rem'
 },
   {
     id: 3,

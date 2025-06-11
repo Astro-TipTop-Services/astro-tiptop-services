@@ -188,7 +188,6 @@ export default function IniGenerator() {
       let value = fields[key];
       const expectedType = editableFields[section]?.[key];
 
-      // Conversion basée sur le type attendu
       if (expectedType === 'number') {
         value = Number(value);
         iniString += `${key} = ${value}\n`;

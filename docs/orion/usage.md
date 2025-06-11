@@ -73,7 +73,7 @@ To run a simulation with **TipTop**, you need:
     NumberActuators = [20]
     DmPitchs = [0.25]
     ```
-    **Note:**  For a detailed explanation of the structure and syntax of `.ini` parameter files, refer to the [Parameter Files page](/docs/orion/parameterfields.md). <br /> Guidance on how to configure **TipTop** based on your chosen adaptive optics system is provided [here](/docs/orion/howtosetup.md).
+    **Note:**  For a detailed explanation of the structure and syntax of `.ini` parameter files, refer to the [Parameter Files page](/docs/orion/parameterfiles.md). <br /> Guidance on how to configure **TipTop** based on your chosen adaptive optics system is provided [here](/docs/orion/howtosetup.md).
 
 ## Simulation Output (This section is under construction...)
 

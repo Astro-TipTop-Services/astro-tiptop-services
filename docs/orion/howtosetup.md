@@ -5,7 +5,7 @@ sidebar_label: How to set up TipTop according to the AO mode?
 ---
 
 <p align="justify">
-This page explains how to configure TipTop depending on the type of adaptive optics (AO) system you want to simulate.
+This page explains how to configure TipTop depending on the type of adaptive optics (AO) system you want to simulate — in other words, how to complete your .ini configuration file (see the [Parameter files explained](/docs/orion/parameterfiles/) page for a full description of the available parameters).
 
 ## AO Modes
 
@@ -22,7 +22,7 @@ The different AO modes are described here: [ESO - AO MODES](https://www.eso.org/
  <em><small>Image source: Adapted from Arseniy Kuznetsov, “Towards the next generation of tomographic AO-assisted instruments : Self-learning techniques for system optimization & science exploitation,” PhD thesis, Aix Marseille Université, 2024.</small></em>
 </p>
 
-**Note:** Regardless of the AO system, configuration always starts with defining the telescope and the atmospheric conditions.
+🔴 Regardless of the AO system, configuration always starts with defining the telescope and the atmospheric conditions.
 </p>
 
 ## The telescope

@@ -42,6 +42,11 @@ Detailed descriptions of each section are provided below.
 
 ### `[telescope]`
 
+<details>
+  <summary><strong> [telescope] parameters </strong></summary>
+
+<pre><code>
+
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `TelescopeDiameter` | Yes | `float` | Set the outer diameter of the telescope pupil in unit of **_meters_**. |
@@ -70,7 +75,15 @@ Detailed descriptions of each section are provided below.
 | `glFocusOnNGS` | No |  `string` | _Default_: `False` <br /> Global focus control with natural guide stars. Multi-conjugate systems only. Requires `NumberLenslets` >= 2 in `sensor_LO` or a specific global focus sensor (`[sources_Focus]` and `[sensor_Focus]` sections). |
 | `TechnicalFoV` | No/Yes if LO |  `float` | _Default_: `??` <br /> Set the size of the technical field of view (diameter) is Used in laser and multi-conjugate AO systems. <br /> _Warning_: This is not optional in `MavisLO.py` |
 
+  </code></pre>
+</details>
+
 ### `[atmosphere]`
+
+<details>
+  <summary><strong> [atmosphere] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
@@ -84,7 +97,16 @@ Detailed descriptions of each section are provided below.
 | `ro_Value` | No | `float` | Set the atmospere Fried parameter. If not set **TipTop** uses `Seeing`. |
 | `testWindspeed` | No | `float` | Used only for tests |
 
+  </code></pre>
+</details>
+
+
 ### `[sources_science]`
+
+<details>
+  <summary><strong> [sources_science] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
@@ -92,7 +114,15 @@ Detailed descriptions of each section are provided below.
 | `Zenith` | Yes | `list of float` | Zenithal coordinate in arcsec (distance from axis) of science sources. Must be the same length as `Azimut`. |
 | `Azimuth` | Yes | `list of float` | Azimuthal coordinate in **_degree_** (angle from the ref. direction: polar axis is x-axis) of science sources. Must be the same length as `Zenith`. |
 
+  </code></pre>
+</details>
+
 ### `[sources_HO]`
+
+<details>
+  <summary><strong> [sources_HO] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
@@ -101,15 +131,26 @@ Detailed descriptions of each section are provided below.
 | `Azimuth` | No | `list of float` | _Default_: `[0.0]` <br /> Azimuthal coordinate in degree (angle from the ref. direction: polar axis is x-axis) of each guide stars. Must be the same length as `Zenith`, even if `Zenith` is defined, this is optional. |
 | `Height` | No | `float` | _Default_: `0.0` <br /> Altitude of the guide stars (0 if infinite). Consider that all guide star are at the same height. |
 
+  </code></pre>
+</details>
+
 ### `[sources_LO]`
 
 **Note:** This section is completely optional (`[sensor_LO]` section is required to have the LO part simulated).
+
+<details>
+  <summary><strong> [sources_LO] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Wavelength` | Yes | `float` | Sensing wavelength for Low Order modes in meters. |
 | `Zenith` | Yes | `list of float` | Zenithal coordinate of each guide stars in arcsec (distance from axis). Must be the same length as `Azimuth`. |
 | `Azimuth` | Yes | `list of float` | Azimuthal coordinate in degree (angle from the reference direction: polar axis is x-axis) of each guide stars. Must be the same length as `Zenith`. |
+
+  </code></pre>
+</details>
 
 ### `[sources_Focus]`
 
@@ -118,16 +159,31 @@ Detailed descriptions of each section are provided below.
 Note that the coordinates (Zenith and Azimuth) of the NGSs are the same of the `[sources_LO]` section.
 </p>
 
+<details>
+  <summary><strong> [sources_Focus] parameters </strong></summary>
+
+<pre><code>
+
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Wavelength` | Yes | `float` | Sensing wavelength for global focus modes in **_meters_**. |
 
+  </code></pre>
+</details>
+
 ### `[sensor_science]`
+
+<details>
+  <summary><strong> [sensor_science] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `PixelScale` | Yes | `float` | Pixel/spaxel scale in **_milliarcsec_**. <br /> _Warning_: confusing error message if missing. |
 | `FieldOfView` | Yes | `float` | Field of view of the camera in pixel/spaxel. <br /> _Warning_: confusing error message if missing. |
+
+  </code></pre>
 
 <p align="justify">
 
@@ -135,9 +191,16 @@ Note that the coordinates (Zenith and Azimuth) of the NGSs are the same of the `
 `Binning`, `NumberPhotons`, `SpotFWHM`, `SpectralBandwidth`, `Transmittance`, `Dispersion`, `SigmaRON`, `Dark`, `SkyBackground`, `Gain`, `ExcessNoiseFactor`, `Wavelength`, `FieldOfView`
 </p>
 
+</details>
+
 ### `[sensor_HO]`
 
 The High Order WaveFront Sensor can be a **Pyramid WFS** or a **Shack-Hartmann**. Regardless of the WFS, the following parameters can de defined.
+
+<details>
+  <summary><strong> [sensor_HO] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
@@ -157,26 +220,41 @@ The High Order WaveFront Sensor can be a **Pyramid WFS** or a **Shack-Hartmann**
 | `SigmaRON` | No | `float` |  _Default_: `0.0` <br /> Read-out noise std in **_[e-]_**, used only if the `NoiseVariance` is not set. |
 | `addMcaoWFsensConeError` | No | `string` | _Default_: `False` <br /> Additional error to consider the reduced sensing volume due to the cone effect. Multi-conjugate systems only.|
 
-### Wavefront sensor requirements
+  </code></pre>
+</details>
+
+<details>
+  <summary><strong> Wavefront sensor requirements </strong></summary>
+
+<!-- ### Wavefront sensor requirements -->
 <p align="justify">
 In the two following section we list the parameters that are specific to each wavefront sensor. If you define a parameter for one WFS while another WFS is defined The parameter will be ignired. For example, if you define the parameter `SigmaRON`, while WfsType is `Pyramid`, `SigmaRON` is ignored.
 </p>
 
 #### Shack-Hartmann requirements
 
+<pre><code>
+
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Algorithm` | not used | `string` |  _Default_: `wcog` <br /> Other options: `cog` (simple center-of-gravity), `tcog` (center-of-gravity with threshold), `qc` (quad-cell)|
 | `WindowRadiusWCoG` | not used | `int` |  _Default_: `2.0` <br /> FWHM in pixel of the gaussian weighting function. |
 
+  </code></pre>
+
 #### Pyramid requirements
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Modulation` | Yes | `float` | _Default_: `None` <br /> If the chosen wavefront sensor is the `Pyramid`, spot modulation radius in lambda/D units. This is ignored if the WFS is `Shack-Hartmann`.  <br /> _Warning_: gives a confusing message if missing when required. |
 | `Binning` | No | `integer` | _Default_: `1` <br /> Binning factor of the detector, only used in the pyramid case, optional for pyramid. |
 
+</code></pre>
+
 #### Can be set but not used
+<pre><code>
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Dark` | not used | `float` | _Default_: `0.0` <br /> Dark current in **_[e-/s/pix]_**.|
@@ -184,9 +262,18 @@ In the two following section we list the parameters that are specific to each wa
 | `ThresholdWCoG` | not used | `float`? | _Default_: `0.0` <br /> Threshold Number of pixels for windowing the low order WFS pixels. |
 | `NewValueThrPix` | not used  | `float` | _Default_: `0.0` <br /> New value for pixels lower than `ThresholdWCoG`. Is there a reason to want to force these values to something else? |
 
+</code></pre>
+
+</details>
+
 ### `[sensor_LO]`
 
 **Note:** This section is optional, if this section is not present only the HO part will be used (for ex. to simulate a SCAO NGS).
+
+<details>
+  <summary><strong> [sensor_LO] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
@@ -203,18 +290,31 @@ In the two following section we list the parameters that are specific to each wa
 | `NewValueThrPix` | Yes | `float` |  _Default_: `0.0` <br /> New value for pixels lower than threshold. |
 | `filtZernikeCov` | No | `string` |  _Default_: `False` <br /> Filter for the zernike covariance. The zernike cov. is used to quantify for the TT tomographic (anisoplanatic) error. This filter accounts for the HO correction of an MCAO system. Multi-conjugate systems only. <br /> _Warning_: Do not use in systems with a single DM. |
 
+</code></pre>
+
+
+
 #### Can be set but not used
+<pre><code>
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Binning` | not used | `integer` | _Default_: `1` <br /> Binning factor of the detector. |
 | `SpotFWHM` | not used | `list of list of int` | _Default_: `[[0.0,0.0,0.0]]` <br /> Low Order spot scale in **_[mas]_**. |
 | `Gain` | not used | `float` | _Default_: `1` <br /> Camera gain. |
 | `Algorithm` | not used | `string` | _Default_: `wcog` <br /> CoG computation algorithm. |
+</code></pre>
+
+</details>
 
 ### `[sensor_Focus]`
 <p align="justify">
 **Note:** This section is completely optional. The `[sensor_Focus]` section is required to have the global focus part simulated considering specific focus sensors and not the LO sensors. This happens when the key glFocusOnNGS in the `[telescope]` section is True and multiple DMs are present.
 </p>
+
+<details>
+  <summary><strong> [sensor_Focus] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
@@ -230,8 +330,16 @@ In the two following section we list the parameters that are specific to each wa
 | `ThresholdWCoG` | Yes | `float` |  _Default_: `0.0` <br /> Threshold Number of pixels for windowing the global focus WFS pixels. |
 | `NewValueThrPix` | Yes | `float` |  _Default_: `0.0` <br /> New value for pixels lower than threshold. |
 
+</code></pre>
+
+</details>
 
 ### `[DM]`
+
+<details>
+  <summary><strong> [DM] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
@@ -247,9 +355,18 @@ In the two following section we list the parameters that are specific to each wa
 | `NumberReconstructedLayers` | No | `integer` |  _Default_: `10` <br /> Only used for wide field AO system, (meaning more than one guide star is defined). Number of reconstructed layers for tomographic systems. Shouldn’t this be defaulted to 1 for SCAO sakes? |
 | `AoArea` | No | `string` |  _Default_: `circle` <br /> Shape of the AO-corrected area. Any other options are not defined and will give a squarre correction area. |
 
+</code></pre>
+
+</details>
+
 ### `[RTC]`
 
 **Note:** This section is optional, if this section is not present the defaul values are used.
+
+<details>
+  <summary><strong> [RTC] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
@@ -263,12 +380,25 @@ In the two following section we list the parameters that are specific to each wa
 | `SensorFrameRate_Focus` | No/Yes if Focus | `float` |  _Default_: `None` <br /> Global focus loop frequency in **_[Hz]_**. If `[sensor_Focus]` section is present it must be set. |
 | `LoopDelaySteps_Focus` | No/Yes if Focus | `integer` |  _Default_: `None` <br /> Global focus loop delays in **_[frames]_**. If `[sensor_Focus]` section is present it must be set. |
 
+</code></pre>
+
+</details>
+
 ### `[COMPUTATION]`
 
 **Note:** This section is optional, if this section is not present the defaul values are used.
+
+<details>
+  <summary><strong> [COMPUTATION] parameters </strong></summary>
+
+<pre><code>
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `platform` | No | `string` |  _Default_: `GPU` <br /> Set to it to `CPU` to forcy the library to use numpy instead of cupy.|
 | `integralDiscretization1` | No | `float` |  _Default_: `1000.0` <br /> Discretization used in the integrals (`astro-tiptop/SEEING library`).|
 | `integralDiscretization2` | No | `float` |  _Default_: `4000.0` <br /> Discretization used in the integrals (`astro-tiptop/SEEING library`).|
+
+</code></pre>
+
+</details>

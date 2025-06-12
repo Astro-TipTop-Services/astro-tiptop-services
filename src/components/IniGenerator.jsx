@@ -159,6 +159,7 @@ export default function IniGenerator() {
   const [selectedOption, setSelectedOption] = useState('ERIS_SCAO_NGS');
   const [params, setParams] = useState({ ...configPresets['ERIS_SCAO_NGS'] });
   const [generatedIni, setGeneratedIni] = useState('');
+  const [magnitude, setMagnitude] = useState('');
 
   const handleChange = (section, field, value) => {
     setParams((prev) => ({
@@ -174,6 +175,11 @@ export default function IniGenerator() {
     const opt = e.target.value;
     setSelectedOption(opt);
     setParams({ ...configPresets[opt] });
+  };
+
+    const magnitudeToPhotons = (mag, zp = 20) => {
+    const photons = Math.pow(10, (zp - mag) / 2.5);
+    return `[${photons.toFixed(1)}]`;
   };
 
   const generateIni = () => {
@@ -218,7 +224,7 @@ export default function IniGenerator() {
 
   return (
     <div style={{ border: '1px solid #ccc', padding: 16, margin: '20px 0' }}>
-      <h3>Generate your config.ini</h3>
+      <h3>Generate your config.ini - Work in progress - Not fully operational yet.</h3>
 
       <label>
         Select instrument:&nbsp;
@@ -262,6 +268,28 @@ export default function IniGenerator() {
   {Object.entries(editableFields).map(([section, fields]) => (
     <div key={section} style={{ marginBottom: '1em' }}>
       <strong>[{section}]</strong>
+
+          {section === 'sensor_HO' && (
+            <div style={{ marginTop: '0.5em' }}>
+              <label>
+                Magnitude:
+                <input
+                  type="number"
+                  value={magnitude}
+                  onChange={(e) => {
+                    const magValue = e.target.value;
+                    setMagnitude(magValue);
+                    const photons = magnitudeToPhotons(magValue);
+                    handleChange('sensor_HO', 'NumberPhotons', photons);
+                  }}
+                  style={{ marginLeft: 10 }}
+                />
+              </label>
+            </div>
+          )}
+
+
+      
       {Object.entries(fields).map(([field, type]) => (
         <div key={`${section}-${field}`} style={{ marginTop: '0.5em' }}>
           <label>

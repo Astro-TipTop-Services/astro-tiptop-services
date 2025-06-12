@@ -1,7 +1,7 @@
 ---
 id: parameterfiles
-title: Parameter files
-sidebar_label: Parameter files
+title: Parameter files explained
+sidebar_label: Parameter files explained
 ---
 
 ## Introduction
@@ -209,7 +209,7 @@ The High Order WaveFront Sensor can be a **Pyramid WFS** or a **Shack-Hartmann**
 | `PixelScale` | Yes | `integer` | High Order WFS pixel scale in **_[mas]_**. Not used when a **Pyramid** wavefront sensor has been selected. <br /> _Warning_: gives a confusing error message if missing. |
 | `FieldOfView` | Yes | `integer` | Number of pixels per subaperture. Not used when a **Pyramid** wavefront sensor has been selected (4 pixels are used in this case). <br /> _Warning_: gives a confusing error message if missing. |
 | `WfsType` | No | `string` |  _Default_: `Shack-Hartmann` <br /> Type of wavefront sensor used for the High Order sensing. Other available option: `Pyramid`. |
-| `NumberPhotons` | No | `list of int` |  _Default_: `[Inf]` <br /> Flux return in **_[nph/frame/subaperture]_**. <br /> It can be computed as: `0-magn-flux [ph/s/m2]) * (size of sub-aperture [m])^2 * (1/SensorFrameRate_HO) * (total throughput) * (10^(-0.4*magn_source_HO))`|
+| `NumberPhotons` | No | `list of int` |  _Default_: `[Inf]` <br /> Flux return in **_[nph/frame/subaperture]_**. <br /> It can be computed as: `(0-magn-flux [ph/s/m2]) * (size of sub-aperture [m])^2 * (1/SensorFrameRate_HO) * (total throughput) * (10^(-0.4*magn_source_HO))`|
 | `SpotFWHM` | No | `list of list of float` |  _Default_: `[[0.0,0.0,0.0]]` <br /> High Order spot parameters: two axes scale values in **_milliarcsec_** (only max value is used) and angle (angle is not used). Why list?|
 | `SpectralBandwidth` | No | `float` |  _Default_: `0.0` <br /> Not used, spectral bandwidth of the filter (imaging mode)? Why specific to the imaging mode? What is the effect?|
 | `Transmittance` | No | `list of float` |  _Default_: `[1.0]` <br /> Used for PSF computation and flux scaling but not with noise computation. Transmittance at the considered wavelengths for polychromatic mode. How do you set polychromatic mode? Each element can not have a value superior to 1? |

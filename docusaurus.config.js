@@ -137,7 +137,7 @@ const config = {
                 to: '/docs/orion/howtosetup',
               },
               {
-                label: '• Parameter files',
+                label: '• Parameter files explained',
                 to: '/docs/orion/parameterfiles',
               },
               {

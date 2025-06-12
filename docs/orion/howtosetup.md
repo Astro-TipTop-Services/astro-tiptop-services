@@ -22,11 +22,15 @@ The different AO modes are described here: [ESO - AO MODES](https://www.eso.org/
  <em><small>Image source: Adapted from Arseniy Kuznetsov, “Towards the next generation of tomographic AO-assisted instruments : Self-learning techniques for system optimization & science exploitation,” PhD thesis, Aix Marseille Université, 2024.</small></em>
 </p>
 
-🔴 Regardless of the AO system, configuration always starts with defining the telescope and the atmospheric conditions.
+➡️ **Regardless of the AO system, configuration always starts with defining the telescope and the atmospheric conditions.**
 </p>
 
 ## The telescope
-This section contains the parameters related to the telescope:
+
+This section contains an exemple set of parameters related to the telescope.
+
+<details>
+  <summary><strong>`[telescope]`</strong></summary>
 
 ```python
 [telescope]
@@ -80,8 +84,14 @@ and to the global focus control:
 glFocusOnNGS = True
 ```
 
+</details> 
+
 ## The atmosphere
-This section contains the atmospheric parameters, seeing (or r0), L0, Cn2 profile and wind profile:
+
+This section contains an exemple set of atmospheric parameters - seeing (or r0), L0, Cn2 profile and wind profile - for an atmosphere modeled with 10 layers.
+
+<details>
+  <summary><strong>`[atmosphere]`</strong></summary>
 
 ```python
 [atmosphere]
@@ -93,74 +103,157 @@ Cn2Heights = [30, 140, 281, 562, 1125, 2250, 4500, 7750, 11000, 14000]
 WindSpeed = [6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]
 WindDirection = [0., 0., 0., 0., 90., -90., -90., 90., 0., 0.]
 ```
+</details> 
 
 ## The adaptive optics system
 
-### SCAO: Single Conjugate Adaptive Optics
+### 🔵 SCAO: Single Conjugate Adaptive Optics {#scao}
 
-#### The wavefront sensor
-The Wavefront Sensor in a **SCAO** system (natural guide star only) can be a Pyramid sensor:
+For a SCAO system (using only one guide star), the configuration of the .`.ini` file (.ini) depends on the type of guide star
 
-```python
-[sensor_HO]
-# WFS type - optional - default : Shack-Hartmann
-WfsType = 'Pyramid'
-# Spot modulation radius in lambda/D units for pyramid WFS - optional - default : None
-Modulation = 3
-# HO WFS pixel scale in [mas] - required
-PixelScale = 220
-# Number of pixels per subaperture - required
-FieldOfView = 600
-# Flux return in [nph/frame/subaperture] - required
-NumberPhotons = [500]
-# read-out noise std in [e-] - required
-SigmaRON = 1.0
-# dark current[e-/s/pix] - optional - default: 0.0
-Dark = 0.2
-# Sky background [e-/s/pix] - optional - default: 0.0
-SkyBackground = 0.6
-# excess noise factor - optional - default: 2.0
-ExcessNoiseFactor = 1.0
-# Number of WFS lenslets - required
-NumberLenslets = [100]
-```
+#### ✴️ Natural Guide Star (NGS)
+If the guide star is a NGS, you must include and complete the following sections: `[sources_HO]` and `[sensor_HO]`. <br/>
+- `[sources_HO]` contains information about the NGS used for wavefront sensing, for example: <br/>
+    ```python   
+    [sources_HO]
+    # Sensing wavelength for HO modes in meters - required
+    Wavelength = 950e-9
+    # list of polar coordinates of the guide stars sources; zenith in arcsec and azimuth in degrees - optional - default [0.0]
+    Zenith = [0.0]
+    Azimuth = [0.0]
+    # altitude of the guide stars (0 if infinite) - optional - default: 0.0
+    Height = 0.0
+    ```
 
-or a Shack-Hartmann sensor:
+- `[sensor_HO]` contains information about the wavefront sensor configuration. <br/>
+    For example, in the case of a Shack-Hartmann wavefront sensor: 
+    <details> 
+  <summary><strong>Shack-Hartmann wavefront sensor - `[sensor_HO]`</strong></summary>
+    ```python
+    [sensor_HO]
+    WfsType = 'Shack-Hartmann'
+    Modulation = None
+    PixelScale = 832
+    FieldOfView = 6
+    Binning = 1
+    NumberPhotons = [100.0]
+    SigmaRON = 0.2
+    ExcessNoiseFactor = 2.0
+    # CoG computation algorithm - optional  -defaut:'wcog'
+    Algorithm = 'wcog'
+    # Number of pixels for windiwing the low order WFS pixels - optional - default: 2
+    WindowRadiusWCoG = 2
+    NumberLenslets = [40]
+    ``` 
+    </details> 
+    or a Pyramid wavefront sensor:
+    <details>
+  <summary><strong>Pyramid wavefront sensor - `[sensor_HO]`</strong></summary>
+    ```python
+    [sensor_HO]
+    # WFS type - optional - default : Shack-Hartmann
+    WfsType = 'Pyramid'
+    # Spot modulation radius in lambda/D units for pyramid WFS - optional - default : None
+    Modulation = 3
+    # HO WFS pixel scale in [mas] - required
+    PixelScale = 220
+    # Number of pixels per subaperture - required
+    FieldOfView = 600
+    # Flux return in [nph/frame/subaperture] - required
+    NumberPhotons = [500]
+    # read-out noise std in [e-] - required
+    SigmaRON = 1.0
+    # dark current[e-/s/pix] - optional - default: 0.0
+    Dark = 0.2
+    # Sky background [e-/s/pix] - optional - default: 0.0
+    SkyBackground = 0.6
+    # excess noise factor - optional - default: 2.0
+    ExcessNoiseFactor = 1.0
+    # Number of WFS lenslets - required
+    NumberLenslets = [100]
+    ```
+    </details> 
 
-```python
-[sensor_HO]
-WfsType = 'Shack-Hartmann'
-Modulation = None
-PixelScale = 832
-FieldOfView = 6
-Binning = 1
-NumberPhotons = [100.0]
-SigmaRON = 0.2
-ExcessNoiseFactor = 2.0
-# CoG computation algorithm - optional  -defaut:'wcog'
-Algorithm = 'wcog'
-# Number of pixels for windiwing the low order WFS pixels - optional - default: 2
-WindowRadiusWCoG = 2
-NumberLenslets = [40]
-```
+    **Note:** for a NGS only system, only the HO part is used.
+<!-- The Wavefront Sensor in a **SCAO** system (natural guide star only) can be a Pyramid sensor: -->
 
-Then a section with the guide star must be present:
 
-```python
-[sources_HO]
-# Sensing wavelength for HO modes in meters - required
-Wavelength = 950e-9
-# list of polar coordinates of the guide stars sources; zenith in arcsec and azimuth in degrees - optional - default [0.0]
-Zenith = [0.0]
-Azimuth = [0.0]
-# altitude of the guide stars (0 if infinite) - optional - default: 0.0
-Height = 0.0
-```
-#### The deformable mirror
+#### ✳️ Laser Guide Star (LGS)
+If the guide star is a LGS, you must include and complete the following sections: `[sources_HO]`, `[sensor_HO]` **and** `[sources_LO]`, `[sensor_LO]` 
+- `[sources_HO]` contains information about the LGS used for wavefront sensing, for example: <br/>
+    ```python
+    [sources_HO]
+    Wavelength = [589e-9]
+    Zenith = [0.0]
+    Azimuth = [0.0]
+    Height = 90000
+    ```
+- `[sensor_HO]` contains information about the wavefront sensor configuration. <br/>
+    For example, in the case of a Shack-Hartmann wavefront sensor: 
+    <details>
+    <summary><strong>Shack-Hartmann wavefront sensor - `[sensor_HO]`</strong></summary>
+    ```python
+    [sensor_HO]
+    WfsType = 'Shack-Hartmann'
+    Modulation = None
+    PixelScale = 832
+    FieldOfView = 6
+    Binning = 1
+    NumberPhotons = [100.0]
+    SigmaRON = 0.2
+    ExcessNoiseFactor = 2.0
+    # CoG computation algorithm - optional  -defaut:'wcog'
+    Algorithm = 'wcog'
+    # Number of pixels for windiwing the low order WFS pixels - optional - default: 2
+    WindowRadiusWCoG = 2
+    NumberLenslets = [40]
+    ```
+    </details> 
+
+- `[sources_LO]` contains information about the NGS used <!-- for tip-tilt sensing and  -->for estimating the residual jitter, for example:
+    ```python
+    [sources_LO]
+    Wavelength = [1650e-09]
+    Zenith = [0.0]
+    Azimuth = [0.0]
+    ```
+- `[sensor_LO]` contains information about the wavefront sensor configuration, for example. <br/>
+    <details>
+    <summary><strong>Wavefront sensor - `[sensor_LO]`</strong></summary>
+    ```python
+    [sensor_LO]
+    PixelScale = 16.0
+    FieldOfView = 100
+    Binning = 1
+    NumberPhotons = [100.0]
+    SpotFWHM = [[0.0]]
+    SigmaRON = 0.5
+    Dark = 40.0
+    SkyBackground = 120.0
+    Gain = 1.0
+    ExcessNoiseFactor = 1.3
+    # note 2x2 is required to provide focus control
+    # (see glFocusOnNGS in telescope section)
+    NumberLenslets = [2]
+    Algorithm = 'wcog'
+    WindowRadiusWCoG = 'optimize'
+    ThresholdWCoG = 0.0
+    NewValueThrPix = 0.0
+    noNoise = False
+    filtZernikeCov = True
+    ```
+    </details> 
+
+
+
+
+#### 🔘 The deformable mirror
 <p align="justify">
-The deformable mirror is used to achieve wavefront control and correction and this section contains the following parameters:
+The deformable mirror is used to achieve wavefront control and correction. The [DM] section contains the following parameters:
 </p>
 
+<details>
+   <summary><strong>`[DM]`</strong></summary>
 ```python
 [DM]
 # DM actuators pitch in meters - required
@@ -186,53 +279,79 @@ NumberReconstructedLayers= 10
 # Shape of the AO-corrected area - optional - default: 'circle'
 AoArea = 'circle'
 ```
+</details>
 
-#### The real time controler
+#### 📟 The real time controler {#scao-rtc}
 This section contains the details of the control, the framerate and the delay:
-
+<details>
+   <summary><strong>`[RTC]`</strong></summary>
 ```python
 [RTC]
-# HO Loop gain - required
+# HO loop gain - required
 LoopGain_HO = 0.5
 # HO loop frequency in [Hz] - required
 SensorFrameRate_HO = 500.0
 # HO loop frame delay - required
 LoopDelaySteps_HO = 1
+# ❗Optionnal - if LO part simulated
+# LO loop gain
+LoopGain_LO = 'optimize'
+# LO loop frequency
+SensorFrameRate_LO = 500.0
+# LO loop frame delay
+LoopDelaySteps_LO = 2
 ```
+</details>
 
 
-### MCAO: Multi Conjugate Adaptive Optics
+### 🟣 MCAO: Multi Conjugate Adaptive Optics {#mcao}
 <p align="justify">
-#### The wavefront sensor
-For an **MCAO** system with multiple NAtural Guide Stars (NGSs), the difference here is that `NumberPhotons` and `NumberLenslets` are vectors as are `Zenith` and `Azimuth` in the `soruces_HO` section.
 
-If the system have Laser Guide Stars (LGSs) and NGSs these sections are present:
+For an **MCAO** system with multiple **NGSs**, the difference is that `NumberPhotons` and `NumberLenslets` in `[sensor_HO]` section are lists with multiple elements, as are `Zenith` and `Azimuth` in the `[sources_HO]` section.
+
+If the system have multiple **LGSs** and **NGSs**, `NumberPhotons`, `NumberLenslets` in `[sensor_LO]` and `Zenith` and `Azimuth` in the `[sources_LO]` section, are also lists with multiple elements.
+For example:
 </p>
+<details>
+   <summary><strong>`[sources_HO]`, `[sensor_HO]` and `[sources_LO]`, `[sensor_LO]` </strong></summary>
 
 ```python
+[sources_HO]
+Wavelength = [589e-9]
+Zenith = [45, 45, 45, 45, 45, 45]
+Azimuth = [0, 60, 120, 180, 240, 300]
+Height = 90e3
+
 [sources_LO]
 Wavelength = [1650e-9]
 Zenith = [66.6, 79.3, 69.0]
 Azimuth = [221.7, 321.2, 106.6]
 
+[sensor_HO]
+WfsType = 'Shack-Hartmann'
+Modulation = None
+NumberLenslets = [68, 68, 68, 68, 68, 68]
+PixelScale = 1200
+FieldOfView = 14
+NumberPhotons = [500, 500, 500, 500, 500, 500]
+SpotFWHM = [[2500.0, 2500.0, 0.0]]
+WindowRadiusWCoG = 6
+SigmaRON = 3.0
+Algorithm = 'wcog'
+addMcaoWFsensConeError = True
+
 [sensor_LO]
-PixelScale = 16.0
-FieldOfView = 100
+PixelScale = 8.0
+FieldOfView = 200
 Binning = 1
-# zero magnitude flux 8.17e11ph/s (H band)
-# magnitudes 10.7, 16.3, 14.5
-# 2x2 sub-apertures and 250 Hz framerate
-# --> 8.17e11*10**(-[10.7,16.3,14.5]/2.5)/4/250.
-NumberPhotons = [42900,247,1300]
-SpotFWHM = [[0.0,0.0,0.0]]
+NumberPhotons = [172000, 987, 5180]
+SpotFWHM = [[0.0, 0.0, 0.0]]
 SigmaRON = 0.5
 Dark = 40.0
 SkyBackground = 120.0
 Gain = 1.0
 ExcessNoiseFactor = 1.3
-# note 2x2 is required to provide focus control
-# (see glFocusOnNGS in telescope section)
-NumberLenslets = [2, 2, 2]
+NumberLenslets = [1, 1, 1]
 Algorithm = 'wcog'
 WindowRadiusWCoG = 'optimize'
 ThresholdWCoG = 0.0
@@ -240,53 +359,65 @@ NewValueThrPix = 0.0
 noNoise = False
 filtZernikeCov = True
 ```
+</details>
 
-#### The deformable mirror
+
+#### 🔘 The deformable mirror
+
 <p align="justify">
-For an **MCAO** system with multiple DM, the difference here is that `NumberActuators`, `DmPitchs`, `InfCoupling` and `DmHeights` are vectors.
+For an **MCAO** system with multiple DMs, the difference here is that `NumberActuators`, `DmPitchs`, `InfCoupling` and `DmHeights` are vectors. For example:
 </p>
-
-#### The real time controler
-
-If the system have Laser Guide Stars (LGSs) and NGSs this section has the following parameters:
+<details>
+   <summary><strong>`[DM]`</strong></summary>
 
 ```python
-LoopGain_LO = 'optimize'
-SensorFrameRate_LO = 250.0
-LoopDelaySteps_LO = 1
-
+NumberActuators = [80, 30, 35]
+DmPitchs = [0.5, 1.4, 1.4]
+InfModel = 'gaussian'
+InfCoupling = [0.2,0.2,0.2]
+DmHeights = [600 , 6500, 17500]
+OptimizationZenith = [0, 30, 30, 30, 30, 30, 30, 30, 30, 80, 80, 80, 80, 80, 80, 80, 80]
+OptimizationAzimuth = [0 , 0 , 45 , 90 , 135 , 180 , 225 , 270 , 315 , 0 , 45 , 90 , 135 , 180 , 225 , 270 , 315]
+OptimizationWeight = [10 , 20 , 20 , 20 , 20 , 20 , 20 , 20 , 20 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,1]
+OptimizationConditioning = 1.0e4
+NumberReconstructedLayers = 10
+AoArea = 'circle'
 ```
+</details>
+
+#### 📟 The real time controler
+
+Like a [**SCAO**](#scao-rtc) system.
 
 
+### 🟢 LTAO: Laser Tomography Adaptive Optics
 
-### LTAO: Laser Tomography Adaptive Optics
+#### 🎛️ The wavefront sensor
 
-#### The wavefront sensor
+As for the [**SCAO**](#scao) and [**MCAO**](#mcao) system when **LGSs** and **NGSs** are present, the sections `[sources_LO]` and `[sensor_LO]` must be added.
 
-As for the **MCAO** system when LGSs and NGSs are present the sections `[sources_LO]` and `[sensor_LO]` must be added.
+#### 🔘 The deformable mirror
 
-#### The deformable mirror
+Like for a [**SCAO**](#scao) system.
 
-Like for a **SCAO** system.
+#### 📟 The real time controler
 
-#### The real time controler
-
-Like for a **MCAO** system with LGSs and NGSs.
-
-
-### GLAO: Ground Layer Adaptive Optics
+Like for a [**SCAO**](#scao) system with LGS and NGS.
 
 
-#### The wavefront sensor
+### 🟤 GLAO: Ground Layer Adaptive Optics
 
-Like for a **MCAO** system.
 
-#### The deformable mirror
+#### 🎛️ The wavefront sensor
 
-Like for a **SCAO** system.
+Like for a [**MCAO**](#mcao) system.
 
-#### The real time controler
+#### 🔘 The deformable mirror
 
-Like for a **MCAO** system.
+Like for a [**SCAO**](#scao) system.
+
+#### 📟 The real time controler
+
+Like for a [**MCAO**](#mcao) system.
 
 

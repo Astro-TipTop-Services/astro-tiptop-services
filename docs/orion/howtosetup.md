@@ -175,12 +175,11 @@ If the guide star is a NGS, you must include and complete the following sections
     </details> 
 
     **Note:** for a NGS only system, only the HO part is used.
-<!-- The Wavefront Sensor in a **SCAO** system (natural guide star only) can be a Pyramid sensor: -->
 
 
 #### ✳️ Laser Guide Star (LGS)
 If the guide star is a LGS, you must include and complete the following sections: `[sources_HO]`, `[sensor_HO]` **and** `[sources_LO]`, `[sensor_LO]` 
-- `[sources_HO]` contains information about the LGS used for wavefront sensing, for example: <br/>
+- `[sources_HO]` contains information about the **LGS** used for wavefront sensing, for example: <br/>
     ```python
     [sources_HO]
     Wavelength = [589e-9]
@@ -210,7 +209,7 @@ If the guide star is a LGS, you must include and complete the following sections
     ```
     </details> 
 
-- `[sources_LO]` contains information about the NGS used <!-- for tip-tilt sensing and  -->for estimating the residual jitter, for example:
+- `[sources_LO]` contains information about the **NGS** used <!-- for tip-tilt sensing and  -->for estimating the residual jitter, for example:
     ```python
     [sources_LO]
     Wavelength = [1650e-09]

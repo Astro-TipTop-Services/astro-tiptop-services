@@ -20,7 +20,7 @@ const configPresets = {
       r0_Value: 0,
       testWindspeed: 0,
     },
-    sources_science: {
+    sources_sciences: {
       Wavelength: '[1.650e-06]',
       Zenith: '[0.0]',
       Azimuth: '[0.0]',
@@ -79,7 +79,7 @@ const configPresets = {
       r0_Value: 0,
       testWindspeed: 0,
     },
-    sources_science: {
+    sources_sciences: {
       Wavelength: '[1.650e-06]',
       Zenith: '[0.0]',
       Azimuth: '[0.0]',
@@ -195,24 +195,13 @@ const getBandFromWavelength = (lambda) => {
   return 'Unknown';
 };
 
-const wavelengthByBand = {
-  J: 1.28e-6, // m
-  H: 1.66e-6,
-  K: 2.18e-6,
-  L: 3.32e-6,
-  // M: 4.8e-6,
-  // N: 10e-6,
-  // Q: 20e-6,
-};
-
-
 export default function IniGenerator() {
   const [selectedOption, setSelectedOption] = useState('ERIS_SCAO_NGS');
   const [params, setParams] = useState({ ...configPresets['ERIS_SCAO_NGS'] });
   const [generatedIni, setGeneratedIni] = useState('');
   const [Seeing, setSeeing] = useState("");
   const [magnitude, setMagnitude] = useState('');
-  // const [loPart, setLoPart] = useState(false); // for SCAO LGS only
+  const [loPart, setLoPart] = useState(false); // for SCAO LGS only
 
   const systemKey = presetToKey[selectedOption];
 
@@ -230,7 +219,7 @@ export default function IniGenerator() {
     const opt = e.target.value;
     setSelectedOption(opt);
     setParams({ ...configPresets[opt] });
-    // setLoPart(true);
+    setLoPart(false);
     setMagnitude('');
   };
 
@@ -242,7 +231,7 @@ export default function IniGenerator() {
       let wavelengthKey = 'sources_HO';
       let rtcFrameRateKey = 'SensorFrameRate_HO';
 
-      if (systemKey === 'SCAO_LGS') {
+      if (systemKey === 'SCAO_LGS' && loPart) {
         sensorKey = 'sensor_LO';
         wavelengthKey = 'sources_LO';
         rtcFrameRateKey = 'SensorFrameRate_LO';
@@ -290,8 +279,7 @@ export default function IniGenerator() {
 
     if (!magValue || isNaN(magValue)) {
       // Valeur nulle => reset à 0
-      const section = systemKey === 'SCAO_LGS' ? 'sensor_LO' : 'sensor_HO';
-      handleChange(section, 'NumberPhotons', '[0]');
+      handleChange(systemKey === 'SCAO_LGS' && loPart ? 'sensor_LO' : 'sensor_HO', 'NumberPhotons', '[0]');
       return;
       // handleChange('sensor_HO', 'NumberPhotons', params.sensor_HO.NumberPhotons);
       // handleChange('sensor_LO', 'NumberPhotons', params.sensor_LO.NumberPhotons);
@@ -300,15 +288,12 @@ export default function IniGenerator() {
 
     const photons = magnitudeToPhotons(Number(magValue));
 
-    if (systemKey === 'SCAO_LGS') {
+    if (systemKey === 'SCAO_LGS' && loPart) {
       handleChange('sensor_LO', 'NumberPhotons', photons);
     } else {
       handleChange('sensor_HO', 'NumberPhotons', photons);
     }
   };
-
-  const [selectedBand, setSelectedBand] = useState('');
-
 
   //*********generateIni**********
   const generateIni = () => {
@@ -316,9 +301,9 @@ export default function IniGenerator() {
   let iniString = '';
 
   for (const section in iniSections) {
-    // if (systemKey === 'SCAO_LGS' && section === 'sensor_HO') continue;
-    // if (loPart && section === 'sensor_HO') continue;
-    // if (!loPart && (section === 'sensor_LO' || section === 'sources_LO')) continue;
+    if (systemKey === 'SCAO_LGS' && loPart && section === 'sensor_HO') continue;
+    if (loPart && section === 'sensor_HO') continue;
+    if (!loPart && (section === 'sensor_LO' || section === 'sources_LO')) continue;
 
     iniString += `[${section}]\n`;
 
@@ -339,10 +324,10 @@ export default function IniGenerator() {
         let value = fields[key];
         const expectedType = editableFields[section]?.[key];
 
-        // if (!loPart) {
-        //   // if (section === 'sources_HO' && key === 'Wavelength') continue;
-        //   if (section === 'RTC' && key.includes('_LO')) continue;
-        // }
+        if (!loPart) {
+          // if (section === 'sources_HO' && key === 'Wavelength') continue;
+          if (section === 'RTC' && key.includes('_LO')) continue;
+        }
 
         if (expectedType === 'number') {
           value = Number(value);
@@ -366,17 +351,37 @@ export default function IniGenerator() {
     setGeneratedIni(iniString.trim());
   };
 
+  // const getCurrentBand = () => {
+  //   let wavelengthRaw = null;
+  //   if ((systemKey === 'SCAO_NGS') || (systemKey === 'SCAO_LGS' && !loPart)) {
+  //     wavelengthRaw = params.sources_HO?.Wavelength;
+  //   } else if (systemKey === 'SCAO_LGS' && loPart) {
+  //     wavelengthRaw = params.sources_LO?.Wavelength;
+  //   }
+
+  //   if (!wavelengthRaw) return '';
+
+  //   let lambda = 0;
+  //   if (typeof wavelengthRaw === 'string') {
+  //     lambda = Number(wavelengthRaw.replace(/[\[\]]/g, ''));
+  //   } else {
+  //     lambda = Number(wavelengthRaw);
+  //   }
+  //   return getBandFromWavelength(lambda);
+  // };
+
+
   useEffect(() => {
     if (!magnitude || isNaN(magnitude)) return;
 
     const photons = magnitudeToPhotons(Number(magnitude));
 
-    if (systemKey === 'SCAO_LGS') {
+    if (systemKey === 'SCAO_LGS' && loPart) {
       handleChange('sensor_LO', 'NumberPhotons', photons);
     } else {
       handleChange('sensor_HO', 'NumberPhotons', photons);
     }
-  }, [params.sources_HO?.Wavelength, params.sources_LO?.Wavelength, magnitude, systemKey]);
+  }, [params.sources_HO?.Wavelength, params.sources_LO?.Wavelength, magnitude, systemKey, loPart]);
 
   return (
     <div style={{ border: '1px solid #ccc', padding: 16, margin: '20px 0' }}>
@@ -391,105 +396,68 @@ export default function IniGenerator() {
         </select>
       </label>
 
-      {/* Conditional display according to system */}
-      {systemKey === 'SCAO_NGS' && (
-        <div style={{ marginTop: 16, marginBottom: 16, fontWeight: 'bold' }}>
-          NGS only system ✴️ <br/> HO part: Science - NGS 
-        </div>
-      )}
-
-       {systemKey === 'SCAO_LGS' && (
-        <div style={{ marginTop: 16, marginBottom: 10, fontWeight: 'bold' }}>
-          HO part: Science - LGS ✳️ <br/> LO part: NGS ✴️
-        </div>
-      )}
-
        <hr />
-
 
       {/* Always show seeing */}
       <div style={{ marginBottom: 16 }}>
-        <div style={{ marginBottom: '0.5rem' }}>
-          <strong>[sources_science]</strong> </div>
         <label>
           Seeing (arcsec):&nbsp;
           <input
             type="number"
             value={params.atmosphere.Seeing}
             step="0.01"
-            onChange={(e) => {const val = parseFloat(e.target.value);
-            if (!isNaN(val) && val > 0.19 && val < 5.01) {
-              handleChange('atmosphere', 'Seeing', val);
-            }
-            }}
+            onChange={(e) => handleChange('atmosphere', 'Seeing', parseFloat(e.target.value))}
             style={{ marginLeft: 10 }}
           />
         </label>
       </div>
 
+      {/* onChange={(e) => {
+        const val = parseFloat(e.target.value);
+        if (!isNaN(val) && val > 0 && val < 5) {
+          handleChange('atmosphere', 'Seeing', val);
+        }
+      }} */}
 
-
-      {params.sources_science && (
-        <div style={{ marginBottom: '1rem' }}>
-          <strong>[sources_science]</strong>
-          <div style={{ marginTop: '0.5em' }}>
-          <label>
-            Band:&nbsp;
-            <select
-              value={selectedBand}
-              onChange={(e) => {
-              const band = e.target.value;
-              setSelectedBand(band);
-              const raw = wavelengthByBand[band];
-              const wavelength = raw ? raw.toExponential() : '0';
-              handleChange('sources_science', 'Wavelength', `[${wavelength}]`);
-            }}
-            >
-            <option value="">-- Select Band --</option>
-            {Object.entries(wavelengthByBand).map(([band, lambda]) => {
-            const lambdaNum = parseFloat(lambda);
-            return (
-            <option key={band} value={band}>
-              {band} ({(lambdaNum * 1e6).toFixed(2)} µm)
-            </option>
-            );  
-          })}
-          </select>
-          {selectedBand && (
-          <span style={{ marginLeft: '10px', color: '#555' }}>
-            λ = {wavelengthByBand[selectedBand] * 1e9} nm
-          </span>
-          )}
-          </label>
+      {/* Conditional display according to system */}
+      {systemKey === 'SCAO_NGS' && (
+        <div style={{ marginBottom: 16, fontWeight: 'bold' }}>
+          NGS only system - HO part: Science - NGS 
         </div>
-        <div style={{ marginTop: '0.5em' }}>
-        <label>
-          Zenith (arcsec):
-          <input
-            type="number"
-            value={
-              typeof params.sources_science.Zenith === 'string'
-                ? params.sources_science.Zenith.replace(/[\[\]]/g, '')
-                : params.sources_science.Zenith
-            }
-            step="0.01"
-            onChange={(e) => {
-              const val = e.target.value;
-              if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
-                handleChange('sources_science', 'Zenith', `[${val}]`);
-              }
-            }}
-            style={{ marginLeft: 10 }}
+      )}
+
+      {systemKey === 'SCAO_LGS' && (
+        <div style={{ marginBottom: 16, fontWeight: 'bold' }}>
+          HO part: Science - LGS ✔️
+        </div>
+      )}
+
+      {systemKey === 'SCAO_LGS' && (
+        <div style={{ marginBottom: 16 }}>
+          <label>
+            LO part - NGS?&nbsp;
+            <input
+              type="checkbox"
+              checked={loPart}
+              onChange={(e) => {
+                setLoPart(e.target.checked);
+                setMagnitude('');
+                // reset photons
+                handleChange('sensor_HO', 'NumberPhotons', configPresets[selectedOption].sensor_HO.NumberPhotons);
+                handleChange('sensor_LO', 'NumberPhotons', configPresets[selectedOption].sensor_LO.NumberPhotons);
+              }}
             />
           </label>
         </div>
-      </div>
       )}
 
-        {systemKey === 'SCAO_NGS' && params.sources_HO && (
+      {/* Stop here if ERIS_SCAO_LGS and LO part not selected */}
+      {!(systemKey === 'SCAO_LGS' && !loPart) && (
+        <>
+        {(systemKey === 'SCAO_NGS' || (systemKey === 'SCAO_LGS' && !loPart)) && params.sources_HO && (
         <div style={{ marginBottom: '1em' }}>
           <strong>[sources_HO]</strong>
-          {/* <div style={{ marginTop: '0.5em' }}>
+          <div style={{ marginTop: '0.5em' }}>
             <label>
               Wavelength (m):
               <input
@@ -510,27 +478,6 @@ export default function IniGenerator() {
             </label>
             <span>
               Band: {getBandFromWavelength(
-                Number(
-                  typeof params.sources_HO.Wavelength === 'string'
-                    ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
-                    : params.sources_HO.Wavelength
-                  )
-              )}
-           </span>
-          </div> */}
-          <div style={{marginTop: '0.5em'}}>
-              NGS Wavelength set at {' '}
-              <span> 
-                {Number(
-                      typeof params.sources_HO.Wavelength === 'string'
-                      ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
-                      : params.sources_HO.Wavelength
-                )*1e9}{' '}
-                nm | 
-              </span> {' '}
-              Band:{' '}
-              <span>
-               {getBandFromWavelength(
                 Number(
                   typeof params.sources_HO.Wavelength === 'string'
                     ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
@@ -563,10 +510,10 @@ export default function IniGenerator() {
         </div>
         )}
       
-        {systemKey === 'SCAO_LGS' && params.sources_LO && (
+        {systemKey === 'SCAO_LGS' && loPart && params.sources_LO && (
         <div style={{ marginBottom: '1em' }}>
           <strong>[sources_LO]</strong>
-          {/* <div style={{ marginTop: '0.5em' }}>
+          <div style={{ marginTop: '0.5em' }}>
             <label>
               Wavelength (m):
               <input
@@ -594,27 +541,6 @@ export default function IniGenerator() {
               )
               )}
               </span>
-            </div> */}
-            <div style={{marginTop: '0.5em'}}>
-              NGS Wavelength set at {' '}
-              <span> 
-                {Number(
-                      typeof params.sources_LO.Wavelength === 'string'
-                      ? params.sources_LO.Wavelength.replace(/[\[\]]/g, '')
-                      : params.sources_LO.Wavelength
-                )*1e9}{' '}
-                nm | 
-              </span> {' '}
-              Band:{' '}
-              <span>
-               {getBandFromWavelength(
-                Number(
-                  typeof params.sources_LO.Wavelength === 'string'
-                    ? params.sources_LO.Wavelength.replace(/[\[\]]/g, '')
-                    : params.sources_LO.Wavelength
-                  )
-              )}
-             </span>
             </div>
             <div style={{ marginTop: '0.5em' }}>
               <label>
@@ -640,7 +566,7 @@ export default function IniGenerator() {
           </div>
         )}
 
-        {(systemKey === 'SCAO_NGS') && params.sensor_HO && (
+        {((systemKey === 'SCAO_NGS') || (systemKey === 'SCAO_LGS' && !loPart)) && params.sensor_HO && (
           <div style={{ marginBottom: '1em' }}>
             <strong>[sensor_HO]</strong>
             <div style={{ marginTop: '0.5em' }}>
@@ -671,7 +597,7 @@ export default function IniGenerator() {
         )}
 
         {/* Display of editable fields according to LO part */}
-        {systemKey === 'SCAO_LGS' && params.sensor_LO && (
+        {systemKey === 'SCAO_LGS' && loPart && params.sensor_LO && (
           <div style={{ marginBottom: '1em' }}>
             <strong>[sensor_LO]</strong>
             <div style={{ marginTop: '0.5em' }}>
@@ -700,7 +626,8 @@ export default function IniGenerator() {
             ))}
           </div>
         )}
-
+        </>
+      )}
 
       <button onClick={generateIni} style={{ marginTop: 10 }}>Generate INI </button>
 

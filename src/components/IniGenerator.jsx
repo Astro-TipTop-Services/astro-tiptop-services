@@ -292,13 +292,15 @@ export default function IniGenerator() {
     }
   };
 
+  // generateIni
   const generateIni = () => {
   const iniSections = { ...params };
   let iniString = '';
 
   for (const section in iniSections) {
     if (systemKey === 'SCAO_LGS' && loPart && section === 'sensor_HO') continue;
-    if (systemKey === 'SCAO_LGS' && !loPart && section === 'sensor_LO') continue;
+    if (loPart && section === 'sensor_HO') continue;
+    if (!loPart && (section === 'sensor_LO' || section === 'sources_LO')) continue;
 
     iniString += `[${section}]\n`;
 
@@ -318,6 +320,11 @@ export default function IniGenerator() {
       for (const key in fields) {
         let value = fields[key];
         const expectedType = editableFields[section]?.[key];
+
+        if (!loPart) {
+          if (section === 'sources_HO' && key === 'Wavelength') continue;
+          if (section === 'RTC' && key.includes('_LO')) continue;
+        }
 
         if (expectedType === 'number') {
           value = Number(value);
@@ -412,13 +419,13 @@ export default function IniGenerator() {
       {/* Conditional display according to system */}
       {systemKey === 'SCAO_NGS' && (
         <div style={{ marginBottom: 16, fontWeight: 'bold' }}>
-          NGS only system
+          NGS only system - HO part: Science - NGS 
         </div>
       )}
 
       {systemKey === 'SCAO_LGS' && (
         <div style={{ marginBottom: 16, fontWeight: 'bold' }}>
-          HO part - LGS ✔️
+          HO part: Science - LGS ✔️
         </div>
       )}
 

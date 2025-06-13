@@ -388,6 +388,7 @@ export default function IniGenerator() {
 
        <hr />
 
+      {/* Always show seeing */}
       <div style={{ marginBottom: 16 }}>
         <label>
           Seeing (arcsec):&nbsp;
@@ -408,7 +409,7 @@ export default function IniGenerator() {
         }
       }} */}
 
-      {/* Affichage conditionnel selon système */}
+      {/* Conditional display according to system */}
       {systemKey === 'SCAO_NGS' && (
         <div style={{ marginBottom: 16, fontWeight: 'bold' }}>
           NGS only system
@@ -416,9 +417,15 @@ export default function IniGenerator() {
       )}
 
       {systemKey === 'SCAO_LGS' && (
+        <div style={{ marginBottom: 16, fontWeight: 'bold' }}>
+          HO part - LGS ✔️
+        </div>
+      )}
+
+      {systemKey === 'SCAO_LGS' && (
         <div style={{ marginBottom: 16 }}>
           <label>
-            LO part?&nbsp;
+            LO part - NGS?&nbsp;
             <input
               type="checkbox"
               checked={loPart}
@@ -434,136 +441,140 @@ export default function IniGenerator() {
         </div>
       )}
 
-
-      {(systemKey === 'SCAO_NGS' || (systemKey === 'SCAO_LGS' && !loPart)) && params.sources_HO && (
-      <div style={{ marginBottom: '1em' }}>
-        <strong>[sources_HO]</strong>
-        <div style={{ marginTop: '0.5em' }}>
-          <label>
-            Wavelength (m):
-            <input
-              type="text"
-              value={
-                typeof params.sources_HO.Wavelength === 'string'
-                  ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
-                  : params.sources_HO.Wavelength
-                }
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
-                    handleChange('sources_HO', 'Wavelength', `[${val}]`);
-                }
-              }}
-              style={{ marginLeft: 10, marginRight: 10 }}
-              />
+      {/* Stop here if ERIS_SCAO_LGS and LO part not selected */}
+      {!(systemKey === 'SCAO_LGS' && !loPart) && (
+        <>
+        {(systemKey === 'SCAO_NGS' || (systemKey === 'SCAO_LGS' && !loPart)) && params.sources_HO && (
+        <div style={{ marginBottom: '1em' }}>
+          <strong>[sources_HO]</strong>
+          <div style={{ marginTop: '0.5em' }}>
+            <label>
+              Wavelength (m):
+              <input
+                type="text"
+                value={
+                  typeof params.sources_HO.Wavelength === 'string'
+                    ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
+                    : params.sources_HO.Wavelength
+                  }
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
+                      handleChange('sources_HO', 'Wavelength', `[${val}]`);
+                  }
+                }}
+                style={{ marginLeft: 10, marginRight: 10 }}
+                />
             </label>
-          <span>
-            Band: {getBandFromWavelength(
-              Number(
-                typeof params.sources_HO.Wavelength === 'string'
-                  ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
-                  : params.sources_HO.Wavelength
-                )
-            )}
-          </span>
+            <span>
+              Band: {getBandFromWavelength(
+                Number(
+                  typeof params.sources_HO.Wavelength === 'string'
+                    ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
+                    : params.sources_HO.Wavelength
+                  )
+              )}
+           </span>
+          </div>
         </div>
-      </div>
-      )}
+        )}
       
-      {systemKey === 'SCAO_LGS' && loPart && params.sources_LO && (
-      <div style={{ marginBottom: '1em' }}>
-        <strong>[sources_LO]</strong>
-        <div style={{ marginTop: '0.5em' }}>
-          <label>
-            Wavelength (m):
-            <input
-              type="text"
-              value={
-                typeof params.sources_LO.Wavelength === 'string'
+        {systemKey === 'SCAO_LGS' && loPart && params.sources_LO && (
+        <div style={{ marginBottom: '1em' }}>
+          <strong>[sources_LO]</strong>
+          <div style={{ marginTop: '0.5em' }}>
+            <label>
+              Wavelength (m):
+              <input
+                type="text"
+                value={
+                  typeof params.sources_LO.Wavelength === 'string'
+                    ? params.sources_LO.Wavelength.replace(/[\[\]]/g, '')
+                    : params.sources_LO.Wavelength
+                  }
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
+                      handleChange('sources_LO', 'Wavelength', `[${val}]`);
+                  }
+                }}
+                style={{ marginLeft: 10, marginRight: 10 }}
+                />
+              </label>
+              <span>
+              Band: {getBandFromWavelength(
+                Number(
+                  typeof params.sources_LO.Wavelength === 'string'
                   ? params.sources_LO.Wavelength.replace(/[\[\]]/g, '')
                   : params.sources_LO.Wavelength
-                }
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
-                    handleChange('sources_LO', 'Wavelength', `[${val}]`);
-                }
-              }}
-              style={{ marginLeft: 10, marginRight: 10 }}
-              />
-            </label>
-        <span>
-          Band: {getBandFromWavelength(
-            Number(
-              typeof params.sources_LO.Wavelength === 'string'
-                ? params.sources_LO.Wavelength.replace(/[\[\]]/g, '')
-                : params.sources_LO.Wavelength
-            )
-          )}
-        </span>
-        </div>
-      </div>
-      )}
-
-      {((systemKey === 'SCAO_NGS') || (systemKey === 'SCAO_LGS' && !loPart)) && params.sensor_HO && (
-        <div style={{ marginBottom: '1em' }}>
-          <strong>[sensor_HO]</strong>
-          <div style={{ marginTop: '0.5em' }}>
-            <label>
-              Magnitude:
-              <input
-                type="number"
-                value={magnitude}
-                onChange={(e) => onMagnitudeChange(e.target.value)}
-                style={{ marginLeft: 10 }}
-              />
-            </label>
+              )
+              )}
+              </span>
+            </div>
           </div>
-          {Object.entries(editableFields.sensor_HO).map(([field, type]) => (
-            <div key={`sensor_HO-${field}`} style={{ marginTop: '0.5em' }}>
+        )}
+
+        {((systemKey === 'SCAO_NGS') || (systemKey === 'SCAO_LGS' && !loPart)) && params.sensor_HO && (
+          <div style={{ marginBottom: '1em' }}>
+            <strong>[sensor_HO]</strong>
+            <div style={{ marginTop: '0.5em' }}>
               <label>
-                {field}:
+                Magnitude:
                 <input
-                  type={type === 'number' ? 'number' : 'text'}
-                  value={params.sensor_HO[field]}
-                  onChange={(e) => handleChange('sensor_HO', field, e.target.value)}
+                  type="number"
+                  value={magnitude}
+                  onChange={(e) => onMagnitudeChange(e.target.value)}
                   style={{ marginLeft: 10 }}
                 />
               </label>
             </div>
-          ))}
-        </div>
-      )}
-
-            {/* Affichage des champs editables selon LO part */}
-      {systemKey === 'SCAO_LGS' && loPart && params.sensor_LO && (
-        <div style={{ marginBottom: '1em' }}>
-          <strong>[sensor_LO]</strong>
-          <div style={{ marginTop: '0.5em' }}>
-            <label>
-              Magnitude:
-              <input
-                type="number"
-                value={magnitude}
-                onChange={(e) => onMagnitudeChange(e.target.value)}
-                style={{ marginLeft: 10 }}
-              />
-            </label>
+            {Object.entries(editableFields.sensor_HO).map(([field, type]) => (
+              <div key={`sensor_HO-${field}`} style={{ marginTop: '0.5em' }}>
+                <label>
+                  {field}:
+                  <input
+                    type={type === 'number' ? 'number' : 'text'}
+                    value={params.sensor_HO[field]}
+                    onChange={(e) => handleChange('sensor_HO', field, e.target.value)}
+                    style={{ marginLeft: 10 }}
+                  />
+                </label>
+              </div>
+            ))}
           </div>
-          {Object.entries(editableFields.sensor_LO).map(([field, type]) => (
-            <div key={`sensor_LO-${field}`} style={{ marginTop: '0.5em' }}>
+        )}
+
+        {/* Display of editable fields according to LO part */}
+        {systemKey === 'SCAO_LGS' && loPart && params.sensor_LO && (
+          <div style={{ marginBottom: '1em' }}>
+            <strong>[sensor_LO]</strong>
+            <div style={{ marginTop: '0.5em' }}>
               <label>
-                {field}:
+                Magnitude:
                 <input
-                  type={type === 'number' ? 'number' : 'text'}
-                  value={params.sensor_LO[field]}
-                  onChange={(e) => handleChange('sensor_LO', field, e.target.value)}
+                  type="number"
+                  value={magnitude}
+                  onChange={(e) => onMagnitudeChange(e.target.value)}
                   style={{ marginLeft: 10 }}
                 />
               </label>
             </div>
-          ))}
-        </div>
+            {Object.entries(editableFields.sensor_LO).map(([field, type]) => (
+              <div key={`sensor_LO-${field}`} style={{ marginTop: '0.5em' }}>
+                <label>
+                  {field}:
+                  <input
+                    type={type === 'number' ? 'number' : 'text'}
+                    value={params.sensor_LO[field]}
+                    onChange={(e) => handleChange('sensor_LO', field, e.target.value)}
+                    style={{ marginLeft: 10 }}
+                  />
+                </label>
+              </div>
+            ))}
+          </div>
+        )}
+        </>
       )}
 
       <button onClick={generateIni} style={{ marginTop: 10 }}>Generate INI </button>

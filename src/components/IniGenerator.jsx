@@ -281,6 +281,9 @@ export default function IniGenerator() {
       // Valeur nulle => reset à 0
       handleChange(systemKey === 'SCAO_LGS' && loPart ? 'sensor_LO' : 'sensor_HO', 'NumberPhotons', '[0]');
       return;
+      // handleChange('sensor_HO', 'NumberPhotons', params.sensor_HO.NumberPhotons);
+      // handleChange('sensor_LO', 'NumberPhotons', params.sensor_LO.NumberPhotons);
+      return;
     }
 
     const photons = magnitudeToPhotons(Number(magValue));
@@ -292,7 +295,7 @@ export default function IniGenerator() {
     }
   };
 
-  // generateIni
+  //*********generateIni**********
   const generateIni = () => {
   const iniSections = { ...params };
   let iniString = '';
@@ -322,7 +325,7 @@ export default function IniGenerator() {
         const expectedType = editableFields[section]?.[key];
 
         if (!loPart) {
-          if (section === 'sources_HO' && key === 'Wavelength') continue;
+          // if (section === 'sources_HO' && key === 'Wavelength') continue;
           if (section === 'RTC' && key.includes('_LO')) continue;
         }
 
@@ -440,8 +443,8 @@ export default function IniGenerator() {
                 setLoPart(e.target.checked);
                 setMagnitude('');
                 // reset photons
-                handleChange('sensor_HO', 'NumberPhotons', '[0]');
-                handleChange('sensor_LO', 'NumberPhotons', '[0]');
+                handleChange('sensor_HO', 'NumberPhotons', configPresets[selectedOption].sensor_HO.NumberPhotons);
+                handleChange('sensor_LO', 'NumberPhotons', configPresets[selectedOption].sensor_LO.NumberPhotons);
               }}
             />
           </label>
@@ -483,6 +486,27 @@ export default function IniGenerator() {
               )}
            </span>
           </div>
+          <div style={{marginTop: '0.5em'}}>
+            <label>
+              Zenith (arcsec):
+              <input
+                type="number"
+                value={
+                typeof params.sources_HO.Zenith === 'string'
+                  ? params.sources_HO.Zenith.replace(/[\[\]]/g, '')
+                  : params.sources_HO.Zenith
+                }
+                step="0.01"
+                onChange={(e) => {
+                const val = e.target.value;
+                if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
+                  handleChange('sources_HO', 'Zenith', `[${val}]`);
+                }
+                }}
+                style={{ marginLeft: 10 }}
+              />
+            </label>
+        </div>
         </div>
         )}
       
@@ -517,6 +541,27 @@ export default function IniGenerator() {
               )
               )}
               </span>
+            </div>
+            <div style={{ marginTop: '0.5em' }}>
+              <label>
+                Zenith (arcsec):
+                <input
+                type="number"
+                value={
+                  typeof params.sources_LO.Zenith === 'string'
+                  ? params.sources_LO.Zenith.replace(/[\[\]]/g, '')
+                  : params.sources_LO.Zenith
+                }
+                step="0.01"
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
+                    handleChange('sources_LO', 'Zenith', `[${val}]`);
+                  }
+                }}
+                style={{ marginLeft: 10 }}
+                />
+              </label>
             </div>
           </div>
         )}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const configPresets = {
   'ERIS_SCAO_NGS':{
@@ -199,6 +199,7 @@ export default function IniGenerator() {
   const [selectedOption, setSelectedOption] = useState('ERIS_SCAO_NGS');
   const [params, setParams] = useState({ ...configPresets['ERIS_SCAO_NGS'] });
   const [generatedIni, setGeneratedIni] = useState('');
+  const [Seeing, setSeeing] = useState("");
   const [magnitude, setMagnitude] = useState('');
   const [loPart, setLoPart] = useState(false); // for SCAO LGS only
 
@@ -340,24 +341,37 @@ export default function IniGenerator() {
     setGeneratedIni(iniString.trim());
   };
 
-  const getCurrentBand = () => {
-    let wavelengthRaw = null;
-    if ((systemKey === 'SCAO_NGS') || (systemKey === 'SCAO_LGS' && !loPart)) {
-      wavelengthRaw = params.sources_HO?.Wavelength;
-    } else if (systemKey === 'SCAO_LGS' && loPart) {
-      wavelengthRaw = params.sources_LO?.Wavelength;
-    }
+  // const getCurrentBand = () => {
+  //   let wavelengthRaw = null;
+  //   if ((systemKey === 'SCAO_NGS') || (systemKey === 'SCAO_LGS' && !loPart)) {
+  //     wavelengthRaw = params.sources_HO?.Wavelength;
+  //   } else if (systemKey === 'SCAO_LGS' && loPart) {
+  //     wavelengthRaw = params.sources_LO?.Wavelength;
+  //   }
 
-    if (!wavelengthRaw) return '';
+  //   if (!wavelengthRaw) return '';
 
-    let lambda = 0;
-    if (typeof wavelengthRaw === 'string') {
-      lambda = Number(wavelengthRaw.replace(/[\[\]]/g, ''));
+  //   let lambda = 0;
+  //   if (typeof wavelengthRaw === 'string') {
+  //     lambda = Number(wavelengthRaw.replace(/[\[\]]/g, ''));
+  //   } else {
+  //     lambda = Number(wavelengthRaw);
+  //   }
+  //   return getBandFromWavelength(lambda);
+  // };
+
+
+  useEffect(() => {
+    if (!magnitude || isNaN(magnitude)) return;
+
+    const photons = magnitudeToPhotons(Number(magnitude));
+
+    if (systemKey === 'SCAO_LGS' && loPart) {
+      handleChange('sensor_LO', 'NumberPhotons', photons);
     } else {
-      lambda = Number(wavelengthRaw);
+      handleChange('sensor_HO', 'NumberPhotons', photons);
     }
-    return getBandFromWavelength(lambda);
-  };
+  }, [params.sources_HO?.Wavelength, params.sources_LO?.Wavelength, magnitude, systemKey, loPart]);
 
   return (
     <div style={{ border: '1px solid #ccc', padding: 16, margin: '20px 0' }}>
@@ -374,34 +388,25 @@ export default function IniGenerator() {
 
        <hr />
 
+      <div style={{ marginBottom: 16 }}>
+        <label>
+          Seeing (arcsec):&nbsp;
+          <input
+            type="number"
+            value={params.atmosphere.Seeing}
+            step="0.01"
+            onChange={(e) => handleChange('atmosphere', 'Seeing', parseFloat(e.target.value))}
+            style={{ marginLeft: 10 }}
+          />
+        </label>
+      </div>
 
-      {/* {Object.entries(params).map(([section, fields]) => (
-        <div key={section}>
-          <h4>[{section}]</h4>
-          {Object.entries(fields).map(([field, value]) => {
-            const isEditable = editableFields[section]?.includes(field);
-            return (
-              <div key={field} style={{ marginBottom: '0.5em' }}>
-                <label>
-                  {field}:
-                  {isEditable ? (
-                    <input
-                      type="text"
-                      value={value}
-                      onChange={(e) => handleChange(section, field, e.target.value)}
-                      style={{ marginLeft: 10 }}
-                    />
-                  ) : (
-                    <span style={{ marginLeft: 10 }}>{value}</span>
-                  )}
-                </label>
-              </div>
-            );
-          })}
-        </div>
-      ))} */}
-
-    
+      {/* onChange={(e) => {
+        const val = parseFloat(e.target.value);
+        if (!isNaN(val) && val > 0 && val < 5) {
+          handleChange('atmosphere', 'Seeing', val);
+        }
+      }} */}
 
       {/* Affichage conditionnel selon système */}
       {systemKey === 'SCAO_NGS' && (

@@ -216,7 +216,7 @@ If the guide star is a LGS, you must include and complete the following sections
     Zenith = [0.0]
     Azimuth = [0.0]
     ```
-- `[sensor_LO]` contains information about the wavefront sensor configuration, for example. <br/>
+- `[sensor_LO]` contains information about the wavefront sensor configuration — by default, a **Shack-Hartmann** wavefront sensor. <br/>
     <details>
     <summary><strong>Wavefront sensor - `[sensor_LO]`</strong></summary>
     ```python
@@ -281,7 +281,7 @@ AoArea = 'circle'
 </details>
 
 #### 📟 The real time controler {#scao-rtc}
-This section contains the details of the control, the framerate and the delay:
+This section contains the details about the control parameters, frame rate and delay. If the system includes both **LGS** and **NGS**, this section must specify parameters related to both the **HO** part and **LO** parts.
 <details>
    <summary><strong>`[RTC]`</strong></summary>
 ```python
@@ -303,13 +303,43 @@ LoopDelaySteps_LO = 2
 </details>
 
 
+### 🟢 LTAO: Laser Tomography Adaptive Optics {#ltao}
+
+For an [**LTAO**](#ltao) system with multiple **LGSs**, compared to a [**SCAO**](#scao) system with only one **LGS**, the `Zenith` and `Azimuth` parameters in the `[sources_HO]` section, as well as `NumberPhotons` and `NumberLenslets` in `[sensor_HO]` section, are lists with multiple elements.
+
+#### 🎛️ The wavefront sensor
+
+As for the [**SCAO**](#scao) system, when both **LGSs** and **NGS** are present, the `[sources_LO]` and `[sensor_LO]` sections must be added. By default, the wavefront sensor specified in the `[sensor_LO]` section is a Shak-Hartmann wavefront sensor.
+
+#### 🔘 The deformable mirror
+
+Like for a [**SCAO**](#scao) system.
+
+#### 📟 The real time controler {#ltao-rtc}
+
+Similar to a [**SCAO**](#scao-rtc) involving both **LGS** and **NGS**.
+
+
+
+### 🟤 GLAO: Ground Layer Adaptive Optics
+
+#### 🎛️ The wavefront sensor
+
+Like for a [**LTAO**](#ltao) system.
+
+#### 🔘 The deformable mirror
+
+Like for [**SCAO**](#scao) and [**LTAO**](#ltao) systems.
+
+#### 📟 The real time controler
+
+Similar to a [**SCAO**](#scao-rtc) involving both **LGS** and **NGS**, or a [**LTAO**](#ltao-rtc) system.
+
 ### 🟣 MCAO: Multi Conjugate Adaptive Optics {#mcao}
 <p align="justify">
 
-For an **MCAO** system with multiple **NGSs**, the difference is that `NumberPhotons` and `NumberLenslets` in `[sensor_HO]` section are lists with multiple elements, as are `Zenith` and `Azimuth` in the `[sources_HO]` section.
-
-If the system have multiple **LGSs** and **NGSs**, `NumberPhotons`, `NumberLenslets` in `[sensor_LO]` and `Zenith` and `Azimuth` in the `[sources_LO]` section, are also lists with multiple elements.
-For example:
+For an [**MCAO**](#mcao) system with multiple **LGSs** and **NGSs**, the following parameters are specified as lists with multiple elements: `Zenith`, `Azimuth` in both the `[sources_HO]` and `[sources_LO]` sections, as well as `NumberPhotons` and `NumberLenslets` in both th `[sensor_HO]` and `[sensor_LO]` sections. <br/>
+For example, in the case of six **LGSs** and three **NGSs**:
 </p>
 <details>
    <summary><strong>`[sources_HO]`, `[sensor_HO]` and `[sources_LO]`, `[sensor_LO]` </strong></summary>
@@ -364,7 +394,8 @@ filtZernikeCov = True
 #### 🔘 The deformable mirror
 
 <p align="justify">
-For an **MCAO** system with multiple DMs, the difference here is that `NumberActuators`, `DmPitchs`, `InfCoupling` and `DmHeights` are vectors. For example:
+
+For an **MCAO** system with **multiple DMs**, compared to the previously described systems, the following parameters in the `[DM]` section - `NumberActuators`, `DmPitchs`, `InfCoupling` and `DmHeights` - are specified as lists with multiple elements. <br/> For example, in the case of three DMs:
 </p>
 <details>
    <summary><strong>`[DM]`</strong></summary>
@@ -386,37 +417,5 @@ AoArea = 'circle'
 
 #### 📟 The real time controler
 
-Like a [**SCAO**](#scao-rtc) system.
-
-
-### 🟢 LTAO: Laser Tomography Adaptive Optics
-
-#### 🎛️ The wavefront sensor
-
-As for the [**SCAO**](#scao) and [**MCAO**](#mcao) system when **LGSs** and **NGSs** are present, the sections `[sources_LO]` and `[sensor_LO]` must be added.
-
-#### 🔘 The deformable mirror
-
-Like for a [**SCAO**](#scao) system.
-
-#### 📟 The real time controler
-
-Like for a [**SCAO**](#scao) system with LGS and NGS.
-
-
-### 🟤 GLAO: Ground Layer Adaptive Optics
-
-
-#### 🎛️ The wavefront sensor
-
-Like for a [**MCAO**](#mcao) system.
-
-#### 🔘 The deformable mirror
-
-Like for a [**SCAO**](#scao) system.
-
-#### 📟 The real time controler
-
-Like for a [**MCAO**](#mcao) system.
-
+Similar to a [**SCAO**](#scao-rtc) involving both **LGS** and **NGS**, or a [**LTAO**](#ltao-rtc) system.
 

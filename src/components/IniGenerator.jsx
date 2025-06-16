@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const configPresets = {
   'ERIS_SCAO_NGS':{
@@ -163,26 +163,54 @@ const presetToKey = {
   ERIS_SCAO_LGS: 'SCAO_LGS',
 };
 
+// const getF0FromWavelength = (lambda) => {
+//   const µm = lambda * 1e6; // µm
+
+//   if (µm >= 0.332 && µm < 0.398) return 4.34e10; // U
+//   if (µm >= 0.398 && µm < 0.492) return 6.4e10;  // B
+//   if (µm >= 0.507 && µm < 0.595) return 3.75e10; // V
+//   if (µm >= 0.589 && µm < 0.727) return 2.2e10; // R
+//   if (µm >= 0.731 && µm < 0.881) return 1.2e10; // I
+//   if (µm >= 1.17 && µm < 1.33) return 3.1e10; // J
+//   if (µm >= 1.505 && µm < 1.795) return 8.17e11; // H
+//   if (µm >= 2.03 && µm <2.37) return 4.66e11; // K
+//   if (µm >= 3.165 && µm < 3.735) return 9.35e10; // L
+//   if (µm >= 4.63 && µm < 4.87) return 2.29e10; // M
+
+//   return null; 
+// };
+
 const getF0FromWavelength = (lambda) => {
   const µm = lambda * 1e6; // µm
 
-  if (µm >= 0.332 && µm < 0.398) return 4.34e10; // U
-  if (µm >= 0.398 && µm < 0.492) return 6.4e10;  // B
-  if (µm >= 0.507 && µm < 0.595) return 3.75e10; // V
-  if (µm >= 0.589 && µm < 0.727) return 2.2e10; // R
-  if (µm >= 0.731 && µm < 0.881) return 1.2e10; // I
-  if (µm >= 1.17 && µm < 1.33) return 3.1e10; // J
-  if (µm >= 1.505 && µm < 1.795) return 8.17e11; // H
-  if (µm >= 2.03 && µm <2.37) return 4.66e11; // K
-  if (µm >= 3.165 && µm < 3.735) return 9.35e10; // L
-  if (µm >= 4.63 && µm < 4.87) return 2.29e10; // M
+  if (µm >= 0.398 && µm < 0.492) return 1.24e10;  // B
+  if (µm >= 0.507 && µm < 0.595) return 8.37e9; // V
+  if (µm >= 0.589 && µm < 0.727) return 1.36e10; // R
+  if (µm >= 0.731 && µm < 0.881) return 8.93e9; // I
+  if (µm >= 1.17 && µm < 1.33) return 4.11e9; // J
+  if (µm >= 1.505 && µm < 1.795) return 2.87e9; // H
+  if (µm >= 2.03 && µm <2.37) return 1.70e9; // K
+
+  return null; 
+};
+
+const getTotThroughput = (lambda) => {
+  const µm = lambda * 1e6;
+
+  if (µm >= 0.398 && µm < 0.492) return 0.07;  // B
+  if (µm >= 0.507 && µm < 0.595) return 0.16; // V
+  if (µm >= 0.589 && µm < 0.727) return 0.19; // R
+  if (µm >= 0.731 && µm < 0.881) return 0.20; // I
+  if (µm >= 1.17 && µm < 1.33) return 0.24; // J
+  if (µm >= 1.505 && µm < 1.795) return 0.264; // H
+  if (µm >= 2.03 && µm <2.37) return 0.26; // K
 
   return null; 
 };
 
 const getBandFromWavelength = (lambda) => {
   const µm = lambda * 1e6;
-  if (µm >= 0.332 && µm < 0.398) return 'U';
+  // if (µm >= 0.332 && µm < 0.398) return 'U';
   if (µm >= 0.398 && µm < 0.492) return 'B';
   if (µm >= 0.507 && µm < 0.595) return 'V';
   if (µm >= 0.589 && µm < 0.727) return 'R';
@@ -190,8 +218,8 @@ const getBandFromWavelength = (lambda) => {
   if (µm >= 1.17 && µm < 1.33) return 'J';
   if (µm >= 1.505 && µm < 1.795) return 'H';
   if (µm >= 2.03 && µm < 2.37) return 'K';
-  if (µm >= 3.165 && µm < 3.735) return 'L';
-  if (µm >= 4.63 && µm < 4.87) return 'M';
+  // if (µm >= 3.165 && µm < 3.735) return 'L';
+  // if (µm >= 4.63 && µm < 4.87) return 'M';
   return 'Unknown';
 };
 
@@ -249,6 +277,7 @@ export default function IniGenerator() {
       }
 
       const D = Number(params.telescope.TelescopeDiameter);
+      const OR = Number(params.telescope.ObscurationRatio);
       let N_lenslet_raw = params[sensorKey]?.NumberLenslets;
       let N_lenslet = 20;
 
@@ -275,11 +304,33 @@ export default function IniGenerator() {
       if (!D || !N_lenslet || !sensorFrameRate || !lambda) return '[0]';
 
       const F0 = getF0FromWavelength(lambda);
+      const Tot_throughput = getTotThroughput(lambda);
 
-      const photons =
-        F0 * Math.pow(D / N_lenslet, 2) * (1 / sensorFrameRate) * Math.pow(10, -0.4 * mag);
+      if (!F0 || !Tot_throughput) {
+        console.warn("missing values: ", { F0, Tot_throughput });
+        return '[0]';
+      }
 
-      return `[${photons.toFixed(1)}]`;
+      const band = getBandFromWavelength(lambda);
+      const bandCorrection = { //M0V
+        B: 1.37,
+        V: 0,
+        R: -1.26,
+        I: -2.15,
+        J: -2.49,
+        H: -3.03,
+        K: -3.29,
+      }
+
+      const magCorr =  Math.round((mag + (bandCorrection[band] ?? 0)) * 100) / 100;
+
+      const photons =  F0 * (Tot_throughput / sensorFrameRate) * (Math.pow(D, 2) - Math.pow(D*OR, 2)) 
+      * Math.pow(1/N_lenslet, 2) * Math.pow(10, -0.4 * magCorr);
+      // F0 * (Tot_throughput / sensorFrameRate) * 
+      // Math.PI/4 * (Math.pow(D, 2) - Math.pow(D*OR, 2)) * Math.pow(10, -0.4 * magCorr);
+        // F0 * Math.pow(D / N_lenslet, 2) * (1 / sensorFrameRate) * Math.pow(10, -0.4 * mag);    
+
+      return `[${photons.toFixed(2)}]`;
     } catch {
       return '[0]';
     }
@@ -380,7 +431,7 @@ export default function IniGenerator() {
 
   return (
     <div style={{ border: '1px solid #ccc', padding: 16, margin: '20px 0' }}>
-      <h3>Generate your config.ini - Work in progress - Not fully operational yet.</h3>
+      <h3> .ini Parameter File Generator - <a href="/docs/orion/AO_instruments">For Available AO Instruments</a></h3>
 
       <label>
         Select instrument:&nbsp;
@@ -406,6 +457,28 @@ export default function IniGenerator() {
 
        <hr />
 
+      {/* Always show ZenithAngle */}
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ marginBottom: '0.5rem' }}>
+          <strong>[telescope]</strong> </div>
+        <label>
+          Zenith Angle (degree):&nbsp;
+          <input
+            type="number"
+            value={params.telescope.ZenithAngle}
+            step="0.1"
+            onChange={(e) => {const val = parseFloat(e.target.value);
+            if (!isNaN(val) && val > 0 && val < 90) {
+              handleChange('telescope', 'ZenithAngle', val);
+            }
+            }}
+            style={{ marginLeft: 10 }}
+          />
+          <span style={{ marginLeft: '12px', fontSize: '0.9rem', color: '#555' }}>
+            ℹ️ the angle between the telescope's pointing direction and the zenith
+          </span>
+        </label>
+      </div>
 
       {/* Always show seeing */}
       <div style={{ marginBottom: 16 }}>
@@ -424,6 +497,9 @@ export default function IniGenerator() {
             }}
             style={{ marginLeft: 10 }}
           />
+          <span style={{ marginLeft: '12px', fontSize: '0.9rem', color: '#555' }}>
+            ℹ️ defined at Zenith (<code>[Telescope] ZenithAngle = 0</code>)
+          </span>
         </label>
       </div>
 
@@ -464,7 +540,7 @@ export default function IniGenerator() {
         </div>
         <div style={{ marginTop: '0.5em' }}>
         <label>
-          Zenith (arcsec):
+          Distance* (arcsec):
           <input
             type="number"
             value={
@@ -541,7 +617,7 @@ export default function IniGenerator() {
           </div>
           <div style={{marginTop: '0.5em'}}>
             <label>
-              Zenith (arcsec):
+              Distance* (arcsec):
               <input
                 type="number"
                 value={
@@ -618,7 +694,7 @@ export default function IniGenerator() {
             </div>
             <div style={{ marginTop: '0.5em' }}>
               <label>
-                Zenith (arcsec):
+                Distance* (arcsec):
                 <input
                 type="number"
                 value={
@@ -645,7 +721,7 @@ export default function IniGenerator() {
             <strong>[sensor_HO]</strong>
             <div style={{ marginTop: '0.5em' }}>
               <label>
-                Magnitude:
+                V-Magnitude:
                 <input
                   type="number"
                   value={magnitude}
@@ -653,6 +729,33 @@ export default function IniGenerator() {
                   style={{ marginLeft: 10 }}
                 />
               </label>
+              {(() => {
+        const lambdaRaw = params.sources_HO?.Wavelength;
+        let lambda = 0;
+        if (typeof lambdaRaw === 'string') {
+          lambda = Number(lambdaRaw.replace(/[\[\]]/g, ''));
+        } else {
+          lambda = Number(lambdaRaw);
+        }
+
+        const bandCorrection = {
+          B: 1.37,
+          V: 0,
+          R: -1.26,
+          I: -2.15,
+          J: -2.49,
+          H: -3.03,
+          K: -3.29,
+        };
+
+        const band = getBandFromWavelength(lambda);
+        const magNum = Number(magnitude);
+         if (!isNaN(magNum) && magnitude.trim() !== '' && band in bandCorrection) {
+          const magCorr = (magNum + bandCorrection[band]).toFixed(2);
+          return <span style={{ marginLeft: 10}}>{band}-Magnitude: {magCorr} (spectral class: M0V)</span>;
+        }
+        return null;
+      })()}
             </div>
             {Object.entries(editableFields.sensor_HO).map(([field, type]) => (
               <div key={`sensor_HO-${field}`} style={{ marginTop: '0.5em' }}>
@@ -676,7 +779,7 @@ export default function IniGenerator() {
             <strong>[sensor_LO]</strong>
             <div style={{ marginTop: '0.5em' }}>
               <label>
-                Magnitude:
+                V-Magnitude:
                 <input
                   type="number"
                   value={magnitude}
@@ -684,6 +787,33 @@ export default function IniGenerator() {
                   style={{ marginLeft: 10 }}
                 />
               </label>
+                            {(() => {
+        const lambdaRaw = params.sources_LO?.Wavelength;
+        let lambda = 0;
+        if (typeof lambdaRaw === 'string') {
+          lambda = Number(lambdaRaw.replace(/[\[\]]/g, ''));
+        } else {
+          lambda = Number(lambdaRaw);
+        }
+
+        const bandCorrection = {
+          B: 1.37,
+          V: 0,
+          R: -1.26,
+          I: -2.15,
+          J: -2.49,
+          H: -3.03,
+          K: -3.29,
+        };
+
+        const band = getBandFromWavelength(lambda);
+        const magNum = Number(magnitude);
+         if (!isNaN(magNum) && magnitude.trim() !== '' && band in bandCorrection) {
+          const magCorr = (magNum + bandCorrection[band]).toFixed(2);
+          return <span style={{ marginLeft: 10}}>{band}-Magnitude: {magCorr} (spectral class: M0V)</span>;
+        }
+        return null;
+      })()}
             </div>
             {Object.entries(editableFields.sensor_LO).map(([field, type]) => (
               <div key={`sensor_LO-${field}`} style={{ marginTop: '0.5em' }}>

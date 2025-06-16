@@ -137,12 +137,16 @@ const config = {
                 to: '/docs/orion/howtosetup',
               },
               {
-                label: '• Parameter files explained',
-                to: '/docs/orion/parameterfiles',
-              },
-              {
                 label: '• Available AO instruments',
                 to: '/docs/orion/aoinstruments'
+              },
+              {
+                label: '• Interactive tools - Generate Input Files & Convert Parameters',
+                to: '/docs/orion/interactivetools'
+              },
+              {
+                label: '• Parameter files explained',
+                to: '/docs/orion/parameterfiles',
               },
               {
                 label: '• Examples',

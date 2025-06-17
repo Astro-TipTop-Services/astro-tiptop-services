@@ -682,8 +682,8 @@ export default function IniGenerator() {
   }, [generatedIni]);
 
 
-
-  //*********generateIni**********
+  ///////////////////////////////////////////////////
+  //******************generateIni********************
   const generateIni = () => {
   const iniSections = { ...params };
   let iniString = '';
@@ -751,7 +751,7 @@ export default function IniGenerator() {
     }
   }, [params.sources_HO?.Wavelength, params.sources_LO?.Wavelength, magnitude, systemKey]);
 
-
+  ///////////////////////////////////////////////////
   //*********************DISPLAY********************/
   return (
     <div style={{ border: '1px solid #ccc', padding: 16, margin: '20px 0' }}>

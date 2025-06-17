@@ -531,15 +531,26 @@ const getBandFromWavelength = (lambda) => {
 };
 
 const wavelengthByBand = {
+  V: 0.55e-6,
+  R: 0.66e-6,
+  I: 0.81e-6,
   J: 1.28e-6, // m
   H: 1.66e-6,
   K: 2.18e-6,
   L: 3.32e-6,
-  // M: 4.8e-6,
+  M: 4.78e-6,
   // N: 10e-6,
   // Q: 20e-6,
 };
 
+const availableBandsByInstrument = {
+  ERIS_SCAO_NGS: ['J', 'H', 'K', 'L','M'],
+  ERIS_SCAO_LGS: ['J', 'H', 'K', 'L','M'],
+  HARMONI_SCAO_LGS: ['I','J','H','K'],
+  MICADO_SCAO_NGS: ['I','J','H','K'],
+  SPHERE_SCAO_NGS: ['V','R','I','J','H','K'],
+  SOUL_SCAO_NGS: ['V','R','I','J','H','K'],
+};
 
 export default function IniGenerator() {
   const [selectedOption, setSelectedOption] = useState('ERIS_SCAO_NGS');
@@ -649,7 +660,6 @@ export default function IniGenerator() {
     setMagnitude(magValue);
 
     if (!magValue || isNaN(magValue)) {
-      // Valeur nulle => reset à 0
       const section = systemKey === 'SCAO_LGS' ? 'sensor_LO' : 'sensor_HO';
       handleChange(section, 'NumberPhotons', '[0]');
       return;
@@ -668,6 +678,7 @@ export default function IniGenerator() {
   };
 
   const [selectedBand, setSelectedBand] = useState('');
+  const availableBands = availableBandsByInstrument[selectedOption] || Object.keys(wavelengthByBand);
 
   useEffect(() => {
     if (!generatedIni) return;
@@ -846,14 +857,13 @@ export default function IniGenerator() {
             }}
             >
             <option value="">-- Select Band --</option>
-            {Object.entries(wavelengthByBand).map(([band, lambda]) => {
-            const lambdaNum = parseFloat(lambda);
-            return (
+            {Object.entries(wavelengthByBand)
+            .filter(([band]) => availableBands.includes(band))
+            .map(([band, lambda]) => (
             <option key={band} value={band}>
-              {band} ({(lambdaNum * 1e6).toFixed(2)} µm)
+              {band} ({(lambda * 1e6).toFixed(2)} µm)
             </option>
-            );  
-          })}
+             ))}
           </select>
           {selectedBand && (
           <span style={{ marginLeft: '10px', color: '#555' }}>

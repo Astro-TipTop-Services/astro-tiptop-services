@@ -43,6 +43,8 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
+          remarkPlugins: [require('remark-math')],
+          rehypePlugins: [require('rehype-katex')],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:
@@ -68,6 +70,15 @@ const config = {
         },
       }),
     ],
+  ],
+
+  stylesheets: [
+    {
+    href: 'https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css',
+    type: 'text/css',
+    integrity: 'sha384-mll67QQEJgVtGqxW9VD7q2GqNzMIk1CjATaF2nUgA7HgS43l+ZFV2DkVKkW0nU3g',
+    crossorigin: 'anonymous',
+    },
   ],
 
   themeConfig:

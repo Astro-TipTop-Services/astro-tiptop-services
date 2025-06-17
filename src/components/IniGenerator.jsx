@@ -144,6 +144,309 @@ const configPresets = {
       LoopDelaySteps_LO: 2,
     },
   },
+  'HARMONI_SCAO_LGS':{
+    telescope: {
+      TelescopeDiameter: 39,
+      ZenithAngle: 30.0,
+      ObscurationRatio: 0.28,
+      Resolution: 400,
+      PathPupil: '/aoSystem/data/ELT_CALIBRATION/EELT480pp0.0813spider.fits',
+      PathStaticOn: '/aoSystem/data/ELT_CALIBRATION/CombinedError_Wavefront_nm.fits',
+      PathApodizer: '',
+      PathStatModes: '' ,
+      PupilAngle: 0.0,
+    },
+    atmosphere: {
+      Wavelength: 500e-9,
+      Seeing: 0.65,
+      L0: 25.0,
+      Cn2Weights: '[0.59, 0.02, 0.04, 0.06, 0.01, 0.05, 0.09, 0.04, 0.05, 0.05]',
+      Cn2Heights: '[30, 140, 281, 562, 1125, 2250, 4500, 7750, 11000, 14000]',
+      WindSpeed: '[6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]',
+      WindDirection: '[0., 0., 0., 0., 90., -90., -90., 90., 0., 0.]',
+
+    },
+    sources_science: {
+      Wavelength: '[2200e-9]',
+      Zenith: '[0.0]',
+      Azimuth: '[0.0]',
+    },
+    sources_HO: {
+    Wavelength: 950e-9,
+    Zenith: '[0.0]',
+    Azimuth: '[0.0]',
+    Height: 0.0,
+    },
+    sources_LO: {
+      Wavelength: 1650e-9,
+      Zenith: '[0.0]',
+      Azimuth: '[0.0]',
+    },
+    sensor_science: {
+      PixelScale: 4.0,
+      FieldOfView: 640,
+      Binning: 1,
+      NumberPhotons: '[1500]',
+      SpotFWHM: '[[1.0, 1.0, 0.0]]',
+      SpectralBandwidth: 0.0,
+      Transmittance: '[1.0]',
+      Dispersion: '[[0.0],[0.0]]',
+      SigmaRON: '[0.0]',
+      SkyBackground: 0.0,
+      Gain: 1.0,
+      ExcessNoiseFactor: 1.0,
+    },
+    sensor_HO:{
+      WfsType: 'Pyramid',
+      Modulation: 3,
+      PixelScale: 220,      
+      FieldOfView: 600,
+      Binning: 1,
+      NumberPhotons: '[150]',
+      SpotFWHM: '[[0.0,0.0,0.0]]',      
+      Transmittance: '[1.0]',
+      Dispersion: '[[0.0],[0.0]]', 
+      SigmaRON: 0.0,
+      Dark: 0.0,
+      SkyBackground: 0.0,
+      Gain: 1.0,  
+      ExcessNoiseFactor: 1.0,
+      NumberLenslets: '[100]',
+      SizeLenslets: '[0.4]',                        
+      NoiseVariance: '[None]',
+      Algorithm: 'wcog',
+      WindowRadiusWCoG: 6,
+      ThresholdWCoG: 0.0,
+      NewValueThrPix: 0.0,
+    },
+    sensor_LO:{
+      PixelScale: 40.0,
+      FieldOfView: 200,
+      Binning: 1,
+      NumberPhotons: '[200]',
+      SpotFWHM: '[[0.0,0.0,0.0]]',
+      SigmaRON: 0.0,
+      Dark: 0.0,
+      SkyBackground: 0.0,
+      Gain: 1.0,
+      ExcessNoiseFactor: 2.0, 
+      NumberLenslets: '[4]',
+      Algorithm: 'wcog', 
+      WindowRadiusWCoG: 2,
+      ThresholdWCoG: 0.0,
+      NewValueThrPix: 0.0,
+    },
+    DM:{
+      NumberActuators: '[80]',
+      DmPitchs: '[0.38]',
+      InfModel: 'gaussian',
+      InfCoupling: '[0.2]',
+      DmHeights: '[600.0]',
+      OptimizationZenith: '[0]', 
+      OptimizationAzimuth: '[0]',
+      OptimizationWeight: '[1]',   
+      OptimizationConditioning: 1.0e2,
+      NumberReconstructedLayers: 10,
+      AoArea: 'circle',
+    },
+    RTC:{
+      LoopGain_HO: 0.8,                         
+      SensorFrameRate_HO: 500.0,
+      LoopDelaySteps_HO: 1, 
+      LoopGain_LO: 0.5,
+      SensorFrameRate_LO: 500.0,
+      LoopDelaySteps_LO: 1,
+    },
+  },
+  'MICADO_SCAO_NGS': {
+    telescope:{
+      TelescopeDiameter: 38.5,
+      ZenithAngle: 30.0,
+      ObscurationRatio: 0.28,
+      Resolution: 480,
+      PathPupil : 'tiptop/data/EELT480pp0.0803m_obs0.283_spider2023.fits',
+      PathStaticOn: 'tiptop/data/ELT_M1_static_wfe_480px.fits',
+      // #zCoefStaticOn: '[0,0,1000]',
+      PathApodizer: '',
+      PathStatModes: '',
+      PupilAngle: 0.0,
+      windPsdFile: 'tiptop/data/morfeo_windshake8ms_psd_2022_1k.fits',
+      TechnicalFoV: 10,
+      extraErrorNm: 50,
+      // #jitter_FWHM: 6.9706,
+      jitter_FWHM: 3.26,
+    },
+    atmosphere:{
+      Wavelength : 500e-9,
+      Seeing: 0.65,
+      L0: 25.0,
+      Cn2Heights: '[30.0000, 90.0000, 150.000, 200.000, 245.000, 300.000, 390.000, 600.000, 1130.00, 1880.00, 2630.00, 3500.00, 4500.00, 5500.00, 6500.00, 7500.00, 8500.00, 9500.00, 10500.0, 11500.0, 12500.0, 13500.0, 14500.0, 15500.0, 16500.0, 17500.0, 18500.0, 19500.0, 20500.0, 21500.0, 22500.0, 23500.0, 24500.0, 25500.0, 26500.0]',
+      Cn2Weights: '[0.241954, 0.119977, 0.0968817, 0.0589889, 0.0472911, 0.0472911, 0.0472911, 0.0472911, 0.0398925, 0.0323939, 0.0161969, 0.0260951, 0.0155971, 0.0103980, 0.00999811, 0.0119977, 0.00400924, 0.0139974, 0.0129975, 0.00700868, 0.0159970, 0.0258951, 0.0190964, 0.00986813, 0.00616883, 0.00400924, 0.00246953, 0.00215959, 0.00184965, 0.00135974, 0.00110979, 0.000616883, 0.000925825, 0.000493907, 0.000431918]',
+      WindSpeed: '[5.5, 5.5, 5.1, 5.5, 5.6, 5.7, 5.8, 6.0, 6.5, 7.0, 7.5, 8.5, 9.5, 11.5, 17.5, 23.0, 26.0, 29.0, 32.0, 27.0, 22.0, 14.5, 9.5, 6.3, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.0]',
+      WindDirection: '[0, -180, 0, 0, 90, 180, 0, 0, 0, -180, 0, 0, -90, 0, 90, -180, 90, 0, -90, -90, 0, -90, 0, 0, 180, 180, 0, -180, 90, 0, 0, 180, -90, 90, -90]',
+    },
+    sources_science:{
+      Wavelength: '[2200e-9]',
+      Zenith: '[0.0]',
+      Azimuth: '[0.0]',
+    },
+    sources_HO:{
+      Wavelength: 700e-9,
+      Zenith: '[0.0]',
+      Azimuth: '[0.0]',
+      Height: 0.0,
+    },
+    sensor_science:{
+      PixelScale: 4,
+      FieldOfView: 2048,
+    },
+    sensor_HO:{
+      WfsType: 'Pyramid',
+      Modulation: 3,
+      PixelScale: 220,
+      FieldOfView: 2,
+      Binning: 1,
+      NumberPhotons: '[1000]',
+      SigmaRON: 0.2,
+      ExcessNoiseFactor: 2.0,
+      NumberLenslets: '[90]',
+      SizeLenslets: '[0.4]',
+    },
+    DM:{
+      NumberActuators: '[80]',
+      DmPitchs: '[0.5]',
+      InfModel: 'gaussian',
+      InfCoupling: '[0.2]',
+      DmHeights: '[600.0]',
+      OptimizationZenith: '[0]',
+      OptimizationAzimuth: '[0]',
+      OptimizationWeight: '[1]',
+      OptimizationConditioning: 1.0e2,
+      NumberReconstructedLayers: 10,
+      AoArea: 'circle',
+    },
+    RTC:{
+      LoopGain_HO: 0.5,
+      SensorFrameRate_HO: 500.0,
+      LoopDelaySteps_HO: 2,
+
+    },
+  },
+  'SOUL_SCAO_NGS': {
+    telescope:{
+      TelescopeDiameter: 8.222,
+      ZenithAngle: 30.0,
+      ObscurationRatio: 0.111,
+      Resolution: 150,
+      TechnicalFoV: 10,
+    },
+    atmosphere:{
+      Wavelength: 500e-9,
+      Seeing: 0.8,
+      L0: 40.0,
+      Cn2Weights: '[0.70, 0.06, 0.14, 0.10]',
+      Cn2Heights: '[119.,  837., 3045., 12780.]',
+      WindSpeed: '[5., 10., 30., 20.]',
+      WindDirection: '[0., 0., 0., 0.]',
+    },
+    sources_science:{
+      Wavelength: '[2150e-9]',
+      Zenith: '[0.0]',
+      Azimuth: '[0.0]',
+    },
+    sources_HO:{
+      Wavelength: 750e-9,
+      Zenith: '[0.0]',
+      Azimuth: '[0.0]',
+      Height: 0.0,
+    },
+    sensor_science:{
+      PixelScale: 14.9,
+      FieldOfView: 256,
+    },
+    sensor_HO:{
+      WfsType: 'Pyramid',
+      Modulation: 3,
+      PixelScale: 1000,
+      FieldOfView: 2,
+      NumberPhotons: '[10]',
+      SigmaRON: 0.0,
+      ExcessNoiseFactor: 2.0,
+      NumberLenslets: '[40]',
+      SizeLenslets: '[0.2]',
+      NoiseVariance: '[None]',
+    },
+    DM:{
+      NumberActuators: '[30]',
+      DmPitchs: '[0.275]',
+      DmHeights: '[0.0]',
+      AoArea: 'circle',
+    },
+    RTC:{
+      LoopGain_HO: 0.3,
+      SensorFrameRate_HO: 1700.0,
+      LoopDelaySteps_HO: 3,
+
+    },
+  },
+  'SPHERE_SCAO_NGS': {
+    telescope:{
+      TelescopeDiameter: 8.0,
+      ZenithAngle: 30.0,
+      ObscurationRatio: 0.16,
+      Resolution: 128,
+      TechnicalFoV: 10,
+    },
+    atmosphere:{
+      Wavelength: 500e-9,
+      Seeing: 0.7,
+      L0: 22.0,
+      Cn2Weights: '[0.59, 0.02, 0.04, 0.06, 0.01, 0.05, 0.09, 0.04, 0.05, 0.05]',
+      Cn2Heights: '[30, 140, 281, 562, 1125, 2250, 4500, 7750, 11000, 14000]',
+      WindSpeed: '[6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]',
+      WindDirection: '[0., 0., 0., 0., 90., -90., -90., 90., 0., 0.]',
+      r0_Value: 0,
+      testWindspeed: 0,
+    },
+    sources_science:{
+      Wavelength: '[1.65e-06]',
+      Zenith: '[0.0]',
+      Azimuth: '[0.0]',
+    },
+    sources_HO:{
+      Wavelength: 7e-07,
+      Zenith: '[0.0]',
+      Azimuth: '[0.0]',
+      Height: 0.0,
+    },
+    sensor_science:{
+      PixelScale: 12.25,
+      FieldOfView: 256,
+    },
+    sensor_HO:{
+      WfsType: 'Shack-Hartmann',
+      Modulation: 'None',
+      PixelScale: 417,
+      FieldOfView: 6,
+      NumberPhotons: '[20.0]',
+      SigmaRON:0.2,
+      ExcessNoiseFactor: 2.0,
+      Algorithm: 'wcog',
+      NumberLenslets: '[40]',
+      NoiseVariance: '[None]',
+    },
+    DM:{
+      NumberActuators: '[40]',
+      DmPitchs: '[0.2]',
+      DmHeights: '[0.0]',
+      AoArea: 'square',
+    },
+    RTC:{
+    LoopGain_HO: 0.3,
+    SensorFrameRate_HO: 1380.0,
+    LoopDelaySteps_HO: 3,
+    },
+  },
 }
 
 const editableFields = {
@@ -161,6 +464,10 @@ const editableFields = {
 const presetToKey = {
   ERIS_SCAO_NGS: 'SCAO_NGS',
   ERIS_SCAO_LGS: 'SCAO_LGS',
+  HARMONI_SCAO_LGS: 'SCAO_LGS',
+  MICADO_SCAO_NGS: 'SCAO_NGS',
+  SOUL_SCAO_NGS: 'SCAO_NGS',
+  SPHERE_SCAO_NGS: 'SCAO_NGS',
 };
 
 // const getF0FromWavelength = (lambda) => {
@@ -242,7 +549,7 @@ export default function IniGenerator() {
   const [downloadUrl, setDownloadUrl] = useState(null);
   // const [loPart, setLoPart] = useState(false); // for SCAO LGS only
 
-  const filename = `config_${presetToKey[selectedOption] || selectedOption}.ini`;
+  const filename = `${selectedOption || selectedOption}.ini`;
 
   const systemKey = presetToKey[selectedOption];
 
@@ -444,6 +751,8 @@ export default function IniGenerator() {
     }
   }, [params.sources_HO?.Wavelength, params.sources_LO?.Wavelength, magnitude, systemKey]);
 
+
+  //*********************DISPLAY********************/
   return (
     <div style={{ border: '1px solid #ccc', padding: 16, margin: '20px 0' }}>
       <h3> .ini Parameter File Generator - <a href="/docs/orion/AO_instruments">For Available AO Instruments</a></h3>
@@ -563,7 +872,7 @@ export default function IniGenerator() {
                 ? params.sources_science.Zenith.replace(/[\[\]]/g, '')
                 : params.sources_science.Zenith
             }
-            step="0.01"
+            step="0.1"
             onChange={(e) => {
               const val = e.target.value;
               if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
@@ -580,35 +889,6 @@ export default function IniGenerator() {
         {systemKey === 'SCAO_NGS' && params.sources_HO && (
         <div style={{ marginBottom: '1em' }}>
           <strong>[sources_HO]</strong>
-          {/* <div style={{ marginTop: '0.5em' }}>
-            <label>
-              Wavelength (m):
-              <input
-                type="text"
-                value={
-                  typeof params.sources_HO.Wavelength === 'string'
-                    ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
-                    : params.sources_HO.Wavelength
-                  }
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
-                      handleChange('sources_HO', 'Wavelength', `[${val}]`);
-                  }
-                }}
-                style={{ marginLeft: 10, marginRight: 10 }}
-                />
-            </label>
-            <span>
-              Band: {getBandFromWavelength(
-                Number(
-                  typeof params.sources_HO.Wavelength === 'string'
-                    ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
-                    : params.sources_HO.Wavelength
-                  )
-              )}
-           </span>
-          </div> */}
           <div style={{marginTop: '0.5em'}}>
               NGS Wavelength set at {' '}
               <span> 
@@ -640,7 +920,7 @@ export default function IniGenerator() {
                   ? params.sources_HO.Zenith.replace(/[\[\]]/g, '')
                   : params.sources_HO.Zenith
                 }
-                step="0.01"
+                step="0.1"
                 onChange={(e) => {
                 const val = e.target.value;
                 if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
@@ -657,35 +937,6 @@ export default function IniGenerator() {
         {systemKey === 'SCAO_LGS' && params.sources_LO && (
         <div style={{ marginBottom: '1em' }}>
           <strong>[sources_LO]</strong>
-          {/* <div style={{ marginTop: '0.5em' }}>
-            <label>
-              Wavelength (m):
-              <input
-                type="text"
-                value={
-                  typeof params.sources_LO.Wavelength === 'string'
-                    ? params.sources_LO.Wavelength.replace(/[\[\]]/g, '')
-                    : params.sources_LO.Wavelength
-                  }
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
-                      handleChange('sources_LO', 'Wavelength', `[${val}]`);
-                  }
-                }}
-                style={{ marginLeft: 10, marginRight: 10 }}
-                />
-              </label>
-              <span>
-              Band: {getBandFromWavelength(
-                Number(
-                  typeof params.sources_LO.Wavelength === 'string'
-                  ? params.sources_LO.Wavelength.replace(/[\[\]]/g, '')
-                  : params.sources_LO.Wavelength
-              )
-              )}
-              </span>
-            </div> */}
             <div style={{marginTop: '0.5em'}}>
               NGS Wavelength set at {' '}
               <span> 
@@ -739,6 +990,7 @@ export default function IniGenerator() {
                 V-Magnitude:
                 <input
                   type="number"
+                  step="0.1"
                   value={magnitude}
                   onChange={(e) => onMagnitudeChange(e.target.value)}
                   style={{ marginLeft: 10 }}
@@ -775,7 +1027,7 @@ export default function IniGenerator() {
             {Object.entries(editableFields.sensor_HO).map(([field, type]) => (
               <div key={`sensor_HO-${field}`} style={{ marginTop: '0.5em' }}>
                 <label>
-                  {field}:
+                  {field}  <i>(nph/subaperture/frame)</i>:
                   <input
                     type={type === 'number' ? 'number' : 'text'}
                     value={params.sensor_HO[field]}
@@ -797,12 +1049,13 @@ export default function IniGenerator() {
                 V-Magnitude:
                 <input
                   type="number"
+                  step="0.1"
                   value={magnitude}
                   onChange={(e) => onMagnitudeChange(e.target.value)}
                   style={{ marginLeft: 10 }}
                 />
               </label>
-                            {(() => {
+          {(() => {
         const lambdaRaw = params.sources_LO?.Wavelength;
         let lambda = 0;
         if (typeof lambdaRaw === 'string') {
@@ -833,7 +1086,7 @@ export default function IniGenerator() {
             {Object.entries(editableFields.sensor_LO).map(([field, type]) => (
               <div key={`sensor_LO-${field}`} style={{ marginTop: '0.5em' }}>
                 <label>
-                  {field}:
+                  {field} <i>(nph/subaperture/frame)</i>:
                   <input
                     type={type === 'number' ? 'number' : 'text'}
                     value={params.sensor_LO[field]}

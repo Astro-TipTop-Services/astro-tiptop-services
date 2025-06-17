@@ -6,7 +6,11 @@ The website is publicly accessible at: https://astro-tiptop-services.github.io/a
 ---
 ## 🔍 Purpose
 
-This site is intended to promote and facilitate access to **[TipTop](https://github.com/astro-tiptop/TIPTOP)**, an open-source software developed and maintained in a scientific research context. The website provides documentation, interactive tools, and downloadable resources related to this software.
+This site is intended to promote and facilitate access to **TIPTOP**, an open-source software developed and maintained in a scientific research context. 
+TIPTOP is available under the [MIT License](https://opensource.org/licenses/MIT).  
+Its official GitHub repository is here: [https://github.com/astro-tiptop/TIPTOP]([https://github.com/obs-vlbi/TIPTOP](https://github.com/astro-tiptop/TIPTOP)).
+
+The website provides documentation, interactive tools, and downloadable resources related to this software.
 
 ---
 
@@ -16,7 +20,7 @@ The code in this repository is publicly visible for transparency purposes but **
 
 > **All rights are reserved**. You may not copy, reuse, modify, or redistribute the code in any form without prior written permission from the authors.
 
-See the `LICENSE` file for full details.
+See the [`LICENSE`](./LICENSE) file for full details.
 
 ---
 
@@ -40,4 +44,4 @@ See the website's "About us" section for a list of contributors.
 
 For questions, permission requests, or collaborations, please contact: astro.tiptop.services@gmail.com
 
-Astro-TipTop-Services is a personal GitHub account and project label maintained by Lisa-Marie Mazzolo.
+> _Astro-TipTop-Services is a project label and personal GitHub account maintained by Lisa-Marie Mazzolo._

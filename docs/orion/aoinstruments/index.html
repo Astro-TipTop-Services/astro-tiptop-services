@@ -5,7 +5,7 @@
 <meta name="generator" content="Docusaurus v3.7.0">
 <title data-rh="true">Currently Available AO Instruments | Astro-TipTop Services</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://astro-tiptop-services.github.io/astro-tiptop-services/img/logo_astro_tiptop.png"><meta data-rh="true" name="twitter:image" content="https://astro-tiptop-services.github.io/astro-tiptop-services/img/logo_astro_tiptop.png"><meta data-rh="true" property="og:url" content="https://astro-tiptop-services.github.io/astro-tiptop-services/docs/orion/aoinstruments"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Currently Available AO Instruments | Astro-TipTop Services"><meta data-rh="true" name="description" content="🗂️ This page provides .ini configuration files tailored for various instruments: ERIS, HARMONI, MAVIS, MORFEO, MUSE, SOUL, SPHERE."><meta data-rh="true" property="og:description" content="🗂️ This page provides .ini configuration files tailored for various instruments: ERIS, HARMONI, MAVIS, MORFEO, MUSE, SOUL, SPHERE."><link data-rh="true" rel="icon" href="/astro-tiptop-services/img/logo_astro-tiptop.png"><link data-rh="true" rel="canonical" href="https://astro-tiptop-services.github.io/astro-tiptop-services/docs/orion/aoinstruments"><link data-rh="true" rel="alternate" href="https://astro-tiptop-services.github.io/astro-tiptop-services/docs/orion/aoinstruments" hreflang="en"><link data-rh="true" rel="alternate" href="https://astro-tiptop-services.github.io/astro-tiptop-services/docs/orion/aoinstruments" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/astro-tiptop-services/blog/rss.xml" title="Astro-TipTop Services RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/astro-tiptop-services/blog/atom.xml" title="Astro-TipTop Services Atom Feed"><link rel="stylesheet" href="/astro-tiptop-services/assets/css/styles.5b2405a9.css">
-<script src="/astro-tiptop-services/assets/js/runtime~main.e5d8b2ad.js" defer="defer"></script>
+<script src="/astro-tiptop-services/assets/js/runtime~main.31b29fd3.js" defer="defer"></script>
 <script src="/astro-tiptop-services/assets/js/main.ac9ad330.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -23,8 +23,8 @@
 <li><strong>Natural Guide Star (NGS)</strong>: requires guide star with <code>R&lt;11</code> mag, either on and off-axis (up to <code>60&quot;</code> possible, although <code>&lt;30&quot;</code> recommended due to anisoplanatism)</li>
 <li><strong>Laser Guide Star (LGS)</strong>: requires tip-tilt star within <code>60&quot;</code> with R magnitude in the range <code>7–18</code> mag . Laser spot is initially on-axis, moving relative to target as telescope offsets are applied.</li>
 </ul>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameter-file-ini-format---ngs">Parameter file (.ini format) - NGS<a href="#parameter-file-ini-format---ngs" class="hash-link" aria-label="Direct link to Parameter file (.ini format) - NGS" title="Direct link to Parameter file (.ini format) - NGS">​</a></h3>
-<p align="justify"></p><details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>View parameter file contents (.ini)</strong></summary><div><div class="collapsibleContent_i85q"><pre><code><p>[telescope]
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameter-file-ini-format---scao-ngs">Parameter file (.ini format) - SCAO NGS<a href="#parameter-file-ini-format---scao-ngs" class="hash-link" aria-label="Direct link to Parameter file (.ini format) - SCAO NGS" title="Direct link to Parameter file (.ini format) - SCAO NGS">​</a></h3>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>View parameter file contents (.ini)</strong></summary><div><div class="collapsibleContent_i85q"><pre><code><p>[telescope]
 TelescopeDiameter = 8.
 ZenithAngle = 30.0
 ObscurationRatio = 0.16
@@ -65,7 +65,9 @@ DmHeights = [0.0]
 AoArea = &#x27;circle&#x27;</p><p>[RTC]
 LoopGain_HO = 0.3
 SensorFrameRate_HO = 1000.0
-LoopDelaySteps_HO = 3</p></code></pre></div></div></details><h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameter-file-ini-format---lgs">Parameter file (.ini format) - LGS<a href="#parameter-file-ini-format---lgs" class="hash-link" aria-label="Direct link to Parameter file (.ini format) - LGS" title="Direct link to Parameter file (.ini format) - LGS">​</a></h3><details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>View parameter file contents (.ini)</strong></summary><div><div class="collapsibleContent_i85q"><pre><code><p>[telescope]
+LoopDelaySteps_HO = 3</p></code></pre></div></div></details>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameter-file-ini-format---scao-lgs">Parameter file (.ini format) - SCAO LGS<a href="#parameter-file-ini-format---scao-lgs" class="hash-link" aria-label="Direct link to Parameter file (.ini format) - SCAO LGS" title="Direct link to Parameter file (.ini format) - SCAO LGS">​</a></h3>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>View parameter file contents (.ini)</strong></summary><div><div class="collapsibleContent_i85q"><pre><code><p>[telescope]
 TelescopeDiameter = 8.
 ZenithAngle = 30.0
 ObscurationRatio = 0.16
@@ -125,7 +127,7 @@ LoopGain_LO = &#x27;optimize&#x27;
 SensorFrameRate_HO = 1000.0
 LoopDelaySteps_HO = 3
 SensorFrameRate_LO = 500.0
-LoopDelaySteps_LO = 2</p></code></pre></div></div></details><p></p>
+LoopDelaySteps_LO = 2</p></code></pre></div></div></details>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="harmoni">HARMONI (High Angular Resolution Monolithic Optical and Near-infrared Integral field spectrograph)<a href="#harmoni" class="hash-link" aria-label="Direct link to HARMONI (High Angular Resolution Monolithic Optical and Near-infrared Integral field spectrograph)" title="Direct link to HARMONI (High Angular Resolution Monolithic Optical and Near-infrared Integral field spectrograph)">​</a></h2>
 <p>HARMONI will be one of the first generation of ELT instruments and will transform the visible and near-infrared astronomy landscape. This workhorse instrument, a 3D spectrograph, will disperse the light from astronomical objects into its component wavelengths, allowing scientists to study them in fine detail and go beyond what we can achieve with current spectrographs. <br>
 <em>(Text sourced from: <a href="https://elt.eso.org/instrument/HARMONI/" target="_blank" rel="noopener noreferrer">https://elt.eso.org/instrument/HARMONI/</a>)</em> <br></p>
@@ -138,6 +140,375 @@ LoopDelaySteps_LO = 2</p></code></pre></div></div></details><p></p>
 <p><strong>Laser Tomography Adaptive Optics (LTAO)</strong></p>
 </li>
 </ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameter-file-ini-format---scao">Parameter file (.ini format) - SCAO<a href="#parameter-file-ini-format---scao" class="hash-link" aria-label="Direct link to Parameter file (.ini format) - SCAO" title="Direct link to Parameter file (.ini format) - SCAO">​</a></h3>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>View parameter file contents (.ini)</strong></summary><div><div class="collapsibleContent_i85q"><pre><code><p>[telescope]
+; telescope diameter in meters - required
+TelescopeDiameter = 39
+; telescope zenith angle in degrees - optional - default: 0.0
+ZenithAngle = 30.0
+; pupil obstruction ratio due to the secondary in relative unites to the telescope diameter - optional - default: 0.0
+ObscurationRatio = 0.28
+; pupil resolution in pixels - required
+Resolution = 400
+; path to the pupil model in .fits file - optional (if provided, the pupil model is interpolated) - default: &#x27;&#x27;
+PathPupil = &#x27;/aoSystem/data/ELT_CALIBRATION/EELT480pp0.0813spider.fits&#x27;
+; path to a map of static aberrations (nm) in .fits file - optional - default: &#x27;&#x27;
+PathStaticOn = &#x27;/aoSystem/data/ELT_CALIBRATION/CombinedError_Wavefront_nm.fits&#x27;
+; path to a model of amplitude apodizaton of the electric field in the pupil in .fits file - optional - default: &#x27;&#x27;
+PathApodizer = &#x27;&#x27;
+; path to a model of a basis of modes to describe addtionnal static aberrations - optional - default: &#x27;&#x27;
+PathStatModes = &#x27;&#x27;
+; pupil angle in degrees - optional - default: 0.0
+PupilAngle = 0.0</p><p>[atmosphere]
+; wavelength of definition of atmosphere statistics  -  optional - default 500e-9
+Wavelength = 500e-9
+; seeing at zenith in arcsec- required
+Seeing = 0.65
+; Outer scale in meter - optional - default: 25.0
+L0 = 25.0
+; Relative contribution of each layer (sum=1) - optional -  default: [1.0]
+Cn2Weights = [0.59, 0.02, 0.04, 0.06, 0.01, 0.05, 0.09, 0.04, 0.05, 0.05]
+; altitude of layers in meters - optional -  default [0.0]
+Cn2Heights = [30, 140, 281, 562, 1125, 2250, 4500, 7750, 11000, 14000]
+; wind speed values for each layer in m/s - optional -  default [10.0]
+WindSpeed = [6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]
+; wind direction for each layer in degrees - optional -  default [0.0]
+WindDirection = [0., 0., 0., 0., 90., -90., -90., 90., 0., 0.]</p><p>[sources_science]
+;list of central wavelengths for each frame - required
+Wavelength = [2200e-9]
+;list of polar coordinates of the sciences sources; zenith in arcsec and azimuth in degrees - optional -  default: [0.0]
+Zenith = [0.0]
+Azimuth = [0.0]</p><p>[sources_HO]
+;Sensing wavelength for HO modes in meters - required
+Wavelength = 950e-9
+;list of polar coordinates of the guide stars sources; zenith in arcsec and azimuth in degrees - optional - default [0.0]
+Zenith = [0.0]
+Azimuth = [0.0]
+;altitude of the guide stars (0 if infinite) - optional - default: 0.0
+Height = 0.0</p><p>[sources_LO]
+;Sensing wavelength for HO modes in meters - required
+Wavelength = 1650e-9
+;list of polar coordinates of the guide stars sources; zenith in arcsec and azimuth in degrees - optional - default [0.0]
+Zenith = [0.0]
+Azimuth = [0.0]</p><p>[sensor_science]
+;pixel/spaxel scale in mas - required
+PixelScale = 4.0
+;Field of view in pixel - optional - default: 150
+FieldOfView = 640
+;binning factor - optional - default: 1
+Binning = 1
+;Detected flux in [nph/frame/subaperture] - optional - default: 1500<br>
+<!-- -->NumberPhotons = [1500]
+;HO spot scale in [mas] - optional - defaut: [[0.0, 0.0, 0.0]]
+SpotFWHM = [[1.0, 1.0, 0.0]]<br>
+<!-- -->;Spectral bandwidth of the filter (imaging mode) - optional - default: 0.0
+; wavelength are setup as a linear grid from ScienceWavelength - SpectralBandwidth to ScienceWavelength + SpectralBandwidth with a number of bins defined from the length of the Transmittance field
+SpectralBandwidth = 0.0
+;Transmittance at the considered wavelengths for polychromatic mode - optional - default: [1.0]
+Transmittance = [1.0]
+;Dispersion x/y at the considered wavelength in pixel. Must be the same size than Transmittance - optional - default: [[0.0],[0.0]]
+Dispersion = [[0.0],[0.0]]
+;ron in [e-] - optionnal - default: 0.0
+SigmaRON = [0.0]
+; dark current[e-/s/pix] - optional - default: 0.0
+Dark = 0.0
+;Sky background [e-/s/pix] - optional - default: 0.0<br>
+<!-- -->SkyBackground = 0.0
+;Pixel gain - optional - default:1.0
+Gain = 1.0
+;excess noise factor - optional - default: 1.0<br>
+<!-- -->ExcessNoiseFactor = 1.0</p><p>[sensor_HO]
+;WFS type - optional - default : Shack-Hartmann
+WfsType = &#x27;Pyramid&#x27;
+;Spot modulation radius in lambda/D units for pyramid WFS - optional - default : None
+Modulation = 3
+;HO WFS pixel scale in [mas] - required
+PixelScale = 220<br>
+<!-- -->;Number of pixels per subaperture - required
+FieldOfView = 600<br>
+<!-- -->;binning factor - optional - default: 1
+Binning = 1
+;Flux return in [nph/frame/subaperture] - required
+NumberPhotons = [150]<br>
+<!-- -->;HO spot scale in [mas] - optional - defaut: [[0.0, 0.0, 0.0]]
+SpotFWHM = [[0.0,0.0,0.0]]<br>
+<!-- -->;Spectral bandwidth of the filter (imaging mode) - optional - default: 0.0
+SpectralBandwidth = 0.0
+;Transmittance at the considered wavelengths for polychromatic mode - optional - default: [1.0]
+Transmittance = [1.0]
+;Dispersion x/y at the considered wavelength in pixel. Must be the same size than Transmittance - optional - default: [[0.0,0.0]]
+Dispersion = [[0.0],[0.0]]<br>
+<!-- -->;read-out noise std in [e-] - required
+SigmaRON = 0.0<br>
+<!-- -->; dark current[e-/s/pix] - optional - default: 0.0
+Dark = 0.0
+;Sky background [e-/s/pix] - optional - default: 0.0<br>
+<!-- -->SkyBackground = 0.0
+;Pixel gain - optional - default:1.0
+Gain = 1.0<br>
+<!-- -->;excess noise factor - optional - default: 2.0<br>
+<!-- -->ExcessNoiseFactor = 1.0
+;Number of WFS lenslets - required
+NumberLenslets = [100]<br>
+<!-- -->;Size of WFS lenslets in meters- optional
+SizeLenslets = [0.4]<br>
+<!-- -->;Noise Variance in rd^2. If not empty, this value overwrites the analytical noise variance calculation - optional
+NoiseVariance = [None]
+;CoG computation algorithm - optional  -defaut:&#x27;wcog&#x27;
+Algorithm = &#x27;wcog&#x27;
+;Number of pixels for windiwing the low order WFS pixels - optional - default: 2<br>
+<!-- -->WindowRadiusWCoG = 6
+;Threshold Number of pixels for windowing the low order WFS pixels - optional - default: 0.0<br>
+<!-- -->ThresholdWCoG = 0.0
+;New value for pixels lower than threshold - optional - default: 0.0<br>
+<!-- -->NewValueThrPix = 0.0</p><p>[sensor_LO]
+;LO WFS pixel scale in [mas] - required
+PixelScale = 40.0
+;Number of pixels per subaperture - required
+FieldOfView = 200
+;binning factor - optional - default: 1
+Binning = 1<br>
+<!-- -->;detected flux in [nph/frame/subaperture] - required<br>
+<!-- -->NumberPhotons = [200]
+;HO spot scale in [mas] - optional - defaut: [[0.0, 0.0, 0.0]]
+SpotFWHM = [[0.0,0.0,0.0]]<br>
+<!-- -->;ron in [e-] - optional - default: 0.0<br>
+<!-- -->SigmaRON = 0.0<br>
+<!-- -->;dark current[e-/s/pix] - optional - default: 0.0<br>
+<!-- -->Dark = 0.0
+;sky background [e-/s/pix] - optional - default: 0.0<br>
+<!-- -->SkyBackground = 0.0
+;Pixel gain - optional - default:1.0
+Gain = 1.0<br>
+<!-- -->;excess noise factor - optional - default: 2.0<br>
+<!-- -->ExcessNoiseFactor = 2.0
+;number of WFS lenslets - required
+NumberLenslets = [4]
+;CoG computation algorithm - optional  - default:&#x27;wcog&#x27;
+Algorithm = &#x27;wcog&#x27;
+;Number of pixels for windiwing the low order WFS pixels - optional - default: 2<br>
+<!-- -->WindowRadiusWCoG = 2
+;Threshold Number of pixels for windowing the low order WFS pixels - optional - default: 0.0<br>
+<!-- -->ThresholdWCoG = 0.0
+;New value for pixels lower than threshold - optional - default: 0.0<br>
+<!-- -->NewValueThrPix = 0.0</p><p>[DM]
+;DM actuators pitch in meters - required
+NumberActuators = [80]
+;DM actuators pitch in meters - required
+DmPitchs = [0.38]
+;DM influence function model - optional - default: &#x27;gaussian&#x27;
+InfModel = &#x27;gaussian&#x27;
+;DM influence function model  mechanical coupling- optional - default: [0.2]
+InfCoupling = [0.2]
+;DM altitude in m - optional - default: [0.0]
+DmHeights = [600.0]
+;Zenith position in arcsec - optional - default: [0.0]
+OptimizationZenith = [0]
+;Azimuth in degrees - optional - default: [0.0]
+OptimizationAzimuth = [0]
+;Weights - optional - default: [1.0]
+OptimizationWeight  = [1]<br>
+<!-- -->;Matrix Conditioning - optional - default: 1e2
+OptimizationConditioning = 1.0e2
+; Number of reconstructed layers for tomographic systems - optional - default: 10
+NumberReconstructedLayers= 10
+;Shape of the AO-corrected area - optional - default: &#x27;circle&#x27;
+AoArea = &#x27;circle&#x27;</p><p>[RTC]
+;HO Loop gain - required
+LoopGain_HO = 0.8<br>
+<!-- -->;HO loop frequency in [Hz] - required
+SensorFrameRate_HO = 500.0
+;HO loop frame delay - required
+LoopDelaySteps_HO = 1<br>
+<!-- -->; LO loop gain - optional - default: Nome
+LoopGain_LO = 0.5
+;Loop frequency in Hz  - optional - default: None
+SensorFrameRate_LO = 500.0
+;Corresponding delays (in frames)  - optional - default: None
+LoopDelaySteps_LO = 1</p></code></pre></div></div></details>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameter-file-ini-format---ltao">Parameter file (.ini format) - LTAO<a href="#parameter-file-ini-format---ltao" class="hash-link" aria-label="Direct link to Parameter file (.ini format) - LTAO" title="Direct link to Parameter file (.ini format) - LTAO">​</a></h3>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>View parameter file contents (.ini)</strong></summary><div><div class="collapsibleContent_i85q"><pre><code><p>[telescope]
+; telescope diameter in meters - required
+TelescopeDiameter = 39
+; telescope zenith angle in degrees - optional - default: 0.0
+ZenithAngle = 30.0
+; pupil obstruction ratio due to the secondary in relative unites to the telescope diameter - optional - default: 0.0
+ObscurationRatio = 0.28
+; pupil resolution in pixels - required
+Resolution = 320
+; path to the pupil model in .fits file - optional (if provided, the pupil model is interpolated) - default: &#x27;&#x27;
+PathPupil = &#x27;/aoSystem/data/ELT_CALIBRATION/EELT480pp0.0813spider.fits&#x27;
+; path to a map of static aberrations (nm) in .fits file - optional - default: &#x27;&#x27;
+PathStaticOn = &#x27;/aoSystem/data/ELT_CALIBRATION/CombinedError_Wavefront_nm.fits&#x27;
+; path to a model of amplitude apodizaton of the electric field in the pupil in .fits file - optional - default: &#x27;&#x27;
+PathApodizer = &#x27;&#x27;
+; path to a model of a basis of modes to describe addtionnal static aberrations - optional - default: &#x27;&#x27;
+PathStatModes = &#x27;&#x27;
+; pupil angle in degrees - optional - default: 0.0
+PupilAngle = 0.0</p><p>[atmosphere]
+; wavelength of definition of atmosphere statistics  -  optional - default 500e-9
+Wavelength = 500e-9
+; seeing at zenith in arcsec- required
+Seeing = 0.8
+; Outer scale in meter - optional - default: 25.0
+L0 = 25.0
+; Relative contribution of each layer (sum=1) - optional -  default: [1.0]
+Cn2Weights = [0.24200001, 0.12, 0.09689999, 0.059, 0.0473, 0.0473, 0.0473, 0.0473, 0.0399, 0.0324, 0.0162, 0.026099999, 0.0156, 0.0104, 0.01, 0.012, 0.00401, 0.0139999995, 0.012999999, 0.00701, 0.016, 0.025899999, 0.0191, 0.00987, 0.00617, 0.00401, 0.00247, 0.0021600001, 0.00185, 0.0013600001, 0.0011100001, 0.00061700004, 0.000926, 0.00049400004, 0.000432]
+Cn2Heights = [30.0, 90.0, 150.0, 200.0, 245.0, 300.0, 390.0, 600.0, 1130.0, 1880.0, 2630.0, 3500.0, 4500.0, 5500.0, 6500.0, 7500.0, 8500.0, 9500.0, 10500.0, 11500.0, 12500.0, 13500.0, 14500.0, 15500.0, 16500.0, 17500.0, 18500.0, 19500.0, 20500.0, 21500.0, 22500.0, 23500.0, 24500.0, 25500.0, 26500.0]
+WindSpeed = [5.5, 5.5, 5.1, 5.5, 5.6, 5.7, 5.8, 6.0, 6.5, 7.0, 7.5, 8.5, 9.5, 11.5, 17.5, 23.0, 26.0, 29.0, 32.0, 27.0, 22.0, 14.5, 9.5, 6.3, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.0]
+WindDirection = [-19.571825, -174.84338, 29.129595, -28.166183, 132.83495, 156.3262, -28.166183, -0.09125132, 23.40001, -142.75775, -43.63604, 22.827053, -60.824783, 32.56734, 115.64621, -150.20619, 96.165665, -23.009567, -113.5369, -123.85014, 18.243393, -116.97463, 33.713253, -10.404495, 174.08789, 167.21242, -40.771255, -163.95717, 109.91663, 8.503107, -37.33351, 166.63948, -69.99211, 73.82028, -111.81802]</p><p>[sources_science]
+;list of central wavelengths for each frame - required
+Wavelength = [2200e-9]
+;list of polar coordinates of the sciences sources; zenith in arcsec and azimuth in degrees - optional -  default: [0.0]
+Zenith = [0]<br>
+<!-- -->Azimuth = [0]</p><p>[sources_HO]
+;Sensing wavelength for HO modes in meters - required
+Wavelength = 589e-9
+;list of polar coordinates of the guide stars sources; zenith in arcsec and azimuth in degrees - optional - default [0.0]
+Zenith = [34.0, 34.0, 34.0, 34.0, 34.0, 34.0]
+Azimuth = [0 , 60, 120, 180, 240, 300]
+;altitude of the guide stars (0 if infinite) - optional - default: 0.0
+Height = 90e3</p><p>[sources_LO]
+;Sensing wavelength for HO modes in meters - required
+Wavelength = 850e-9
+;list of polar coordinates of the guide stars sources; zenith in arcsec and azimuth in degrees - optional - default [0.0]
+Zenith = [0.0,30,20]
+Azimuth = [0.0,120,90]</p><p>[sensor_science]
+;pixel/spaxel scale in mas - required
+PixelScale = 4.0
+;Field of view in pixel - optional - default: 150
+FieldOfView = 640
+;binning factor - optional - default: 1
+Binning = 1
+;Detected flux in [nph/frame/subaperture] - optional - default: 1500<br>
+<!-- -->NumberPhotons = [1500]
+;HO spot scale in [mas] - optional - defaut: [[0.0, 0.0, 0.0]]
+SpotFWHM = [[4.0, 4.0, 0.0]]<br>
+<!-- -->;Spectral bandwidth of the filter (imaging mode) - optional - default: 0.0
+; wavelength are setup as a linear grid from ScienceWavelength - SpectralBandwidth to ScienceWavelength + SpectralBandwidth with a number of bins defined from the length of the Transmittance field
+SpectralBandwidth = 0.0
+;Transmittance at the considered wavelengths for polychromatic mode - optional - default: [1.0]
+Transmittance = [1.0]
+;Dispersion x/y at the considered wavelength in pixel. Must be the same size than Transmittance - optional - default: [[0.0],[0.0]]
+Dispersion = [[0.0],[0.0]]
+;ron in [e-] - optionnal - default: 0.0
+SigmaRON = [0.0]
+; dark current[e-/s/pix] - optional - default: 0.0
+Dark = 0.0
+;Sky background [e-/s/pix] - optional - default: 0.0<br>
+<!-- -->SkyBackground = 0.0
+;Pixel gain - optional - default:1.0
+Gain = 1.0
+;excess noise factor - optional - default: 1.0<br>
+<!-- -->ExcessNoiseFactor = 1.0</p><p>[sensor_HO]
+;WFS type - optional - default : Shack-Hartmann
+WfsType = &#x27;Shack-Hartmann&#x27;
+;Spot modulation radius in lambda/D units for pyramid WFS - optional - default : None
+Modulation = None
+;HO WFS pixel scale in [mas] - required
+PixelScale = 1214<br>
+<!-- -->;Number of pixels per subaperture - required
+FieldOfView = 592<br>
+<!-- -->;binning factor - optional - default: 1
+Binning = 1<br>
+<!-- -->;Flux return in [nph/frame/subaperture] - required
+NumberPhotons = [500,500,500,500,500,500]<br>
+<!-- -->;HO spot scale in [mas] - optional - defaut: [[0.0, 0.0, 0.0]]
+SpotFWHM = [[0.0,0.0,0.0]]<br>
+<!-- -->;Spectral bandwidth of the filter (imaging mode) - optional - default: 0.0
+SpectralBandwidth = 0.0
+;Transmittance at the considered wavelengths for polychromatic mode - optional - default: [1.0]
+Transmittance = [1.0]
+;Dispersion x/y at the considered wavelength in pixel. Must be the same size than Transmittance - optional - default: [[0.0,0.0]]
+Dispersion = [[0.0],[0.0]]<br>
+<!-- -->;read-out noise std in [e-] - required
+SigmaRON = 3<br>
+<!-- -->; dark current[e-/s/pix] - optional - default: 0.0
+Dark = 0.0
+;Sky background [e-/s/pix] - optional - default: 0.0<br>
+<!-- -->SkyBackground = 0.0
+;Pixel gain - optional - default:1.0
+Gain = 1.0<br>
+<!-- -->;excess noise factor - optional - default: 2.0<br>
+<!-- -->ExcessNoiseFactor = 1.0
+;Number of WFS lenslets - required
+NumberLenslets = [74,74,74,74,74,74]<br>
+<!-- -->;Number of WFS lenslets - required
+SizeLenslets = [0.4,0.4,0.4,0.4,0.4,0.4]<br>
+<!-- -->;Noise Variance in rd^2. If not empty, this value overwrites the analytical noise variance calculation - optional
+NoiseVariance = [None]
+;CoG computation algorithm - optional  -defaut:&#x27;wcog&#x27;
+Algorithm = &#x27;wcog&#x27;
+;Number of pixels for windiwing the low order WFS pixels - optional - default: 2<br>
+<!-- -->WindowRadiusWCoG = 6
+;Threshold Number of pixels for windowing the low order WFS pixels - optional - default: 0.0<br>
+<!-- -->ThresholdWCoG = 0.0
+;New value for pixels lower than threshold - optional - default: 0.0<br>
+<!-- -->NewValueThrPix = 0.0</p><p>[sensor_LO]
+;LO WFS pixel scale in [mas] - required
+PixelScale = 40.0
+;Number of pixels per subaperture - required
+FieldOfView = 200
+;binning factor - optional - default: 1
+Binning = 1<br>
+<!-- -->;detected flux in [nph/frame/subaperture] - required<br>
+<!-- -->NumberPhotons = [200]
+;HO spot scale in [mas] - optional - defaut: [[0.0, 0.0, 0.0]]
+SpotFWHM = [[0.0,0.0,0.0]]<br>
+<!-- -->;ron in [e-] - optional - default: 0.0<br>
+<!-- -->SigmaRON = 0.0<br>
+<!-- -->;dark current[e-/s/pix] - optional - default: 0.0<br>
+<!-- -->Dark = 0.0
+;sky background [e-/s/pix] - optional - default: 0.0<br>
+<!-- -->SkyBackground = 0.0
+;Pixel gain - optional - default:1.0
+Gain = 1.0<br>
+<!-- -->;excess noise factor - optional - default: 2.0<br>
+<!-- -->ExcessNoiseFactor = 1.0
+;number of WFS lenslets - required
+NumberLenslets = [1]
+;CoG computation algorithm - optional  - default:&#x27;wcog&#x27;
+Algorithm = &#x27;wcog&#x27;
+;Number of pixels for windiwing the low order WFS pixels - optional - default: 2<br>
+<!-- -->WindowRadiusWCoG = 2
+;Threshold Number of pixels for windowing the low order WFS pixels - optional - default: 0.0<br>
+<!-- -->ThresholdWCoG = 0.0
+;New value for pixels lower than threshold - optional - default: 0.0<br>
+<!-- -->NewValueThrPix = 0.0</p><p>[DM]
+;DM actuators pitch in meters - required
+NumberActuators = [80]
+;DM actuators pitch in meters - required
+DmPitchs = [0.37]
+;DM influence function model - optional - default: &#x27;gaussian&#x27;
+InfModel = &#x27;gaussian&#x27;
+;DM influence function model  mechanical coupling- optional - default: [0.2]
+InfCoupling = [0.4]
+;DM altitude in m - optional - default: [0.0]
+DmHeights = [600.0]
+;Zenith position in arcsec - optional - default: [0.0]
+OptimizationZenith = [0]
+;Azimuth in degrees - optional - default: [0.0]
+OptimizationAzimuth = [0]
+;Weights - optional - default: [1.0]
+OptimizationWeight  = [1]<br>
+<!-- -->;Matrix Conditioning - optional - default: 1e2
+OptimizationConditioning = 1.0e2
+; Number of reconstructed layers for tomographic systems - optional - default: 10
+NumberReconstructedLayers= 9
+;Shape of the AO-corrected area - optional - default: &#x27;circle&#x27;
+AoArea = &#x27;circle&#x27;</p><p>[RTC]
+;HO Loop gain - required
+LoopGain_HO = 0.5<br>
+<!-- -->;HO loop frequency in [Hz] - required
+SensorFrameRate_HO = 500.0
+;HO loop frame delay - required
+LoopDelaySteps_HO = 2<br>
+<!-- -->; LO loop gain - optional - default: Nome
+LoopGain_LO = 0.5
+;Loop frequency in Hz  - optional - default: None
+SensorFrameRate_LO = 500.0
+;Corresponding delays (in frames)  - optional - default: None
+LoopDelaySteps_LO = 2</p></code></pre></div></div></details>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="mavis">MAVIS<a href="#mavis" class="hash-link" aria-label="Direct link to MAVIS" title="Direct link to MAVIS">​</a></h2>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="micado">MICADO (Multi-AO Imaging Camera for Deep Observations)<a href="#micado" class="hash-link" aria-label="Direct link to MICADO (Multi-AO Imaging Camera for Deep Observations)" title="Direct link to MICADO (Multi-AO Imaging Camera for Deep Observations)">​</a></h2>
 <p>A first-generation ELT instrument, MICADO will take high-resolution images of the Universe at near-infrared wavelengths. This makes the instrument ideal for identifying exoplanets, but also for resolving individual stars in other galaxies and investigating the mysterious centre of the Milky Way. <br>
@@ -163,15 +534,29 @@ ObscurationRatio = 0.28
 Resolution = 480
 ; path to the pupil model in .fits file - optional (if provided, the pupil model is interpolated) - default: &#x27;&#x27;
 PathPupil = &#x27;tiptop/data/EELT480pp0.0803m_obs0.283_spider2023.fits&#x27;
-; path to a map of static aberrations (nm) in .fits file - optional - default: &#x27;&#x27;</p><h1>44 nm RMS static WF error from M1 (ESO datapackage version 2)</h1><p>PathStaticOn = &#x27;tiptop/data/ELT_M1_static_wfe_480px.fits&#x27;
+; path to a map of static aberrations (nm) in .fits file - optional - default: &#x27;&#x27;
+; 44 nm RMS static WF error from M1 (ESO datapackage version 2)
+PathStaticOn = &#x27;tiptop/data/ELT_M1_static_wfe_480px.fits&#x27;
 #zCoefStaticOn = [0,0,1000]
 ; path to a model of amplitude apodizaton of the electric field in the pupil in .fits file - optional - default: &#x27;&#x27;
 PathApodizer = &#x27;&#x27;
 ; path to a model of a basis of modes to describe addtionnal static aberrations - optional - default: &#x27;&#x27;
 PathStatModes = &#x27;&#x27;
 ; pupil angle in degrees - optional - default: 0.0
-PupilAngle = 0.0</p><h1>ELT tip &amp; tilt wind shake when wind speed on M2 is 8 m/s</h1><p>windPsdFile = &#x27;tiptop/data/morfeo_windshake8ms_psd_2022_1k.fits&#x27;
-TechnicalFoV = 10</p><h1>additional error budget coming from sources not included in the simulation</h1><h1>M1 missing segments + M1 reflectivity + NCPA</h1><h1>see Vidal+ 2022</h1><p>extraErrorNm = 50</p><h1>jitter_FWHM --&gt; 10 nm RMS tip error is 0.505arcesc for a 38.5 m pupil</h1><h1>extra error on tip/tilt 138 nm (6.9706) to consider tilt error due to windshake and vibrations</h1><h1>see Vidal+ 2022</h1><p>#jitter_FWHM = 6.9706</p><h1>65 nm RMS</h1><p>jitter_FWHM = 3.26</p><p>[atmosphere]
+PupilAngle = 0.0
+; ELT tip &amp; tilt wind shake when wind speed on M2 is 8 m/s
+windPsdFile = &#x27;tiptop/data/morfeo_windshake8ms_psd_2022_1k.fits&#x27;
+TechnicalFoV = 10
+; additional error budget coming from sources not included in the simulation
+; M1 missing segments + M1 reflectivity + NCPA
+; see Vidal+ 2022
+extraErrorNm = 50
+; jitter_FWHM --&gt; 10 nm RMS tip error is 0.505arcesc for a 38.5 m pupil
+; extra error on tip/tilt 138 nm (6.9706) to consider tilt error due to windshake and vibrations
+; see Vidal+ 2022
+#jitter_FWHM = 6.9706
+; 65 nm RMS
+jitter_FWHM = 3.26</p><p>[atmosphere]
 ; wavelength of definition of atmosphere statistics  -  optional - default 500e-9
 Wavelength = 500e-9
 ; seeing at zenith in arcsec- required
@@ -262,7 +647,7 @@ LoopDelaySteps_HO = 2</p></code></pre></div></div></details>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="soul">SOUL (Single conjugated adaptive Optics Upgrade for LBT)<a href="#soul" class="hash-link" aria-label="Direct link to SOUL (Single conjugated adaptive Optics Upgrade for LBT)" title="Direct link to SOUL (Single conjugated adaptive Optics Upgrade for LBT)">​</a></h2>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="ao-modes-used-3">AO modes used:<a href="#ao-modes-used-3" class="hash-link" aria-label="Direct link to AO modes used:" title="Direct link to AO modes used:">​</a></h3>
 <p><strong>Single Conjugate Adaptive Optics (SCAO)</strong></p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameter-file-ini-format---ngs-1">Parameter file (.ini format) - NGS<a href="#parameter-file-ini-format---ngs-1" class="hash-link" aria-label="Direct link to Parameter file (.ini format) - NGS" title="Direct link to Parameter file (.ini format) - NGS">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameter-file-ini-format---ngs">Parameter file (.ini format) - NGS<a href="#parameter-file-ini-format---ngs" class="hash-link" aria-label="Direct link to Parameter file (.ini format) - NGS" title="Direct link to Parameter file (.ini format) - NGS">​</a></h3>
 <details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>View parameter file contents (.ini)</strong></summary><div><div class="collapsibleContent_i85q"><pre><code><p>[telescope]
 TelescopeDiameter = 8.222
 ZenithAngle = 30.0
@@ -307,7 +692,7 @@ LoopDelaySteps_HO = 3</p></code></pre></div></div></details>
 <em>(Text sourced from: <a href="https://www.eso.org/sci/facilities/paranal/instruments/sphere/overview.html" target="_blank" rel="noopener noreferrer">https://www.eso.org/sci/facilities/paranal/instruments/sphere/overview.html</a>), More information can be found at: <a href="https://www.eso.org/sci/facilities/paranal/instruments/sphere.html" target="_blank" rel="noopener noreferrer">https://www.eso.org/sci/facilities/paranal/instruments/sphere.html</a></em> <br></p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="ao-modes-used-4">AO modes used:<a href="#ao-modes-used-4" class="hash-link" aria-label="Direct link to AO modes used:" title="Direct link to AO modes used:">​</a></h3>
 <p><strong>Single Conjugate Adaptive Optics (SCAO)</strong></p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameter-file-ini-format---ngs-2">Parameter file (.ini format) - NGS<a href="#parameter-file-ini-format---ngs-2" class="hash-link" aria-label="Direct link to Parameter file (.ini format) - NGS" title="Direct link to Parameter file (.ini format) - NGS">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameter-file-ini-format---ngs-1">Parameter file (.ini format) - NGS<a href="#parameter-file-ini-format---ngs-1" class="hash-link" aria-label="Direct link to Parameter file (.ini format) - NGS" title="Direct link to Parameter file (.ini format) - NGS">​</a></h3>
 <details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary><strong>View parameter file contents (.ini)</strong></summary><div><div class="collapsibleContent_i85q"><pre><code><p>[telescope]
 TelescopeDiameter = 8.0
 ZenithAngle = 30.0
@@ -348,6 +733,6 @@ DmHeights = [0.0]
 AoArea = &#x27;square&#x27;</p><p>[RTC]
 LoopGain_HO = 0.3
 SensorFrameRate_HO = 1380.0
-LoopDelaySteps_HO = 3</p></code></pre></div></div></details></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/astro-tiptop-services/docs/orion/howtosetup"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">How to set up TipTop according to the AO mode?</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/astro-tiptop-services/docs/orion/interactivetools"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Interactive tools – Generate Input Files &amp; Convert Parameters</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#eris" class="table-of-contents__link toc-highlight">ERIS (Enhanced Resolution Imager and Spectrograph)</a><ul><li><a href="#ao-modes-used" class="table-of-contents__link toc-highlight">AO modes used:</a></li><li><a href="#parameter-file-ini-format---ngs" class="table-of-contents__link toc-highlight">Parameter file (.ini format) - NGS</a></li><li><a href="#parameter-file-ini-format---lgs" class="table-of-contents__link toc-highlight">Parameter file (.ini format) - LGS</a></li></ul></li><li><a href="#harmoni" class="table-of-contents__link toc-highlight">HARMONI (High Angular Resolution Monolithic Optical and Near-infrared Integral field spectrograph)</a><ul><li><a href="#ao-modes-used-1" class="table-of-contents__link toc-highlight">AO modes used:</a></li></ul></li><li><a href="#mavis" class="table-of-contents__link toc-highlight">MAVIS</a></li><li><a href="#micado" class="table-of-contents__link toc-highlight">MICADO (Multi-AO Imaging Camera for Deep Observations)</a><ul><li><a href="#ao-modes-used-ao-" class="table-of-contents__link toc-highlight">AO modes used (AO) :</a></li><li><a href="#parameter-file-ini-format--" class="table-of-contents__link toc-highlight">Parameter file (.ini format) -</a></li></ul></li><li><a href="#morfeo" class="table-of-contents__link toc-highlight">MORFEO (Multiconjugate adaptive Optics Relay For ELT Observations)</a></li><li><a href="#muse" class="table-of-contents__link toc-highlight">MUSE (Multi-Unit Spectroscopic Explorer)</a><ul><li><a href="#ao-modes-used-2" class="table-of-contents__link toc-highlight">AO modes used:</a></li></ul></li><li><a href="#soul" class="table-of-contents__link toc-highlight">SOUL (Single conjugated adaptive Optics Upgrade for LBT)</a><ul><li><a href="#ao-modes-used-3" class="table-of-contents__link toc-highlight">AO modes used:</a></li><li><a href="#parameter-file-ini-format---ngs-1" class="table-of-contents__link toc-highlight">Parameter file (.ini format) - NGS</a></li></ul></li><li><a href="#sphere" class="table-of-contents__link toc-highlight">SPHERE (Spectro-Polarimetric High-contrast Exoplanet REsearch)</a><ul><li><a href="#ao-modes-used-4" class="table-of-contents__link toc-highlight">AO modes used:</a></li><li><a href="#parameter-file-ini-format---ngs-2" class="table-of-contents__link toc-highlight">Parameter file (.ini format) - NGS</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Tutorials</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/astro-tiptop-services/docs/intro">TipTop Installation Tutorial</a></li><li class="footer__item"><a class="footer__link-item" href="/astro-tiptop-services/docs/quickstart">TipTop Quickstart Tutorial</a></li></ul></div><div class="col footer__col"><div class="footer__title">About</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/astro-tiptop-services/terms">Terms &amp; Conditions</a></li><li class="footer__item"><a class="footer__link-item" href="/astro-tiptop-services/resources/contact">Contact us</a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/astro-tiptop/TIPTOP" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://pypi.org/project/astro-tiptop/" target="_blank" rel="noopener noreferrer" class="footer__link-item">PyPi<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Astro-TipTop Team. Built with Docusaurus.</div></div></div></footer></div>
+LoopDelaySteps_HO = 3</p></code></pre></div></div></details></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/astro-tiptop-services/docs/orion/howtosetup"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">How to set up TipTop according to the AO mode?</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/astro-tiptop-services/docs/orion/interactivetools"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Interactive tools – Generate Input Files &amp; Convert Parameters</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#eris" class="table-of-contents__link toc-highlight">ERIS (Enhanced Resolution Imager and Spectrograph)</a><ul><li><a href="#ao-modes-used" class="table-of-contents__link toc-highlight">AO modes used:</a></li><li><a href="#parameter-file-ini-format---scao-ngs" class="table-of-contents__link toc-highlight">Parameter file (.ini format) - SCAO NGS</a></li><li><a href="#parameter-file-ini-format---scao-lgs" class="table-of-contents__link toc-highlight">Parameter file (.ini format) - SCAO LGS</a></li></ul></li><li><a href="#harmoni" class="table-of-contents__link toc-highlight">HARMONI (High Angular Resolution Monolithic Optical and Near-infrared Integral field spectrograph)</a><ul><li><a href="#ao-modes-used-1" class="table-of-contents__link toc-highlight">AO modes used:</a></li><li><a href="#parameter-file-ini-format---scao" class="table-of-contents__link toc-highlight">Parameter file (.ini format) - SCAO</a></li><li><a href="#parameter-file-ini-format---ltao" class="table-of-contents__link toc-highlight">Parameter file (.ini format) - LTAO</a></li></ul></li><li><a href="#mavis" class="table-of-contents__link toc-highlight">MAVIS</a></li><li><a href="#micado" class="table-of-contents__link toc-highlight">MICADO (Multi-AO Imaging Camera for Deep Observations)</a><ul><li><a href="#ao-modes-used-ao-" class="table-of-contents__link toc-highlight">AO modes used (AO) :</a></li><li><a href="#parameter-file-ini-format--" class="table-of-contents__link toc-highlight">Parameter file (.ini format) -</a></li></ul></li><li><a href="#morfeo" class="table-of-contents__link toc-highlight">MORFEO (Multiconjugate adaptive Optics Relay For ELT Observations)</a></li><li><a href="#muse" class="table-of-contents__link toc-highlight">MUSE (Multi-Unit Spectroscopic Explorer)</a><ul><li><a href="#ao-modes-used-2" class="table-of-contents__link toc-highlight">AO modes used:</a></li></ul></li><li><a href="#soul" class="table-of-contents__link toc-highlight">SOUL (Single conjugated adaptive Optics Upgrade for LBT)</a><ul><li><a href="#ao-modes-used-3" class="table-of-contents__link toc-highlight">AO modes used:</a></li><li><a href="#parameter-file-ini-format---ngs" class="table-of-contents__link toc-highlight">Parameter file (.ini format) - NGS</a></li></ul></li><li><a href="#sphere" class="table-of-contents__link toc-highlight">SPHERE (Spectro-Polarimetric High-contrast Exoplanet REsearch)</a><ul><li><a href="#ao-modes-used-4" class="table-of-contents__link toc-highlight">AO modes used:</a></li><li><a href="#parameter-file-ini-format---ngs-1" class="table-of-contents__link toc-highlight">Parameter file (.ini format) - NGS</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Tutorials</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/astro-tiptop-services/docs/intro">TipTop Installation Tutorial</a></li><li class="footer__item"><a class="footer__link-item" href="/astro-tiptop-services/docs/quickstart">TipTop Quickstart Tutorial</a></li></ul></div><div class="col footer__col"><div class="footer__title">About</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/astro-tiptop-services/terms">Terms &amp; Conditions</a></li><li class="footer__item"><a class="footer__link-item" href="/astro-tiptop-services/resources/contact">Contact us</a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/astro-tiptop/TIPTOP" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://pypi.org/project/astro-tiptop/" target="_blank" rel="noopener noreferrer" class="footer__link-item">PyPi<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Astro-TipTop Team. Built with Docusaurus.</div></div></div></footer></div>
 </body>
 </html>

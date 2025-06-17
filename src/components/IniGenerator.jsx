@@ -238,9 +238,11 @@ export default function IniGenerator() {
   const [selectedOption, setSelectedOption] = useState('ERIS_SCAO_NGS');
   const [params, setParams] = useState({ ...configPresets['ERIS_SCAO_NGS'] });
   const [generatedIni, setGeneratedIni] = useState('');
-  const [Seeing, setSeeing] = useState("");
   const [magnitude, setMagnitude] = useState('');
+  const [downloadUrl, setDownloadUrl] = useState(null);
   // const [loPart, setLoPart] = useState(false); // for SCAO LGS only
+
+  const filename = `config_${presetToKey[selectedOption] || selectedOption}.ini`;
 
   const systemKey = presetToKey[selectedOption];
 
@@ -359,6 +361,19 @@ export default function IniGenerator() {
   };
 
   const [selectedBand, setSelectedBand] = useState('');
+
+  useEffect(() => {
+    if (!generatedIni) return;
+
+    const blob = new Blob([generatedIni], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    setDownloadUrl(url);
+
+    return () => {
+      URL.revokeObjectURL(url); // Cleans up old URL
+    };
+  }, [generatedIni]);
+
 
 
   //*********generateIni**********
@@ -832,16 +847,37 @@ export default function IniGenerator() {
         )}
 
 
-      <button onClick={generateIni} style={{ marginTop: 10 }}>Generate INI </button>
+      <div style={{ display: 'flex', gap: 10, marginTop: 10 }}>
+        <button onClick={generateIni}>
+          Generate INI
+        </button>
+
+        {downloadUrl && (
+        <a
+          href={downloadUrl}
+          download={filename}
+          style={{
+          padding: '6px 12px',
+          background: '#007bff',
+          color: '#fff',
+          textDecoration: 'none',
+          borderRadius: 4,
+          display: 'inline-block',
+          }}
+        >
+          Download .ini file
+        </a>
+        )}
+      </div>
 
       {generatedIni && (
-        <div style={{ marginTop: '20px' }}>
-          <h4>Generated .ini configuration file:</h4>
-          <pre style={{ background: '#f0f0f0', padding: 10 }}>
-            <code>{generatedIni}</code>
-          </pre>
-        </div>
-      )}
+      <div style={{ marginTop: '20px' }}>
+        <h4>Generated .ini configuration file:</h4>
+        <pre style={{ background: '#f0f0f0', padding: 10 }}>
+          <code>{generatedIni}</code>
+        </pre>
+      </div>
+    )}
     </div>
   );
 }

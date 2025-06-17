@@ -6,7 +6,7 @@ The website is publicly accessible at: https://astro-tiptop-services.github.io/a
 ---
 ## 🔍 Purpose
 
-This site is intended to promote and facilitate access to TipTop, an open-source software developed and maintained in a scientific research context. The website provides documentation, interactive tools, and downloadable resources related to this software.
+This site is intended to promote and facilitate access to **[TipTop](https://github.com/astro-tiptop/TIPTOP)**, an open-source software developed and maintained in a scientific research context. The website provides documentation, interactive tools, and downloadable resources related to this software.
 
 ---
 

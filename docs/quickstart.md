@@ -84,7 +84,7 @@ To run a simulation with **TipTop**, you will need:
       </code></pre>
     </details> 
 
-   A user-friendly interface is available to help you generate custom `.ini` files by selecting an instrument from the available options (see: [**Available AO Instruments**](/docs/orion/AO_instruments)) and specifying parameter values. Access it by clicking the button below:
+   A user-friendly interface is available to help you generate custom `.ini` files by selecting an instrument from the available options (see: [**Available AO Instruments**](/docs/orion/aoinstruments)) and specifying parameter values. Access it by clicking the button below:
     <div
         style={{ display: 'flex', justifyContent: 'center', alignItems:'center' }}
         >

@@ -1158,8 +1158,8 @@ export default function IniGenerator() {
         <>
           ⚠️ It should not be confused with the <code>ZenithAngle</code> parameter in 
           the <code>[telescope]</code> section, which refers to the angle between the 
-          telescope’s pointing direction and the zenith.
-          The <code>Zenith</code> (*Distance) value represents the distance (in arcseconds) between 
+          telescope’s pointing direction and the zenith. <br/>
+          The <code>Zenith</code> (Distance<sup>(1)</sup>) value represents the distance (in arcseconds) between 
           the guide star (or science source) and the telescope’s pointing axis.<br />
           For instance, if both <code>Zenith</code> and <code>Azimuth</code> parameters, 
           in the <code>[sources_science]</code> section are set to [0.0], the science source is 

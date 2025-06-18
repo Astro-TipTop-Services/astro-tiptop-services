@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Link from '@docusaurus/Link';
 
 const configPresets = {
   'ERIS_SCAO_NGS':{
@@ -558,6 +559,7 @@ export default function IniGenerator() {
   const [generatedIni, setGeneratedIni] = useState('');
   const [magnitude, setMagnitude] = useState('');
   const [downloadUrl, setDownloadUrl] = useState(null);
+  const [expanded, setExpanded] = useState(false);
   // const [loPart, setLoPart] = useState(false); // for SCAO LGS only
 
   const filename = `${selectedOption || selectedOption}.ini`;
@@ -766,7 +768,7 @@ export default function IniGenerator() {
   //*********************DISPLAY********************/
   return (
     <div style={{ border: '1px solid #ccc', padding: 16, margin: '20px 0' }}>
-      <h3> .ini Parameter File Generator - <a href="/docs/orion/AO_instruments">For Available AO Instruments</a></h3>
+      <h3> .ini Parameter File Generator - <Link to="/docs/orion/aoinstruments">For Available AO Instruments</Link></h3>
 
       <label>
         Select instrument:&nbsp;
@@ -818,7 +820,7 @@ export default function IniGenerator() {
       {/* Always show seeing */}
       <div style={{ marginBottom: 16 }}>
         <div style={{ marginBottom: '0.5rem' }}>
-          <strong>[sources_science]</strong> </div>
+          <strong>[atmosphere]</strong> </div>
         <label>
           Seeing (arcsec):&nbsp;
           <input
@@ -874,7 +876,7 @@ export default function IniGenerator() {
         </div>
         <div style={{ marginTop: '0.5em' }}>
         <label>
-          Distance* (arcsec):
+          Distance<sup>(1)</sup> (arcsec):
           <input
             type="number"
             value={
@@ -922,7 +924,7 @@ export default function IniGenerator() {
           </div>
           <div style={{marginTop: '0.5em'}}>
             <label>
-              Distance* (arcsec):
+              Distance<sup>(1)</sup> (arcsec):
               <input
                 type="number"
                 value={
@@ -970,7 +972,7 @@ export default function IniGenerator() {
             </div>
             <div style={{ marginTop: '0.5em' }}>
               <label>
-                Distance* (arcsec):
+                Distance<sup>(1)</sup> (arcsec):
                 <input
                 type="number"
                 value={
@@ -997,7 +999,7 @@ export default function IniGenerator() {
             <strong>[sensor_HO]</strong>
             <div style={{ marginTop: '0.5em' }}>
               <label>
-                V-Magnitude:
+                V-Magnitude<sup>(2)</sup>:
                 <input
                   type="number"
                   step="0.1"
@@ -1056,7 +1058,7 @@ export default function IniGenerator() {
             <strong>[sensor_LO]</strong>
             <div style={{ marginTop: '0.5em' }}>
               <label>
-                V-Magnitude:
+                V-Magnitude<sup>(2)</sup>:
                 <input
                   type="number"
                   step="0.1"
@@ -1133,14 +1135,68 @@ export default function IniGenerator() {
         )}
       </div>
 
+      <hr />
+      <div style={{marginTop:'-0.5rem', fontSize: 'small' }}>
+        <i>
+        <sup>(1)</sup> Distance corresponds to the <code>Zenith</code> parameter in the 
+        <code>[sources_science]</code> section, and either the <code>[sources_HO]</code> or 
+        <code>[sources_LO]</code> section, depending on the system. 
+        {" "}
+        {!expanded ? (
+          <>
+          ⚠️ It should not be confused with the <code>ZenithAngle</code> parameter in 
+          the <code>[telescope]</code> section, which...{" "}
+          <span 
+            onClick={() => setExpanded(true)} 
+            style={{ color: "blue", cursor: "pointer", userSelect: "none" }}
+            aria-label="Show more"
+          >
+            ▶ Show more
+          </span>
+        </>
+        ) : (
+        <>
+          ⚠️ It should not be confused with the <code>ZenithAngle</code> parameter in 
+          the <code>[telescope]</code> section, which refers to the angle between the 
+          telescope’s pointing direction and the zenith.
+          The <code>Zenith</code> (*Distance) value represents the distance (in arcseconds) between 
+          the guide star (or science source) and the telescope’s pointing axis.<br />
+          For instance, if both <code>Zenith</code> and <code>Azimuth</code> parameters, 
+          in the <code>[sources_science]</code> section are set to [0.0], the science source is 
+          located at the telescope’s pointing position.{" "}
+          {/* The <code>Zenith</code> value represents the radial component (in arcseconds) 
+            of the position of science sources or guide stars in polar coordinates, relative to the telescope’s pointing direction<br/> */}
+          <span 
+            onClick={() => setExpanded(false)} 
+            style={{ color: "blue", cursor: "pointer", userSelect: "none" }}
+            aria-label="Show less"
+          >
+            ▲ Show less
+          </span>
+          </>
+          )}
+        </i>
+        </div>
+
+        <div style={{marginTop:'0.5rem', fontSize: 'small' }}>
+        <i>
+        <sup>(2)</sup> The calculation of the <code>NumberPhotons</code> parameter, 
+        along with a dedicated interface, is detailed&nbsp;
+        <Link to="/docs/orion/interactivetools#mag-to-photons"><strong>here</strong></Link>.
+        </i>
+        </div>
+
+
       {generatedIni && (
       <div style={{ marginTop: '20px' }}>
+        <hr />
         <h4>Generated .ini configuration file:</h4>
         <pre style={{ background: '#f0f0f0', padding: 10 }}>
           <code>{generatedIni}</code>
         </pre>
       </div>
     )}
+
     </div>
   );
 }

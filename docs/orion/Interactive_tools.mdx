@@ -16,7 +16,7 @@ This section provides an interface to generate custom `.ini` files by selecting 
 <IniGenerator />
 
 
-### Conversion from Magnitude to Number of Photons per Subaperture per Frame
+## Conversion from Magnitude to Number of Photons per Subaperture per Frame {#mag-to-photons}
 The value of the parameter `NumberPhotons` in (expressed in photons per subaperture per frame) for a natural guide star 
 of a given magnitude is calculated using the following formula:
 $$
@@ -30,14 +30,14 @@ $$
 
 
 #### Spectral band extinction correction
-For a spectral class M0V star, the apparent magnitude is corrected by an extinction term that varies by band:
+For a **spectral class M0V star**, the apparent magnitude is corrected by an extinction term that varies by band:
 $$
-Mag = Mag_V + \text{extinction\_correction (varies)}
+Mag = Mag_V + \text{extinction\_correction}
 $$
 
-|                     | B band     | V band    | R band   | I band    | J band   | H band  | K band  |
-|---------------------|:----------:|:---------:|:--------:|:---------:|:--------:|:-------:|:-------:|
-| extinction\_correction| $1.37$ | $0$ | $-1.26$ | $-2.15$ | $-2.49$ | $-3.03$ | $-3.29$ |
+|                       | B band     | V band    | R band   | I band    | J band   | H band  | K band  |
+|-----------------------|:----------:|:---------:|:--------:|:---------:|:--------:|:-------:|:-------:|
+| $\text{extinction\_correction}$| $1.37$ | $0$ | $-1.26$ | $-2.15$ | $-2.49$ | $-3.03$ | $-3.29$ |
 
 This formula converts the visual magnitude, corrected for spectral band extinction, into the expected number of photons detected per subaperture per frame. 
 It takes into account instrumental parameters such as the telescope’s effective collecting area, the number of wavefront sensor lenslets, the total system throughput, and the wavefront sensor's frame rate.

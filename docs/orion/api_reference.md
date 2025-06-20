@@ -29,7 +29,7 @@ tiptop.overallSimulation(path2param, parametersFile, outputDir, outputFile, doCo
 
     - **returnMetrics** (_bool_) – optional default: False, The function will return Strehl Ratio, fwhm and encircled energy within eeRadiusInMas if set to True
 
-    - **addSrAndFwhm** (_bool_) – optional default: False, The function will add in the header of the fits file SR anf FWHM for each PSF.
+    - **addSrAndFwhm** (_bool_) – optional default: True, The function will add in the header of the fits file SR anf FWHM for each PSF.
 
     - **verbose** – optional default: False, If you want all messages set this to True.
 

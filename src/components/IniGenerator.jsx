@@ -22,7 +22,7 @@ const configPresets = {
       testWindspeed: 0,
     },
     sources_science: {
-      Wavelength: '[1.650e-06]',
+      Wavelength: '[1.650e-6]',
       Zenith: '[0.0]',
       Azimuth: '[0.0]',
     },
@@ -81,7 +81,7 @@ const configPresets = {
       testWindspeed: 0,
     },
     sources_science: {
-      Wavelength: '[1.650e-06]',
+      Wavelength: '[1.650e-6]',
       Zenith: '[0.0]',
       Azimuth: '[0.0]',
     },
@@ -92,7 +92,7 @@ const configPresets = {
       Height: 90000,
     },
     sources_LO: {
-      Wavelength: '[750e-09]',
+      Wavelength: '[750e-9]',
       Zenith: '[0.0]',
       Azimuth: '[0.0]',
     },
@@ -173,13 +173,12 @@ const configPresets = {
       Azimuth: '[0.0]',
     },
     sources_HO: {
-      Wavelength: 950e-9,
+      Wavelength: '[950e-9]',
       Zenith: '[0.0]',
       Azimuth: '[0.0]',
       Height: 0.0,
     },
     sources_LO: {
-      Wavelength: 1650e-9,
       Zenith: '[0.0]',
       Azimuth: '[0.0]',
     },

@@ -174,7 +174,7 @@ If the guide star is a NGS, you must include and complete the following sections
     ```
     </details> 
 
-    **Note:** for a NGS only system, only the HO part is used.
+    ✏️**Note:** for a NGS only system, only the HO part is used.
 
 
 #### ✳️ Laser Guide Star (LGS)

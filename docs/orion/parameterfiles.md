@@ -22,25 +22,25 @@ The following table resume the what the parameter file should contain and what i
 
 | Section | Required? |
 | :--------------- |:---------------|
-| `[telescope]` | Yes |
-| `[atmosphere]` | Yes |
-| `[sources_science]` | Yes |
-| `[source_HO]` | Yes |
-| `[source_LO]` | No/Yes if `[sensor_LO defined]` |
-| `[sources_Focus]` | No/Yes if `[sensor_Focus defined]` |
-| `[sensor_science]` | Yes |
-| `[sensor_HO]` | Yes |
-| `[sensor_LO]` | No/Yes if `[sources_LO defined]` |
-| `[sensor_Focus]` | No/Yes if `[sources_Focus defined]` |
-| `[DM]` | Yes |
-| `[RTC]` | No/Yes if `[sensor_LO defined]` |
-| `[Computation]` | No |
+| [`[telescope]`](/docs/orion/parameterfiles#telescope) | Yes |
+| [`[atmosphere]`](/docs/orion/parameterfiles#atmosphere) | Yes |
+| [`[sources_science]`](/docs/orion/parameterfiles#sources_science)| Yes |
+| [`[source_HO]`](/docs/orion/parameterfiles#sources_HO) | Yes |
+| [`[source_LO]`](/docs/orion/parameterfiles#sources_LO) | No/Yes if `[sensor_LO defined]` |
+| [`[sources_Focus]`](/docs/orion/parameterfiles#sources_Focus) | No/Yes if `[sensor_Focus defined]` |
+| [`[sensor_science]`](/docs/orion/parameterfiles#sensor_science) | Yes |
+| [`[sensor_HO]`](/docs/orion/parameterfiles#sensor_HO) | Yes |
+| [`[sensor_LO]`](/docs/orion/parameterfiles#sensor_LO) | No/Yes if `[sources_LO defined]` |
+| [`[sensor_Focus]`](/docs/orion/parameterfiles#sensor_Focus) | No/Yes if `[sources_Focus defined]` |
+| [`[DM]`](/docs/orion/parameterfiles#DM) | Yes |
+| [`[RTC]`](/docs/orion/parameterfiles#RTC) | No/Yes if `[sensor_LO defined]` |
+| [`[Computation]`](/docs/orion/parameterfiles#COMPUTATION) | No |
 	
 Detailed descriptions of each section are provided below.
 
 ## Parameter Sections in Detail
 
-### `[telescope]`
+### `[telescope]` {#telescope}
 
 <details>
   <summary><strong> [telescope] parameters </strong></summary>
@@ -75,7 +75,7 @@ Detailed descriptions of each section are provided below.
 
 </details>
 
-### `[atmosphere]`
+### `[atmosphere]` {#atmosphere}
 
 <details>
   <summary><strong> [atmosphere] parameters </strong></summary>
@@ -95,7 +95,7 @@ Detailed descriptions of each section are provided below.
 </details>
 
 
-### `[sources_science]`
+### `[sources_science]` {#sources_science}
 
 <details>
   <summary><strong> [sources_science] parameters </strong></summary>
@@ -108,7 +108,7 @@ Detailed descriptions of each section are provided below.
 
 </details>
 
-### `[sources_HO]`
+### `[sources_HO]` {#sources_HO}
 
 <details>
   <summary><strong> [sources_HO] parameters </strong></summary>
@@ -122,9 +122,9 @@ Detailed descriptions of each section are provided below.
 
 </details>
 
-### `[sources_LO]`
+### `[sources_LO]` {#sources_LO}
 
-**Note:** This section is completely optional (`[sensor_LO]` section is required to have the LO part simulated).
+✏️**Note:** This section is completely optional (`[sensor_LO]` section is required to have the LO part simulated).
 
 <details>
   <summary><strong> [sources_LO] parameters </strong></summary>
@@ -137,10 +137,11 @@ Detailed descriptions of each section are provided below.
 
 </details>
 
-### `[sources_Focus]`
+### `[sources_Focus]` {#sources_Focus}
 
 <p align="justify">
-**Note:** This section is completely optional. The `[sources_Focus]` section is required to have the global focus part simulated considering specific focus sensors and not the LO sensors. This happens when the key glFocusOnNGS in the `[telescope]` section is True and multiple DMs are present. \
+
+✏️**Note:** This section is completely optional. The `[sources_Focus]` section is required to have the global focus part simulated considering specific focus sensors and not the LO sensors. This happens when the key glFocusOnNGS in the `[telescope]` section is True and multiple DMs are present. \
 Note that the coordinates (Zenith and Azimuth) of the NGSs are the same of the `[sources_LO]` section.
 </p>
 
@@ -153,7 +154,7 @@ Note that the coordinates (Zenith and Azimuth) of the NGSs are the same of the `
 
 </details>
 
-### `[sensor_science]`
+### `[sensor_science]` {#sensor_science}
 
 <details>
   <summary><strong> [sensor_science] parameters </strong></summary>
@@ -165,13 +166,13 @@ Note that the coordinates (Zenith and Azimuth) of the NGSs are the same of the `
 
 <p align="justify">
 
-**Note:** following parameters were added to uniformise all the sensor (HO and LO), but they are not used. <br />
+✏️**Note:** following parameters were added to uniformise all the sensor (HO and LO), but they are not used. <br />
 `Binning`, `NumberPhotons`, `SpotFWHM`, `SpectralBandwidth`, `Transmittance`, `Dispersion`, `SigmaRON`, `Dark`, `SkyBackground`, `Gain`, `ExcessNoiseFactor`, `Wavelength`, `FieldOfView`
 </p>
 
 </details>
 
-### `[sensor_HO]`
+### `[sensor_HO]` {#sensor_HO}
 
 The High Order WaveFront Sensor can be a **Pyramid WFS** or a **Shack-Hartmann**. Regardless of the WFS, the following parameters can de defined.
 
@@ -234,9 +235,9 @@ In the two following section we list the parameters that are specific to each wa
 
 </details>
 
-### `[sensor_LO]`
+### `[sensor_LO]` {#sensor_LO}
 
-**Note:** This section is optional, if this section is not present only the HO part will be used (for ex. to simulate a SCAO NGS).
+✏️**Note:** This section is optional, if this section is not present only the HO part will be used (for ex. to simulate a SCAO NGS).
 
 <details>
   <summary><strong> [sensor_LO] parameters </strong></summary>
@@ -268,9 +269,9 @@ In the two following section we list the parameters that are specific to each wa
 
 </details>
 
-### `[sensor_Focus]`
+### `[sensor_Focus]` {#sensor_Focus}
 <p align="justify">
-**Note:** This section is completely optional. The `[sensor_Focus]` section is required to have the global focus part simulated considering specific focus sensors and not the LO sensors. This happens when the key glFocusOnNGS in the `[telescope]` section is True and multiple DMs are present.
+✏️**Note:** This section is completely optional. The `[sensor_Focus]` section is required to have the global focus part simulated considering specific focus sensors and not the LO sensors. This happens when the key glFocusOnNGS in the `[telescope]` section is True and multiple DMs are present.
 </p>
 
 <details>
@@ -292,7 +293,7 @@ In the two following section we list the parameters that are specific to each wa
 
 </details>
 
-### `[DM]`
+### `[DM]` {#DM}
 
 <details>
   <summary><strong> [DM] parameters </strong></summary>
@@ -313,9 +314,9 @@ In the two following section we list the parameters that are specific to each wa
 
 </details>
 
-### `[RTC]`
+### `[RTC]` {#RTC}
 
-**Note:** This section is optional, if this section is not present the defaul values are used.
+✏️**Note:** This section is optional, if this section is not present the defaul values are used.
 
 <details>
   <summary><strong> [RTC] parameters </strong></summary>
@@ -334,9 +335,9 @@ In the two following section we list the parameters that are specific to each wa
 
 </details>
 
-### `[COMPUTATION]`
+### `[COMPUTATION]` {#COMPUTATION}
 
-**Note:** This section is optional, if this section is not present the defaul values are used.
+✏️**Note:** This section is optional, if this section is not present the defaul values are used.
 
 <details>
   <summary><strong> [COMPUTATION] parameters </strong></summary>

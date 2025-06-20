@@ -173,10 +173,10 @@ const configPresets = {
       Azimuth: '[0.0]',
     },
     sources_HO: {
-    Wavelength: 950e-9,
-    Zenith: '[0.0]',
-    Azimuth: '[0.0]',
-    Height: 0.0,
+      Wavelength: 950e-9,
+      Zenith: '[0.0]',
+      Azimuth: '[0.0]',
+      Height: 0.0,
     },
     sources_LO: {
       Wavelength: 1650e-9,
@@ -716,8 +716,10 @@ export default function IniGenerator() {
         } else {
           lambda = Number(lambda_raw);
         }
-        const band = getBandFromWavelength(lambda);
-        iniString += `# Band: ${band}\n`;
+        if (systemKey === 'SCAO_NGS') {
+          const band = getBandFromWavelength(lambda);
+          iniString += `# Band: ${band}\n`;
+        }
       }
 
       const fields = iniSections[section];

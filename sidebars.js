@@ -61,8 +61,8 @@ const sidebars = {
         'orion/aoinstruments',
         'orion/interactivetools',
         'orion/parameterfiles',
-        'orion/examples',
-        'orion/api_reference',
+        // 'orion/examples',
+        // 'orion/api_reference',
       ],
     },
     {

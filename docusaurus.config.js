@@ -159,14 +159,14 @@ const config = {
                 label: '• Parameter files explained',
                 to: '/docs/orion/parameterfiles',
               },
-              {
-                label: '• Examples',
-                to: '/docs/orion/examples',
-              },
-              {
-                label: '• API Reference',
-                to: '/docs/orion/api_reference',
-              },
+              // {
+              //   label: '• Examples',
+              //   to: '/docs/orion/examples',
+              // },
+              // {
+              //   label: '• API Reference',
+              //   to: '/docs/orion/api_reference',
+              // },
               {
                 label: 'TipTop | Asterism selection',
                 to: '/docs/aquila/overview', 

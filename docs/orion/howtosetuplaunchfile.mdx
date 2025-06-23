@@ -124,19 +124,23 @@ vmin = psf_max * 1e-6  # Adjust dynamic range: show down to 1 millionth of max
 norm = LogNorm(vmin=vmin, vmax=vmax) # Set log scale for display
 
 plt.figure(1, figsize=(20,5))
-plt.suptitle(f'$\\lambda = {int(wvl)}$ nm')
+plt.suptitle(r'$\lambda_{\mathrm{science}} = %d$ nm' % int(wvl), y=1) 
+plt.subplots_adjust(top=0.85)
 
 def plot_psf(psf, title, position):
     """Plot a PSF in a given subplot position."""
     plt.subplot(1, 3, position)
     plt.imshow(psf, norm=norm, cmap='Spectral_r',
                extent=[axis[0], axis[-1], axis[0], axis[-1]])
-    plt.title(title)
+    plt.title(title, pad=10)
     plt.xlabel('[arcsec]')
-    plt.ylabel('[arcsec]')
-    plt.colorbar()
+    if position == 1:
+        plt.ylabel('[arcsec]', labelpad=10)
+    else:
+        plt.ylabel('')
+    plt.colorbar(fraction=0.046)
 
-plot_psf(psf_ao, f'AO (Sr={sr:.2f}%)', 1)
+plot_psf(psf_ao, f'AO (SR={sr*100:.1f}%, FWHM={fwhm:.1f}mas)', 1)
 plot_psf(psf_dl, 'Diffraction', 2)
 plot_psf(psf_turb, 'Open loop', 3)
 

@@ -41,13 +41,13 @@ The Enhanced Resolution Imager and Spectrograph (ERIS) is a near-infrared instru
 _(More information can be found at: [https://www.eso.org/sci/facilities/paranal/instruments/eris.html](https://www.eso.org/sci/facilities/paranal/instruments/eris.html))_ <br />
 
 ### AO modes used:
-**Single Conjugate Adaptive Optics (SCAO)** 
+🔵 **Single Conjugate Adaptive Optics (SCAO)** 
 
 **Guide star types:**
 - **Natural Guide Star (NGS)**: requires guide star with `R<11` mag, either on and off-axis (up to `60"` possible, although `<30"` recommended due to anisoplanatism)
 - **Laser Guide Star (LGS)**: requires tip-tilt star within <code>60"</code> with R magnitude in the range `7–18` mag . Laser spot is initially on-axis, moving relative to target as telescope offsets are applied.
 
-### Parameter file (.ini format) - SCAO NGS
+### Parameter file (.ini format) - SCAO NGS ✴️
 
 <details>
   <summary><strong>View parameter file contents (.ini)</strong></summary>
@@ -117,7 +117,7 @@ LoopDelaySteps_HO = 3
 <span style={{ display: 'block', textAlign: 'center', fontSize: '1.2em' }}>ERIS SCAO NGS - PSFs</span>
 ![OUTPUT_ERIS_SCAO_NGS](/img/output_eris_scao_ngs.png)
 
-### Parameter file (.ini format) - SCAO LGS
+### Parameter file (.ini format) - SCAO LGS ✳️
 
 <details>
   <summary><strong>View parameter file contents (.ini)</strong></summary>
@@ -216,11 +216,11 @@ HARMONI will be one of the first generation of ELT instruments and will transfor
 _(Text sourced from: [https://elt.eso.org/instrument/HARMONI/](https://elt.eso.org/instrument/HARMONI/))_ <br />
 
 ### AO modes used:
-- **Single Conjugate Adaptive Optics (SCAO)**
+  🔵 **Single Conjugate Adaptive Optics (SCAO)** 
 
-- **Laser Tomography Adaptive Optics (LTAO)**
+  🟣 **Multi Conjugate Adaptive Optics (MCAO)**
 
-### Parameter file (.ini format) - SCAO
+### Parameter file (.ini format) - SCAO NGS ✴️
 
 <details>
   <summary><strong>View parameter file contents (.ini)</strong></summary>
@@ -237,27 +237,26 @@ ObscurationRatio = 0.28
 ; pupil resolution in pixels - required
 Resolution = 400
 ; path to the pupil model in .fits file - optional (if provided, the pupil model is interpolated) - default: ''
-PathPupil = '/aoSystem/data/ELT_CALIBRATION/EELT480pp0.0813spider.fits'
+PathPupil = '/P3/aoSystem/data/ELT_CALIBRATION/EELT480pp0.0813spider.fits'
 ; path to a map of static aberrations (nm) in .fits file - optional - default: ''
-PathStaticOn = '/aoSystem/data/ELT_CALIBRATION/CombinedError_Wavefront_nm.fits'
+PathStaticOn = '/P3/aoSystem/data/ELT_CALIBRATION/CombinedError_Wavefront_nm.fits'
 ; path to a model of amplitude apodizaton of the electric field in the pupil in .fits file - optional - default: ''
-PathApodizer = ''
-; path to a model of a basis of modes to describe addtionnal static aberrations - optional - default: ''
-PathStatModes = '' 
-; pupil angle in degrees - optional - default: 0.0
-PupilAngle = 0.0
+TechnicalFoV       = 120                                     
 
 [atmosphere]
+r0_Value = 0
+testWindspeed = 0
 ; wavelength of definition of atmosphere statistics  -  optional - default 500e-9
 Wavelength = 500e-9
 ; seeing at zenith in arcsec- required
-Seeing = 0.65
+Seeing = 0.95
 ; Outer scale in meter - optional - default: 25.0
 L0 = 25.0
 ; Relative contribution of each layer (sum=1) - optional -  default: [1.0]
-Cn2Weights = [0.59, 0.02, 0.04, 0.06, 0.01, 0.05, 0.09, 0.04, 0.05, 0.05]
+Cn2Weights =  [0.46510001, 0.18929999, 0.18569999, 0.0698    , 0.02554   , 0.01123   , 0.01545   , 0.02729   , 0.00627   , 0.004438  ]
 ; altitude of layers in meters - optional -  default [0.0]
-Cn2Heights = [30, 140, 281, 562, 1125, 2250, 4500, 7750, 11000, 14000]
+;Cn2Heights = [30, 140, 281, 562, 1125, 2250, 4500, 7750, 11000, 14000]
+Cn2Heights = [82.04886699,   252.57894569,   722.807951  ,  2620.66789668, 5167.21882457,  8600.34998944, 11722.58516535, 14220.09282085, 17218.05749335, 21912.70746385]
 ; wind speed values for each layer in m/s - optional -  default [10.0]
 WindSpeed = [6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]
 ; wind direction for each layer in degrees - optional -  default [0.0]
@@ -279,41 +278,11 @@ Azimuth = [0.0]
 ;altitude of the guide stars (0 if infinite) - optional - default: 0.0
 Height = 0.0
 
-[sources_LO]
-;Sensing wavelength for HO modes in meters - required
-Wavelength = 1650e-9
-;list of polar coordinates of the guide stars sources; zenith in arcsec and azimuth in degrees - optional - default [0.0]
-Zenith = [0.0]
-Azimuth = [0.0]
-
 [sensor_science]
 ;pixel/spaxel scale in mas - required
 PixelScale = 4.0
 ;Field of view in pixel - optional - default: 150
 FieldOfView = 640
-;binning factor - optional - default: 1
-Binning = 1
-;Detected flux in [nph/frame/subaperture] - optional - default: 1500        
-NumberPhotons = [1500]
-;HO spot scale in [mas] - optional - defaut: [[0.0, 0.0, 0.0]]
-SpotFWHM = [[1.0, 1.0, 0.0]]   
-;Spectral bandwidth of the filter (imaging mode) - optional - default: 0.0
-; wavelength are setup as a linear grid from ScienceWavelength - SpectralBandwidth to ScienceWavelength + SpectralBandwidth with a number of bins defined from the length of the Transmittance field
-SpectralBandwidth = 0.0
-;Transmittance at the considered wavelengths for polychromatic mode - optional - default: [1.0]
-Transmittance = [1.0]
-;Dispersion x/y at the considered wavelength in pixel. Must be the same size than Transmittance - optional - default: [[0.0],[0.0]]
-Dispersion = [[0.0],[0.0]]
-;ron in [e-] - optionnal - default: 0.0
-SigmaRON = [0.0]
-; dark current[e-/s/pix] - optional - default: 0.0
-Dark = 0.0
-;Sky background [e-/s/pix] - optional - default: 0.0           
-SkyBackground = 0.0
-;Pixel gain - optional - default:1.0
-Gain = 1.0
-;excess noise factor - optional - default: 1.0                     
-ExcessNoiseFactor = 1.0 
 
 [sensor_HO]
 ;WFS type - optional - default : Shack-Hartmann
@@ -360,38 +329,6 @@ WindowRadiusWCoG = 6
 ThresholdWCoG = 0.0
 ;New value for pixels lower than threshold - optional - default: 0.0        
 NewValueThrPix = 0.0
- 
-[sensor_LO]
-;LO WFS pixel scale in [mas] - required
-PixelScale = 40.0
-;Number of pixels per subaperture - required 
-FieldOfView = 200 
-;binning factor - optional - default: 1
-Binning = 1   
-;detected flux in [nph/frame/subaperture] - required           
-NumberPhotons = [200] 
-;HO spot scale in [mas] - optional - defaut: [[0.0, 0.0, 0.0]]
-SpotFWHM = [[0.0,0.0,0.0]]   
-;ron in [e-] - optional - default: 0.0        
-SigmaRON = 0.0   
-;dark current[e-/s/pix] - optional - default: 0.0        
-Dark = 0.0
-;sky background [e-/s/pix] - optional - default: 0.0          
-SkyBackground = 0.0
-;Pixel gain - optional - default:1.0
-Gain = 1.0  
-;excess noise factor - optional - default: 2.0                     
-ExcessNoiseFactor = 2.0 
-;number of WFS lenslets - required
-NumberLenslets = [4]
-;CoG computation algorithm - optional  - default:'wcog'
-Algorithm = 'wcog' 
-;Number of pixels for windiwing the low order WFS pixels - optional - default: 2      
-WindowRadiusWCoG = 2
-;Threshold Number of pixels for windowing the low order WFS pixels - optional - default: 0.0        
-ThresholdWCoG = 0.0
-;New value for pixels lower than threshold - optional - default: 0.0        
-NewValueThrPix = 0.0
 
 [DM]
 ;DM actuators pitch in meters - required
@@ -423,19 +360,13 @@ LoopGain_HO = 0.8
 ;HO loop frequency in [Hz] - required
 SensorFrameRate_HO = 500.0
 ;HO loop frame delay - required
-LoopDelaySteps_HO = 1   
-; LO loop gain - optional - default: Nome
-LoopGain_LO = 0.5
-;Loop frequency in Hz  - optional - default: None
-SensorFrameRate_LO = 500.0
-;Corresponding delays (in frames)  - optional - default: None
-LoopDelaySteps_LO = 1
+LoopDelaySteps_HO = 1
 ```
   </code></pre>
 </details> 
 
 
-### Parameter file (.ini format) - LTAO
+### Parameter file (.ini format) - MCAO
 
 <details>
   <summary><strong>View parameter file contents (.ini)</strong></summary>
@@ -653,15 +584,11 @@ LoopDelaySteps_LO = 2
 A first-generation ELT instrument, MICADO will take high-resolution images of the Universe at near-infrared wavelengths. This makes the instrument ideal for identifying exoplanets, but also for resolving individual stars in other galaxies and investigating the mysterious centre of the Milky Way. <br />
 _(Text sourced from: [https://elt.eso.org/instrument/MICADO/](https://elt.eso.org/instrument/MICADO/))_ <br />
 
-### AO modes used (AO) :
-- **Single Conjugate Adaptive Optics (SCAO)**
- 
-
-- **Multi Conjugate Adaptive Optics (MCAO)**
+### AO mode used (AO) :
+🔵 **Single Conjugate Adaptive Optics (SCAO)**
 
 
-
-### Parameter file (.ini format) - 
+### Parameter file (.ini format) - SCAO NGS
 
 <details>
   <summary><strong>View parameter file contents (.ini)</strong></summary>
@@ -804,15 +731,15 @@ MUSE is an Integral Field Spectrograph located at the Nasmyth B focus of Yepun, 
 _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/muse/overview.html](https://www.eso.org/sci/facilities/paranal/instruments/muse/overview.html))_
 
 ### AO modes used:
-- **Ground Layer Adaptive Optics (GLAO)**
+🟤 **Ground Layer Adaptive Optics (GLAO)**
 
-- **Laser Tomography Adaptive Optics (LTAO)**
+🟢 **Laser Tomography Adaptive Optics (LTAO)**
 
 
 ## SOUL (Single conjugated adaptive Optics Upgrade for LBT) {#soul}
 
 ### AO modes used:
-**Single Conjugate Adaptive Optics (SCAO)**
+🔵 **Single Conjugate Adaptive Optics (SCAO)**
 
 ### Parameter file (.ini format) - NGS
 
@@ -884,7 +811,7 @@ SPHERE is an extreme adaptive optics system and coronagraphic facility feeding t
 _(Text sourced from: [https://www.eso.org/sci/facilities/paranal/instruments/sphere/overview.html](https://www.eso.org/sci/facilities/paranal/instruments/sphere/overview.html)), More information can be found at: [https://www.eso.org/sci/facilities/paranal/instruments/sphere.html](https://www.eso.org/sci/facilities/paranal/instruments/sphere.html)_ <br />
 
 ### AO modes used:
-**Single Conjugate Adaptive Optics (SCAO)**
+🔵 **Single Conjugate Adaptive Optics (SCAO)**
 
 ### Parameter file (.ini format) - NGS
 

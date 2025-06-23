@@ -28,7 +28,7 @@ To run a simulation with **TipTop**, you will need:
     - Initializes the necessary modules
     - Starts the simulation 
 
-    An example script, `TIPTOP-EXAMPLE.py`, is available in the `examples/` folder of our [GitHub repository](https://github.com/astro-tiptop/TIPTOP). You can use it as a template to create your own simulations:
+    📄 An example script, `TIPTOP-EXAMPLE.py`, is available in the `examples/` folder of our [GitHub repository](https://github.com/astro-tiptop/TIPTOP). You can use it as a template to create your own simulations:
     <details>
     <summary><strong> `TIPTOP-EXAMPLE.py`</strong></summary>
     <pre><code>
@@ -39,13 +39,17 @@ To run a simulation with **TipTop**, you will need:
     overallSimulation("./", "minimalPar", './', 'test')
     ```
           </code></pre>
+
+    ✏️ **Note:**     
+    <div style={{marginTop:'-1.0rem'}}>    
+        - The first and second arguments of `overallSimulation` are the path to the folder containing the input `.ini` file and the name of that file (without the extension).
+        - The third and fourth arguments specify where to save the output results (in `.fits` format) and and the name of the resulting `.fits` file.
+
+    A detailed documentation on the `overallSimulation` function can be found [**here**](/docs/orion/howtosetuplaunchfile#overallSimulation). 
+    </div>
     </details> 
 
-    ✏️ **Note:** 
-    - The first and second arguments of the `overallSimulation` function specify the path to the folder containing the `.ini` input file and the name of that `.ini` file, respectively. 
-    - The third and fourth arguments determine where the output results are saved and what name the resulting `.fits` file receive.
-
-    A detailed documentation on the overallSimulation function can be found [**here**](/docs/orion/howtosetuplaunchfile).
+    📄 A more complete run script [(`TIPTOP_RUN.py`)](/docs/orion/howtosetuplaunchfile#completerunfile), which extracts key performance metrics (e.g., Strehl ratio, FWHM) from the output file and generates PSF visualizations, is available  [**here**](/docs/orion/howtosetuplaunchfile#completerunfile). You can use it as a template and adapt the input/output paths, filenames, and plotting options for your own simulations.
 
 - ➡️ **a parameter file in `.ini` format**, for example:
     <details>
@@ -113,7 +117,7 @@ To run a simulation with **TipTop**, you will need:
 
 ## Simulation Output
 
-The output of a TipTop simulation consists of Point Spread Functions (PSFs) computed using the parameters specified in your `.ini`file. 
+The output of a TipTop simulation consists of Point Spread Functions (PSFs) computed using the parameters specified in your `.ini` file. 
 
 <!-- Outputs also includes seeing limited PSF, diffraction limited PSF and some useful metrics (SR, EE, FWHM, …) -->
 
@@ -127,19 +131,19 @@ These PSFs are also saved in a `.fits` file for further analysis and post-proces
   <summary><strong>FITS File Structure & Contents</strong></summary>
 
 The FITS file contains multiple HDUs (Header/Data Units), each storing different types of data related to the PSFs generated during the simulation. The content is organized as follows:
-- **HDU 0 - PRIMARY** <br/>
+- **HDU 0 – PRIMARY**<br/>
     Contains metadata about the simulation, the instrument, and observational parameters. It does not contain image data but provides essential contextual information.
 - **HDU 1 – AO-Corrected PSF**<br/>
     Stores the cube of AO-corrected PSFs as a multi-dimensional image array with dimensions (`FieldOfView`, `FieldOfView`, `Nsrc`, `Nwvl`), where `FieldOfView` corresponds to the camera’s field of view in pixels as defined in the `[sensor_science]` section of your `.ini` file, `Nsrc` is the number of science sources, and `Nwvl` is the number of wavelengths specified in the `Wavelength` parameter of the `[sources_science]` section.
 - **HDU 2 – Seeing-Limited PSF** <br/>
     Contains the seeing-limited (open-loop) PSF in a 2D image array of size (`FieldOfView`, `FieldOfView`).
-- **HDU 3 - Diffraction-Limited PSF**<br/>
+- **HDU 3 – Diffraction-Limited PSF**<br/>
     Contains the diffraction-limited PSF, also stored as a 2D image array of size  (`FieldOfView`, `FieldOfView`). 
     <!-- It represents the theoretical best-case optical response limited only by the telescope’s aperture and diffraction. -->
-- **HDU 4 - PSDs (if `savePSDs=True`)**<br/>
+- **HDU 4 – PSDs (if `savePSDs=True`)**<br/>
     Contains the Power Spectral Density (PSD), stored as a 3D array.
     <!-- (`FieldOfView`, `FieldOfView`, `Nsrc`). -->
-- **HDU 4 or 5 - Final PSFs Radial Profiles**<br/>
+- **HDU 4 or 5 – Final PSFs Radial Profiles**<br/>
     Contains the 1D radial profiles of the PSFs, stored as an 3D array.<br/> ✏️Note: The HDU number depends on whether the PSDs are saved.
 
 Here is an example FITS structure produced with the minimalPar.ini configuration:
@@ -155,5 +159,5 @@ No.    Name      Ver    Type      Cards   Dimensions   Format
 ```
 
 </details>
-By default, the FITS file header includes the Strehl Ratio (SR) and Full Width at Half Maximum (FWHM) values for each PSF (addSrAndFwhm is set to `True` by default). To retrieve and display the SR, FWHM and Encircled energy metrics, you need to set the `returnMetrics` option to `True` (see [**the documentation on the overallSimulation function**](/docs/orion/howtosetuplaunchfile)).<br/>
-⚠️ **Note:** if `returnMetrics` is set to `True`, the FITS file is not saved.
+✏️**Note:** By default, the FITS file header includes the Strehl Ratio (SR) and Full Width at Half Maximum (FWHM) values for each PSF (`addSrAndFwhm` is set to `True` by default). To retrieve and display the SR, FWHM and Encircled energy metrics, you need to set the `returnMetrics` option to `True` (see [**the documentation on the overallSimulation function**](/docs/orion/howtosetuplaunchfile)).<br/>
+⚠️ If `returnMetrics` is set to `True`, the FITS file is not saved.

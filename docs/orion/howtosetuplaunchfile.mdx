@@ -4,9 +4,13 @@ title: How to set up a launch script for TipTop?
 sidebar_label: How to set up a launch script for TipTop?
 ---
 
+## Run a TipTop simulation and display PSFs
+
+### Simplest way
+
 As explained in the [Quickstart](orion/usage.md) section, to run a simulation with TipTop, you need:
 
-    a launch script which:
+    ➡️ a launch script which:
 
         - Loads the simulation parameters from a .ini file (e.g., minimalPar.ini)
 
@@ -14,8 +18,8 @@ As explained in the [Quickstart](orion/usage.md) section, to run a simulation wi
 
         - Starts the simulation
 
-The simplest file to launch a simulation is as follows:
-
+The simplest file to launch a simulation looks like this (`TIPTOP-EXAMPLE.py`, 
+available in the `examples/` folder of our [GitHub repository](https://github.com/astro-tiptop/TIPTOP)):
     ```python
     from tiptop.tiptop import *
 
@@ -23,10 +27,199 @@ The simplest file to launch a simulation is as follows:
     ```
 
 where:
-- The first and second arguments of the overallSimulation function correspond, respectively, to the path of the folder containing the .ini input file, and the name of that .ini file.
-- The third and fourth arguments specify where to save the output results (in .fits format) and what name to give to the resulting .fits file.
+- The first and second arguments of `overallSimulation` are the path to the folder containing the input `.ini` file and the name of that file (without the extension).
+- The third and fourth arguments specify where to save the output results (in `.fits` format) and and the name of the resulting `.fits` file.
 
-However, the tiptop.**overallSimulation**, which runs the entire TipTop simulation based on the input file, can also take additional arguments that allow enabling or disabling certain features and selecting the desired outputs. <br/>
+A detailed documentation on the `overallSimulation` function is available [**below**](/docs/orion/howtosetuplaunchfile#overallSimulation).
+
+
+### More complete launch file {#completerunfile}
+
+Below is an example of a more advanced launch file. It **runs a simulation** 
+for the ERIS instrument (see [**here**](/docs/orion/aoinstruments#eris)) and **extracts key outputs**, including **PSFs** 
+and **performance metrics** (e.g., Strehl Ratio (SR), Full Width at Half Maximum (FWHM)) from the output `.fits` file 
+(see [**Simulation Output**](/docs/orion/howtosetuplaunchfile#simulation_output) below). 
+It also generates log-scaled intensity **plots of the PSFs** and a semi-logarithmic **radial profile plot**.<br/>
+✅ You can adapt this script by changing the input/output paths and filenames to match your configuration.<br/>
+The full example script is available for download <a href="/downloads/TIPTOP_RUN.py" download="TIPTOP_RUN.py">**here**<span style={{ fontSize: '1.5em' }}>📥</span></a>.
+
+<details>
+  <summary><strong>Example run file: `TIPTOP_RUN.py`</strong></summary>
+  ```python
+"""
+Created on Mon Jun 23 10:58:33 2025
+Run a TIPTOP simulation and display PSFs
+
+@author: lmazzolo
+"""
+
+#%% Import necessary libraries
+from tiptop.tiptop import *
+from astropy.io import fits
+import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
+import numpy as np
+
+#%% Define input and output paths and filenames
+#💡 You should customize these paths and filenames according to your setup
+path_in = "./"  # Path to the folder containing your .ini parameter file
+path_out = "./" # Path where output files will be saved
+
+file_in = "ERIS_SCAO_NGS"  # Name of the input parameter file (without extension)
+file_out = "ERIS_SCAO_NGS" # Name to use for the output files
+
+#%% Define a helper function to extract metrics from the FITS header
+def get_metric(header, metric_name, index=0):
+    """
+    Retrieve a value from the FITS header with a formatted key.
+
+    :param header: FITS header
+    :param metric_name: name of the metric (e.g., 'SR')
+    :param index: index of the metric (default 0)
+    :return: value or None if key not found
+    """
+    key = f"{metric_name}{index:04d}"
+    return header.get(key)
+
+#%% Run the TIPTOP simulation
+overallSimulation(path_in, file_in, 
+                  path_out, file_out)
+
+
+#%% Open the resulting FITS file and extract data 
+with fits.open(path_out + file_out + '.fits') as hdul:
+    hdul.info()
+    psf_ao = hdul[1].data[0,...] # AO-corrected PSF
+    psf_turb = hdul[2].data      # Seeing-limited PSF
+    psf_dl = hdul[3].data        # Diffraction-limited PSF
+    profiles = hdul[4].data      # PSF profile
+    
+    header = hdul[1].header      # FITS header for metadata
+
+    # Extract useful parameters
+    wvl = float(header.get("WL_NM"))       # Wavelength in nm
+    pix_mas = float(header.get("PIX_MAS")) # Pixel scale in milliarcseconds
+    sr = get_metric(header, "SR")          # Strehl ratio
+    fwhm = get_metric(header, "FWHM")      # FWHM in milliarcsecond
+
+    # Print key metrics
+    print("Pixel scale [mas]:", pix_mas)
+    print("Strehl Ratio:", sr)
+    print("FWHMs [mas]:", fwhm)
+
+#%% Normalize the PSFs so total flux = 1
+psf_ao /= np.sum(psf_ao)
+psf_dl /= np.sum(psf_dl)
+psf_turb /= np.sum(psf_turb)
+
+#%% Create axis in arcseconds
+nx = psf_ao.shape[0]
+axis = np.linspace(-nx//2, nx//2, nx) * pix_mas * 1e-3
+
+#%% Plot the PSFs
+# Compute dynamic normalization based on the AO PSF
+psf_max = psf_ao.max()
+vmax = psf_max
+vmin = psf_max * 1e-6  # Adjust dynamic range: show down to 1 millionth of max
+norm = LogNorm(vmin=vmin, vmax=vmax) # Set log scale for display
+
+plt.figure(1, figsize=(20,5))
+plt.suptitle(f'$\\lambda = {int(wvl)}$ nm')
+
+def plot_psf(psf, title, position):
+    """Plot a PSF in a given subplot position."""
+    plt.subplot(1, 3, position)
+    plt.imshow(psf, norm=norm, cmap='Spectral_r',
+               extent=[axis[0], axis[-1], axis[0], axis[-1]])
+    plt.title(title)
+    plt.xlabel('[arcsec]')
+    plt.ylabel('[arcsec]')
+    plt.colorbar()
+
+plot_psf(psf_ao, f'AO (Sr={sr:.2f}%)', 1)
+plot_psf(psf_dl, 'Diffraction', 2)
+plot_psf(psf_turb, 'Open loop', 3)
+
+#%% Plot the radial profile
+profiles = np.squeeze(profiles)
+print(f"Profile shape after squeeze: {profiles.shape}") 
+
+radii = np.arange(profiles.shape[1])
+
+plt.figure(figsize=(8, 6))
+plt.plot(radii, profiles[1, :], label='AO profile')
+max_radius = radii.max()
+plt.xlim(0, 0.75 * max_radius)
+plt.xlabel('Radial distance (pixels)')
+plt.ylabel('Normalized intensity')
+plt.yscale("log")
+plt.title(f'Radial profile - AO corrected PSF - @{int(wvl)} nm')
+plt.legend()
+plt.grid(True)
+  ```
+
+  </details> 
+
+✏️**Note:** Results for the different AO instruments presented [**here**](/docs/orion/aoinstruments) 
+were obtained by running this script with the corresponding provided `.ini` files.
+
+
+## Simulation Output {#simulation_output}
+
+The output of a TipTop simulation consists of Point Spread Functions (PSFs) computed using the parameters specified in your `.ini` file. 
+
+<!-- Outputs also includes seeing limited PSF, diffraction limited PSF and some useful metrics (SR, EE, FWHM, …) -->
+
+If the `doPlot` parameter of the overallSimulation function is set to `True`, the following PSFs will be displayed after the simulation runs:
+- The AO-corrected PSF(s)
+- The seeing-limited PSF
+- The diffraction limited PSF
+
+These PSFs are also saved in a `.fits` file for further analysis and post-processing.
+<details>
+  <summary><strong>FITS File Structure & Contents</strong></summary>
+
+The FITS file contains multiple HDUs (Header/Data Units), each storing different types of data related to the PSFs generated during the simulation. The content is organized as follows:
+- **HDU 0 – PRIMARY**<br/>
+    Contains metadata about the simulation, the instrument, and observational parameters. It does not contain image data but provides essential contextual information.
+- **HDU 1 – AO-Corrected PSF**<br/>
+    Stores the cube of AO-corrected PSFs as a multi-dimensional image array with dimensions (`FieldOfView`, `FieldOfView`, `Nsrc`, `Nwvl`), where `FieldOfView` corresponds to the camera’s field of view in pixels as defined in the `[sensor_science]` section of your `.ini` file, `Nsrc` is the number of science sources, and `Nwvl` is the number of wavelengths specified in the `Wavelength` parameter of the `[sources_science]` section.
+- **HDU 2 – Seeing-Limited PSF** <br/>
+    Contains the seeing-limited (open-loop) PSF in a 2D image array of size (`FieldOfView`, `FieldOfView`).
+- **HDU 3 – Diffraction-Limited PSF**<br/>
+    Contains the diffraction-limited PSF, also stored as a 2D image array of size  (`FieldOfView`, `FieldOfView`). 
+    <!-- It represents the theoretical best-case optical response limited only by the telescope’s aperture and diffraction. -->
+- **HDU 4 – PSDs (if `savePSDs=True`)**<br/>
+    Contains the Power Spectral Density (PSD), stored as a 3D array.
+    <!-- (`FieldOfView`, `FieldOfView`, `Nsrc`). -->
+- **HDU 4 or 5 – Final PSFs Radial Profiles**<br/>
+    Contains the 1D radial profiles of the PSFs, stored as an 3D array.<br/> ✏️Note: The HDU number depends on whether the PSDs are saved.
+
+Here is an example FITS structure produced with the minimalPar.ini configuration:
+```python
+No.    Name      Ver    Type      Cards   Dimensions   Format
+  0  PRIMARY       1 PrimaryHDU      84   ()      
+  1                1 ImageHDU        21   (256, 256, 1)   float64 #AO-corrected PSFs
+  2                1 ImageHDU        10   (256, 256)      float64 #Open-loop PSF   
+  3                1 ImageHDU        10   (256, 256)      float64 #Diffraction limited PSF
+  4                1 ImageHDU        11   (256, 256, 1)   float64 #High Order PSD (if saved)  
+  5                1 ImageHDU        11   (128, 1, 2)     float64 #PSFs profiles
+
+```
+
+</details>
+✏️**Note:** Results for the different AO instruments presented [**here**](/docs/orion/aoinstruments) 
+**Note:** By default, the FITS file header includes the SR and FWHM values for each PSF (the `addSrAndFwhm` 
+parameter of the `overallSimulation` function is set to `True` by default). <br/>
+To retrieve and display the SR, FWHM and Encircled energy metrics  directly in your terminal, set the 
+`returnMetrics` option to `True` (see [**the documentation on the overallSimulation function**](/docs/orion/howtosetuplaunchfile) below).<br/>
+⚠️ If `returnMetrics` is set to `True`, the FITS file is not saved. 
+
+
+## OverallSimulation function documentation {#overallSimulation}
+
+tiptop.**overallSimulation** runs a complete TipTop simulation based on an input parameter file.
+The function accepts several optional arguments to enable or disable specific features and select desired outputs. <br/>
 All the parameters that can be passed as arguments are listed and explained below: <br/>
 
 <details>
@@ -65,4 +258,9 @@ All the parameters that can be passed as arguments are listed and explained belo
 
     - **gpuIndex** (_int_) – optional default: 0, Target GPU index where the simulation will be run
 
-    </details> 
+⚠️ **Note:** if `returnMetrics` is set to `True`, the FITS file is not saved.
+
+  </details> 
+
+
+

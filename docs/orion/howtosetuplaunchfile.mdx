@@ -4,6 +4,8 @@ title: How to set up a launch script for TipTop?
 sidebar_label: How to set up a launch script for TipTop?
 ---
 
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 ## Run a TipTop simulation and display PSFs
 
 ### Simplest way
@@ -41,7 +43,8 @@ and **performance metrics** (e.g., Strehl Ratio (SR), Full Width at Half Maximum
 (see [**Simulation Output**](/docs/orion/howtosetuplaunchfile#simulation_output) below). 
 It also generates log-scaled intensity **plots of the PSFs** and a semi-logarithmic **radial profile plot**.<br/>
 ✅ You can adapt this script by changing the input/output paths and filenames to match your configuration.<br/>
-The full example script is available for download <a href="/downloads/TIPTOP_RUN.py" download="TIPTOP_RUN.py">**here**<span style={{ fontSize: '1.5em' }}>📥</span></a>.
+The full example script is available for download 
+<a href={`${useBaseUrl('/downloads/TIPTOP_RUN.py')}`} download="TIPTOP_RUN.py">**here**<span style={{ fontSize: '1.5em' }}>📥</span></a>.
 
 <details>
   <summary><strong>Example run file: `TIPTOP_RUN.py`</strong></summary>

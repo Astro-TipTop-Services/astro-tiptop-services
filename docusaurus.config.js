@@ -214,6 +214,10 @@ const config = {
                 to: 'resources/contributors',
               },
               {
+                label: 'Wish list',
+                to: 'resources/wishlist',
+              },
+              {
                 label: 'Contact Support',
                 to: 'resources/contact',
               },

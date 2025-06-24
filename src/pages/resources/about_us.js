@@ -51,17 +51,20 @@ export default function AboutPage() {
           <div className="col col--3">
             <nav style={{ position: 'sticky', top: '4rem' }}>
               <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-              <li style={{ marginBottom: '0.5rem' }}>
-                  <Link to="/resources/about_us">ℹ️ About us</Link>
+              <li style={{ marginBottom: '0.3rem' }}>
+                  <Link to="/resources/about_us">🪪 About us</Link>
                 </li>
-                <li style={{ marginBottom: '0.5rem' }}>
+                <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/references">📘 Key Publications & References </Link>
                 </li>
-                <li style={{ marginBottom: '0.5rem' }}>
+                <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/users">👥 Users Area </Link>
                 </li>
-                <li style={{ marginBottom: '0.5rem' }}>
+                <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/contributors">🔑 Contributors Area </Link>
+                </li>
+                <li style={{ marginBottom: '0.3rem' }}>
+                    <Link to="/resources/wishlist">✨ Wish list</Link>
                 </li>
                 <li style={{ marginBottom: '1rem' }}>
                   <Link to="/resources/contact">📬 Contact Support </Link>
@@ -72,7 +75,7 @@ export default function AboutPage() {
 
           {/* Main Content */}
           <div className="col col--7">
-            <h1 style={{ textAlign: 'center', marginTop: '0.rem' }}>About us</h1>
+            <h1 style={{ textAlign: 'center', marginTop: '0.rem' }}>🪪 About us</h1>
             <p style={{ textAlign: 'justify', marginBottom: '2rem' }}>
             Meet the core members of the Astro-TipTop team: <br /> <br />
               <AuthorCard

@@ -28,17 +28,20 @@ export default function Contact_us() {
               <div className="col col--3">
                 <nav style={{ position: 'sticky', top: '4rem' }}>
                   <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                  <li style={{ marginBottom: '0.5rem' }}>
-                      <Link to="/resources/about_us">ℹ️ About us</Link>
+                  <li style={{ marginBottom: '0.3rem' }}>
+                      <Link to="/resources/about_us">🪪 About us</Link>
                     </li>
-                    <li style={{ marginBottom: '0.5rem' }}>
+                    <li style={{ marginBottom: '0.3rem' }}>
                        <Link to="/resources/references">📘 Key Publications & References </Link>
                     </li>
-                <li style={{ marginBottom: '0.5rem' }}>
+                <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/users">👥 Users Area </Link>
                 </li>
-                <li style={{ marginBottom: '0.5rem' }}>
+                <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/contributors">🔑 Contributors Area </Link>
+                </li>
+                <li style={{ marginBottom: '0.3rem' }}>
+                    <Link to="/resources/wishlist">✨ Wish list</Link>
                 </li>
                     <li style={{ marginBottom: '1rem' }}>
                       <Link to="/resources/contact">📬 Contact Support </Link>
@@ -49,7 +52,7 @@ export default function Contact_us() {
     
               {/* Main Content */}
               <div className="col col--7">
-                <h1 style={{ textAlign: 'center', marginTop: '0.rem' }}>Contact Support</h1>
+                <h1 style={{ textAlign: 'center', marginTop: '0.rem' }}>📬 Contact Support</h1>
                 <p style={{ textAlign: 'center', marginBottom: '2rem' }}>
                 Need help with Astro-TipTop? Our support team is ready to assist you. Whether you're facing installation issues, 
                 running simulations, or have any general questions about the software, we are here to help.
@@ -57,7 +60,7 @@ export default function Contact_us() {
                 <form  action="https://formspree.io/f/xgvkqplw"
                 method="POST"
                 >
-                  {['name', 'email', 'subject'].map((field) => (
+                  {['👤Name', '📧Email', '💡Subject'].map((field) => (
                     <div key={field} style={{ marginBottom: '1rem' }}>
                       <label htmlFor={field} style={{ display: 'block', marginBottom: '.5rem' }}>
                         {field.charAt(0).toUpperCase() + field.slice(1)}
@@ -80,7 +83,7 @@ export default function Contact_us() {
                   ))}
     
                   <div style={{ marginBottom: '1rem' }}>
-                    <label htmlFor="message" style={{ display: 'block', marginBottom: '.5rem' }}>Message</label>
+                    <label htmlFor="message" style={{ display: 'block', marginBottom: '.5rem' }}>🗨️Message</label>
                     <textarea
                       name="message"
                       value={formData.message}
@@ -100,7 +103,7 @@ export default function Contact_us() {
                   <button
                     type="submit"
                     style={{
-                      padding: '0.7rem 1.5rem',
+                      padding: '0.7rem 1.2rem',
                       fontSize: '1rem',
                       backgroundColor: '#0078e7',
                       color: '#fff',
@@ -109,7 +112,7 @@ export default function Contact_us() {
                       cursor: 'pointer',
                     }}
                   >
-                    Send
+                  <strong>⌯⌲</strong> Send
                   </button>
                 </form>
               </div>

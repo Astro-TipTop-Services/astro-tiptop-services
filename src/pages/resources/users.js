@@ -11,18 +11,25 @@ export default function UsersPage() {
           <div className="col col--3">
             <nav style={{ position: 'sticky', top: '4rem' }}>
               <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                <li><Link to="/resources/about_us">ℹ️ About us</Link></li>
-                <li><Link to="/resources/references">📘 Key Publications & References</Link></li>
-                <li><Link to="/resources/users">👥 Users Area</Link></li>
-                <li><Link to="/resources/contributors">🔑 Contributors Area</Link></li>
-                <li><Link to="/resources/contact">📬 Contact Support</Link></li>
+                <li style={{ marginBottom: '0.3rem' }}>
+                  <Link to="/resources/about_us">🪪 About us</Link></li>
+                <li style={{ marginBottom: '0.3rem' }}>
+                  <Link to="/resources/references">📘 Key Publications & References</Link></li>
+                <li style={{ marginBottom: '0.3rem' }}>
+                  <Link to="/resources/users">👥 Users Area</Link></li>
+                <li style={{ marginBottom: '0.3rem' }}>
+                  <Link to="/resources/contributors">🔑 Contributors Area</Link></li>
+                <li style={{ marginBottom: '0.3rem' }}>
+                  <Link to="/resources/wishlist">✨ Wish list</Link></li>
+                <li style={{ marginBottom: '1rem' }}>
+                  <Link to="/resources/contact">📬 Contact Support</Link></li>
               </ul>
             </nav>
           </div>
 
           {/* Main Content */}
           <div className="col col--7">
-            <h1 style={{ textAlign: 'center' }}>Community of TipTop Users</h1>
+            <h1 style={{ textAlign: 'center' }}>👥 Community of TipTop Users</h1>
             <p style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 2rem' }}>
               If you’re using TipTop, let us know! Fill out the form to appear here and connect with other users.
             </p>
@@ -46,8 +53,9 @@ export default function UsersPage() {
             <section>
               <h2>Current Users</h2>
               <ul>
-                <li>🔭 Dr. X, University of X – Uses TipTop for X</li>
-                <li>🛰️ Dr. Y, Observatory Y – Uses TipTop for Y</li>
+                Coming soon...
+                {/* <li>🔭 Dr. X, University of X – Uses TipTop for X</li>
+                <li>🛰️ Dr. Y, Observatory Y – Uses TipTop for Y</li> */}
               </ul>
             </section>
           </div>

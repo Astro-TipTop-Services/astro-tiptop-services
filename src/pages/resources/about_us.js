@@ -97,6 +97,15 @@ export default function AboutPage() {
 
               <AuthorCard
                 name="Arseniy Kuznetsov"
+                role="European Southern Observatory"
+                email="akuznets@eso.org"
+                linkedin="https://www.linkedin.com/in/a-kuznetsov"
+                bio="Arseniy Kuznetsov is a postdoctoral researcher at the European Southern Observatory (ESO),
+                where he has been working since 2020. He obtained his doctorate in 2024 and has nearly five years
+                of experience in astronomical adaptive optics (AO), focusing on AO simulations and focal-plane
+                wavefront retrieval. His expertise spans high-performance software development for optical simulations,
+                computer graphics, and computer vision, as well as machine learning applications in astronomical 
+                instrumentation. He is one of the key contributors to the TipTop project."
               />
 
               <AuthorCard

@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 
 export default function TermsPage() {
   return (
-    <Layout title="Terms & Conditions for web pages under lmazzolo.github.io/astro-tiptop-services">
+    <Layout title="Terms & Conditions for web pages under astro-tiptop-services.github.io/astro-tiptop-services">
       <main className="container margin-vert--xl">
         <h1>Terms & Conditions</h1>
         <p><i>Last updated: June 2025</i></p>

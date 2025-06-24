@@ -303,7 +303,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Astro-TipTop Team. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Astro-TipTop-Services. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,

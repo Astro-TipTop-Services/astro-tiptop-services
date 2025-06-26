@@ -695,7 +695,11 @@ export default function IniGenerator() {
         //   if (section === 'RTC' && key.includes('_LO')) continue;
         // }
 
-        if (expectedType === 'number') {
+       if (section === 'sensor_HO' || section === 'sensor_LO') {
+        const cleanValue = String(value).replace(/[\[\]]/g, '');
+        iniString += `${key} = [${cleanValue}]\n`;
+        }
+        else if (expectedType === 'number') {
           value = Number(value);
           iniString += `${key} = ${value}\n`;
         } else if (value === 'None') {
@@ -1006,10 +1010,16 @@ export default function IniGenerator() {
                 <label>
                   {field}  <i>(nph/subaperture/frame)</i>:
                   <input
-                    type={type === 'number' ? 'number' : 'text'}
-                    value={params.sensor_HO[field]}
+                  type="number"
+                  value={
+                  Number(
+                    String(params.sensor_HO[field]).replace(/[\[\]]/g, '')
+                  )
+                  }
                     onChange={(e) => handleChange('sensor_HO', field, e.target.value)}
                     style={{ marginLeft: 10 }}
+                    min="0"
+                    step="1"
                   />
                 </label>
               </div>
@@ -1065,10 +1075,16 @@ export default function IniGenerator() {
                 <label>
                   {field} <i>(nph/subaperture/frame)</i>:
                   <input
-                    type={type === 'number' ? 'number' : 'text'}
-                    value={params.sensor_LO[field]}
+                  type="number"
+                  value={
+                  Number(
+                    String(params.sensor_LO[field]).replace(/[\[\]]/g, '')
+                  )
+                  }
                     onChange={(e) => handleChange('sensor_LO', field, e.target.value)}
                     style={{ marginLeft: 10 }}
+                    min="0"
+                    step="1"
                   />
                 </label>
               </div>

@@ -12,7 +12,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Astro-TipTop Services',
   tagline: 'A modular toolkit for PSF simulation and analysis',
-  favicon: 'img/logo_astro-tiptop.png',
+  favicon: 'img/logo_astro-tiptop_cropped.png',
 
   // Set the production url of your site here
   url: 'https://astro-tiptop-services.github.io',

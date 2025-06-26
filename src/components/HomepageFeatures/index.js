@@ -85,9 +85,9 @@ export default function HomepageFeatures() {
             <div className="text--center">
               <img src="img/logo_astro_tiptop.png" alt="logo astro_tiptop_services" 
               style={{ width: '30rem', height: 'auto', marginTop: '0.5rem' }} />
-              <p style={{ textAlign: 'center', fontSize: '0.7rem', marginTop: '0.rem', color: '#666' }}>
+              {/* <p style={{ textAlign: 'center', fontSize: '0.7rem', marginTop: '0.rem', color: '#666' }}>
                 Image generated with the assistance of an AI model.
-              </p>
+              </p> */}
             </div>
             <p className={styles.introText} style={{ marginBottom: '0.05rem' }}>
             Powered by the core <strong>TipTop</strong> algorithm, 

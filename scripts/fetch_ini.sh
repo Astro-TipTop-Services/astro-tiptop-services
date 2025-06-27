@@ -39,3 +39,9 @@ echo "=== Nettoyage ==="
 rm -rf $TMP_DIR
 
 echo "=== Fichiers .ini mis à jour avec succès ==="
+
+echo "Converting INI files..."
+
+node ./scripts/parsePresets.js
+
+echo "INI files converted to JSON."

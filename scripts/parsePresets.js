@@ -2,8 +2,8 @@ const fs = require('fs');
 const ini = require('ini');
 const path = require('path');
 
-const presetDir = path.resolve(__dirname, '../../static/configs');
-const outputFile = path.resolve(__dirname, '../../src/configPresets.json');
+const presetDir = path.resolve(__dirname, '../static/configs');
+const outputFile = path.resolve(__dirname, '../src/configPresets.json');
 const output = {};
 
 fs.readdirSync(presetDir).forEach(file => {
@@ -17,4 +17,4 @@ fs.readdirSync(presetDir).forEach(file => {
 
 
 fs.writeFileSync(outputFile, JSON.stringify(output, null, 2));
-console.log(`✅ configPresets.json généré avec ${Object.keys(output).length} presets.`);
+console.log(`✅ configPresets.json generated with ${Object.keys(output).length} presets.`);

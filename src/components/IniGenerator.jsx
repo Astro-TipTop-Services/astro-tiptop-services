@@ -77,13 +77,13 @@ const presetToKey = {
 const getF0FromWavelength = (lambda) => {
   const µm = lambda * 1e6; // µm
 
-  if (µm >= 0.398 && µm < 0.492) return 1.24e10;  // B
-  if (µm >= 0.507 && µm < 0.595) return 8.37e9; // V
-  if (µm >= 0.589 && µm < 0.727) return 1.36e10; // R
-  if (µm >= 0.731 && µm < 0.881) return 8.93e9; // I
-  if (µm >= 1.17 && µm < 1.33) return 4.11e9; // J
-  if (µm >= 1.505 && µm < 1.795) return 2.87e9; // H
-  if (µm >= 2.03 && µm <2.37) return 1.70e9; // K
+  if (µm >= 0.390 && µm < 0.455) return 1.24e10;  // B
+  if (µm >= 0.455 && µm < 0.595) return 8.37e9; // V
+  if (µm >= 0.595 && µm < 0.715) return 1.36e10; // R
+  if (µm >= 0.715 && µm < 1.050) return 8.93e9; // I
+  if (µm >= 1.050 && µm < 1.345) return 4.11e9; // J
+  if (µm >= 1.505 && µm < 1.815) return 2.87e9; // H
+  if (µm >= 1.815 && µm <2.384) return 1.70e9; // K
 
   return null; 
 };
@@ -91,13 +91,13 @@ const getF0FromWavelength = (lambda) => {
 const getTotThroughput = (lambda) => {
   const µm = lambda * 1e6;
 
-  if (µm >= 0.398 && µm < 0.492) return 0.07;  // B
-  if (µm >= 0.507 && µm < 0.595) return 0.16; // V
-  if (µm >= 0.589 && µm < 0.727) return 0.19; // R
-  if (µm >= 0.731 && µm < 0.881) return 0.20; // I
-  if (µm >= 1.17 && µm < 1.33) return 0.24; // J
-  if (µm >= 1.505 && µm < 1.795) return 0.264; // H
-  if (µm >= 2.03 && µm <2.37) return 0.26; // K
+  if (µm >= 0.390 && µm < 0.455) return 0.07;  // B
+  if (µm >= 0.455 && µm < 0.595) return 0.16; // V
+  if (µm >= 0.595 && µm < 0.715) return 0.19; // R
+  if (µm >= 0.715 && µm < 1.050) return 0.20; // I
+  if (µm >= 1.050 && µm < 1.345) return 0.24; // J
+  if (µm >= 1.505 && µm < 1.815) return 0.264; // H
+  if (µm >= 1.815 && µm <2.384) return 0.26; // K
 
   return null; 
 };
@@ -105,25 +105,29 @@ const getTotThroughput = (lambda) => {
 const getBandFromWavelength = (lambda) => {
   const µm = lambda * 1e6;
   // if (µm >= 0.332 && µm < 0.398) return 'U';
-  if (µm >= 0.398 && µm < 0.492) return 'B';
-  if (µm >= 0.507 && µm < 0.595) return 'V';
-  if (µm >= 0.589 && µm < 0.727) return 'R';
-  if (µm >= 0.731 && µm < 0.881) return 'I';
-  if (µm >= 1.17 && µm < 1.33) return 'J';
-  if (µm >= 1.505 && µm < 1.795) return 'H';
-  if (µm >= 2.03 && µm < 2.37) return 'K';
+  if (µm >= 0.390 && µm < 0.455) return 'B';
+  if (µm >= 0.455 && µm < 0.595) return 'V';
+  if (µm >= 0.595 && µm < 0.715) return 'R';
+  if (µm >= 0.715 && µm < 0.865) return 'I';
+  if (µm >= 0.865 && µm < 1.050) return 'Iz';
+  if (µm >= 1.050 && µm < 1.345) return 'J';
+  if (µm >= 1.345 && µm < 1.815) return 'H';
+  if (µm >= 1.815 && µm < 2.317) return 'Ks';
+  if (µm >= 2.317 && µm < 2.384) return 'K';
   // if (µm >= 3.165 && µm < 3.735) return 'L';
   // if (µm >= 4.63 && µm < 4.87) return 'M';
   return 'Unknown';
 };
 
 const wavelengthByBand = {
+  B: 0.422e-6,
   V: 0.55e-6,
   R: 0.66e-6,
-  I: 0.81e-6,
-  J: 1.28e-6, // m
+  I: 0.80e-6,
+  Iz: 0.95e-6,
+  J: 1.20e-6, 
   H: 1.66e-6,
-  K: 2.18e-6,
+  K: 2.10e-6,
   L: 3.32e-6,
   M: 4.78e-6,
   // N: 10e-6,

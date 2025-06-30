@@ -1,12 +1,10 @@
 ---
-id: installation
-title: How to install TipTop?
-sidebar_label: How to install TipTop?
+sidebar_position: 1
 ---
 
 # TipTop Installation Tutorial
 
-**TipTop** was designed from the ground up to be easily installed and used.
+Let's discover **TipTop in less than 5 minutes**.
 
 ## Getting Started
 
@@ -50,6 +48,7 @@ or
 python3 -m venv tiptop
 ```
 3. Activate your virtual environment:
+
 ```bash
 # Unix
 source ./tiptop/bin/activate
@@ -73,28 +72,27 @@ conda install -c conda-forge cupy
 
 All other dependencies should be installed automatically, whether you choose to install **TipTop** via pip or by downloading the repository directly (see next step).
 
-If you need a more sophisticated user interface than a command prompt, you can use any IDE that supports iPython or the Python command prompt. Here are some IDEs the team has tested:
+If you need a more sophisticated user interface than a command prompt, you can use any **IDE that supports iPython or the Python command prompt**. Here are some IDEs the team has tested:
 
-  - Jupyter and JupyterLab (many files are Jupyter Notebooks):
+  - **Jupyter** and **JupyterLab** (many files are Jupyter Notebooks):<br/> 
+    Install Jupyter and JupyterLab: <br/> 
+    ```bash
+    conda install jupyter
+    conda install -c conda-forge jupyterlab
+    ```
+    If you don’t wish to use the provided Jupyter Notebooks, you can convert them using the jupyter library:
+    ```bash
+    jupyter nbconvert --to python targetNotebook.ipynb
+    ```
 
-  Install Jupyter and JupyterLab:
-```bash
-conda install jupyter
-conda install -c conda-forge jupyterlab
-```
-If you don’t wish to use the provided Jupyter Notebooks, you can convert them using the jupyter library:
-```bash
-jupyter nbconvert --to python targetNotebook.ipynb
-```
+- **Spyder** (another popular option):
+  ```bash
+  conda install spyder
+  ```
 
-- Spyder (another popular option):
-```bash
-conda install spyder
-```
-
-- Vs Code:
-To use VS Code, simply install the Python extension for VS Code, which supports iPython and the Python command prompt.\
-Install VS Code here: [VS Code Download](https://code.visualstudio.com/)
+- **Vs Code**:<br/>
+To use **VS Code**, simply install the Python extension for VS Code, which supports iPython and the Python command prompt.\
+Install **VS Code** here: [**VS Code Download**](https://code.visualstudio.com/)
 
 ## Step 4: Install TipTop
 

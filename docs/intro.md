@@ -24,11 +24,13 @@ or
 python3 --version
 ```
 If not, you can download Python from:
-   - [**Python**](https://www.python.org/downloads/)
+  - [**Python**](https://www.python.org/downloads/)
 
-You can also use [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) for managing your environment.
+➡️ You can also install [**conda**](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) via Anaconda or Miniconda—distributions that include Python and simplify environment management.
 
 ## Step 1: (Recommended) Creating a virtual environment
+
+You have two options:
 
 ### Using conda
 
@@ -71,11 +73,11 @@ or
 ## Step 2: (Optional) Install GPU Support
 
 If you have a GPU and want to take advantage of hardware acceleration, you can install [CuPy](https://docs.cupy.dev/en/stable/install.html).
-- Using **conda** (recommended if using a conda environment):
+- Using **conda** (recommended if using a conda environment): <br/><br/>
   ```bash
   conda install -c conda-forge cupy
   ```
-- Using **pip** (if you are using a venv):
+- Using **pip** (if you are using a venv):<br/><br/>
   ```bash
   # For CUDA 12.x (recommended if you have CUDA 12 installed)
   #checks the cuda version : nvcc --version
@@ -84,7 +86,7 @@ If you have a GPU and want to take advantage of hardware acceleration, you can i
   # For CUDA 11.x
   pip install cupy-cuda11x
   ```
-  ✏️**Note**: To check your installed CUDA version, run:
+  ✏️**Note**: To check your installed CUDA version, run:<br/><br/>
   ```bash
   nvcc --version
   ```
@@ -102,12 +104,12 @@ If you need a more sophisticated user interface than a command prompt, you can u
 
 - **Jupyter** and **JupyterLab** (many files are Jupyter Notebooks):<br/> 
   Install Jupyter and JupyterLab: <br/> 
-  - Using **conda**:
+  - Using **conda**:<br/><br/>
     ```bash
     conda install jupyter
     conda install -c conda-forge jupyterlab
     ```
-  - or, if you prefer not to use conda, you can install Jupyter via **pip** in your Python environment (e.g., venv)
+  - or, if you prefer not to use conda, you can install Jupyter via **pip** in your Python environment (e.g., venv): <br/><br/>
     ```bash
     pip install notebook jupyterlab
     ```

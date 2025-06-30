@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # TipTop Installation Tutorial
 
-Let's discover **TipTop in less than 5 minutes**.
+Let's discover **TipTop in less than 10 minutes**.
 
 ## Getting Started
 
@@ -14,11 +14,19 @@ Get started by **installing TipTop**. Follow these simple steps to get up and ru
 
 ### What you'll need
 
-Before you begin, make sure you have the following installed:
+Before you begin, make sure Python (**version 3.11 or higher**) is installed by running:
 
-   - [**Python**](https://www.python.org/downloads/) (version 3.11 or higher)
+```bash
+python --version
+```
+or
+```bash
+python3 --version
+```
+If not, you can download Python from:
+   - [**Python**](https://www.python.org/downloads/)
 
-We recommend using [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) for managing your environment.
+You can also use [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) for managing your environment.
 
 ## Step 1: (Recommended) Creating a virtual environment
 
@@ -50,7 +58,7 @@ python3 -m venv tiptop
 3. Activate your virtual environment:
 
 ```bash
-# Unix
+# Unix/macOS
 source ./tiptop/bin/activate
 ```
 or
@@ -58,39 +66,67 @@ or
 # Windows PowerShell
 .\tiptop\Scripts\activate
 ```
-**Note**: We only support Python >= 3.11.
+✏️**Note**: We only support Python >= 3.11.
 
 ## Step 2: (Optional) Install GPU Support
 
-If you have a GPU and want to take advantage of hardware acceleration: install [CuPy](https://docs.cupy.dev/en/stable/install.html).\
-Run this command to install CuPy in your conda environment:
-```bash
-conda install -c conda-forge cupy
-```
+If you have a GPU and want to take advantage of hardware acceleration, you can install [CuPy](https://docs.cupy.dev/en/stable/install.html).
+- Using **conda** (recommended if using a conda environment):
+  ```bash
+  conda install -c conda-forge cupy
+  ```
+- Using **pip** (if you are using a venv):
+  ```bash
+  # For CUDA 12.x (recommended if you have CUDA 12 installed)
+  #checks the cuda version : nvcc --version
+  pip install cupy-cuda12x
+
+  # For CUDA 11.x
+  pip install cupy-cuda11x
+  ```
+  ✏️**Note**: To check your installed CUDA version, run:
+  ```bash
+  nvcc --version
+  ```
+  or:
+  ```bash
+  nvidia-smi
+  ```
+
 
 ## Step 3: Install Dependencies
 
-All other dependencies should be installed automatically, whether you choose to install **TipTop** via pip or by downloading the repository directly (see next step).
+All other dependencies should be installed **automatically**, whether you choose to install **TipTop** via pip or by downloading the repository directly (see next step).
 
 If you need a more sophisticated user interface than a command prompt, you can use any **IDE that supports iPython or the Python command prompt**. Here are some IDEs the team has tested:
 
-  - **Jupyter** and **JupyterLab** (many files are Jupyter Notebooks):<br/> 
-    Install Jupyter and JupyterLab: <br/> 
+- **Jupyter** and **JupyterLab** (many files are Jupyter Notebooks):<br/> 
+  Install Jupyter and JupyterLab: <br/> 
+  - Using **conda**:
     ```bash
     conda install jupyter
     conda install -c conda-forge jupyterlab
     ```
-    If you don’t wish to use the provided Jupyter Notebooks, you can convert them using the jupyter library:
+  - or, if you prefer not to use conda, you can install Jupyter via **pip** in your Python environment (e.g., venv)
     ```bash
-    jupyter nbconvert --to python targetNotebook.ipynb
+    pip install notebook jupyterlab
     ```
+  If you don’t wish to use the provided Jupyter Notebooks directly, you can convert them to Python scripts using:
+  ```bash
+  jupyter nbconvert --to python targetNotebook.ipynb
+  ```
 
-- **Spyder** (another popular option):
+- **Spyder** (another popular option):<br/>
+  Using **conda**:
   ```bash
   conda install spyder
   ```
+  or, using **pip**:
+  ```bash
+  pip install spyder
+  ```
 
-- **Vs Code**:<br/>
+- **VS Code**:<br/>
 To use VS Code, simply install the Python extension for VS Code, which supports iPython and the Python command prompt.\
 Install VS Code here: [**VS Code Download**](https://code.visualstudio.com/)
 
@@ -114,7 +150,7 @@ git clone https://github.com/astro-tiptop/TIPTOP.git
 pip install -e --user .
 ```
 
-## Step 5: (Optionnal) Development Setup
+## Step 5: (Optional) Development Setup
 If you plan to do your own development or fix bugs, you will need to download and install the following libraries:
 - [MASTSEL] https://github.com/astro-tiptop/MASTSEL
 - [SYMAO] https://github.com/astro-tiptop/SYMAO

@@ -16,7 +16,7 @@ Get started by **installing TipTop**. Follow these simple steps to get up and ru
 
 Before you begin, make sure you have the following installed:
 
-   - [Python](https://www.python.org/downloads/) (version 3.11 or higher)
+   - [**Python**](https://www.python.org/downloads/) (version 3.11 or higher)
 
 We recommend using [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) for managing your environment.
 
@@ -91,8 +91,8 @@ If you need a more sophisticated user interface than a command prompt, you can u
   ```
 
 - **Vs Code**:<br/>
-To use **VS Code**, simply install the Python extension for VS Code, which supports iPython and the Python command prompt.\
-Install **VS Code** here: [**VS Code Download**](https://code.visualstudio.com/)
+To use VS Code, simply install the Python extension for VS Code, which supports iPython and the Python command prompt.\
+Install VS Code here: [**VS Code Download**](https://code.visualstudio.com/)
 
 ## Step 4: Install TipTop
 

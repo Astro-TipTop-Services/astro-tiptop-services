@@ -3,7 +3,7 @@
 # --- CONFIG ---
 REPO_URL="https://github.com/astro-tiptop/TIPTOP"   
 BRANCH="main"                                              
-INI_PATH="perfTest"                        
+INI_PATH="tiptop/perfTest"                        
 DEST_DIR="static/configs"                                  
 
 # --- SCRIPT ---

@@ -552,7 +552,7 @@
       "LoopDelaySteps_LO": "3"
     }
   },
-  "HarmoniSCAO_1": {
+  "HARMONI_SCAO": {
     "telescope": {
       "TelescopeDiameter": "39",
       "ZenithAngle": "30.0",
@@ -570,7 +570,7 @@
       "Seeing": "0.65",
       "L0": "25.0",
       "Cn2Weights": "[0.43840001, 0.14700001, 0.1142, 0.056, 0.03683, 0.0442, 0.0527, 0.0794, 0.01829, 0.012939]",
-      "Cn2Heights": "[   83.16413254,   243.29187551,   710.47154255,  2735.63637091,  5583.67373605,  8599.18858474, 11598.92106005, 14221.06437269, 17219.02406272, 21912.89106645]",
+      "Cn2Heights": "[83.16413254,   243.29187551,   710.47154255,  2735.63637091,  5583.67373605,  8599.18858474, 11598.92106005, 14221.06437269, 17219.02406272, 21912.89106645]",
       "WindSpeed": "[6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]",
       "WindDirection": "[0., 0., 0., 0., 90., -90., -90., 90., 0., 0.]"
     },
@@ -587,18 +587,7 @@
     },
     "sensor_science": {
       "PixelScale": "4.0",
-      "FieldOfView": "640",
-      "Binning": "1",
-      "NumberPhotons": "[1500]",
-      "SpotFWHM": "[[1.0, 1.0, 0.0]]",
-      "SpectralBandwidth": "0.0",
-      "Transmittance": "[1.0]",
-      "Dispersion": "[[0.0],[0.0]]",
-      "SigmaRON": "[0.0]",
-      "Dark": "0.0",
-      "SkyBackground": "0.0",
-      "Gain": "1.0",
-      "ExcessNoiseFactor": "1.0"
+      "FieldOfView": "640"
     },
     "sensor_HO": {
       "WfsType": "Pyramid",
@@ -639,167 +628,6 @@
     },
     "RTC": {
       "LoopGain_HO": "0.5",
-      "SensorFrameRate_HO": "500.0",
-      "LoopDelaySteps_HO": "1",
-      "LoopGain_LO": "0.5",
-      "SensorFrameRate_LO": "500.0",
-      "LoopDelaySteps_LO": "1"
-    }
-  },
-  "HarmoniSCAO_2": {
-    "telescope": {
-      "TelescopeDiameter": "39",
-      "ZenithAngle": "30.0",
-      "ObscurationRatio": "0.28",
-      "Resolution": "400",
-      "PathPupil": "/home/frossi/dev/TIPTOP/P3/aoSystem/data/ELT_CALIBRATION/EELT480pp0.0813spider.fits",
-      "PathStaticOn": "/home/frossi/dev/TIPTOP/P3/aoSystem/data/ELT_CALIBRATION/CombinedError_Wavefront_nm.fits",
-      "TechnicalFoV": "120"
-    },
-    "atmosphere": {
-      "r0_Value": "0",
-      "testWindspeed": "0",
-      "Wavelength": "500e-9",
-      "Seeing": "0.65",
-      "L0": "25.0",
-      "Cn2Weights": "[0.43900001, 0.14700001, 0.1142    , 0.056     , 0.03683   ,   0.0442    , 0.0527    , 0.0794    , 0.01829   , 0.012939  ]",
-      "Cn2Heights": "[   83.16413254,   243.29187551,   710.47154255,  2735.63637091,  5583.67373605,  8599.18858474, 11598.92106005, 14221.06437269, 17219.02406272, 21912.89106645]",
-      "WindSpeed": "[6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]",
-      "WindDirection": "[0., 0., 0., 0., 90., -90., -90., 90., 0., 0.]"
-    },
-    "sources_science": {
-      "Wavelength": "[2200e-9]",
-      "Zenith": "[0.0]",
-      "Azimuth": "[0.0]"
-    },
-    "sources_HO": {
-      "Wavelength": "950e-9",
-      "Zenith": "[15.]",
-      "Azimuth": "[0.0]",
-      "Height": "0.0"
-    },
-    "sensor_science": {
-      "PixelScale": "4.0",
-      "FieldOfView": "640"
-    },
-    "sensor_HO": {
-      "WfsType": "Pyramid",
-      "Modulation": "3",
-      "PixelScale": "220",
-      "FieldOfView": "600",
-      "Binning": "1",
-      "NumberPhotons": "[150]",
-      "SpotFWHM": "[[0.0,0.0,0.0]]",
-      "SpectralBandwidth": "0.0",
-      "Transmittance": "[1.0]",
-      "Dispersion": "[[0.0],[0.0]]",
-      "SigmaRON": "0.0",
-      "Dark": "0.0",
-      "SkyBackground": "0.0",
-      "Gain": "1.0",
-      "ExcessNoiseFactor": "1.0",
-      "NumberLenslets": "[100]",
-      "SizeLenslets": "[0.4]",
-      "NoiseVariance": "[None]",
-      "Algorithm": "wcog",
-      "WindowRadiusWCoG": "6",
-      "ThresholdWCoG": "0.0",
-      "NewValueThrPix": "0.0"
-    },
-    "DM": {
-      "NumberActuators": "[80]",
-      "DmPitchs": "[0.38]",
-      "InfModel": "gaussian",
-      "InfCoupling": "[0.2]",
-      "DmHeights": "[600.0]",
-      "OptimizationZenith": "[0]",
-      "OptimizationAzimuth": "[0]",
-      "OptimizationWeight": "[1]",
-      "OptimizationConditioning": "1.0e2",
-      "NumberReconstructedLayers": "10",
-      "AoArea": "circle"
-    },
-    "RTC": {
-      "LoopGain_HO": "0.8",
-      "SensorFrameRate_HO": "500.0",
-      "LoopDelaySteps_HO": "1"
-    }
-  },
-  "HarmoniSCAO_3": {
-    "telescope": {
-      "TelescopeDiameter": "39",
-      "ZenithAngle": "30.0",
-      "ObscurationRatio": "0.28",
-      "Resolution": "400",
-      "PathPupil": "/home/frossi/dev/TIPTOP/P3/aoSystem/data/ELT_CALIBRATION/EELT480pp0.0813spider.fits",
-      "PathStaticOn": "/home/frossi/dev/TIPTOP/P3/aoSystem/data/ELT_CALIBRATION/CombinedError_Wavefront_nm.fits",
-      "TechnicalFoV": "120"
-    },
-    "atmosphere": {
-      "r0_Value": "0",
-      "testWindspeed": "0",
-      "Wavelength": "500e-9",
-      "Seeing": "0.95",
-      "L0": "25.0",
-      "Cn2Weights": "[0.46510001, 0.18929999, 0.18569999, 0.0698    , 0.02554   , 0.01123   , 0.01545   , 0.02729   , 0.00627   , 0.004438  ]",
-      "Cn2Heights": "[     82.04886699,   252.57894569,   722.807951  ,  2620.66789668, 5167.21882457,  8600.34998944, 11722.58516535, 14220.09282085, 17218.05749335, 21912.70746385]",
-      "WindSpeed": "[6.6, 5.9, 5.1, 4.5, 5.1, 8.3, 16.3, 10.2, 14.3, 17.5]",
-      "WindDirection": "[0., 0., 0., 0., 90., -90., -90., 90., 0., 0.]"
-    },
-    "sources_science": {
-      "Wavelength": "[2200e-9]",
-      "Zenith": "[0.0]",
-      "Azimuth": "[0.0]"
-    },
-    "sources_HO": {
-      "Wavelength": "950e-9",
-      "Zenith": "[0.0]",
-      "Azimuth": "[0.0]",
-      "Height": "0.0"
-    },
-    "sensor_science": {
-      "PixelScale": "4.0",
-      "FieldOfView": "640"
-    },
-    "sensor_HO": {
-      "WfsType": "Pyramid",
-      "Modulation": "3",
-      "PixelScale": "220",
-      "FieldOfView": "600",
-      "Binning": "1",
-      "NumberPhotons": "[150]",
-      "SpotFWHM": "[[0.0,0.0,0.0]]",
-      "SpectralBandwidth": "0.0",
-      "Transmittance": "[1.0]",
-      "Dispersion": "[[0.0],[0.0]]",
-      "SigmaRON": "0.0",
-      "Dark": "0.0",
-      "SkyBackground": "0.0",
-      "Gain": "1.0",
-      "ExcessNoiseFactor": "1.0",
-      "NumberLenslets": "[100]",
-      "SizeLenslets": "[0.4]",
-      "NoiseVariance": "[None]",
-      "Algorithm": "wcog",
-      "WindowRadiusWCoG": "6",
-      "ThresholdWCoG": "0.0",
-      "NewValueThrPix": "0.0"
-    },
-    "DM": {
-      "NumberActuators": "[80]",
-      "DmPitchs": "[0.38]",
-      "InfModel": "gaussian",
-      "InfCoupling": "[0.2]",
-      "DmHeights": "[600.0]",
-      "OptimizationZenith": "[0]",
-      "OptimizationAzimuth": "[0]",
-      "OptimizationWeight": "[1]",
-      "OptimizationConditioning": "1.0e2",
-      "NumberReconstructedLayers": "10",
-      "AoArea": "circle"
-    },
-    "RTC": {
-      "LoopGain_HO": "0.8",
       "SensorFrameRate_HO": "500.0",
       "LoopDelaySteps_HO": "1"
     }
@@ -992,14 +820,14 @@
       "ZenithAngle": "0.0",
       "ObscurationRatio": "0.28",
       "Resolution": "400",
-      "PathPupil": "input_parameter_files/EELT480pp0.0803m_obs0.283_spider2023.fits",
-      "PathStaticOn": "input_parameter_files/ELT_M1_static_wfe_480px.fits",
+      "PathPupil": "/tiptop/data/EELT480pp0.0803m_obs0.283_spider2023.fits",
+      "PathStaticOn": "/tiptop/data/ELT_M1_static_wfe_480px.fits",
       "PathApodizer": "",
       "PathStatModes": "",
       "PupilAngle": "0.0",
       "TechnicalFoV": "10",
       "extraErrorNm": "64",
-      "windPsdFile": "input_parameter_files/morfeo_windshake8ms_psd_2022_1k.fits",
+      "windPsdFile": "/tiptop/data/morfeo_windshake8ms_psd_2022_1k.fits",
       "jitter_FWHM": "6.0"
     },
     "atmosphere": {
@@ -1062,8 +890,8 @@
       "ZenithAngle": "30.0",
       "ObscurationRatio": "0.28",
       "Resolution": "480",
-      "PathPupil": "tiptop/data/EELT480pp0.0803m_obs0.283_spider2023.fits",
-      "PathStaticOn": "tiptop/data/ELT_M1_MORFEO_DMs_static_wfe_480px.fits",
+      "PathPupil": "/tiptop/data/EELT480pp0.0803m_obs0.283_spider2023.fits",
+      "PathStaticOn": "/tiptop/data/ELT_M1_MORFEO_DMs_static_wfe_480px.fits",
       "PathApodizer": "",
       "PathStatModes": "",
       "PupilAngle": "0.0",
@@ -1074,241 +902,7 @@
       "extraErrorLoNm": "[100,151]",
       "extraErrorLoExp": "-2",
       "extraErrorLoMin": "0",
-      "windPsdFile": "tiptop/data/morfeo_windshake8ms_psd_2022_1k.fits",
-      "jitter_FWHM": "3.28",
-      "glFocusOnNGS": "True"
-    },
-    "atmosphere": {
-      "Wavelength": "500e-9",
-      "Seeing": "0.65",
-      "L0": "25.0",
-      "Cn2Heights": "[30.0000, 90.0000, 150.000, 200.000, 245.000, 300.000, 390.000, 600.000, 1130.00, 1880.00, 2630.00, 3500.00, 4500.00, 5500.00, 6500.00, 7500.00, 8500.00, 9500.00, 10500.0, 11500.0, 12500.0, 13500.0, 14500.0, 15500.0, 16500.0, 17500.0, 18500.0, 19500.0, 20500.0, 21500.0, 22500.0, 23500.0, 24500.0, 25500.0, 26500.0]",
-      "Cn2Weights": "[0.241954, 0.119977, 0.0968817, 0.0589889, 0.0472911, 0.0472911, 0.0472911, 0.0472911, 0.0398925, 0.0323939, 0.0161969, 0.0260951, 0.0155971, 0.0103980, 0.00999811, 0.0119977, 0.00400924, 0.0139974, 0.0129975, 0.00700868, 0.0159970, 0.0258951, 0.0190964, 0.00986813, 0.00616883, 0.00400924, 0.00246953, 0.00215959, 0.00184965, 0.00135974, 0.00110979, 0.000616883, 0.000925825, 0.000493907, 0.000431918]",
-      "WindSpeed": "[5.5, 5.5, 5.1, 5.5, 5.6, 5.7, 5.8, 6.0, 6.5, 7.0, 7.5, 8.5, 9.5, 11.5, 17.5, 23.0, 26.0, 29.0, 32.0, 27.0, 22.0, 14.5, 9.5, 6.3, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.0]",
-      "WindDirection": "[0, -10, 0, 0, 10, 20, 0, 0, 0, -20, 0, 0, -10, 0, 10, -20, 10, 0, -20, -20, 0, -20, 0, 0, 80, 80, 70, 60, 90, 80, 80, 100, 70, 80, 70]"
-    },
-    "sources_science": {
-      "Wavelength": "[2.200e-06]",
-      "Zenith": "[0.0, 10.0, 10.0, 10.0, 20.0, 20.0, 20.0, 30.0, 30.0, 30.0, 45.0, 45.0, 45.0, 55.0, 55.0, 55.0, 70.0, 70.0, 70.0, 80.0, 80.0, 80.0]",
-      "Azimuth": "[0.0, 30.0, 150.0, -90.0, 30.0, 150.0, -90.0, 30.0, 150.0, -90.0, 30.0, 150.0, -90.0, 30.0, 150.0, -90.0, 30.0, 150.0, -90.0, 30.0, 150.0, -90.0]"
-    },
-    "sources_HO": {
-      "Wavelength": "[589e-9]",
-      "Zenith": "[45, 45, 45, 45, 45, 45]",
-      "Azimuth": "[0, 60, 120, 180, 240, 300]",
-      "Height": "90e3"
-    },
-    "sources_LO": {
-      "Wavelength": "[1650e-9]",
-      "Zenith": "[66.6, 79.3, 69.0]",
-      "Azimuth": "[221.7, 321.2, 106.6]"
-    },
-    "sensor_science": {
-      "PixelScale": "4.0",
-      "FieldOfView": "512"
-    },
-    "sensor_HO": {
-      "WfsType": "Shack-Hartmann",
-      "Modulation": "None",
-      "NumberLenslets": "[68, 68, 68, 68, 68, 68]",
-      "PixelScale": "1200",
-      "FieldOfView": "14",
-      "NumberPhotons": "[300, 300, 300, 300, 300, 300]",
-      "SpotFWHM": "[[2500.0, 2500.0, 0.0]]",
-      "WindowRadiusWCoG": "6",
-      "SigmaRON": "3.0",
-      "Algorithm": "wcog",
-      "addMcaoWFsensConeError": "True"
-    },
-    "sensor_LO": {
-      "PixelScale": "16.0",
-      "FieldOfView": "100",
-      "Binning": "1",
-      "NumberPhotons": "[38800,223,1173]",
-      "SpotFWHM": "[[0.0,0.0,0.0]]",
-      "SigmaRON": "0.5",
-      "Dark": "100.0",
-      "SkyBackground": "120.0",
-      "Gain": "1.0",
-      "ExcessNoiseFactor": "1.3",
-      "NumberLenslets": "[2, 2, 2]",
-      "Algorithm": "wcog",
-      "WindowRadiusWCoG": "optimize",
-      "ThresholdWCoG": "0.0",
-      "NewValueThrPix": "0.0",
-      "noNoise": "False",
-      "filtZernikeCov": "True",
-      "addAliasError": "True"
-    },
-    "DM": {
-      "NumberActuators": "[80, 30, 35]",
-      "DmPitchs": "[0.5, 1.4, 1.4]",
-      "InfModel": "gaussian",
-      "InfCoupling": "[0.2,0.2,0.2]",
-      "DmHeights": "[600 , 6500, 17500]",
-      "OptimizationZenith": "[0, 30, 30, 30, 30, 30, 30, 30, 30, 80, 80, 80, 80, 80, 80, 80, 80]",
-      "OptimizationAzimuth": "[0 , 0 , 45 , 90 , 135 , 180 , 225 , 270 , 315 , 0 , 45 , 90 , 135 , 180 , 225 , 270 , 315]",
-      "OptimizationWeight": "[10 , 20 , 20 , 20 , 20 , 20 , 20 , 20 , 20 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,1]",
-      "OptimizationConditioning": "1.0e4",
-      "NumberReconstructedLayers": "10",
-      "AoArea": "circle"
-    },
-    "RTC": {
-      "LoopGain_HO": "0.25",
-      "SensorFrameRate_HO": "500.0",
-      "LoopDelaySteps_HO": "3",
-      "LoopGain_LO": "optimize",
-      "SensorFrameRate_LO": "250.0",
-      "LoopDelaySteps_LO": "1"
-    }
-  },
-  "MORFEO_3NGS_median_central_psf": {
-    "telescope": {
-      "TelescopeDiameter": "38.5",
-      "ZenithAngle": "30.0",
-      "ObscurationRatio": "0.28",
-      "Resolution": "480",
-      "PathPupil": "EELT480pp0.0803m_obs0.283_spider2023.fits",
-      "PathApodizer": "",
-      "PathStatModes": "",
-      "PupilAngle": "0.0",
-      "TechnicalFoV": "160.0",
-      "extraErrorNm": "160",
-      "extraErrorExp": "-2",
-      "extraErrorMin": "0",
-      "extraErrorLoNm": "132",
-      "extraErrorLoExp": "-2",
-      "extraErrorLoMin": "0",
-      "windPsdFile": "morfeo_windshake8ms_psd_2022_1k.fits",
-      "jitter_FWHM": "3.5",
-      "glFocusOnNGS": "True"
-    },
-    "atmosphere": {
-      "Wavelength": "500e-9",
-      "Seeing": "0.65",
-      "L0": "25.0",
-      "Cn2Heights": "[30.0000, 90.0000, 150.000, 200.000, 245.000, 300.000, 390.000, 600.000, 1130.00, 1880.00, 2630.00, 3500.00, 4500.00, 5500.00, 6500.00, 7500.00, 8500.00, 9500.00, 10500.0, 11500.0, 12500.0, 13500.0, 14500.0, 15500.0, 16500.0, 17500.0, 18500.0, 19500.0, 20500.0, 21500.0, 22500.0, 23500.0, 24500.0, 25500.0, 26500.0]",
-      "Cn2Weights": "[0.241954, 0.119977, 0.0968817, 0.0589889, 0.0472911, 0.0472911, 0.0472911, 0.0472911, 0.0398925, 0.0323939, 0.0161969, 0.0260951, 0.0155971, 0.0103980, 0.00999811, 0.0119977, 0.00400924, 0.0139974, 0.0129975, 0.00700868, 0.0159970, 0.0258951, 0.0190964, 0.00986813, 0.00616883, 0.00400924, 0.00246953, 0.00215959, 0.00184965, 0.00135974, 0.00110979, 0.000616883, 0.000925825, 0.000493907, 0.000431918]",
-      "WindSpeed": "[5.5, 5.5, 5.1, 5.5, 5.6, 5.7, 5.8, 6.0, 6.5, 7.0, 7.5, 8.5, 9.5, 11.5, 17.5, 23.0, 26.0, 29.0, 32.0, 27.0, 22.0, 14.5, 9.5, 6.3, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.0]",
-      "WindDirection": "[0, -10, 0, 0, 10, 20, 0, 0, 0, -20, 0, 0, -10, 0, 10, -20, 10, 0, -20, -20, 0, -20, 0, 0, 80, 80, 70, 60, 90, 80, 80, 100, 70, 80, 70]"
-    },
-    "sources_science": {
-      "Wavelength": "[2200e-9]",
-      "Zenith": "[0]",
-      "Azimuth": "[0]"
-    },
-    "sources_HO": {
-      "Wavelength": "[589e-9]",
-      "Zenith": "[45, 45, 45, 45, 45, 45]",
-      "Azimuth": "[0, 60, 120, 180, 240, 300]",
-      "Height": "90e3"
-    },
-    "sources_LO": {
-      "Wavelength": "[1650e-9]",
-      "Zenith": "[66.6, 79.3, 69.0]",
-      "Azimuth": "[221.7, 321.2, 106.6]"
-    },
-    "sources_Focus": {
-      "Wavelength": "[800e-9]"
-    },
-    "sensor_science": {
-      "PixelScale": "2.0",
-      "FieldOfView": "2048"
-    },
-    "sensor_HO": {
-      "WfsType": "Shack-Hartmann",
-      "Modulation": "None",
-      "NumberLenslets": "[68, 68, 68, 68, 68, 68]",
-      "PixelScale": "1200",
-      "FieldOfView": "14",
-      "NumberPhotons": "[500, 500, 500, 500, 500, 500]",
-      "SpotFWHM": "[[2500.0, 2500.0, 0.0]]",
-      "WindowRadiusWCoG": "6",
-      "SigmaRON": "3.0",
-      "Algorithm": "wcog",
-      "addMcaoWFsensConeError": "True"
-    },
-    "sensor_LO": {
-      "PixelScale": "8.0",
-      "FieldOfView": "200",
-      "Binning": "1",
-      "NumberPhotons": "[172000, 987, 5180]",
-      "SpotFWHM": "[[0.0, 0.0, 0.0]]",
-      "SigmaRON": "0.5",
-      "Dark": "40.0",
-      "SkyBackground": "120.0",
-      "Gain": "1.0",
-      "ExcessNoiseFactor": "1.3",
-      "NumberLenslets": "[1, 1, 1]",
-      "Algorithm": "wcog",
-      "WindowRadiusWCoG": "optimize",
-      "ThresholdWCoG": "0.0",
-      "NewValueThrPix": "0.0",
-      "noNoise": "False",
-      "filtZernikeCov": "True"
-    },
-    "sensor_Focus": {
-      "PixelScale": "125.0",
-      "FieldOfView": "30",
-      "Binning": "1",
-      "NumberPhotons": "[10500, 60, 318]",
-      "SpotFWHM": "[[0.0, 0.0, 0.0]]",
-      "SigmaRON": "0.2",
-      "Dark": "1.0",
-      "SkyBackground": "1.0",
-      "Gain": "1.0",
-      "ExcessNoiseFactor": "2.0",
-      "NumberLenslets": "[8, 8, 8]",
-      "Algorithm": "wcog",
-      "WindowRadiusWCoG": "optimize",
-      "ThresholdWCoG": "0.0",
-      "NewValueThrPix": "0.0",
-      "noNoise": "False"
-    },
-    "DM": {
-      "NumberActuators": "[80, 30, 35]",
-      "DmPitchs": "[0.5, 1.4, 1.4]",
-      "InfModel": "gaussian",
-      "InfCoupling": "[0.2,0.2,0.2]",
-      "DmHeights": "[600 , 6500, 17500]",
-      "OptimizationZenith": "[0, 30, 30, 30, 30, 30, 30, 30, 30, 80, 80, 80, 80, 80, 80, 80, 80]",
-      "OptimizationAzimuth": "[0 , 0 , 45 , 90 , 135 , 180 , 225 , 270 , 315 , 0 , 45 , 90 , 135 , 180 , 225 , 270 , 315]",
-      "OptimizationWeight": "[10 , 20 , 20 , 20 , 20 , 20 , 20 , 20 , 20 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,1]",
-      "OptimizationConditioning": "1.0e4",
-      "NumberReconstructedLayers": "10",
-      "AoArea": "circle"
-    },
-    "RTC": {
-      "LoopGain_HO": "0.25",
-      "SensorFrameRate_HO": "500.0",
-      "LoopDelaySteps_HO": "3",
-      "LoopGain_LO": "optimize",
-      "SensorFrameRate_LO": "250.0",
-      "LoopDelaySteps_LO": "1",
-      "LoopGain_Focus": "optimize",
-      "SensorFrameRate_Focus": "100.0",
-      "LoopDelaySteps_Focus": "1"
-    }
-  },
-  "MORFEO_fullApNgs": {
-    "telescope": {
-      "TelescopeDiameter": "38.5",
-      "ZenithAngle": "30.0",
-      "ObscurationRatio": "0.28",
-      "Resolution": "480",
-      "PathPupil": "tiptop/data/EELT480pp0.0803m_obs0.283_spider2023.fits",
-      "PathStaticOn": "tiptop/data/ELT_M1_MORFEO_DMs_static_wfe_480px.fits",
-      "PathApodizer": "",
-      "PathStatModes": "",
-      "PupilAngle": "0.0",
-      "TechnicalFoV": "160.0",
-      "extraErrorNm": "146",
-      "extraErrorExp": "-2",
-      "extraErrorMin": "0",
-      "extraErrorLoNm": "[100,151]",
-      "extraErrorLoExp": "-2",
-      "extraErrorLoMin": "0",
-      "windPsdFile": "tiptop/data/morfeo_windshake8ms_psd_2022_1k.fits",
+      "windPsdFile": "/tiptop/data/morfeo_windshake8ms_psd_2022_1k.fits",
       "jitter_FWHM": "3.28",
       "glFocusOnNGS": "True"
     },

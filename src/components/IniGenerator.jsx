@@ -5,7 +5,7 @@ import Presets from '../configPresets.json';
 const renameMap = {
   "ERIS": "ERIS_SCAO_NGS",
   "ERIS_LGS": "ERIS_SCAO_LGS",
-  "HarmoniSCAO_3": "HARMONI_SCAO_NGS",
+  "HARMONI_SCAO": "HARMONI_SCAO_NGS",
   "MICADO_SCAO": "MICADO_SCAO_NGS",
   "SOUL": "SOUL_SCAO_NGS",
   "SPHERE": "SPHERE_SCAO_NGS",

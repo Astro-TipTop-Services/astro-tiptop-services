@@ -234,8 +234,10 @@ export default function IniGenerator() {
         V: 0,
         R: -1.26,
         I: -2.15,
+        Iz: -2.15,
         J: -2.49,
         H: -3.03,
+        Ks: -3.29,
         K: -3.29,
       }
 
@@ -252,6 +254,55 @@ export default function IniGenerator() {
       return '[0]';
     }
   };
+
+  const photonsToMagnitude = (photonsVal) => {
+    try {
+    let sensorKey = 'sensor_HO';
+    let wavelengthKey = 'sources_HO';
+    let rtcFrameRateKey = 'SensorFrameRate_HO';
+
+    if (systemKey === 'SCAO_LGS') {
+      sensorKey = 'sensor_LO';
+      wavelengthKey = 'sources_LO';
+      rtcFrameRateKey = 'SensorFrameRate_LO';
+    }
+
+    const D = Number(params.telescope.TelescopeDiameter);
+    const OR = Number(params.telescope.ObscurationRatio);
+    const sensorFrameRate = Number(params.RTC?.[rtcFrameRateKey]) || 1000;
+
+    let lambda_raw = params[wavelengthKey]?.Wavelength;
+    let lambda = typeof lambda_raw === 'string'
+      ? Number(lambda_raw.replace(/[\[\]]/g, ''))
+      : Number(lambda_raw);
+
+    let N_lenslet_raw = params[sensorKey]?.NumberLenslets;
+    let N_lenslet = typeof N_lenslet_raw === 'string'
+      ? Number(N_lenslet_raw.replace(/[\[\]]/g, '').split(',')[0])
+      : Number(N_lenslet_raw);
+
+    const F0 = getF0FromWavelength(lambda);
+    const Tot_throughput = getTotThroughput(lambda);
+    const band = getBandFromWavelength(lambda);
+    const bandCorrection = {
+      B: 1.37, V: 0, R: -1.26, I: -2.15, Iz: -2.15,
+      J: -2.49, H: -3.03, Ks: -3.29, K: -3.29
+    };
+
+    if (!F0 || !Tot_throughput || !D || !N_lenslet || !sensorFrameRate || !lambda) return '';
+
+    const photons = Number(photonsVal);
+    if (isNaN(photons) || photons <= 0) return '';
+
+    const preFactor = F0 * (Tot_throughput / sensorFrameRate) * (Math.pow(D, 2) - Math.pow(D * OR, 2)) * Math.pow(1 / N_lenslet, 2);
+    const magCorr = -2.5 * Math.log10(photons / preFactor);
+    const mag = magCorr - (bandCorrection[band] ?? 0);
+
+    return mag.toFixed(2);
+  } catch {
+    return '';
+  }
+};
 
   const onMagnitudeChange = (magValue) => {
     setMagnitude(magValue);
@@ -377,22 +428,17 @@ export default function IniGenerator() {
     setGeneratedIni(iniString.trim());
   };
 
-  useEffect(() => {
-    if (!magnitude || isNaN(magnitude)) return;
+  // useEffect(() => {
+  //   if (!magnitude || isNaN(magnitude)) return;
 
-    const photons = magnitudeToPhotons(Number(magnitude));
+  //   const photons = magnitudeToPhotons(Number(magnitude));
 
-    if (systemKey === 'SCAO_LGS') {
-      handleChange('sensor_LO', 'NumberPhotons', photons);
-    } else {
-      handleChange('sensor_HO', 'NumberPhotons', photons);
-    }
-  //     if (params.sensor_LO?.NumberPhotons !== undefined) {
-  //   handleChange('sensor_LO', 'NumberPhotons', `[${photons}]`);
-  // } else if (params.sensor_HO?.NumberPhotons !== undefined) {
-  //   handleChange('sensor_HO', 'NumberPhotons', `[${photons}]`);
-  // }
-  }, [params.sources_HO?.Wavelength, params.sources_LO?.Wavelength, magnitude, systemKey]);
+  //   if (systemKey === 'SCAO_LGS') {
+  //     handleChange('sensor_LO', 'NumberPhotons', photons);
+  //   } else {
+  //     handleChange('sensor_HO', 'NumberPhotons', photons);
+  //   }
+  // }, [params.sources_HO?.Wavelength, params.sources_LO?.Wavelength, magnitude, systemKey]);
 
   ///////////////////////////////////////////////////
   //*********************DISPLAY********************/
@@ -648,13 +694,15 @@ export default function IniGenerator() {
         }
 
         const bandCorrection = {
-          B: 1.37,
-          V: 0,
-          R: -1.26,
-          I: -2.15,
-          J: -2.49,
-          H: -3.03,
-          K: -3.29,
+        B: 1.37,
+        V: 0,
+        R: -1.26,
+        I: -2.15,
+        Iz: -2.15,
+        J: -2.49,
+        H: -3.03,
+        Ks: -3.29,
+        K: -3.29,
         };
 
         const band = getBandFromWavelength(lambda);
@@ -681,6 +729,9 @@ export default function IniGenerator() {
                       const value = e.target.value;
                       const wrappedValue = `[${value}]`;
                       handleChange('sensor_HO', field, wrappedValue);
+
+                      const mag = photonsToMagnitude(value);
+                      if (mag !== '') setMagnitude(mag);
                     }}
                     style={{ marginLeft: 10 }}
                     min="0"
@@ -717,13 +768,15 @@ export default function IniGenerator() {
         }
 
         const bandCorrection = {
-          B: 1.37,
-          V: 0,
-          R: -1.26,
-          I: -2.15,
-          J: -2.49,
-          H: -3.03,
-          K: -3.29,
+        B: 1.37,
+        V: 0,
+        R: -1.26,
+        I: -2.15,
+        Iz: -2.15,
+        J: -2.49,
+        H: -3.03,
+        Ks: -3.29,
+        K: -3.29,
         };
 
         const band = getBandFromWavelength(lambda);
@@ -750,6 +803,9 @@ export default function IniGenerator() {
                       const value = e.target.value;
                       const wrappedValue = `[${value}]`;
                       handleChange('sensor_LO', field, wrappedValue);
+                  
+                      const mag = photonsToMagnitude(value);
+                      if (mag !== '') setMagnitude(mag);
                     }}
                     style={{ marginLeft: 10 }}
                     min="0"

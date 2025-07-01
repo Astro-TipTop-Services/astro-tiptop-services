@@ -272,7 +272,7 @@ export default function MagtoPhotons() {
   ///////////////////////////////////////////////////
   //*********************DISPLAY********************/
   return (
-    <div style={{ border: '1px solid #ccc', padding: 16, margin: '20px 0' }}>
+    <div style={{ border: '1px solid #9dd6e8', padding: 16, margin: '20px 0', backgroundColor: '#eef9fd' }}>
       <h3> Conversion from Magnitude to Number of Photons</h3>
       <label>
         Select instrument:&nbsp;

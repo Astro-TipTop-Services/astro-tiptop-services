@@ -11,9 +11,9 @@ This page explains how to configure TipTop depending on the type of adaptive opt
 
 Before diving into the configuration sections, you should first determine which AO system you intend to model. TipTop supports the following modes:
 - [Single Conjugate Adaptive Optics](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#scao)
-- [Multi Conjugate Adaptive Optics](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#mcao)
 - [Laser Tomography Adaptive Optics](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#ltao)
 - [Ground Layer Adaptive Optics](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#glao)
+- [Multi Conjugate Adaptive Optics](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#mcao)
 
 The different AO modes are described here: [ESO - AO MODES](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#scao).
 

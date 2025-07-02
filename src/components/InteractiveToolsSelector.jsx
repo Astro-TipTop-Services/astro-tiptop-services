@@ -7,7 +7,7 @@ export default function InteractiveToolsSelector() {
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '2rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '3rem' }}>
         <button
           style={{
             padding: '1rem 2rem',
@@ -22,7 +22,7 @@ export default function InteractiveToolsSelector() {
           }}
           onClick={() => setActiveComponent('scao')}
         >
-          Open .ini SCAO Parameter File Generator
+          SCAO Parameter File Generator
         </button>
 
         <button
@@ -39,12 +39,12 @@ export default function InteractiveToolsSelector() {
           }}
           onClick={() => setActiveComponent('mcao')}
         >
-          Open .ini MCAO Parameter File Generator
+          MCAO Parameter File Generator
         </button>
       </div>
 
      {activeComponent && (
-  <div style={{ display: 'flex', justifyContent: 'center', minHeight: '300px', alignItems: 'center' }}>
+  <div style={{ display: 'flex', justifyContent: 'center', minHeight: '300px', alignItems: 'center'}}>
     {activeComponent === 'scao' && <IniGenerator />}
     {activeComponent === 'mcao' && (
       <div style={{ fontSize: '1.5rem', color: '#888' }}>

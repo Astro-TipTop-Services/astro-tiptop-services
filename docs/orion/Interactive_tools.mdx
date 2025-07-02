@@ -5,16 +5,18 @@ sidebar_label: Interactive tools – Generate Input Files & Convert Parameters
 ---
 
 import 'katex/dist/katex.min.css';
-import IniGenerator from '@site/src/components/IniGenerator';
 import InteractiveToolsSelector from '@site/src/components/InteractiveToolsSelector';
 import Mag2Photons from '@site/src/components/MagtoPhotons';
 
 
 ## Generate Input Files
 
-This section provides an interface to generate custom `.ini` files by selecting the desired instrument and parameter values below.
 
-⚠️ For now, only SCAO mode is available. Other modes coming soon.
+Use the interactive tools below to generate custom `.ini` configuration files by selecting your desired AO mode, instrument, and parameter values.
+<div style={{ display: 'flex', justifyContent: 'center', marginTop: '-1.0rem', fontSize: '1.2em' }}>
+  **Select your AO mode to begin:**
+</div>
+<!--⚠️ <em>For now, only SCAO mode is available. Other modes coming soon.</em>-->
 <InteractiveToolsSelector />
 
 ## Conversion from Magnitude to Number of Photons per Subaperture per Frame {#mag-to-photons}

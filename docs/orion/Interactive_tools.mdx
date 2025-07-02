@@ -6,6 +6,7 @@ sidebar_label: Interactive tools – Generate Input Files & Convert Parameters
 
 import 'katex/dist/katex.min.css';
 import IniGenerator from '@site/src/components/IniGenerator';
+import InteractiveToolsSelector from '@site/src/components/InteractiveToolsSelector';
 import Mag2Photons from '@site/src/components/MagtoPhotons';
 
 
@@ -14,8 +15,7 @@ import Mag2Photons from '@site/src/components/MagtoPhotons';
 This section provides an interface to generate custom `.ini` files by selecting the desired instrument and parameter values below.
 
 ⚠️ For now, only SCAO mode is available. Other modes coming soon.
-<IniGenerator />
-
+<InteractiveToolsSelector />
 
 ## Conversion from Magnitude to Number of Photons per Subaperture per Frame {#mag-to-photons}
 The value of the parameter `NumberPhotons` in (expressed in photons per subaperture per frame) for a natural guide star 
@@ -24,22 +24,23 @@ $$
 \text{NumberPhotons} = ZP \left(\frac{Tot_{throughput}}{Sensor_{framerate}}\right) \left(\frac{D^{2}-(D*ObscurationRatio)^2}{N_{lenslets}^2}\right) 10^{\textstyle -\frac{Mag}{2.5}}
 $$
 #### Parameter definitions
+<div style={{ display: 'flex', justifyContent: 'center'}}>
 |                     | B band     | V band    | R band   | I band    | J band   | H band  | K band  |
 |---------------------|:----------:|:---------:|:--------:|:---------:|:--------:|:-------:|:-------:|
 | $ZP$ _(Zero Point)_ $(ph/s/m^2)$ | $1.24e10$ | $8.37e9$ | $1.36e10$ | $8.93e9$ | $4.11e9$ | $2.87e9$ | $1.70e9$ |
 | $Tot_{throughput}$  | $0.07$     | $0.16$    | $0.19$   | $0.2$   | $0.24$ | $0.26$ | $0.26$ |
-
+</div>
 
 #### Spectral band extinction correction
 For a **spectral class M0V star**, the apparent magnitude is corrected by an extinction term that varies by band:
 $$
 Mag = Mag_V + \text{extinction\_correction}
 $$
-
+<div style={{ display: 'flex', justifyContent: 'center'}}>
 |                       | B band     | V band    | R band   | I band    | J band   | H band  | K band  |
 |-----------------------|:----------:|:---------:|:--------:|:---------:|:--------:|:-------:|:-------:|
 | $\text{extinction\_correction}$| $1.37$ | $0$ | $-1.26$ | $-2.15$ | $-2.49$ | $-3.03$ | $-3.29$ |
-
+</div>
 This formula converts the visual magnitude, corrected for spectral band extinction, into the expected number of photons detected per subaperture per frame. 
 It takes into account instrumental parameters such as the telescope’s effective collecting area, the number of wavefront sensor lenslets, the total system throughput, and the wavefront sensor's frame rate.
 

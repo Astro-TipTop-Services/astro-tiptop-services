@@ -107,7 +107,7 @@ To run a simulation with **TipTop**, you will need:
             textAlign: 'center',
             lineHeight: 'normal',
         }}>
-        Open ini. Parameter File Generator
+        Open .ini Parameter File Generator
     </Link>
     </div>
 

@@ -3,20 +3,14 @@ import Link from '@docusaurus/Link';
 import Presets from '../configPresets.json';
 
 const renameMap = {
-  "ERIS": "ERIS_SCAO_NGS",
-  "ERIS_LGS": "ERIS_SCAO_LGS",
-  "HARMONI_SCAO": "HARMONI_SCAO_NGS",
-  "MICADO_SCAO": "MICADO_SCAO_NGS",
-  "SOUL": "SOUL_SCAO_NGS",
-  "SPHERE": "SPHERE_SCAO_NGS",
+  "HARMONI_MCAO": "HARMONI_MCAO",
+  "MAVIS": "MAVIS_MCAO",
+  "MORFEO": "MORFEO_MCAO",
 };
 
-const presetsToKeep = ["ERIS_SCAO_NGS", 
-                      "ERIS_SCAO_LGS",
-                      "HARMONI_SCAO_NGS",
-                      "MICADO_SCAO_NGS",
-                      "SOUL_SCAO_NGS",
-                      "SPHERE_SCAO_NGS"];
+const presetsToKeep = ["HARMONI_MCAO", 
+                      "MAVIS_MCAO",
+                      "MORFEO_MCAO"];
 
 function processPresets(presets, renameMap, keepList) {
   const renamedPresets = Object.entries(presets).reduce((acc, [key, value]) => {
@@ -56,23 +50,6 @@ const presetToKey = {
   SOUL_SCAO_NGS: 'SCAO_NGS',
   SPHERE_SCAO_NGS: 'SCAO_NGS',
 };
-
-// const getF0FromWavelength = (lambda) => {
-//   const µm = lambda * 1e6; // µm
-
-//   if (µm >= 0.332 && µm < 0.398) return 4.34e10; // U
-//   if (µm >= 0.398 && µm < 0.492) return 6.4e10;  // B
-//   if (µm >= 0.507 && µm < 0.595) return 3.75e10; // V
-//   if (µm >= 0.589 && µm < 0.727) return 2.2e10; // R
-//   if (µm >= 0.731 && µm < 0.881) return 1.2e10; // I
-//   if (µm >= 1.17 && µm < 1.33) return 3.1e10; // J
-//   if (µm >= 1.505 && µm < 1.795) return 8.17e11; // H
-//   if (µm >= 2.03 && µm <2.37) return 4.66e11; // K
-//   if (µm >= 3.165 && µm < 3.735) return 9.35e10; // L
-//   if (µm >= 4.63 && µm < 4.87) return 2.29e10; // M
-
-//   return null; 
-// };
 
 const getF0FromWavelength = (lambda) => {
   const µm = lambda * 1e6; // µm
@@ -428,23 +405,12 @@ export default function IniGenerator() {
     setGeneratedIni(iniString.trim());
   };
 
-  // useEffect(() => {
-  //   if (!magnitude || isNaN(magnitude)) return;
-
-  //   const photons = magnitudeToPhotons(Number(magnitude));
-
-  //   if (systemKey === 'SCAO_LGS') {
-  //     handleChange('sensor_LO', 'NumberPhotons', photons);
-  //   } else {
-  //     handleChange('sensor_HO', 'NumberPhotons', photons);
-  //   }
-  // }, [params.sources_HO?.Wavelength, params.sources_LO?.Wavelength, magnitude, systemKey]);
-
+  
   ///////////////////////////////////////////////////
   //*********************DISPLAY********************/
   return (
     <div style={{ border: '1px solid #9dd6e8', padding: 16, margin: '20px 0', backgroundColor: '#eef9fd' }}>
-      <h3> .ini Parameter File Generator - <Link to="/docs/orion/aoinstruments">For Available AO Instruments</Link> - 🔵SCAO mode</h3>
+      <h3> .ini Parameter File Generator - <Link to="/docs/orion/aoinstruments">For Available AO Instruments</Link> - 🟣 MCAO mode</h3>
 
       <label>
         Select instrument:&nbsp;

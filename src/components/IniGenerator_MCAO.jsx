@@ -3,12 +3,13 @@ import Link from '@docusaurus/Link';
 import Presets from '../configPresets.json';
 
 const renameMap = {
-  "HARMONI_MCAO": "HARMONI_MCAO",
+  // "HARMONI_MCAO": "HARMONI_MCAO",
   "MAVIS": "MAVIS_MCAO",
   "MORFEO": "MORFEO_MCAO",
 };
 
-const presetsToKeep = ["HARMONI_MCAO", 
+const presetsToKeep = [
+                      // "HARMONI_MCAO", 
                       "MAVIS_MCAO",
                       "MORFEO_MCAO"];
 
@@ -42,14 +43,6 @@ const editableFields = {
   },  
 };
 
-const presetToKey = {
-  ERIS_SCAO_NGS: 'SCAO_NGS',
-  ERIS_SCAO_LGS: 'SCAO_LGS',
-  HARMONI_SCAO_NGS: 'SCAO_NGS',
-  MICADO_SCAO_NGS: 'SCAO_NGS',
-  SOUL_SCAO_NGS: 'SCAO_NGS',
-  SPHERE_SCAO_NGS: 'SCAO_NGS',
-};
 
 const getF0FromWavelength = (lambda) => {
   const µm = lambda * 1e6; // µm
@@ -112,31 +105,20 @@ const wavelengthByBand = {
 };
 
 const availableBandsByInstrument = {
-  ERIS_SCAO_NGS: ['J', 'H', 'K', 'L','M'],
-  ERIS_SCAO_LGS: ['J', 'H', 'K', 'L','M'],
-  HARMONI_SCAO_NGS: ['I','J','H','K'],
-  MICADO_SCAO_NGS: ['I','J','H','K'],
-  SPHERE_SCAO_NGS: ['V','R','I','J','H','K'],
-  SOUL_SCAO_NGS: ['V','R','I','J','H','K'],
+  MAVIS_MCAO: ['V','R','I','J','H','K','L','M'],
+  MORFEO_MCAO: ['V','R','I','J','H','K','L','M'],
 };
 
 export default function IniGenerator() {
-  const [selectedOption, setSelectedOption] = useState('ERIS_SCAO_NGS');
-  const [params, setParams] = useState({ ...configPresets['ERIS_SCAO_NGS'] });
+  const [selectedOption, setSelectedOption] = useState('MAVIS_MCAO');
+  const [params, setParams] = useState({ ...configPresets['MAVIS_MCAO'] });
   const [generatedIni, setGeneratedIni] = useState('');
   const [magnitude, setMagnitude] = useState('');
   const [downloadUrl, setDownloadUrl] = useState(null);
   const [expanded, setExpanded] = useState(false);
-  // const [loPart, setLoPart] = useState(false); // for SCAO LGS only
+  const [magnitudes, setMagnitudes] = useState([]);
 
   const filename = `${selectedOption || selectedOption}.ini`;
-
-  const systemKey = presetToKey[selectedOption];
-  // const systemKey = useMemo(() => {
-  //   if (params.sensor_HO && params.sources_HO) return 'SCAO_NGS';
-  //   if (params.sensor_LO && params.sources_LO) return 'SCAO_LGS';
-  //   return 'UNKNOWN';
-  // }, [params]);
 
   const handleChange = (section, field, value) => {
     setParams((prev) => ({
@@ -152,7 +134,6 @@ export default function IniGenerator() {
     const opt = e.target.value;
     setSelectedOption(opt);
     setParams({ ...configPresets[opt] });
-    // setLoPart(true);
     setMagnitude('');
   };
 
@@ -160,15 +141,9 @@ export default function IniGenerator() {
     try {
       if (!mag || isNaN(mag)) return '[0]';
 
-      let sensorKey = 'sensor_HO';
-      let wavelengthKey = 'sources_HO';
-      let rtcFrameRateKey = 'SensorFrameRate_HO';
-
-      if (systemKey === 'SCAO_LGS') {
-        sensorKey = 'sensor_LO';
-        wavelengthKey = 'sources_LO';
-        rtcFrameRateKey = 'SensorFrameRate_LO';
-      }
+      let sensorKey = 'sensor_LO';
+      let wavelengthKey = 'sources_LO';
+      let rtcFrameRateKey = 'SensorFrameRate_LO';
 
       const D = Number(params.telescope.TelescopeDiameter);
       const OR = Number(params.telescope.ObscurationRatio);
@@ -222,27 +197,18 @@ export default function IniGenerator() {
 
       const photons =  F0 * (Tot_throughput / sensorFrameRate) * (Math.pow(D, 2) - Math.pow(D*OR, 2)) 
       * Math.pow(1/N_lenslet, 2) * Math.pow(10, -0.4 * magCorr);
-      // F0 * (Tot_throughput / sensorFrameRate) * 
-      // Math.PI/4 * (Math.pow(D, 2) - Math.pow(D*OR, 2)) * Math.pow(10, -0.4 * magCorr);
-        // F0 * Math.pow(D / N_lenslet, 2) * (1 / sensorFrameRate) * Math.pow(10, -0.4 * mag);    
 
-      return `[${photons.toFixed(2)}]`;
-    } catch {
-      return '[0]';
+    return Number(photons.toFixed(2));
+  } catch {
+    return 0;
     }
   };
 
   const photonsToMagnitude = (photonsVal) => {
     try {
-    let sensorKey = 'sensor_HO';
-    let wavelengthKey = 'sources_HO';
-    let rtcFrameRateKey = 'SensorFrameRate_HO';
-
-    if (systemKey === 'SCAO_LGS') {
-      sensorKey = 'sensor_LO';
-      wavelengthKey = 'sources_LO';
-      rtcFrameRateKey = 'SensorFrameRate_LO';
-    }
+    let sensorKey = 'sensor_LO';
+    let wavelengthKey = 'sources_LO';
+    let rtcFrameRateKey = 'SensorFrameRate_LO';
 
     const D = Number(params.telescope.TelescopeDiameter);
     const OR = Number(params.telescope.ObscurationRatio);
@@ -285,23 +251,16 @@ export default function IniGenerator() {
     setMagnitude(magValue);
 
     if (!magValue || isNaN(magValue)) {
-      const section = systemKey === 'SCAO_LGS' ? 'sensor_LO' : 'sensor_HO';
+      const section = 'sensor_LO' ;
       handleChange(section, 'NumberPhotons', '[0]');
       return;
-      // handleChange('sensor_HO', 'NumberPhotons', params.sensor_HO.NumberPhotons);
-      // handleChange('sensor_LO', 'NumberPhotons', params.sensor_LO.NumberPhotons);
-      // return;
     }
 
     const photons = magnitudeToPhotons(Number(magValue));
 
-    if (systemKey === 'SCAO_LGS') {
-      handleChange('sensor_LO', 'NumberPhotons', photons);
-    } else {
-      handleChange('sensor_HO', 'NumberPhotons', photons);
-    }
-  };
+    handleChange('sensor_LO', 'NumberPhotons', photons);
 
+  };
   const [selectedBand, setSelectedBand] = useState('');
   const availableBands = availableBandsByInstrument[selectedOption] || Object.keys(wavelengthByBand);
 
@@ -325,10 +284,7 @@ export default function IniGenerator() {
   let iniString = '';
 
   for (const section in iniSections) {
-    // if (systemKey === 'SCAO_LGS' && section === 'sensor_HO') continue;
-    // if (loPart && section === 'sensor_HO') continue;
-    // if (!loPart && (section === 'sensor_LO' || section === 'sources_LO')) continue;
-
+   
     iniString += `[${section}]\n`;
 
       if (section === 'sources_HO' || section === 'sources_LO') {
@@ -339,21 +295,12 @@ export default function IniGenerator() {
         } else {
           lambda = Number(lambda_raw);
         }
-        // if (systemKey === 'SCAO_NGS') {
-        //   const band = getBandFromWavelength(lambda);
-        //   iniString += `# Band: ${band}\n`;
-        // }
       }
 
       const fields = iniSections[section];
       for (const key in fields) {
         let value = fields[key];
         const expectedType = editableFields[section]?.[key];
-
-        // if (!loPart) {
-        //   // if (section === 'sources_HO' && key === 'Wavelength') continue;
-        //   if (section === 'RTC' && key.includes('_LO')) continue;
-        // }
 
       if (section === 'sensor_HO' || section === 'sensor_LO') {
         if (typeof value === 'string') {
@@ -405,7 +352,15 @@ export default function IniGenerator() {
     setGeneratedIni(iniString.trim());
   };
 
+  // const zenithScienceArray = params.sources_science?.Zenith
+  // ? JSON.parse(params.sources_science.Zenith)
+  // : [];
+
+  // const azimuthScienceArray = params.sources_science?.Azimuth
+  // ? JSON.parse(params.sources_science.Azimuth)
+  // : [];
   
+
   ///////////////////////////////////////////////////
   //*********************DISPLAY********************/
   return (
@@ -421,18 +376,9 @@ export default function IniGenerator() {
         </select>
       </label>
 
-      {/* Conditional display according to system */}
-      {systemKey === 'SCAO_NGS' && (
-        <div style={{ marginTop: 16, marginBottom: 16, fontWeight: 'bold' }}>
-          NGS only system ✴️ <br/> HO part: Science - NGS 
-        </div>
-      )}
-
-       {systemKey === 'SCAO_LGS' && (
-        <div style={{ marginTop: 16, marginBottom: 10, fontWeight: 'bold' }}>
+      <div style={{ marginTop: 16, marginBottom: 10, fontWeight: 'bold' }}>
           HO part: Science - LGS ✳️ <br/> LO part: NGS ✴️
-        </div>
-      )}
+      </div>
 
        <hr />
 
@@ -482,8 +428,7 @@ export default function IniGenerator() {
         </label>
       </div>
 
-
-
+      {/* SCIENCE */}
       {params.sources_science && (
         <div style={{ marginBottom: '1rem' }}>
           <strong>[sources_science]</strong>
@@ -516,83 +461,114 @@ export default function IniGenerator() {
           )}
           </label>
         </div>
+
         <div style={{ marginTop: '0.5em' }}>
-        <label>
-          Distance<sup>(1)</sup> (arcsec):
-          <input
-            type="number"
-            value={
-              typeof params.sources_science.Zenith === 'string'
-                ? params.sources_science.Zenith.replace(/[\[\]]/g, '')
-                : params.sources_science.Zenith
-            }
-            step="0.1"
-            onChange={(e) => {
-              const val = e.target.value;
-              if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
-                handleChange('sources_science', 'Zenith', `[${val}]`);
-              }
-            }}
-            style={{ marginLeft: 10 }}
+          <label>
+            Number of science sources:&nbsp;
+            <input
+              type="number"
+              min={1}
+              max={30}
+              value={params.sources_science?.Zenith ? JSON.parse(params.sources_science.Zenith).length : 0}
+              onChange={(e) => {
+                const count = parseInt(e.target.value, 10);
+                if (!isNaN(count) && count > 0) {
+                  const currentZenith = params.sources_science?.Zenith ? JSON.parse(params.sources_science.Zenith) : [];
+                  const currentAzimuth = params.sources_science?.Azimuth ? JSON.parse(params.sources_science.Azimuth) : [];
+                  const newZenith = Array.from({ length: count }, (_, i) => currentZenith[i] ?? 0);
+                  const newAzimuth = Array.from({ length: count }, (_, i) => currentAzimuth[i] ?? 0);
+                  setParams(prev => ({
+                    ...prev,
+                    sources_science: {
+                      ...prev.sources_science,
+                      Zenith: JSON.stringify(newZenith),
+                      Azimuth: JSON.stringify(newAzimuth),
+                    },
+                  }));
+                }
+              }}
             />
           </label>
         </div>
+
+        {(params.sources_science?.Zenith ? JSON.parse(params.sources_science.Zenith) : []).map((val, index) => {
+          const azVal = params.sources_science?.Azimuth ? JSON.parse(params.sources_science.Azimuth)[index] ?? 0 : 0;
+          return (
+            <div key={index} style={{ marginBottom: 8, display: 'flex', alignItems: 'center', gap: '1em', marginTop: '0.5rem' }}>
+            {/* Colonne Source #n */}
+            <div style={{ minWidth: '80px', textAlign: 'right', paddingRight: '0.5em', userSelect: 'none', marginRight:'2rem', marginTop: '1.8rem'}}>
+              Source #{index + 1}
+            </div>
+            {/* Colonne Inputs */}
+            <div style={{ display: 'flex', gap: '1em' }}>
+            {/* Distance */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight:'2rem' }}>
+              <label htmlFor={`zenith-input-${index}`} style={{ flexShrink: 0 }}>
+                 Distance<sup>(1)</sup> <i>(arcsec)</i>:
+              </label>
+              <input
+                id={`zenith-input-${index}`}
+                type="number"
+                step="0.1"
+                value={val}
+                onChange={(e) => {
+                  const currentZenith = params.sources_science?.Zenith ? JSON.parse(params.sources_science.Zenith) : [];
+                  const newZenith = [...currentZenith];
+                  newZenith[index] = parseFloat(e.target.value);
+                  setParams(prev => ({
+                    ...prev,
+                    sources_science: {
+                      ...prev.sources_science,
+                      Zenith: JSON.stringify(newZenith),
+                      Azimuth: prev.sources_science?.Azimuth || '[]',
+                    },
+                  }));
+                }}
+                style={{ width: '5em' }}
+              />
+            </div>
+
+                {/* Angle  */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight:'2rem' }}>
+              <label htmlFor={`azimuth-input-${index}`} style={{ flexShrink: 0, marginLeft: '1em' }}>
+                Angle<sup>(2)</sup> <i>(degree)</i>:
+              </label>
+                <input
+                id={`azimuth-input-${index}`}
+                type="number"
+                step="0.1"
+                value={azVal}
+                onChange={(e) => {
+                  const currentAzimuth = params.sources_science?.Azimuth ? JSON.parse(params.sources_science.Azimuth) : [];
+                  const newAzimuth = [...currentAzimuth];
+                  newAzimuth[index] = parseFloat(e.target.value);
+                  setParams(prev => ({
+                    ...prev,
+                    sources_science: {
+                      ...prev.sources_science,
+                      Azimuth: JSON.stringify(newAzimuth),
+                      Zenith: prev.sources_science?.Zenith || '[]',
+                    },
+                  }));
+                }}
+                style={{ width: '5em' }}
+              />
+            </div>
+            </div>
+          </div>
+          );
+        })}
+
       </div>
       )}
-
-        {systemKey === 'SCAO_NGS' && params.sources_HO && (
-        <div style={{ marginBottom: '1em' }}>
-          <strong>[sources_HO]</strong>
-          <div style={{marginTop: '0.5em'}}>
-              NGS Wavelength set at {' '}
-              <span> 
-                {Number(
-                      typeof params.sources_HO.Wavelength === 'string'
-                      ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
-                      : params.sources_HO.Wavelength
-                )*1e9}{' '}
-                nm | 
-              </span> {' '}
-              Band:{' '}
-              <span>
-               {getBandFromWavelength(
-                Number(
-                  typeof params.sources_HO.Wavelength === 'string'
-                    ? params.sources_HO.Wavelength.replace(/[\[\]]/g, '')
-                    : params.sources_HO.Wavelength
-                  )
-              )}
-           </span>
-          </div>
-          <div style={{marginTop: '0.5em'}}>
-            <label>
-              Distance<sup>(1)</sup> (arcsec):
-              <input
-                type="number"
-                value={
-                typeof params.sources_HO.Zenith === 'string'
-                  ? params.sources_HO.Zenith.replace(/[\[\]]/g, '')
-                  : params.sources_HO.Zenith
-                }
-                step="0.1"
-                onChange={(e) => {
-                const val = e.target.value;
-                if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
-                  handleChange('sources_HO', 'Zenith', `[${val}]`);
-                }
-                }}
-                style={{ marginLeft: 10 }}
-              />
-            </label>
-        </div>
-        </div>
-        )}
       
-        {systemKey === 'SCAO_LGS' && params.sources_LO && (
+
+        {/* LO PART */}
+        {params.sources_LO && params.sensor_LO && (
         <div style={{ marginBottom: '1em' }}>
-          <strong>[sources_LO]</strong>
+          <strong>[sources_LO] & [sensor_LO]</strong>
             <div style={{marginTop: '0.5em'}}>
-              NGS Wavelength set at {' '}
+              NGS(s) Wavelength set at {' '}
               <span> 
                 {Number(
                       typeof params.sources_LO.Wavelength === 'string'
@@ -612,110 +588,274 @@ export default function IniGenerator() {
               )}
              </span>
             </div>
-            <div style={{ marginTop: '0.5em' }}>
-              <label>
-                Distance<sup>(1)</sup> (arcsec):
-                <input
-                type="number"
-                value={
-                  typeof params.sources_LO.Zenith === 'string'
-                  ? params.sources_LO.Zenith.replace(/[\[\]]/g, '')
-                  : params.sources_LO.Zenith
-                }
-                step="0.01"
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
-                    handleChange('sources_LO', 'Zenith', `[${val}]`);
-                  }
-                }}
-                style={{ marginLeft: 10 }}
-                />
-              </label>
-            </div>
-          </div>
-        )}
 
-        {(systemKey === 'SCAO_NGS') && params.sensor_HO && (
-          <div style={{ marginBottom: '1em' }}>
-            <strong>[sensor_HO]</strong>
             <div style={{ marginTop: '0.5em' }}>
               <label>
-                V-Magnitude<sup>(2)</sup>:
+                Number of NGS:&nbsp;
                 <input
                   type="number"
-                  step="0.1"
-                  value={magnitude}
-                  onChange={(e) => onMagnitudeChange(e.target.value)}
-                  style={{ marginLeft: 10 }}
+                  min={1}
+                  max={10}
+                  value={params.sources_LO?.Zenith ? JSON.parse(params.sources_LO.Zenith).length : 0}
+                  onChange={(e) => {
+                    const count = parseInt(e.target.value, 10);
+                    if (!isNaN(count) && count > 0) {
+                      const currentZenith = params.sources_LO?.Zenith ? JSON.parse(params.sources_LO.Zenith) : [];
+                      const currentAzimuth = params.sources_LO?.Azimuth ? JSON.parse(params.sources_LO.Azimuth) : [];
+                      const currentPhotons = params.sensor_LO?.NumberPhotons ? JSON.parse(params.sensor_LO.NumberPhotons) : [];
+                      const newZenith = Array.from({ length: count }, (_, i) => currentZenith[i] ?? 0);
+                      const newAzimuth = Array.from({ length: count }, (_, i) => currentAzimuth[i] ?? 0);
+                      const newPhotons = Array.from({ length: count }, (_, i) => currentPhotons[i] ?? 0);
+                      setParams(prev => ({
+                        ...prev,
+                        sources_LO: {
+                          ...prev.sources_LO,
+                          Zenith: JSON.stringify(newZenith),
+                          Azimuth: JSON.stringify(newAzimuth),
+                        },            
+                        sensor_LO: {
+                          ...prev.sensor_LO,
+                          NumberPhotons: JSON.stringify(newPhotons),
+                        },
+                      }));
+
+                      setMagnitudes(prev => {
+                        const newMags = Array.from({ length: count }, (_, i) => prev[i] ?? '');
+                        return newMags;
+                      });
+                    }
+                  }}
                 />
               </label>
-              {(() => {
-        const lambdaRaw = params.sources_HO?.Wavelength;
-        let lambda = 0;
-        if (typeof lambdaRaw === 'string') {
-          lambda = Number(lambdaRaw.replace(/[\[\]]/g, ''));
-        } else {
-          lambda = Number(lambdaRaw);
-        }
-
-        const bandCorrection = {
-        B: 1.37,
-        V: 0,
-        R: -1.26,
-        I: -2.15,
-        Iz: -2.15,
-        J: -2.49,
-        H: -3.03,
-        Ks: -3.29,
-        K: -3.29,
-        };
-
-        const band = getBandFromWavelength(lambda);
-        const magNum = Number(magnitude);
-         if (!isNaN(magNum) && magnitude.trim() !== '' && band in bandCorrection) {
-          const magCorr = (magNum + bandCorrection[band]).toFixed(2);
-          return <span style={{ marginLeft: 10}}>{band}-Magnitude: {magCorr} (spectral class: M0V)</span>;
-        }
-        return null;
-      })()}
             </div>
-            {Object.entries(editableFields.sensor_HO).map(([field, type]) => (
-              <div key={`sensor_HO-${field}`} style={{ marginTop: '0.5em' }}>
-                <label>
-                  {field}  <i>(nph/subaperture/frame)</i>:
+
+            {(params.sources_LO?.Zenith ? JSON.parse(params.sources_LO.Zenith) : []).map((val, index) => {
+              const azVal = params.sources_LO?.Azimuth ? JSON.parse(params.sources_LO.Azimuth)[index] ?? 0 : 0;
+              const phoVal = params.sensor_LO?.NumberPhotons ? JSON.parse(params.sensor_LO.NumberPhotons)[index] ?? 0 : 0;
+              const magVal = magnitudes[index] ?? '';
+
+              return (
+                <div key={index} style={{ marginBottom: 12, display: 'flex', flexWrap: 'wrap', gap: '1em', alignItems: 'center', marginTop: '0.5em' }}>
+                {/* Colonne Source #n */}
+                <div style={{ minWidth: '80px', textAlign: 'right', paddingRight: '0.5em', userSelect: 'none', marginRight:'2rem', marginTop: '3.3rem' }}>
+                  Source #{index + 1}
+                </div>
+
+                {/* Colonne Inputs */}
+                <div style={{ display: 'flex', gap: '1em' }}>
+                  {/* Distance */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight:'2rem' }}>
+                    <label htmlFor={`zenith-input-${index}`}>
+                      Distance<sup>(1)</sup>:
+                    </label>
+                    <label><i>(arcsec)</i></label>
                   <input
-                  type="number"
-                  value={
-                  Number(
-                    String(params.sensor_HO[field]).replace(/[\[\]]/g, '')
-                  )
-                  }
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      const wrappedValue = `[${value}]`;
-                      handleChange('sensor_HO', field, wrappedValue);
-
-                      const mag = photonsToMagnitude(value);
-                      if (mag !== '') setMagnitude(mag);
-                    }}
-                    style={{ marginLeft: 10 }}
+                    id={`zenith-input-${index}`}
+                    type="number"
+                    step="0.1"
                     min="0"
-                    step="1"
+                    value={val}
+                    onChange={(e) => {
+                      const currentZenith = params.sources_LO?.Zenith ? JSON.parse(params.sources_LO.Zenith) : [];
+                      const newZenith = [...currentZenith];
+                      newZenith[index] = parseFloat(e.target.value);
+                      setParams(prev => ({
+                        ...prev,
+                        sources_LO: {
+                          ...prev.sources_LO,
+                          Zenith: JSON.stringify(newZenith),
+                          Azimuth: prev.sources_LO?.Azimuth || '[]',
+                        },
+                      }));
+                    }}
+                    style={{ width: '5em' }}
                   />
-                </label>
-              </div>
-            ))}
+                </div>
+
+                {/* Angle  */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight:'2rem' }}>
+                  <label htmlFor={`azimuth-input-${index}`}>
+                    Angle<sup>(2)</sup>:
+                  </label>
+                  <label><i>(degree)</i></label>
+                  <input
+                    id={`azimuth-input-${index}`}
+                    type="number"
+                    step="0.1"
+                    value={azVal}
+                    onChange={(e) => {
+                      const currentAzimuth = params.sources_LO?.Azimuth ? JSON.parse(params.sources_LO.Azimuth) : [];
+                      const newAzimuth = [...currentAzimuth];
+                      newAzimuth[index] = parseFloat(e.target.value);
+                      setParams(prev => ({
+                        ...prev,
+                        sources_LO: {
+                          ...prev.sources_LO,
+                          Azimuth: JSON.stringify(newAzimuth),
+                          Zenith: prev.sources_LO?.Zenith || '[]',
+                        },
+                      }));
+                    }}
+                    style={{ width: '5em' }}
+                  />
+                  </div>
+    
+
+                  {/* NumberPhotons */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <label htmlFor={`photons-input-${index}`}>
+                      NumberPhotons:
+                    </label>
+                    <label> <i>(nph/subaperture/frame)</i></label>
+                    <input
+                      id={`photons-input-${index}`}
+                      type="number"
+                      step="1"
+                      min="0"
+                      value={phoVal}
+                      onChange={(e) => {
+                        const val = e.target.value;
+
+                        if (val === '') {
+                          const photonValue = 0;
+
+                          setParams((prev) => {
+                            const currentPhotons = prev.sensor_LO?.NumberPhotons ? JSON.parse(prev.sensor_LO.NumberPhotons) : [];
+                            const newPhotons = [...currentPhotons];
+                            newPhotons[index] = photonValue;
+                            return {
+                              ...prev,
+                              sensor_LO: {
+                                ...prev.sensor_LO,
+                                NumberPhotons: JSON.stringify(newPhotons),
+                              },
+                            };
+                          });
+
+                          setMagnitudes((prev) => {
+                            const newMags = [...prev];
+                            newMags[index] = photonsToMagnitude(photonValue);
+                            return newMags;
+                          });
+                          return;
+                        }
+
+                        const photonValue = parseInt(val, 10);
+                        if (isNaN(photonValue)) return;
+
+                        setParams((prev) => {
+                          const currentPhotons = prev.sensor_LO?.NumberPhotons ? JSON.parse(prev.sensor_LO.NumberPhotons) : [];
+                          const newPhotons = [...currentPhotons];
+                          newPhotons[index] = photonValue;
+                          return {
+                            ...prev,
+                            sensor_LO: {
+                              ...prev.sensor_LO,
+                              NumberPhotons: JSON.stringify(newPhotons),
+                            },
+                          };
+                        });
+
+                        const mag = photonsToMagnitude(photonValue);
+                        if (mag !== '') {
+                          setMagnitudes((prev) => {
+                            const newMags = [...prev];
+                            newMags[index] = mag;
+                            return newMags;
+                          });
+                        }
+                      }}
+                      style={{ width: '5rem' }}
+                    />
+                  </div>
+
+                  {/* Magnitude */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <label htmlFor={`photons-input-${index}`}>
+                     V-Magnitude<sup>(3)</sup>:
+                    </label>
+                    {(() => {
+                      const lambdaRaw = params.sources_LO?.Wavelength;
+                      let lambda = 0;
+                      if (typeof lambdaRaw === 'string') {
+                        lambda = Number(lambdaRaw.replace(/[\[\]]/g, ''));
+                      } else {
+                        lambda = Number(lambdaRaw);
+                      }
+
+                      const bandCorrection = {
+                      B: 1.37,
+                      V: 0,
+                      R: -1.26,
+                      I: -2.15,
+                      Iz: -2.15,
+                      J: -2.49,
+                      H: -3.03,
+                      Ks: -3.29,
+                      K: -3.29,
+                      };
+
+                      const band = getBandFromWavelength(lambda);
+                      const magNum = Number(magVal);
+                      if (!isNaN(magNum) && magVal.trim() !== '' && band in bandCorrection) {
+                        const magCorr = (magNum + bandCorrection[band]).toFixed(2);
+                        return <span style={{ marginLeft: 10}}>{band}-Magnitude: {magCorr} (spectral class: M0V)</span>;
+                      }
+                      return <span style={{ marginLeft: 10, visibility: 'hidden' }}>{band ? `${band}-Magnitude: 0.00 (spectral class: M0V)` : ''}</span>;
+                    })()}
+
+                    <input
+                      id={`mag-input-${index}`}
+                      type="number"
+                      step="0.1"
+                      value={magVal}
+                      onChange={(e) => {
+                        const newMag = e.target.value;
+                        setMagnitudes((prev) => {
+                          const newMags = [...prev];
+                          newMags[index] = newMag;
+                          return newMags;
+                        });
+
+                        const parsedMag = parseFloat(newMag);
+                        let newPhotonValue = 0;
+                        if (!isNaN(parsedMag)) {
+                          newPhotonValue = magnitudeToPhotons(parsedMag);
+                        }
+
+                        setParams((prev) => {
+                          const currentPhotons = prev.sensor_LO?.NumberPhotons ? JSON.parse(prev.sensor_LO.NumberPhotons) : [];
+                          const newPhotons = [...currentPhotons];
+                          newPhotons[index] = newPhotonValue;
+
+                          return {
+                            ...prev,
+                            sensor_LO: {
+                              ...prev.sensor_LO,
+                              NumberPhotons: JSON.stringify(newPhotons),
+                            },
+                          };
+                        });
+                      }}
+                      style={{ width: '5em' }}
+                    />
+
+                  </div>
+
+                  </div>
+                </div>
+                );
+              })}
+
           </div>
         )}
 
-        {/* Display of editable fields according to LO part */}
-        {systemKey === 'SCAO_LGS' && params.sensor_LO && (
+        {/* { params.sensor_LO && (
           <div style={{ marginBottom: '1em' }}>
             <strong>[sensor_LO]</strong>
             <div style={{ marginTop: '0.5em' }}>
               <label>
-                V-Magnitude<sup>(2)</sup>:
+                V-Magnitude<sup>(3)</sup>:
                 <input
                   type="number"
                   step="0.1"
@@ -781,7 +921,7 @@ export default function IniGenerator() {
               </div>
             ))}
           </div>
-        )}
+        )} */}
 
 
       <div style={{ display: 'flex', gap: 10, marginTop: 10 }}>
@@ -852,7 +992,15 @@ export default function IniGenerator() {
 
         <div style={{marginTop:'0.5rem', fontSize: 'small' }}>
         <i>
-        <sup>(2)</sup> The calculation of the <code>NumberPhotons</code> parameter, 
+        <sup>(2)</sup> Angle corresponds to the <code>Azimuth</code> parameter in the 
+        <code>[sources_science]</code> section, and either the <code>[sources_HO]</code> or 
+        <code>[sources_LO]</code> section, depending on the system. 
+        </i>
+        </div>
+
+        <div style={{marginTop:'0.5rem', fontSize: 'small' }}>
+        <i>
+        <sup>(3)</sup> The calculation of the <code>NumberPhotons</code> parameter, 
         along with a dedicated interface, is detailed&nbsp;
         <Link to="/docs/orion/interactivetools#mag-to-photons"><strong>here</strong></Link>.
         </i>

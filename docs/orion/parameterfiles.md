@@ -300,7 +300,7 @@ In the two following section we list the parameters that are specific to each wa
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `DmPitchs` | Yes | `list of float` | DM actuators pitch in meters, on the meta pupil at the conjugasion altitude, used for fitting error computation. <br />_Warning_: if it smaller than `[sensor_HO]` `SizeLenslets` (=`[Telescope]` `TelescopeDiameter`/`[sensor_HO]` `NumberLenslet` ) aliasing error will be significant. <br />Must be the same length as NumberActuators.|
+| `DmPitchs` | Yes | `list of float` | DM actuators pitch in meters, on the meta pupil at the conjugasion altitude, used for fitting error computation. <br />_Warning_: if it smaller than `[sensor_HO]` `SizeLenslets` (=`[Telescope]` `TelescopeDiameter`/`[sensor_HO]` `NumberLenslet` ) aliasing error will be significant. <br />Must be the same length as `NumberActuators`.|
 | `NumberActuators` | No | `list of int` | _Default_: computed from diameter, technical FoV, DM altitude and DM pitch. <br />Number of actuator on the pupil diameter. Must be the same length as `DmPitchs`. <br />_Warning_: not used in **TipTop**! |
 | `InfModel` | No | `string` |  _Default_: `gaussian` <br />DM influence function model. Not used in **TipTop** but used in the psf reconstruction. What are the other possible one? |
 | `InfCoupling` | No | `list of float` | _Default_: `[0.2]` <br />DM influence function model mechanical coupling. Not used in **TipTop** but used in the psf reconstruction. Unclear what this does. Must be the same length as `NumberActuators`?|

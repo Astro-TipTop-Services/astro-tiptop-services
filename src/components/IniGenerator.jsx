@@ -561,6 +561,7 @@ export default function IniGenerator() {
                 : params.sources_science.Zenith
             }
             step="0.1"
+            min="0"
             onChange={(e) => {
               const val = e.target.value;
               if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
@@ -609,6 +610,7 @@ export default function IniGenerator() {
                   : params.sources_HO.Zenith
                 }
                 step="0.1"
+                min="0"
                 onChange={(e) => {
                 const val = e.target.value;
                 if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {
@@ -657,6 +659,7 @@ export default function IniGenerator() {
                   : params.sources_LO.Zenith
                 }
                 step="0.01"
+                min="0"
                 onChange={(e) => {
                   const val = e.target.value;
                   if (val === '' || /^[0-9.eE+\-]+$/.test(val)) {

@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo, useCallback} from 'react';
 import Link from '@docusaurus/Link';
 import Presets from '../configPresets.json';
-import Plot from 'react-plotly.js';
+// import Plot from 'react-plotly.js';
 
 const renameMap = {
   // "HARMONI_MCAO": "HARMONI_MCAO",
@@ -119,15 +119,26 @@ export default function IniGenerator() {
   const [expanded, setExpanded] = useState(false);
   const [magnitudes, setMagnitudes] = useState([]);
   const [isClient, setIsClient] = useState(false);
+  const [Plot, setPlot] = useState(null);
 
+  useEffect(() => {
+      setIsClient(true);
+  }, []);
 
-    useEffect(() => {
-        setIsClient(true);
-      }, []);
+  useEffect(() => {
+    if (isClient) {
+      import('react-plotly.js').then((mod) => {
+        setPlot(() => mod.default);
+      });
+    }
+  }, [isClient]);
 
-function ScienceSourcesPlot({ zenithArray, azimuthArray, 
+  const ScienceSourcesPlot = useCallback(
+    ({ zenithArray, azimuthArray, 
   zenithLOArray, azimuthLOArray, numberPhotonsLO, 
-  zenithHOArray, azimuthHOArray, numberPhotonsHO }) {
+  zenithHOArray, azimuthHOArray, numberPhotonsHO }) => {
+    if (!Plot) return null;
+
   // Convert azimuth degrees to radians for polar plot
   const theta = azimuthArray.map((deg) => deg); // plotly polar supports degrees directly
   const photonToSize = (photons) => {
@@ -183,9 +194,11 @@ function ScienceSourcesPlot({ zenithArray, azimuthArray,
         height: 300,
       }}
       config={{ displayModeBar: false }}
-    />
+        />
+      );
+    },
+    [Plot]
   );
-}
 
   const filename = `${selectedOption || selectedOption}.ini`;
 

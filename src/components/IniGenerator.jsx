@@ -900,9 +900,21 @@ export default function IniGenerator() {
       <div style={{ marginTop: '20px' }}>
         <hr />
         <h4>Generated .ini configuration file:</h4>
-        <pre style={{ background: '#f0f0f0', padding: 10 }}>
-          <code>{generatedIni}</code>
-        </pre>
+          <div
+            style={{
+              background: '#f0f0f0',
+              padding: 10,
+              maxHeight: '800px',
+              overflowY: 'auto',
+              overflowX: 'scroll',
+              whiteSpace: 'pre-wrap',
+              // wordBreak: 'break-word',
+              fontFamily: 'monospace',
+              borderRadius: '4px',
+            }}
+          >
+          {generatedIni}
+      </div>
       </div>
     )}
 

@@ -276,6 +276,22 @@ export default function IniGenerator() {
     };
   }, [generatedIni]);
 
+  useEffect(() => {
+  if (!params.sensor_LO?.NumberPhotons) {
+    setMagnitudes([]);  
+    return;}
+  try {
+    const photonsArray = JSON.parse(params.sensor_LO.NumberPhotons);
+    const updatedMagnitudes = photonsArray.map((ph) => {
+      const val = Number(ph);
+      return !isNaN(val) ? photonsToMagnitude(val) : '';
+    });
+    setMagnitudes(updatedMagnitudes);
+  } catch (e) {
+    setMagnitudes([]);
+  }
+}, [params.sensor_LO?.NumberPhotons]);
+
 
   ///////////////////////////////////////////////////
   //******************generateIni********************
@@ -603,9 +619,20 @@ export default function IniGenerator() {
                       const currentZenith = params.sources_LO?.Zenith ? JSON.parse(params.sources_LO.Zenith) : [];
                       const currentAzimuth = params.sources_LO?.Azimuth ? JSON.parse(params.sources_LO.Azimuth) : [];
                       const currentPhotons = params.sensor_LO?.NumberPhotons ? JSON.parse(params.sensor_LO.NumberPhotons) : [];
+                      
+                      const currentLenslets = params.sensor_LO?.NumberLenslets ? JSON.parse(params.sensor_LO.NumberLenslets) : [];
+                      const defaultLensletValue = currentLenslets.length > 0 ? currentLenslets[0] : 1;
+                      const currentSpotFWHM = params.sensor_LO?.SpotFWHM ? JSON.parse(params.sensor_LO.SpotFWHM) : [[0.0,0.0,0.0]];
+                      const innerListSpotFWHM = currentSpotFWHM.length > 0 ? currentSpotFWHM[0] : [0.0,0.0,0.0];
+                      const defaultSpotFWHM = innerListSpotFWHM.length > 0 ? innerListSpotFWHM[0] : 0.0;
+                      const newInnerList = Array.from({ length: count }, () => defaultSpotFWHM);
+                      
                       const newZenith = Array.from({ length: count }, (_, i) => currentZenith[i] ?? 0);
                       const newAzimuth = Array.from({ length: count }, (_, i) => currentAzimuth[i] ?? 0);
                       const newPhotons = Array.from({ length: count }, (_, i) => currentPhotons[i] ?? 0);
+                      const newLenslets = Array.from({ length: count }, (_, i) => currentLenslets[i] ?? defaultLensletValue);
+                      const newSpotFWHM = [newInnerList];
+
                       setParams(prev => ({
                         ...prev,
                         sources_LO: {
@@ -616,6 +643,8 @@ export default function IniGenerator() {
                         sensor_LO: {
                           ...prev.sensor_LO,
                           NumberPhotons: JSON.stringify(newPhotons),
+                          NumberLenslets: JSON.stringify(newLenslets),
+                          SpotFWHM: JSON.stringify(newSpotFWHM),
                         },
                       }));
 
@@ -637,7 +666,7 @@ export default function IniGenerator() {
               return (
                 <div key={index} style={{ marginBottom: 12, display: 'flex', flexWrap: 'wrap', gap: '1em', alignItems: 'center', marginTop: '0.5em' }}>
                 {/* Colonne Source #n */}
-                <div style={{ minWidth: '80px', textAlign: 'right', paddingRight: '0.5em', userSelect: 'none', marginRight:'2rem', marginTop: '3.3rem' }}>
+                <div style={{ minWidth: '80px', textAlign: 'right', paddingRight: '0.5em', userSelect: 'none', marginRight:'2rem', marginTop: '-0.5rem' }}>
                   Source #{index + 1}
                 </div>
 
@@ -648,7 +677,6 @@ export default function IniGenerator() {
                     <label htmlFor={`zenith-input-${index}`}>
                       Distance<sup>(1)</sup>:
                     </label>
-                    <label><i>(arcsec)</i></label>
                   <input
                     id={`zenith-input-${index}`}
                     type="number"
@@ -670,6 +698,7 @@ export default function IniGenerator() {
                     }}
                     style={{ width: '5em' }}
                   />
+                  <label style={{ fontSize: "12px" }}><i>(arcsec)</i></label>
                 </div>
 
                 {/* Angle  */}
@@ -677,7 +706,6 @@ export default function IniGenerator() {
                   <label htmlFor={`azimuth-input-${index}`}>
                     Angle<sup>(2)</sup>:
                   </label>
-                  <label><i>(degree)</i></label>
                   <input
                     id={`azimuth-input-${index}`}
                     type="number"
@@ -698,111 +726,15 @@ export default function IniGenerator() {
                     }}
                     style={{ width: '5em' }}
                   />
+                  <label style={{ fontSize: "12px" }}><i>(degree)</i></label>
                   </div>
-    
-
-                  {/* NumberPhotons */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <label htmlFor={`photons-input-${index}`}>
-                      NumberPhotons:
-                    </label>
-                    <label> <i>(nph/subaperture/frame)</i></label>
-                    <input
-                      id={`photons-input-${index}`}
-                      type="number"
-                      step="1"
-                      min="0"
-                      value={phoVal}
-                      onChange={(e) => {
-                        const val = e.target.value;
-
-                        if (val === '') {
-                          const photonValue = 0;
-
-                          setParams((prev) => {
-                            const currentPhotons = prev.sensor_LO?.NumberPhotons ? JSON.parse(prev.sensor_LO.NumberPhotons) : [];
-                            const newPhotons = [...currentPhotons];
-                            newPhotons[index] = photonValue;
-                            return {
-                              ...prev,
-                              sensor_LO: {
-                                ...prev.sensor_LO,
-                                NumberPhotons: JSON.stringify(newPhotons),
-                              },
-                            };
-                          });
-
-                          setMagnitudes((prev) => {
-                            const newMags = [...prev];
-                            newMags[index] = photonsToMagnitude(photonValue);
-                            return newMags;
-                          });
-                          return;
-                        }
-
-                        const photonValue = parseInt(val, 10);
-                        if (isNaN(photonValue)) return;
-
-                        setParams((prev) => {
-                          const currentPhotons = prev.sensor_LO?.NumberPhotons ? JSON.parse(prev.sensor_LO.NumberPhotons) : [];
-                          const newPhotons = [...currentPhotons];
-                          newPhotons[index] = photonValue;
-                          return {
-                            ...prev,
-                            sensor_LO: {
-                              ...prev.sensor_LO,
-                              NumberPhotons: JSON.stringify(newPhotons),
-                            },
-                          };
-                        });
-
-                        const mag = photonsToMagnitude(photonValue);
-                        if (mag !== '') {
-                          setMagnitudes((prev) => {
-                            const newMags = [...prev];
-                            newMags[index] = mag;
-                            return newMags;
-                          });
-                        }
-                      }}
-                      style={{ width: '5rem' }}
-                    />
-                  </div>
+  
 
                   {/* Magnitude */}
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <label htmlFor={`photons-input-${index}`}>
                      V-Magnitude<sup>(3)</sup>:
                     </label>
-                    {(() => {
-                      const lambdaRaw = params.sources_LO?.Wavelength;
-                      let lambda = 0;
-                      if (typeof lambdaRaw === 'string') {
-                        lambda = Number(lambdaRaw.replace(/[\[\]]/g, ''));
-                      } else {
-                        lambda = Number(lambdaRaw);
-                      }
-
-                      const bandCorrection = {
-                      B: 1.37,
-                      V: 0,
-                      R: -1.26,
-                      I: -2.15,
-                      Iz: -2.15,
-                      J: -2.49,
-                      H: -3.03,
-                      Ks: -3.29,
-                      K: -3.29,
-                      };
-
-                      const band = getBandFromWavelength(lambda);
-                      const magNum = Number(magVal);
-                      if (!isNaN(magNum) && magVal.trim() !== '' && band in bandCorrection) {
-                        const magCorr = (magNum + bandCorrection[band]).toFixed(2);
-                        return <span style={{ marginLeft: 10}}>{band}-Magnitude: {magCorr} (spectral class: M0V)</span>;
-                      }
-                      return <span style={{ marginLeft: 10, visibility: 'hidden' }}>{band ? `${band}-Magnitude: 0.00 (spectral class: M0V)` : ''}</span>;
-                    })()}
 
                     <input
                       id={`mag-input-${index}`}
@@ -840,6 +772,75 @@ export default function IniGenerator() {
                       style={{ width: '5em' }}
                     />
 
+                    {(() => {
+                      const lambdaRaw = params.sources_LO?.Wavelength;
+                      let lambda = 0;
+                      if (typeof lambdaRaw === 'string') {
+                        lambda = Number(lambdaRaw.replace(/[\[\]]/g, ''));
+                      } else {
+                        lambda = Number(lambdaRaw);
+                      }
+
+                      const bandCorrection = {
+                      B: 1.37,
+                      V: 0,
+                      R: -1.26,
+                      I: -2.15,
+                      Iz: -2.15,
+                      J: -2.49,
+                      H: -3.03,
+                      Ks: -3.29,
+                      K: -3.29,
+                      };
+
+                      const band = getBandFromWavelength(lambda);
+                      const magNum = Number(magVal);
+                      if (!isNaN(magNum) && magVal.trim() !== '' && band in bandCorrection) {
+                        const magCorr = (magNum + bandCorrection[band]).toFixed(2);
+                        return <span style={{fontSize: "12px", alignItems: 'center'}}>{band}-Magnitude: {magCorr} 
+                        <br/>(spectral class: M0V)</span>;
+                      }
+                      // return <span style={{ marginLeft: 10, visibility: 'hidden' }}>{band ? `${band}-Magnitude: 0.00 (spectral class: M0V)` : ''}</span>;
+                      return null
+                    })()}
+
+                  </div>
+
+                  {/* NumberPhotons */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight:'2rem'}}>
+                    <label htmlFor={`photons-input-${index}`}>
+                      NumberPhotons:
+                    </label>
+                    <input
+                      id={`photons-input-${index}`}
+                      type="text"
+                      step="1"
+                      min="0"
+                      value={phoVal}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value, 10);
+                        if (isNaN(val)) return;
+
+                      setParams((prev) => {
+                        const currentPhotons = prev.sensor_LO?.NumberPhotons
+                          ? JSON.parse(prev.sensor_LO.NumberPhotons)
+                          : [];
+                        const newPhotons = [...currentPhotons];
+                        newPhotons[index] = val;
+
+                        return {
+                          ...prev,
+                          sensor_LO: {
+                            ...prev.sensor_LO,
+                            NumberPhotons: JSON.stringify(newPhotons),
+                          },
+                        };
+                      });
+                    }}
+                    style={{ width: '5rem' }}
+  
+                    />
+                    <label style={{ fontSize: "12px" }}> <i>(nph/subap/frame)</i></label>
                   </div>
 
                   </div>
@@ -849,80 +850,6 @@ export default function IniGenerator() {
 
           </div>
         )}
-
-        {/* { params.sensor_LO && (
-          <div style={{ marginBottom: '1em' }}>
-            <strong>[sensor_LO]</strong>
-            <div style={{ marginTop: '0.5em' }}>
-              <label>
-                V-Magnitude<sup>(3)</sup>:
-                <input
-                  type="number"
-                  step="0.1"
-                  value={magnitude}
-                  onChange={(e) => onMagnitudeChange(e.target.value)}
-                  style={{ marginLeft: 10 }}
-                />
-              </label>
-          {(() => {
-        const lambdaRaw = params.sources_LO?.Wavelength;
-        let lambda = 0;
-        if (typeof lambdaRaw === 'string') {
-          lambda = Number(lambdaRaw.replace(/[\[\]]/g, ''));
-        } else {
-          lambda = Number(lambdaRaw);
-        }
-
-        const bandCorrection = {
-        B: 1.37,
-        V: 0,
-        R: -1.26,
-        I: -2.15,
-        Iz: -2.15,
-        J: -2.49,
-        H: -3.03,
-        Ks: -3.29,
-        K: -3.29,
-        };
-
-        const band = getBandFromWavelength(lambda);
-        const magNum = Number(magnitude);
-         if (!isNaN(magNum) && magnitude.trim() !== '' && band in bandCorrection) {
-          const magCorr = (magNum + bandCorrection[band]).toFixed(2);
-          return <span style={{ marginLeft: 10}}>{band}-Magnitude: {magCorr} (spectral class: M0V)</span>;
-        }
-        return null;
-      })()}
-            </div>
-            {Object.entries(editableFields.sensor_LO).map(([field, type]) => (
-              <div key={`sensor_LO-${field}`} style={{ marginTop: '0.5em' }}>
-                <label>
-                  {field} <i>(nph/subaperture/frame)</i>:
-                  <input
-                  type="number"
-                  value={
-                  Number(
-                    String(params.sensor_LO[field]).replace(/[\[\]]/g, '')
-                  )
-                  }
-                  onChange={(e) => {
-                      const value = e.target.value;
-                      const wrappedValue = `[${value}]`;
-                      handleChange('sensor_LO', field, wrappedValue);
-                  
-                      const mag = photonsToMagnitude(value);
-                      if (mag !== '') setMagnitude(mag);
-                    }}
-                    style={{ marginLeft: 10 }}
-                    min="0"
-                    step="1"
-                  />
-                </label>
-              </div>
-            ))}
-          </div>
-        )} */}
-
 
       <div style={{ display: 'flex', gap: 10, marginTop: 10 }}>
         <button onClick={generateIni}>
@@ -1011,11 +938,23 @@ export default function IniGenerator() {
       <div style={{ marginTop: '20px' }}>
         <hr />
         <h4>Generated .ini configuration file:</h4>
-        <pre style={{ background: '#f0f0f0', padding: 10 }}>
-          <code>{generatedIni}</code>
-        </pre>
-      </div>
-    )}
+            <div
+            style={{
+              background: '#f0f0f0',
+              padding: 10,
+              maxHeight: '800px',
+              overflowY: 'auto',
+              overflowX: 'scroll',
+              whiteSpace: 'pre-wrap',
+              // wordBreak: 'break-word',
+              fontFamily: 'monospace',
+              borderRadius: '4px',
+            }}
+          >
+       {generatedIni}
+    </div>
+  </div>
+)}
 
     </div>
   );

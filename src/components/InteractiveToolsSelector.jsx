@@ -46,7 +46,9 @@ export default function InteractiveToolsSelector() {
      {activeComponent && (
   <div style={{ display: 'flex', justifyContent: 'center', minHeight: '300px', alignItems: 'center'}}>
     {activeComponent === 'scao' && <IniGenerator />}
-    {activeComponent === 'mcao' && (
+    {activeComponent === 'mcao' && 
+    // <IniGenerator_MCAO />}
+    (
       <div style={{ fontSize: '1.5rem', color: '#888' }}>
         🚧 MCAO Parameter File Generator — Coming Soon!
       </div>

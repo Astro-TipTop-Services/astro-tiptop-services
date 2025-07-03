@@ -182,7 +182,13 @@ export default function IniGenerator() {
   const [downloadUrl, setDownloadUrl] = useState(null);
   const [expanded, setExpanded] = useState(false);
   const [magnitudes, setMagnitudes] = useState([]);
+  const [isClient, setIsClient] = useState(false);
 
+
+    useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
   const filename = `${selectedOption || selectedOption}.ini`;
 
   const handleChange = (section, field, value) => {

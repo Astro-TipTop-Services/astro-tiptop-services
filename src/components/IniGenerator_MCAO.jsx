@@ -447,19 +447,19 @@ export default function IniGenerator() {
   return (
     <div style={{ border: '1px solid #9dd6e8', padding: 16, margin: '20px 0', backgroundColor: '#eef9fd' }}>
       <div style={{ 
-  padding: '10px', 
-  backgroundColor: '#fff3cd', 
-  border: '1px solid #ffeeba', 
-  borderRadius: '5px', 
-  color: '#856404', 
-  marginBottom: '1rem',
-  fontWeight: 'bold',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px'
-}}>
-  <span>🚧</span> MCAO Parameter File Generator - Work in progress
-</div>
+        padding: '10px', 
+        backgroundColor: '#fff3cd', 
+        border: '1px solid #ffeeba', 
+        borderRadius: '5px', 
+        color: '#856404', 
+        marginBottom: '1rem',
+        fontWeight: 'bold',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px'
+      }}>
+        <span>🚧</span> MCAO Parameter File Generator - Work in progress
+      </div>
       <h3> 💻 .ini Parameter File Generator - <Link to="/docs/orion/aoinstruments">For Available AO Instruments</Link> <br/> 🟣 MCAO mode</h3>
 
       <label>

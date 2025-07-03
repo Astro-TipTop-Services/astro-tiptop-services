@@ -1,6 +1,71 @@
 import { useState, useEffect, useMemo} from 'react';
 import Link from '@docusaurus/Link';
 import Presets from '../configPresets.json';
+import Plot from 'react-plotly.js';
+
+function ScienceSourcesPlot({ zenithArray, azimuthArray, 
+  zenithLOArray, azimuthLOArray, numberPhotonsLO, 
+  zenithHOArray, azimuthHOArray, numberPhotonsHO }) {
+  // Convert azimuth degrees to radians for polar plot
+  const theta = azimuthArray.map((deg) => deg); // plotly polar supports degrees directly
+  const photonToSize = (photons) => {
+    if (photons <= 0) return 3; // min size if 0 or <0
+    const logValue = Math.log10(photons);
+    const minLog = 0;   // log10(10)
+    const maxLog = 9;   // log10(1,000,000,000)
+    const clampedLog = Math.min(Math.max(logValue, minLog), maxLog);
+    const size = 3 + ((clampedLog - minLog) / (maxLog - minLog)) * (30 - 3);
+    return size;
+  };
+
+  const sizeLO = numberPhotonsLO.map(photonToSize);
+  const sizeHO = numberPhotonsHO.map(photonToSize);
+
+  return (
+    <Plot
+      data={[
+        {
+          type: 'scatterpolar',
+          r: zenithArray,
+          theta: theta,
+          mode: 'markers',
+          marker: { color: 'blue', size: 10, symbol: 'star' },
+          name: 'Science Sources',
+        },
+        {
+          type: 'scatterpolar',
+          r: zenithLOArray,
+          theta: azimuthLOArray,
+          mode: 'markers',
+          marker: { color: 'orange', size: sizeLO, symbol: 'star' },
+          name: 'LO Sources - NGS',
+        },
+         {
+          type: 'scatterpolar',
+          r: zenithHOArray,
+          theta: azimuthHOArray,
+          mode: 'markers',
+          marker: { color: 'green', size: sizeHO, symbol: 'star' },
+          name: 'HO Sources - LGS',
+        },
+      ]}
+      layout={{
+        polar: {
+          radialaxis: {
+            visible: true,
+            range: [0, Math.max(...zenithArray, ...zenithLOArray, ...zenithHOArray) * 1.2 || 10],
+          },
+          angularaxis: { rotation: 0, direction: 'counterclockwise' },
+        },
+        margin: { t: 20, b: 20, l: 20, r: 20 },
+        height: 300,
+      }}
+      config={{ displayModeBar: false }}
+    />
+  );
+}
+
+
 
 const renameMap = {
   // "HARMONI_MCAO": "HARMONI_MCAO",
@@ -381,7 +446,21 @@ export default function IniGenerator() {
   //*********************DISPLAY********************/
   return (
     <div style={{ border: '1px solid #9dd6e8', padding: 16, margin: '20px 0', backgroundColor: '#eef9fd' }}>
-      <h3> .ini Parameter File Generator - <Link to="/docs/orion/aoinstruments">For Available AO Instruments</Link> - 🟣 MCAO mode</h3>
+      <div style={{ 
+  padding: '10px', 
+  backgroundColor: '#fff3cd', 
+  border: '1px solid #ffeeba', 
+  borderRadius: '5px', 
+  color: '#856404', 
+  marginBottom: '1rem',
+  fontWeight: 'bold',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px'
+}}>
+  <span>🚧</span> MCAO Parameter File Generator - Work in progress
+</div>
+      <h3> 💻 .ini Parameter File Generator - <Link to="/docs/orion/aoinstruments">For Available AO Instruments</Link> <br/> 🟣 MCAO mode</h3>
 
       <label>
         Select instrument:&nbsp;
@@ -848,6 +927,19 @@ export default function IniGenerator() {
                 );
               })}
 
+<div>
+  <ScienceSourcesPlot
+      zenithArray={JSON.parse(params.sources_science.Zenith || '[]')}
+      azimuthArray={JSON.parse(params.sources_science.Azimuth || '[]')}
+      zenithLOArray={JSON.parse(params.sources_LO.Zenith || '[]')}
+      azimuthLOArray={JSON.parse(params.sources_LO.Azimuth || '[]')}
+      numberPhotonsLO={JSON.parse(params.sensor_LO.NumberPhotons || '[]')}
+      zenithHOArray={JSON.parse(params.sources_HO.Zenith || '[]')}
+      azimuthHOArray={JSON.parse(params.sources_HO.Azimuth || '[]')}
+      numberPhotonsHO={JSON.parse(params.sensor_HO.NumberPhotons || '[]')}
+    />
+</div>
+
           </div>
         )}
 
@@ -874,6 +966,29 @@ export default function IniGenerator() {
         )}
       </div>
 
+
+      {generatedIni && (
+      <div style={{ marginTop: '20px' }}>
+        <hr />
+        <h4>Generated .ini configuration file:</h4>
+            <div
+            style={{
+              background: '#f0f0f0',
+              padding: 10,
+              maxHeight: '800px',
+              overflowY: 'auto',
+              overflowX: 'scroll',
+              whiteSpace: 'pre-wrap',
+              // wordBreak: 'break-word',
+              fontFamily: 'monospace',
+              borderRadius: '4px',
+            }}
+          >
+       {generatedIni}
+        </div>
+      </div>
+      )}
+      
       <hr />
       <div style={{marginTop:'-0.5rem', fontSize: 'small' }}>
         <i>
@@ -932,29 +1047,6 @@ export default function IniGenerator() {
         <Link to="/docs/orion/interactivetools#mag-to-photons"><strong>here</strong></Link>.
         </i>
         </div>
-
-
-      {generatedIni && (
-      <div style={{ marginTop: '20px' }}>
-        <hr />
-        <h4>Generated .ini configuration file:</h4>
-            <div
-            style={{
-              background: '#f0f0f0',
-              padding: 10,
-              maxHeight: '800px',
-              overflowY: 'auto',
-              overflowX: 'scroll',
-              whiteSpace: 'pre-wrap',
-              // wordBreak: 'break-word',
-              fontFamily: 'monospace',
-              borderRadius: '4px',
-            }}
-          >
-       {generatedIni}
-    </div>
-  </div>
-)}
 
     </div>
   );

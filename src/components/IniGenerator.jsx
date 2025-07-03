@@ -444,7 +444,7 @@ export default function IniGenerator() {
   //*********************DISPLAY********************/
   return (
     <div style={{ border: '1px solid #9dd6e8', padding: 16, margin: '20px 0', backgroundColor: '#eef9fd' }}>
-      <h3> .ini Parameter File Generator - <Link to="/docs/orion/aoinstruments">For Available AO Instruments</Link> - 🔵SCAO mode</h3>
+      <h3> 💻 .ini Parameter File Generator - <Link to="/docs/orion/aoinstruments">For Available AO Instruments</Link> <br/> 🔵SCAO mode</h3>
 
       <label>
         Select instrument:&nbsp;

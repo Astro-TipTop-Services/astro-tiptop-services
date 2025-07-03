@@ -3,70 +3,6 @@ import Link from '@docusaurus/Link';
 import Presets from '../configPresets.json';
 import Plot from 'react-plotly.js';
 
-function ScienceSourcesPlot({ zenithArray, azimuthArray, 
-  zenithLOArray, azimuthLOArray, numberPhotonsLO, 
-  zenithHOArray, azimuthHOArray, numberPhotonsHO }) {
-  // Convert azimuth degrees to radians for polar plot
-  const theta = azimuthArray.map((deg) => deg); // plotly polar supports degrees directly
-  const photonToSize = (photons) => {
-    if (photons <= 0) return 3; // min size if 0 or <0
-    const logValue = Math.log10(photons);
-    const minLog = 0;   // log10(10)
-    const maxLog = 9;   // log10(1,000,000,000)
-    const clampedLog = Math.min(Math.max(logValue, minLog), maxLog);
-    const size = 3 + ((clampedLog - minLog) / (maxLog - minLog)) * (30 - 3);
-    return size;
-  };
-
-  const sizeLO = numberPhotonsLO.map(photonToSize);
-  const sizeHO = numberPhotonsHO.map(photonToSize);
-
-  return (
-    <Plot
-      data={[
-        {
-          type: 'scatterpolar',
-          r: zenithArray,
-          theta: theta,
-          mode: 'markers',
-          marker: { color: 'blue', size: 10, symbol: 'star' },
-          name: 'Science Sources',
-        },
-        {
-          type: 'scatterpolar',
-          r: zenithLOArray,
-          theta: azimuthLOArray,
-          mode: 'markers',
-          marker: { color: 'orange', size: sizeLO, symbol: 'star' },
-          name: 'LO Sources - NGS',
-        },
-         {
-          type: 'scatterpolar',
-          r: zenithHOArray,
-          theta: azimuthHOArray,
-          mode: 'markers',
-          marker: { color: 'green', size: sizeHO, symbol: 'star' },
-          name: 'HO Sources - LGS',
-        },
-      ]}
-      layout={{
-        polar: {
-          radialaxis: {
-            visible: true,
-            range: [0, Math.max(...zenithArray, ...zenithLOArray, ...zenithHOArray) * 1.2 || 10],
-          },
-          angularaxis: { rotation: 0, direction: 'counterclockwise' },
-        },
-        margin: { t: 20, b: 20, l: 20, r: 20 },
-        height: 300,
-      }}
-      config={{ displayModeBar: false }}
-    />
-  );
-}
-
-
-
 const renameMap = {
   // "HARMONI_MCAO": "HARMONI_MCAO",
   "MAVIS": "MAVIS_MCAO",
@@ -186,9 +122,71 @@ export default function IniGenerator() {
 
 
     useEffect(() => {
-    setIsClient(true);
-  }, []);
-  
+        setIsClient(true);
+      }, []);
+
+function ScienceSourcesPlot({ zenithArray, azimuthArray, 
+  zenithLOArray, azimuthLOArray, numberPhotonsLO, 
+  zenithHOArray, azimuthHOArray, numberPhotonsHO }) {
+  // Convert azimuth degrees to radians for polar plot
+  const theta = azimuthArray.map((deg) => deg); // plotly polar supports degrees directly
+  const photonToSize = (photons) => {
+    if (photons <= 0) return 3; // min size if 0 or <0
+    const logValue = Math.log10(photons);
+    const minLog = 0;   // log10(10)
+    const maxLog = 9;   // log10(1,000,000,000)
+    const clampedLog = Math.min(Math.max(logValue, minLog), maxLog);
+    const size = 3 + ((clampedLog - minLog) / (maxLog - minLog)) * (30 - 3);
+    return size;
+  };
+
+  const sizeLO = numberPhotonsLO.map(photonToSize);
+  const sizeHO = numberPhotonsHO.map(photonToSize);
+
+  return (
+    <Plot
+      data={[
+        {
+          type: 'scatterpolar',
+          r: zenithArray,
+          theta: theta,
+          mode: 'markers',
+          marker: { color: 'blue', size: 10, symbol: 'star' },
+          name: 'Science Sources',
+        },
+        {
+          type: 'scatterpolar',
+          r: zenithLOArray,
+          theta: azimuthLOArray,
+          mode: 'markers',
+          marker: { color: 'orange', size: sizeLO, symbol: 'star' },
+          name: 'LO Sources - NGS',
+        },
+         {
+          type: 'scatterpolar',
+          r: zenithHOArray,
+          theta: azimuthHOArray,
+          mode: 'markers',
+          marker: { color: 'green', size: sizeHO, symbol: 'star' },
+          name: 'HO Sources - LGS',
+        },
+      ]}
+      layout={{
+        polar: {
+          radialaxis: {
+            visible: true,
+            range: [0, Math.max(...zenithArray, ...zenithLOArray, ...zenithHOArray) * 1.2 || 10],
+          },
+          angularaxis: { rotation: 0, direction: 'counterclockwise' },
+        },
+        margin: { t: 20, b: 20, l: 20, r: 20 },
+        height: 300,
+      }}
+      config={{ displayModeBar: false }}
+    />
+  );
+}
+
   const filename = `${selectedOption || selectedOption}.ini`;
 
   const handleChange = (section, field, value) => {

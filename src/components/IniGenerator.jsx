@@ -905,6 +905,7 @@ export default function IniGenerator() {
               background: '#f0f0f0',
               padding: 10,
               maxHeight: '800px',
+              maxWidth: '700px',
               overflowY: 'auto',
               overflowX: 'scroll',
               whiteSpace: 'pre-wrap',

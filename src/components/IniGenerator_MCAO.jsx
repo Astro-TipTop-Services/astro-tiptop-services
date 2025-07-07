@@ -813,6 +813,7 @@ export default function IniGenerator() {
                 id={`zenith-input-${index}`}
                 type="number"
                 step="0.1"
+                min="0"
                 value={val}
                 onChange={(e) => {
                   const currentZenith = params.sources_science?.Zenith ? JSON.parse(params.sources_science.Zenith) : [];

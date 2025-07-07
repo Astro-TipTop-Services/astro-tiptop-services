@@ -132,7 +132,7 @@ export default function IniGenerator() {
   }, [isClient]);
 
   const ScienceSourcesPlot = useCallback(
-    ({Fov, zenithArray, azimuthArray, 
+    ({Fov, Key_instrument, zenithArray, azimuthArray, 
   zenithLOArray, azimuthLOArray, numberPhotonsLO, 
   zenithHOArray, azimuthHOArray, numberPhotonsHO }) => {
     if (!Plot) return null;
@@ -151,6 +151,21 @@ export default function IniGenerator() {
 
   const sizeLO = numberPhotonsLO.map(photonToSize);
   const sizeHO = numberPhotonsHO.map(photonToSize);
+
+  //Technical FoV
+  const fovRadius = Fov / 2;
+  const circlePointsCount = 100;
+  const thetaCircle = Array.from({ length: circlePointsCount + 1 }, (_, i) => (360 / circlePointsCount) * i);
+  const maxZenith = Math.max(...zenithArray, ...zenithLOArray, ...zenithHOArray);
+
+  //Imager area
+ let imagerSize;
+    if (Key_instrument === 'MAVIS_MCAO') {
+      imagerSize = 30;
+    } else {
+      imagerSize = 50;
+    }
+  const imagerRadius = (Math.sqrt(2) * imagerSize) / 2;
 
   return (
     //*********PLOT************/
@@ -180,28 +195,55 @@ export default function IniGenerator() {
           marker: { color: 'green', size: sizeHO, symbol: 'star' },
           name: 'HO Sources - LGS ✳️',
         },
+        {
+          type: 'scatterpolar',
+          r: Array(circlePointsCount + 1).fill(fovRadius),
+          theta: thetaCircle,
+          mode: 'lines',
+          line: {
+            color: 'red',
+            dash: 'dot',
+            width: 2,
+          },
+          name: `Technical Field of view ${Fov}″Ø`,
+          showlegend: true,
+        },
+        {
+          type: 'scatterpolar',
+          r: [imagerRadius, imagerRadius, imagerRadius, imagerRadius, imagerRadius],
+          theta: [225, 135, 45, 315, 225], 
+          mode: 'lines',
+          line: {
+            color: 'black',
+            dash: 'dot',
+            width: 1,
+          },
+          name: `Imager ${imagerSize}″×${imagerSize}″`,
+          showlegend: true,
+        },
       ]}
       layout={{
         polar: {
           radialaxis: {
             visible: true,
             range: [0, Math.max(...zenithArray, ...zenithLOArray, ...zenithHOArray) * 1.2 || 10],
+            // range: Math.max(fovRadius * 1.05, maxZenith * 1.2 || 10),
           },
           angularaxis: { rotation: 0, direction: 'counterclockwise' },
           bgcolor: '#f0f0f0',
         },
-        annotations: [
-          {
-            x: 0.06,
-            y: 0.83,
-            text: `Technical Field<br>of view ${Fov}''Ø`,
-            showarrow: false,
-            xref: 'paper',
-            yref: 'paper',
-            font: { size: 11 },
-            textangle: -68,
-          },
-        ],
+        // annotations: [
+        //   {
+        //     x: 0.06,
+        //     y: 0.83,
+        //     text: `Technical Field<br>of view ${Fov}''Ø`,
+        //     showarrow: false,
+        //     xref: 'paper',
+        //     yref: 'paper',
+        //     font: { size: 11 },
+        //     textangle: -68,
+        //   },
+        // ],
         paper_bgcolor: '#eef9fd',
         margin: { t: 20, b: 20, l: 20, r: 20 },
         height: 385,
@@ -961,6 +1003,7 @@ export default function IniGenerator() {
 <div>
   <ScienceSourcesPlot
       Fov={params.telescope.TechnicalFoV}
+      Key_instrument={selectedOption}
       zenithArray={JSON.parse(params.sources_science.Zenith || '[]')}
       azimuthArray={JSON.parse(params.sources_science.Azimuth || '[]')}
       zenithLOArray={JSON.parse(params.sources_LO.Zenith || '[]')}

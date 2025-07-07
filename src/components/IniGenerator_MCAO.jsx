@@ -305,21 +305,6 @@ export default function IniGenerator() {
         },
         {
           type: 'scatterpolar',
-          r: IFUfine_rRect,
-          theta: IFUfine_thetaRect,
-          mode: 'lines',
-          line: {
-            color: 'red',
-            dash: 'dot',
-            width: 1.5,
-          },
-          fill: 'toself',
-          fillcolor: 'rgba(235, 19, 19, 0.14)',
-          name: `IFU Fine ${IFUfine_width}″×${IFUfine_height}″`,
-          showlegend: true,
-        },
-        {
-          type: 'scatterpolar',
           r: IFUcoarse_rRect,
           theta: IFUcoarse_thetaRect,
           mode: 'lines',
@@ -331,6 +316,21 @@ export default function IniGenerator() {
           fill: 'toself',
           fillcolor: 'rgba(182, 16, 154, 0.14)',
           name: `IFU Coarse ${IFUcoarse_width}″×${IFUcoarse_height}″`,
+          showlegend: true,
+        },
+        {
+          type: 'scatterpolar',
+          r: IFUfine_rRect,
+          theta: IFUfine_thetaRect,
+          mode: 'lines',
+          line: {
+            color: 'red',
+            dash: 'dot',
+            width: 1.5,
+          },
+          fill: 'toself',
+          fillcolor: 'rgba(235, 19, 19, 0.14)',
+          name: `IFU Fine ${IFUfine_width}″×${IFUfine_height}″`,
           showlegend: true,
         },
       ]}

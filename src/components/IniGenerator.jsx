@@ -458,13 +458,13 @@ export default function IniGenerator() {
       {/* Conditional display according to system */}
       {systemKey === 'SCAO_NGS' && (
         <div style={{ marginTop: 16, marginBottom: 16, fontWeight: 'bold' }}>
-          NGS only system ✴️ <br/> HO part: Science - NGS 
+          NGS only system <br/> HO part: Science 💫 - NGS ✴️
         </div>
       )}
 
        {systemKey === 'SCAO_LGS' && (
         <div style={{ marginTop: 16, marginBottom: 10, fontWeight: 'bold' }}>
-          HO part: Science - LGS ✳️ <br/> LO part: NGS ✴️
+          HO part: Science 💫 - LGS ✳️ <br/> LO part: NGS ✴️
         </div>
       )}
 
@@ -473,7 +473,7 @@ export default function IniGenerator() {
       {/* Always show ZenithAngle */}
       <div style={{ marginBottom: 16 }}>
         <div style={{ marginBottom: '0.5rem' }}>
-          <strong>[telescope]</strong> </div>
+          <strong>[telescope] 🔭</strong> </div>
         <label>
           Zenith Angle (degree):&nbsp;
           <input
@@ -496,7 +496,7 @@ export default function IniGenerator() {
       {/* Always show seeing */}
       <div style={{ marginBottom: 16 }}>
         <div style={{ marginBottom: '0.5rem' }}>
-          <strong>[atmosphere]</strong> </div>
+          <strong>[atmosphere] 🌫️</strong> </div>
         <label>
           Seeing (arcsec):&nbsp;
           <input
@@ -520,7 +520,7 @@ export default function IniGenerator() {
 
       {params.sources_science && (
         <div style={{ marginBottom: '1rem' }}>
-          <strong>[sources_science]</strong>
+          <strong>[sources_science] 💫</strong>
           <div style={{ marginTop: '0.5em' }}>
           <label>
             Band:&nbsp;
@@ -577,7 +577,7 @@ export default function IniGenerator() {
 
         {systemKey === 'SCAO_NGS' && params.sources_HO && (
         <div style={{ marginBottom: '1em' }}>
-          <strong>[sources_HO]</strong>
+          <strong>[sources_HO]- NGS ✴️</strong>
           <div style={{marginTop: '0.5em'}}>
               NGS Wavelength set at {' '}
               <span> 
@@ -626,7 +626,7 @@ export default function IniGenerator() {
       
         {systemKey === 'SCAO_LGS' && params.sources_LO && (
         <div style={{ marginBottom: '1em' }}>
-          <strong>[sources_LO]</strong>
+          <strong>[sources_LO] - NGS ✴️</strong>
             <div style={{marginTop: '0.5em'}}>
               NGS Wavelength set at {' '}
               <span> 

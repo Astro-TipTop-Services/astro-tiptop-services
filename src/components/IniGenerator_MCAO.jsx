@@ -4,13 +4,11 @@ import Presets from '../configPresets.json';
 // import Plot from 'react-plotly.js';
 
 const renameMap = {
-  // "HARMONI_MCAO": "HARMONI_MCAO",
   "MAVIS": "MAVIS_MCAO",
   "MORFEO": "MORFEO_MCAO",
 };
 
 const presetsToKeep = [
-                      // "HARMONI_MCAO", 
                       "MAVIS_MCAO",
                       "MORFEO_MCAO"];
 
@@ -155,6 +153,7 @@ export default function IniGenerator() {
   const sizeHO = numberPhotonsHO.map(photonToSize);
 
   return (
+    //*********PLOT************/
     <Plot
       data={[
         {
@@ -163,7 +162,7 @@ export default function IniGenerator() {
           theta: theta,
           mode: 'markers',
           marker: { color: 'blue', size: 10, symbol: 'star' },
-          name: 'Science Sources',
+          name: 'Science Sources 💫',
         },
         {
           type: 'scatterpolar',
@@ -171,7 +170,7 @@ export default function IniGenerator() {
           theta: azimuthLOArray,
           mode: 'markers',
           marker: { color: 'orange', size: sizeLO, symbol: 'star' },
-          name: 'LO Sources - NGS',
+          name: 'LO Sources - NGS ✴️',
         },
          {
           type: 'scatterpolar',
@@ -179,7 +178,7 @@ export default function IniGenerator() {
           theta: azimuthHOArray,
           mode: 'markers',
           marker: { color: 'green', size: sizeHO, symbol: 'star' },
-          name: 'HO Sources - LGS',
+          name: 'HO Sources - LGS ✳️',
         },
       ]}
       layout={{
@@ -189,7 +188,9 @@ export default function IniGenerator() {
             range: [0, Math.max(...zenithArray, ...zenithLOArray, ...zenithHOArray) * 1.2 || 10],
           },
           angularaxis: { rotation: 0, direction: 'counterclockwise' },
+          bgcolor: '#f0f0f0',
         },
+        paper_bgcolor: '#eef9fd',
         margin: { t: 20, b: 20, l: 20, r: 20 },
         height: 300,
       }}
@@ -489,7 +490,7 @@ export default function IniGenerator() {
       </label>
 
       <div style={{ marginTop: 16, marginBottom: 10, fontWeight: 'bold' }}>
-          HO part: Science - LGS ✳️ <br/> LO part: NGS ✴️
+          HO part: Science 💫 - LGS ✳️ <br/> LO part: NGS ✴️
       </div>
 
        <hr />
@@ -497,7 +498,7 @@ export default function IniGenerator() {
       {/* Always show ZenithAngle */}
       <div style={{ marginBottom: 16 }}>
         <div style={{ marginBottom: '0.5rem' }}>
-          <strong>[telescope]</strong> </div>
+          <strong>[telescope] 🔭</strong> </div>
         <label>
           Zenith Angle (degree):&nbsp;
           <input
@@ -520,7 +521,7 @@ export default function IniGenerator() {
       {/* Always show seeing */}
       <div style={{ marginBottom: 16 }}>
         <div style={{ marginBottom: '0.5rem' }}>
-          <strong>[atmosphere]</strong> </div>
+          <strong>[atmosphere] 🌫️</strong> </div>
         <label>
           Seeing (arcsec):&nbsp;
           <input
@@ -543,7 +544,7 @@ export default function IniGenerator() {
       {/* SCIENCE */}
       {params.sources_science && (
         <div style={{ marginBottom: '1rem' }}>
-          <strong>[sources_science]</strong>
+          <strong>[sources_science] 💫</strong>
           <div style={{ marginTop: '0.5em' }}>
           <label>
             Band:&nbsp;
@@ -678,7 +679,7 @@ export default function IniGenerator() {
         {/* LO PART */}
         {params.sources_LO && params.sensor_LO && (
         <div style={{ marginBottom: '1em' }}>
-          <strong>[sources_LO] & [sensor_LO]</strong>
+          <strong>[sources_LO] & [sensor_LO] - NGS(s) ✴️ </strong>
             <div style={{marginTop: '0.5em'}}>
               NGS(s) Wavelength set at {' '}
               <span> 
@@ -707,7 +708,7 @@ export default function IniGenerator() {
                 <input
                   type="number"
                   min={1}
-                  max={10}
+                  max={3}
                   value={params.sources_LO?.Zenith ? JSON.parse(params.sources_LO.Zenith).length : 0}
                   onChange={(e) => {
                     const count = parseInt(e.target.value, 10);
@@ -763,7 +764,7 @@ export default function IniGenerator() {
                 <div key={index} style={{ marginBottom: 12, display: 'flex', flexWrap: 'wrap', gap: '1em', alignItems: 'center', marginTop: '0.5em' }}>
                 {/* Colonne Source #n */}
                 <div style={{ minWidth: '80px', textAlign: 'right', paddingRight: '0.5em', userSelect: 'none', marginRight:'2rem', marginTop: '-0.5rem' }}>
-                  Source #{index + 1}
+                  NGS #{index + 1}
                 </div>
 
                 {/* Colonne Inputs */}
@@ -827,7 +828,7 @@ export default function IniGenerator() {
   
 
                   {/* Magnitude */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginRight:'1.8rem' }}>
                     <label htmlFor={`photons-input-${index}`}>
                      V-Magnitude<sup>(3)</sup>:
                     </label>

@@ -366,7 +366,7 @@ export default function IniGenerator() {
         //   },
         // ],
         paper_bgcolor: '#eef9fd',
-        margin: { t: 20, b: 20, l: 20, r: 20 },
+        margin: { t: 20, b: 20, l: 40, r: 20 },
         height: 400,
       }}
       config={{ displayModeBar: false }}
@@ -652,7 +652,8 @@ export default function IniGenerator() {
   ///////////////////////////////////////////////////
   //*********************DISPLAY********************/
   return (
-    <div style={{ border: '1px solid #9dd6e8', padding: 16, margin: '20px 0', backgroundColor: '#eef9fd' }}>
+    <div style={{ border: '1px solid #9dd6e8', padding: 16, margin: '20px 0', 
+    backgroundColor: '#eef9fd' }}>
       <div style={{ 
         padding: '10px', 
         backgroundColor: '#fff3cd', 

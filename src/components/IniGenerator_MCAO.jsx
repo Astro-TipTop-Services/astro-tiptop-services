@@ -104,7 +104,7 @@ const wavelengthByBand = {
 };
 
 const availableBandsByInstrument = {
-  MAVIS_MCAO: ['B', 'V','R','I'],
+  MAVIS_MCAO: ['B','V','R','I'],
   MORFEO_MCAO: ['I','J','H','K'],
 };
 
@@ -158,20 +158,62 @@ export default function IniGenerator() {
   const thetaCircle = Array.from({ length: circlePointsCount + 1 }, (_, i) => (360 / circlePointsCount) * i);
   const maxZenith = Math.max(...zenithArray, ...zenithLOArray, ...zenithHOArray);
 
-  //Imager area
- let imagerSize;
- let LGS_ast_radius;
- let Science_FoV_radius;
+  let imagerSize;
+  let imager_name;
+  let LGS_ast_radius;
+  let Science_FoV_radius;
+  let IFUfine_width;
+  let IFUfine_height;
+  let IFUcoarse_width;
+  let IFUcoarse_height;
     if (Key_instrument === 'MAVIS_MCAO') {
       imagerSize = 30;
+      imager_name = "Imager"
       LGS_ast_radius = 17.5;
       Science_FoV_radius = 42.4 / 2;
+      IFUfine_width = 2.5;
+      IFUfine_height = 3.6;
+      IFUcoarse_width = 5.0;
+      IFUcoarse_height = 7.2;
     } else {
       imagerSize = 50.5;
+      imager_name = "Imager (MICADO)";
       LGS_ast_radius = 45;
       Science_FoV_radius = 76 / 2;
     }
+
   const imagerRadius = (Math.sqrt(2) * imagerSize) / 2;
+  // IFU
+  const x0 = -10; 
+  const y0 = 0;
+  // fine
+  const IFUfine_rectPoints = [
+    [x0 - IFUfine_width/2, y0 - IFUfine_height/2],
+    [x0 - IFUfine_width/2, y0 + IFUfine_height/2],
+    [x0 + IFUfine_width/2, y0 + IFUfine_height/2],
+    [x0 + IFUfine_width/2, y0 - IFUfine_height/2],
+    [x0 - IFUfine_width/2, y0 - IFUfine_height/2], 
+  ];
+  const IFUfine_rRect = IFUfine_rectPoints.map(([x, y]) => Math.sqrt(x*x + y*y));
+  const IFUfine_thetaRect = IFUfine_rectPoints.map(([x, y]) => {
+    let angle = Math.atan2(y, x) * (180 / Math.PI);
+    if (angle < 0) angle += 360;
+    return angle;
+  });
+  // coarse
+  const IFUcoarse_rectPoints = [
+    [x0 - IFUcoarse_width/2, y0 - IFUcoarse_height/2],
+    [x0 - IFUcoarse_width/2, y0 + IFUcoarse_height/2],
+    [x0 + IFUcoarse_width/2, y0 + IFUcoarse_height/2],
+    [x0 + IFUcoarse_width/2, y0 - IFUcoarse_height/2],
+    [x0 - IFUcoarse_width/2, y0 - IFUcoarse_height/2], 
+  ];
+  const IFUcoarse_rRect = IFUcoarse_rectPoints.map(([x, y]) => Math.sqrt(x*x + y*y));
+  const IFUcoarse_thetaRect = IFUcoarse_rectPoints.map(([x, y]) => {
+    let angle = Math.atan2(y, x) * (180 / Math.PI);
+    if (angle < 0) angle += 360;
+    return angle;
+  });
 
   return (
     //*********PLOT************/
@@ -208,9 +250,11 @@ export default function IniGenerator() {
           mode: 'lines',
           line: {
             color: 'orange',
-            dash: 'dot',
+            dash: 'line',
             width: 1.5,
           },
+          // fill: 'toself',
+          // fillcolor: 'rgba(182, 152, 16, 0.15)',
           name: `NGS Field of view ${Fov}″Ø`,
           showlegend: true,
         },
@@ -221,9 +265,11 @@ export default function IniGenerator() {
           mode: 'lines',
           line: {
             color: 'blue',
-            dash: 'dot',
-            width: 1.5,
+            dash: 'line',
+            width: 1.1,
           },
+          // fill: 'toself',
+          // fillcolor: 'rgba(16, 102, 182, 0.15)',
           name: `Scientific Field of View ${Science_FoV_radius*2}"Ø`,
           showlegend: true,
         },
@@ -234,9 +280,11 @@ export default function IniGenerator() {
           mode: 'lines',
           line: {
             color: 'green',
-            dash: 'dot',
-            width: 1.5,
+            dash: 'line',
+            width: 1.1,
           },
+          // fill: 'toself',
+          // fillcolor: 'rgba(16, 182, 44, 0.14)',
           name: `LGS asterism ${LGS_ast_radius*2}"Ø`,
           showlegend: true,
         },
@@ -250,7 +298,39 @@ export default function IniGenerator() {
             dash: 'dot',
             width: 1.5,
           },
-          name: `Imager ${imagerSize}″×${imagerSize}″`,
+          fill: 'toself',
+          fillcolor: 'rgba(16, 102, 182, 0.15)',
+          name: `${imager_name} ${imagerSize}″×${imagerSize}″`,
+          showlegend: true,
+        },
+        {
+          type: 'scatterpolar',
+          r: IFUfine_rRect,
+          theta: IFUfine_thetaRect,
+          mode: 'lines',
+          line: {
+            color: 'red',
+            dash: 'dot',
+            width: 1.5,
+          },
+          fill: 'toself',
+          fillcolor: 'rgba(235, 19, 19, 0.14)',
+          name: `IFU Fine ${IFUfine_width}″×${IFUfine_height}″`,
+          showlegend: true,
+        },
+        {
+          type: 'scatterpolar',
+          r: IFUcoarse_rRect,
+          theta: IFUcoarse_thetaRect,
+          mode: 'lines',
+          line: {
+            color: 'purple',
+            dash: 'dot',
+            width: 1.5,
+          },
+          fill: 'toself',
+          fillcolor: 'rgba(182, 16, 154, 0.14)',
+          name: `IFU Coarse ${IFUcoarse_width}″×${IFUcoarse_height}″`,
           showlegend: true,
         },
       ]}
@@ -263,6 +343,15 @@ export default function IniGenerator() {
           },
           angularaxis: { rotation: 0, direction: 'counterclockwise' },
           bgcolor: '#f0f0f0',
+        },
+        legend: {
+          font: {
+            size:16,
+          },
+          x: 1.2,
+          y: 1,
+          xanchor: 'left',
+          yanchor: 'top',
         },
         // annotations: [
         //   {
@@ -308,7 +397,7 @@ export default function IniGenerator() {
 
   const magnitudeToPhotons = (mag) => {
     try {
-      if (!mag || isNaN(mag)) return '[0]';
+      if (mag == null || isNaN(mag)) return '[0]';
 
       let sensorKey = 'sensor_LO';
       let wavelengthKey = 'sources_LO';
@@ -327,6 +416,11 @@ export default function IniGenerator() {
         }
       } else if (typeof N_lenslet_raw === 'number' && N_lenslet_raw > 0) {
         N_lenslet = N_lenslet_raw;
+      } else if (Array.isArray(N_lenslet_raw) && N_lenslet_raw.length > 0) {
+        const num = Number(N_lenslet_raw[0]);
+        if (!isNaN(num) && num > 0) {
+          N_lenslet = num;
+        }
       }
 
       const sensorFrameRate = Number(params.RTC?.[rtcFrameRateKey]) || 1000;
@@ -389,9 +483,18 @@ export default function IniGenerator() {
       : Number(lambda_raw);
 
     let N_lenslet_raw = params[sensorKey]?.NumberLenslets;
-    let N_lenslet = typeof N_lenslet_raw === 'string'
-      ? Number(N_lenslet_raw.replace(/[\[\]]/g, '').split(',')[0])
-      : Number(N_lenslet_raw);
+    let N_lenslet = 20; 
+
+    if (typeof N_lenslet_raw === 'string') {
+      const parsed = N_lenslet_raw.replace(/[\[\]]/g, '').split(',')[0];
+      const num = Number(parsed);
+      if (!isNaN(num) && num > 0) N_lenslet = num;
+    } else if (typeof N_lenslet_raw === 'number' && N_lenslet_raw > 0) {
+      N_lenslet = N_lenslet_raw;
+    } else if (Array.isArray(N_lenslet_raw) && N_lenslet_raw.length > 0) {
+      const num = Number(N_lenslet_raw[0]);
+      if (!isNaN(num) && num > 0) N_lenslet = num;
+    }
 
     const F0 = getF0FromWavelength(lambda);
     const Tot_throughput = getTotThroughput(lambda);
@@ -419,7 +522,7 @@ export default function IniGenerator() {
   const onMagnitudeChange = (magValue) => {
     setMagnitude(magValue);
 
-    if (!magValue || isNaN(magValue)) {
+    if (magValue == null || isNaN(magValue)) {
       const section = 'sensor_LO' ;
       handleChange(section, 'NumberPhotons', '[0]');
       return;

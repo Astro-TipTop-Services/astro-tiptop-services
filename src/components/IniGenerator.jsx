@@ -181,7 +181,7 @@ export default function IniGenerator() {
 
   const magnitudeToPhotons = (mag) => {
     try {
-      if (!mag || isNaN(mag)) return '[0]';
+      if (mag == null || isNaN(mag)) return '[0]';
 
       let sensorKey = 'sensor_HO';
       let wavelengthKey = 'sources_HO';
@@ -307,7 +307,7 @@ export default function IniGenerator() {
   const onMagnitudeChange = (magValue) => {
     setMagnitude(magValue);
 
-    if (!magValue || isNaN(magValue)) {
+    if (magValue == null || isNaN(magValue)) {
       const section = systemKey === 'SCAO_LGS' ? 'sensor_LO' : 'sensor_HO';
       handleChange(section, 'NumberPhotons', '[0]');
       return;
@@ -722,7 +722,7 @@ export default function IniGenerator() {
                 <label>
                   {field}  <i>(nph/subaperture/frame)</i>:
                   <input
-                  type="number"
+                  type="text"
                   value={
                   Number(
                     String(params.sensor_HO[field]).replace(/[\[\]]/g, '')

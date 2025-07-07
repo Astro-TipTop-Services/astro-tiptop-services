@@ -104,8 +104,8 @@ const wavelengthByBand = {
 };
 
 const availableBandsByInstrument = {
-  MAVIS_MCAO: ['V','R','I','J','H','K','L','M'],
-  MORFEO_MCAO: ['V','R','I','J','H','K','L','M'],
+  MAVIS_MCAO: ['B', 'V','R','I'],
+  MORFEO_MCAO: ['I','J','H','K'],
 };
 
 export default function IniGenerator() {
@@ -160,10 +160,16 @@ export default function IniGenerator() {
 
   //Imager area
  let imagerSize;
+ let LGS_ast_radius;
+ let Science_FoV_radius;
     if (Key_instrument === 'MAVIS_MCAO') {
       imagerSize = 30;
+      LGS_ast_radius = 17.5;
+      Science_FoV_radius = 42.4 / 2;
     } else {
-      imagerSize = 50;
+      imagerSize = 50.5;
+      LGS_ast_radius = 45;
+      Science_FoV_radius = 76 / 2;
     }
   const imagerRadius = (Math.sqrt(2) * imagerSize) / 2;
 
@@ -173,19 +179,19 @@ export default function IniGenerator() {
       data={[
         {
           type: 'scatterpolar',
-          r: zenithArray,
-          theta: theta,
-          mode: 'markers',
-          marker: { color: 'blue', size: 10, symbol: 'star' },
-          name: 'Science Sources 💫',
-        },
-        {
-          type: 'scatterpolar',
           r: zenithLOArray,
           theta: azimuthLOArray,
           mode: 'markers',
           marker: { color: 'orange', size: sizeLO, symbol: 'star' },
           name: 'LO Sources - NGS ✴️',
+        },
+        {
+          type: 'scatterpolar',
+          r: zenithArray,
+          theta: theta,
+          mode: 'markers',
+          marker: { color: 'blue', size: 10, symbol: 'star' },
+          name: 'Science Sources 💫',
         },
          {
           type: 'scatterpolar',
@@ -201,11 +207,37 @@ export default function IniGenerator() {
           theta: thetaCircle,
           mode: 'lines',
           line: {
-            color: 'red',
+            color: 'orange',
             dash: 'dot',
-            width: 2,
+            width: 1.5,
           },
-          name: `Technical Field of view ${Fov}″Ø`,
+          name: `NGS Field of view ${Fov}″Ø`,
+          showlegend: true,
+        },
+        {
+          type: 'scatterpolar',
+          r: Array(circlePointsCount + 1).fill(Science_FoV_radius),
+          theta: thetaCircle,
+          mode: 'lines',
+          line: {
+            color: 'blue',
+            dash: 'dot',
+            width: 1.5,
+          },
+          name: `Scientific Field of View ${Science_FoV_radius*2}"Ø`,
+          showlegend: true,
+        },
+        {
+          type: 'scatterpolar',
+          r: Array(circlePointsCount + 1).fill(LGS_ast_radius),
+          theta: thetaCircle,
+          mode: 'lines',
+          line: {
+            color: 'green',
+            dash: 'dot',
+            width: 1.5,
+          },
+          name: `LGS asterism ${LGS_ast_radius*2}"Ø`,
           showlegend: true,
         },
         {
@@ -216,7 +248,7 @@ export default function IniGenerator() {
           line: {
             color: 'black',
             dash: 'dot',
-            width: 1,
+            width: 1.5,
           },
           name: `Imager ${imagerSize}″×${imagerSize}″`,
           showlegend: true,
@@ -226,7 +258,7 @@ export default function IniGenerator() {
         polar: {
           radialaxis: {
             visible: true,
-            range: [0, Math.max(...zenithArray, ...zenithLOArray, ...zenithHOArray) * 1.2 || 10],
+            range: [0, Math.max(...zenithArray, ...zenithLOArray, ...zenithHOArray) * 1.05 || 10],
             // range: Math.max(fovRadius * 1.05, maxZenith * 1.2 || 10),
           },
           angularaxis: { rotation: 0, direction: 'counterclockwise' },
@@ -246,7 +278,7 @@ export default function IniGenerator() {
         // ],
         paper_bgcolor: '#eef9fd',
         margin: { t: 20, b: 20, l: 20, r: 20 },
-        height: 385,
+        height: 400,
       }}
       config={{ displayModeBar: false }}
         />
@@ -1068,14 +1100,16 @@ export default function IniGenerator() {
       <hr />
       <div style={{marginTop:'-0.5rem', fontSize: 'small' }}>
         <i>
+        The Distance<sup>(1)</sup> and Angle<sup>(2)</sup> fields specify the position of a source 
+        (guide star or science target) in polar coordinates relative to the telescope’s pointing axis.<br/>
         <sup>(1)</sup> Distance corresponds to the <code>Zenith</code> parameter in the 
         <code>[sources_science]</code> section, and either the <code>[sources_HO]</code> or 
         <code>[sources_LO]</code> section, depending on the system. 
         {" "}
         {!expanded ? (
           <>
-          ⚠️ It should not be confused with the <code>ZenithAngle</code> parameter in 
-          the <code>[telescope]</code> section, which...{" "}
+          ⚠️ Do not confuse this with the <code>ZenithAngle</code> parameter in 
+        <code> [telescope]</code> section, which...{" "}
           <span 
             onClick={() => setExpanded(true)} 
             style={{ color: "blue", cursor: "pointer", userSelect: "none" }}
@@ -1086,16 +1120,18 @@ export default function IniGenerator() {
         </>
         ) : (
         <>
-          ⚠️ It should not be confused with the <code>ZenithAngle</code> parameter in 
-          the <code>[telescope]</code> section, which refers to the angle between the 
+          ⚠️ Do not confuse this with the <code>ZenithAngle</code> parameter in 
+        <code> [telescope]</code> section, which refers to the angle between the 
           telescope’s pointing direction and the zenith. <br/>
-          The <code>Zenith</code> (Distance<sup>(1)</sup>) value represents the distance (in arcseconds) between 
-          the guide star (or science source) and the telescope’s pointing axis.<br />
-          For instance, if both <code>Zenith</code> and <code>Azimuth</code> parameters, 
-          in the <code>[sources_science]</code> section are set to [0.0], the science source is 
-          located at the telescope’s pointing position.{" "}
-          {/* The <code>Zenith</code> value represents the radial component (in arcseconds) 
-            of the position of science sources or guide stars in polar coordinates, relative to the telescope’s pointing direction<br/> */}
+          {/* The <code>Zenith</code> (Distance<sup>(1)</sup>) value represents the distance (in arcseconds) between 
+          the guide star (or science source) and the telescope’s pointing axis.<br /> */}
+          <sup>(2)</sup> Angle corresponds to the <code>Azimuth</code> parameter in the 
+          <code>[sources_science]</code> section, and either the <code>[sources_HO]</code> or 
+          <code>[sources_LO]</code> section, depending on the system. <br/>
+          {/* For instance, if both <code>Zenith</code> and <code>Azimuth</code> parameters, 
+          in the <code>[sources_science]</code> section are set to [0.0], the science target is 
+          located at the telescope’s pointing position.{" "} */}
+          
           <span 
             onClick={() => setExpanded(false)} 
             style={{ color: "blue", cursor: "pointer", userSelect: "none" }}
@@ -1108,14 +1144,14 @@ export default function IniGenerator() {
         </i>
         </div>
 
-        <div style={{marginTop:'0.5rem', fontSize: 'small' }}>
+        {/* <div style={{marginTop:'0.5rem', fontSize: 'small' }}>
         <i>
         <sup>(2)</sup> Angle corresponds to the <code>Azimuth</code> parameter in the 
         <code>[sources_science]</code> section, and either the <code>[sources_HO]</code> or 
-        <code>[sources_LO]</code> section, depending on the system. 
+        <code>[sources_LO]</code> section, depending on the system. <br/>
+        It represents the angular coordinate (in degrees) in the polar coordinate system.
         </i>
-        </div>
-
+        </div> */}
         <div style={{marginTop:'0.5rem', fontSize: 'small' }}>
         <i>
         <sup>(3)</sup> The calculation of the <code>NumberPhotons</code> parameter, 

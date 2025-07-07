@@ -132,7 +132,7 @@ export default function IniGenerator() {
   }, [isClient]);
 
   const ScienceSourcesPlot = useCallback(
-    ({ zenithArray, azimuthArray, 
+    ({Fov, zenithArray, azimuthArray, 
   zenithLOArray, azimuthLOArray, numberPhotonsLO, 
   zenithHOArray, azimuthHOArray, numberPhotonsHO }) => {
     if (!Plot) return null;
@@ -190,9 +190,21 @@ export default function IniGenerator() {
           angularaxis: { rotation: 0, direction: 'counterclockwise' },
           bgcolor: '#f0f0f0',
         },
+        annotations: [
+          {
+            x: 0.06,
+            y: 0.83,
+            text: `Technical Field<br>of view ${Fov}''Ø`,
+            showarrow: false,
+            xref: 'paper',
+            yref: 'paper',
+            font: { size: 11 },
+            textangle: -68,
+          },
+        ],
         paper_bgcolor: '#eef9fd',
         margin: { t: 20, b: 20, l: 20, r: 20 },
-        height: 300,
+        height: 385,
       }}
       config={{ displayModeBar: false }}
         />
@@ -837,6 +849,7 @@ export default function IniGenerator() {
                       id={`mag-input-${index}`}
                       type="number"
                       step="0.1"
+                      max="21.55"
                       value={magVal}
                       onChange={(e) => {
                         const newMag = e.target.value;
@@ -947,6 +960,7 @@ export default function IniGenerator() {
 
 <div>
   <ScienceSourcesPlot
+      Fov={params.telescope.TechnicalFoV}
       zenithArray={JSON.parse(params.sources_science.Zenith || '[]')}
       azimuthArray={JSON.parse(params.sources_science.Azimuth || '[]')}
       zenithLOArray={JSON.parse(params.sources_LO.Zenith || '[]')}

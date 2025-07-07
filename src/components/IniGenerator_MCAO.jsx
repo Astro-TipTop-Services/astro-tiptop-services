@@ -166,6 +166,8 @@ export default function IniGenerator() {
   let IFUfine_height;
   let IFUcoarse_width;
   let IFUcoarse_height;
+  let x0;
+  let y0;
     if (Key_instrument === 'MAVIS_MCAO') {
       imagerSize = 30;
       imager_name = "Imager"
@@ -175,17 +177,23 @@ export default function IniGenerator() {
       IFUfine_height = 3.6;
       IFUcoarse_width = 5.0;
       IFUcoarse_height = 7.2;
+      x0 = -10;
+      y0 = 0;
     } else {
       imagerSize = 50.5;
       imager_name = "Imager (MICADO)";
       LGS_ast_radius = 45;
       Science_FoV_radius = 76 / 2;
+      IFUfine_width = 0.95;
+      IFUfine_height = 1.28;
+      IFUcoarse_width = 3.80;
+      IFUcoarse_height = 5.10;
+      x0 = 0;
+      y0 = 0;
     }
 
   const imagerRadius = (Math.sqrt(2) * imagerSize) / 2;
   // IFU
-  const x0 = -10; 
-  const y0 = 0;
   // fine
   const IFUfine_rectPoints = [
     [x0 - IFUfine_width/2, y0 - IFUfine_height/2],

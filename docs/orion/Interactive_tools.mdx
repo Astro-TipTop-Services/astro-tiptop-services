@@ -43,8 +43,10 @@ $$
 |-----------------------|:----------:|:---------:|:--------:|:---------:|:--------:|:-------:|:-------:|
 | $\text{extinction\_correction}$| $1.37$ | $0$ | $-1.26$ | $-2.15$ | $-2.49$ | $-3.03$ | $-3.29$ |
 </div>
+<div style={{ textAlign: 'justify'}}>
 This formula converts the visual magnitude, corrected for spectral band extinction, into the expected number of photons detected per subaperture per frame. 
 It takes into account instrumental parameters such as the telescope’s effective collecting area, the number of wavefront sensor lenslets, the total system throughput, and the wavefront sensor's frame rate.
+</div>
 
 Below is an interactive interface that allows you to calculate the `NumberPhotons` TipTop parameter from a given magnitude for the selected instrument.
 <Mag2Photons />

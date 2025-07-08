@@ -360,7 +360,7 @@ export default function IniGenerator() {
             size:16,
           },
           x: 1.2,
-          y: 1,
+          y: 0.9,
           xanchor: 'left',
           yanchor: 'top',
         },

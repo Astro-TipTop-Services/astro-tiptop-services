@@ -168,6 +168,7 @@ export default function IniGenerator() {
   let IFUcoarse_height;
   let x0;
   let y0;
+  let IFUname;
     if (Key_instrument === 'MAVIS_MCAO') {
       imagerSize = 30;
       imager_name = "Imager"
@@ -179,6 +180,7 @@ export default function IniGenerator() {
       IFUcoarse_height = 7.2;
       x0 = -10;
       y0 = 0;
+      IFUname = "IFU"
     } else {
       imagerSize = 50.5;
       imager_name = "Imager (MICADO)";
@@ -190,6 +192,7 @@ export default function IniGenerator() {
       IFUcoarse_height = 5.10;
       x0 = 0;
       y0 = 0;
+      IFUname = "IFU (HARMONI)"
     }
 
   const imagerRadius = (Math.sqrt(2) * imagerSize) / 2;
@@ -323,7 +326,7 @@ export default function IniGenerator() {
           },
           fill: 'toself',
           fillcolor: 'rgba(182, 16, 154, 0.14)',
-          name: `IFU Coarse ${IFUcoarse_width}″×${IFUcoarse_height}″`,
+          name: `${IFUname} Coarse ${IFUcoarse_width}″×${IFUcoarse_height}″`,
           showlegend: true,
         },
         {
@@ -338,7 +341,7 @@ export default function IniGenerator() {
           },
           fill: 'toself',
           fillcolor: 'rgba(235, 19, 19, 0.14)',
-          name: `IFU Fine ${IFUfine_width}″×${IFUfine_height}″`,
+          name: `${IFUname} Fine ${IFUfine_width}″×${IFUfine_height}″`,
           showlegend: true,
         },
       ]}

@@ -16,9 +16,9 @@ Here, you’ll find all the resources you need to:
 
 - <span style={{ fontSize: '1.5rem' }}>🔭</span> [Set up TipTop depending on the type of AO system you want to simulate](/docs/orion/howtosetup)
 
-- <span style={{ fontSize: '1.5rem' }}>🔎</span> [Adapt your input files to available AO instruments and explore examples](/docs/orion/AO_instruments),
+- <span style={{ fontSize: '1.5rem' }}>🔎</span> [Adapt your input files to available AO instruments and explore examples](/docs/orion/AO_instruments.mdx),
 
-- <span style={{ fontSize: '1.5rem' }}>💻</span> [Generate input files with interactive tools](/docs/orion/Interactive_tools),
+- <span style={{ fontSize: '1.5rem' }}>💻</span> [Generate input files with interactive tools](/docs/orion/Interactive_tools.mdx),
 
 - <span style={{ fontSize: '1.5rem' }}>💡</span> [Understand the structure and parameters of the input files](/docs/orion/parameterfiles)
 

@@ -2,7 +2,7 @@
 Created on Mon Jun 23 10:58:33 2025
 Run a TIPTOP simulation and display PSFs
 
-@author: lmazzolo
+@author: astro-tiptop-services
 """
 
 #%% Import necessary libraries
@@ -96,13 +96,10 @@ plot_psf(psf_dl, 'Diffraction', 2)
 plot_psf(psf_turb, 'Open loop', 3)
 
 #%% Plot the radial profile
-profiles = np.squeeze(profiles)
-print(f"Profile shape after squeeze: {profiles.shape}") 
-
-radii = np.arange(profiles.shape[1])
+radii = profiles[0,0,:]
 
 plt.figure(figsize=(8, 6))
-plt.plot(radii, profiles[1, :], label='AO profile')
+plt.plot(radii, profiles[1,0,:], label='AO profile')
 max_radius = radii.max()
 plt.xlim(0, 0.75 * max_radius)
 plt.xlabel('Radial distance (pixels)')
@@ -110,4 +107,4 @@ plt.ylabel('Normalized intensity')
 plt.yscale("log")
 plt.title(f'Radial profile - AO corrected PSF - @{int(wvl)} nm')
 plt.legend()
-plt.grid(True)
+plt.grid(True, which='both', linestyle='--', linewidth=0.5, color='gray', alpha=0.7)

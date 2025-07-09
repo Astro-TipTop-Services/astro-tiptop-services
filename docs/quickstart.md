@@ -23,7 +23,7 @@ or, on Windows PowerShell:
 ## Running a Simulation with TipTop
 
 To run a simulation with **TipTop**, you will need:
-- ➡️ **A launch script** (see: [**How to set up a launch script for TipTop?**](/docs/orion/howtosetuplaunchfile)) which:
+- ➡️ **A launch script** (see: [**Set Up a Launch Script for TipTop and Display Results**](/docs/orion/howtosetuplaunchfile)) which:
     - Loads the simulation parameters from a `.ini` file (e.g., `minimalPar.ini`)
     - Initializes the necessary modules
     - Starts the simulation 
@@ -113,7 +113,7 @@ To run a simulation with **TipTop**, you will need:
 
 
     ✏️ **Note:** For a detailed explanation of the `.ini` parameter file structure and syntax, please refer to the [**Parameter Files**](/docs/orion/parameterfiles.md) page. 
-    Guidance on configuring **TipTop** for your chosen adaptive optics system is available in [**How to set up TipTop according to the AO mode?**](/docs/orion/howtosetup.md).
+    Guidance on configuring **TipTop** for your chosen adaptive optics system is available in [**Set Up TipTop According to the AO Mode**](/docs/orion/howtosetup.md).
 
 ## Simulation Output
 

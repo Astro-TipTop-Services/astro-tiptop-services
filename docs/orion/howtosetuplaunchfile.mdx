@@ -1,7 +1,7 @@
 ---
 id: howtosetuplaunchfile
-title: How to set up a launch script for TipTop?
-sidebar_label: How to set up a launch script for TipTop?
+title: Set Up a Launch Script for TipTop and Display Results
+sidebar_label: Set Up a Launch Script for TipTop and Display Results
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -35,141 +35,292 @@ where:
 A detailed documentation on the `overallSimulation` function is available [**below**](/docs/orion/howtosetuplaunchfile#overallSimulation).
 
 
-### More complete launch file {#completerunfile}
+### More complete launch script {#completerunfile}
 
-Below is an example of a more advanced launch file. It **runs a simulation** 
-for the ERIS instrument (see [**here**](/docs/orion/aoinstruments#eris)) and **extracts key outputs**, including **PSFs** 
-and **performance metrics** (e.g., Strehl Ratio (SR), Full Width at Half Maximum (FWHM)) from the output `.fits` file 
-(see [**Simulation Output**](/docs/orion/howtosetuplaunchfile#simulation_output) below). 
-It also generates log-scaled intensity **plots of the PSFs** and a semi-logarithmic **radial profile plot**.<br/>
+<div style={{ textAlign: "justify" }}>
+Below is an example of a more advanced launch script (suitable for <span style={{ color: "rgb(30, 120, 255)" }}>**a single science source**</span>).
+It **runs a simulation** for the [**ERIS instrument**](/docs/orion/aoinstruments#eris) and 
+**extracts key outputs**, including **PSFs** and **performance metrics** (e.g., Strehl Ratio (SR), 
+Full Width at Half Maximum (FWHM)) from the output FITS file (see [**Simulation Output**](/docs/orion/howtosetuplaunchfile#simulation_output) below). 
+It also generates log-scaled intensity plots of the **AO PSF**, **diffraction limited PSF**, and **seeing limited PSF**, as well as a log-scaled **radial profile plot**.<br/>
 ✅ You can adapt this script by changing the input/output paths and filenames to match your configuration.<br/>
 The full example script is available for download 
-<a href={`${useBaseUrl('/downloads/TIPTOP_RUN.py')}`} download="TIPTOP_RUN.py">**here**<span style={{ fontSize: '1.5em' }}>📥</span></a>.
+<a href={`${useBaseUrl('/downloads/TIPTOP_RUN_DISPLAY.py')}`} download="TIPTOP_RUN_DISPLAY.py">**here**<span style={{ fontSize: '1.5em' }}>📥</span></a>.
 
 <details>
-  <summary><strong>Example run file: `TIPTOP_RUN.py`</strong></summary>
-  ```python
-"""
-Created on Mon Jun 23 10:58:33 2025
-Run a TIPTOP simulation and display PSFs
-
-@author: lmazzolo
-"""
-
-#%% Import necessary libraries
-from tiptop.tiptop import *
-from astropy.io import fits
-import matplotlib.pyplot as plt
-from matplotlib.colors import LogNorm
-import numpy as np
-
-#%% Define input and output paths and filenames
-#💡 You should customize these paths and filenames according to your setup
-path_in = "./"  # Path to the folder containing your .ini parameter file
-path_out = "./" # Path where output files will be saved
-
-file_in = "ERIS_SCAO_NGS"  # Name of the input parameter file (without extension)
-file_out = "ERIS_SCAO_NGS" # Name to use for the output files
-
-#%% Define a helper function to extract metrics from the FITS header
-def get_metric(header, metric_name, index=0):
+    <summary><strong>Example run and display script for a single science source: `TIPTOP_RUN_DISPLAY.py`</strong></summary>
+    ```python
     """
-    Retrieve a value from the FITS header with a formatted key.
+    Created on Mon Jun 23 10:58:33 2025
+    Run a TIPTOP simulation and display PSFs
 
-    :param header: FITS header
-    :param metric_name: name of the metric (e.g., 'SR')
-    :param index: index of the metric (default 0)
-    :return: value or None if key not found
+    @author: astro-tiptop-services
     """
-    key = f"{metric_name}{index:04d}"
-    return header.get(key)
 
-#%% Run the TIPTOP simulation
-overallSimulation(path_in, file_in, 
-                  path_out, file_out)
+    #%% Import necessary libraries
+    from tiptop.tiptop import *
+    from astropy.io import fits
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import LogNorm
+    import numpy as np
+
+    #%% Define input and output paths and filenames
+    #💡 You should customize these paths and filenames according to your setup
+    path_in = "./"  # Path to the folder containing your .ini parameter file
+    path_out = "./" # Path where output files will be saved
+
+    file_in = "ERIS_SCAO_NGS"  # Name of the input parameter file (without extension)
+    file_out = "ERIS_SCAO_NGS" # Name to use for the output files
+
+    #%% Define a helper function to extract metrics from the FITS header
+    def get_metric(header, metric_name, index=0):
+        """
+        Retrieve a value from the FITS header with a formatted key.
+
+        :param header: FITS header
+        :param metric_name: name of the metric (e.g., 'SR')
+        :param index: index of the metric (default 0)
+        :return: value or None if key not found
+        """
+        key = f"{metric_name}{index:04d}"
+        return header.get(key)
+
+    #%% Run the TIPTOP simulation
+    overallSimulation(path_in, file_in, 
+                    path_out, file_out)
 
 
-#%% Open the resulting FITS file and extract data 
-with fits.open(path_out + file_out + '.fits') as hdul:
-    hdul.info()
-    psf_ao = hdul[1].data[0,...] # AO-corrected PSF
-    psf_turb = hdul[2].data      # Seeing-limited PSF
-    psf_dl = hdul[3].data        # Diffraction-limited PSF
-    profiles = hdul[4].data      # PSF profile
-    
-    header = hdul[1].header      # FITS header for metadata
+    #%% Open the resulting FITS file and extract data 
+    with fits.open(path_out + file_out + '.fits') as hdul:
+        hdul.info()
+        psf_ao = hdul[1].data[0,...] # AO-corrected PSF
+        psf_turb = hdul[2].data      # Seeing-limited PSF
+        psf_dl = hdul[3].data        # Diffraction-limited PSF
+        profiles = hdul[4].data      # PSF profile
+        
+        header = hdul[1].header      # FITS header for metadata
 
-    # Extract useful parameters
-    wvl = float(header.get("WL_NM"))       # Wavelength in nm
-    pix_mas = float(header.get("PIX_MAS")) # Pixel scale in milliarcseconds
-    sr = get_metric(header, "SR")          # Strehl ratio
-    fwhm = get_metric(header, "FWHM")      # FWHM in milliarcsecond
+        # Extract useful parameters
+        wvl = float(header.get("WL_NM"))       # Wavelength in nm
+        pix_mas = float(header.get("PIX_MAS")) # Pixel scale in milliarcseconds
+        sr = get_metric(header, "SR")          # Strehl ratio
+        fwhm = get_metric(header, "FWHM")      # FWHM in milliarcsecond
 
-    # Print key metrics
-    print("Pixel scale [mas]:", pix_mas)
-    print("Strehl Ratio:", sr)
-    print("FWHMs [mas]:", fwhm)
+        # Print key metrics
+        print("Pixel scale [mas]:", pix_mas)
+        print("Strehl Ratio:", sr)
+        print("FWHMs [mas]:", fwhm)
 
-#%% Normalize the PSFs so total flux = 1
-psf_ao /= np.sum(psf_ao)
-psf_dl /= np.sum(psf_dl)
-psf_turb /= np.sum(psf_turb)
+    #%% Normalize the PSFs so total flux = 1
+    psf_ao /= np.sum(psf_ao)
+    psf_dl /= np.sum(psf_dl)
+    psf_turb /= np.sum(psf_turb)
 
-#%% Create axis in arcseconds
-nx = psf_ao.shape[0]
-axis = np.linspace(-nx//2, nx//2, nx) * pix_mas * 1e-3
+    #%% Create axis in arcseconds
+    nx = psf_ao.shape[0]
+    axis = np.linspace(-nx//2, nx//2, nx) * pix_mas * 1e-3
 
-#%% Plot the PSFs
-# Compute dynamic normalization based on the AO PSF
-psf_max = psf_ao.max()
-vmax = psf_max
-vmin = psf_max * 1e-6  # Adjust dynamic range: show down to 1 millionth of max
-norm = LogNorm(vmin=vmin, vmax=vmax) # Set log scale for display
+    #%% Plot the PSFs
+    # Compute dynamic normalization based on the AO PSF
+    psf_max = psf_ao.max()
+    vmax = psf_max
+    vmin = psf_max * 1e-6  # Adjust dynamic range: show down to 1 millionth of max
+    norm = LogNorm(vmin=vmin, vmax=vmax) # Set log scale for display
 
-plt.figure(1, figsize=(20,5))
-plt.suptitle(r'$\lambda_{\mathrm{science}} = %d$ nm' % int(wvl), y=1) 
-plt.subplots_adjust(top=0.85)
+    plt.figure(1, figsize=(20,5))
+    plt.suptitle(r'$\lambda_{\mathrm{science}} = %d$ nm' % int(wvl), y=1) 
+    plt.subplots_adjust(top=0.85)
 
-def plot_psf(psf, title, position):
-    """Plot a PSF in a given subplot position."""
-    plt.subplot(1, 3, position)
-    plt.imshow(psf, norm=norm, cmap='Spectral_r',
-               extent=[axis[0], axis[-1], axis[0], axis[-1]])
-    plt.title(title, pad=10)
-    plt.xlabel('[arcsec]')
-    if position == 1:
-        plt.ylabel('[arcsec]', labelpad=10)
-    else:
-        plt.ylabel('')
-    plt.colorbar(fraction=0.046)
+    def plot_psf(psf, title, position):
+        """Plot a PSF in a given subplot position."""
+        plt.subplot(1, 3, position)
+        plt.imshow(psf, norm=norm, cmap='Spectral_r',
+                extent=[axis[0], axis[-1], axis[0], axis[-1]])
+        plt.title(title, pad=10)
+        plt.xlabel('[arcsec]')
+        if position == 1:
+            plt.ylabel('[arcsec]', labelpad=10)
+        else:
+            plt.ylabel('')
+        plt.colorbar(fraction=0.046)
 
-plot_psf(psf_ao, f'AO (SR={sr*100:.1f}%, FWHM={fwhm:.1f}mas)', 1)
-plot_psf(psf_dl, 'Diffraction', 2)
-plot_psf(psf_turb, 'Open loop', 3)
+    plot_psf(psf_ao, f'AO (SR={sr*100:.1f}%, FWHM={fwhm:.1f}mas)', 1)
+    plot_psf(psf_dl, 'Diffraction', 2)
+    plot_psf(psf_turb, 'Open loop', 3)
 
-#%% Plot the radial profile
-profiles = np.squeeze(profiles)
-print(f"Profile shape after squeeze: {profiles.shape}") 
+    #%% Plot the radial profile
+    radii = profiles[0,0,:]
 
-radii = np.arange(profiles.shape[1])
+    plt.figure(figsize=(8, 6))
+    plt.plot(radii, profiles[1,0,:], label='AO profile')
+    max_radius = radii.max()
+    plt.xlim(0, 0.75 * max_radius)
+    plt.xlabel('Radial distance (pixels)')
+    plt.ylabel('Normalized intensity')
+    plt.yscale("log")
+    plt.title(f'Radial profile - AO corrected PSF - @{int(wvl)} nm')
+    plt.legend()
+    plt.grid(True, which='both', linestyle='--', linewidth=0.5, color='gray', alpha=0.7)
+    ```
 
-plt.figure(figsize=(8, 6))
-plt.plot(radii, profiles[1, :], label='AO profile')
-max_radius = radii.max()
-plt.xlim(0, 0.75 * max_radius)
-plt.xlabel('Radial distance (pixels)')
-plt.ylabel('Normalized intensity')
-plt.yscale("log")
-plt.title(f'Radial profile - AO corrected PSF - @{int(wvl)} nm')
-plt.legend()
-plt.grid(True)
-  ```
+</details> 
+</div>
 
-  </details> 
+### More complete display script {#completedisplayfile}
+
+<div style={{ textAlign: "justify" }}>
+Below is an example of a more complete display script (suitable for <span style={{ color: "rgb(30, 120, 255)" }}>**multiple science sources**</span>).
+It **loads the generated FITS file** obtained after running TipTop — in this case, for the 
+[**MORFEO instrument**](/docs/orion/aoinstruments#morfeo). It extracts the **PSFs** and **performance 
+metrics** such as Strehl Ratio (SR) and Full Width at Half Maximum (FWHM), for each science source. 
+It also recomputes SR and FWHM from the PSF data to enable consistency checks with the stored header 
+values. <br/>
+This script then displays the **AO PSFs** in a log-scaled **grid layout**, annotated with zenith/azimuth 
+coordinates and performance metrics, allowing for quick visual assessment of PSF quality across the field. 
+In addition, it plots the normalized **radial PSF profiles** in log-log scale for all sources.<br/>
+✅ You can adapt this script to your own simulation results by modifying the file names and paths.<br/>
+The full example script is available for download 
+<a href={`${useBaseUrl('/downloads/TIPTOP_DISPLAY.py')}`} 
+download="TIPTOP_DISPLAY.py">**here**<span style={{ fontSize: '1.5em' }}>📥</span></a>.
+
+<details>
+    <summary><strong>Example display script for multiple science sources: `TIPTOP_DISPLAY.py`</strong></summary>
+    ```python
+    """
+    Created on Wed Jul 09 10:50:35 2025
+    Display multiple AO PSFs in a grid
+
+    @author: astro-tiptop-services
+    """
+
+    #%% =============================================================================
+    # Import necessary libraries
+    from tiptop.tiptop import *
+    import matplotlib.pyplot as plt
+    import matplotlib.colors as mcolors
+
+    #%% =============================================================================
+    # Define input and output paths
+    #💡 Adapt these paths to your environment
+    path_in = "./"    # Folder containing the .ini parameter file
+    path_out = "./"   # Folder containing the output FITS file 
+
+    inTag = "MORFEO"  # Name of the input parameter file (without extension)
+    outTag = "MORFEO" # Name of the output FITS file
+
+    inputFile = f"{path_in}{inTag}.ini"
+    outputFile = f"{path_out}{outTag}.fits"
+
+    #%% =============================================================================
+    # Load AO system and compute key parameters
+    ao = aoSystem(inputFile)
+    wvl = ao.src.wvl[0]  # Science wavelength
+    rad2mas = 3600 * 180 * 1000 / np.pi # Convert radians to milliarcseconds
+    pixel_scale_mas = ao.cam.psInMas
+    sampRef = wvl * rad2mas / (pixel_scale_mas*2*ao.tel.R) # Sampling reference
+
+    #%% =============================================================================
+    # Load FITS file and extract PSFs and metadata
+    hdul = fits.open(path_out + outTag + '.fits')
+
+    # Extract header and map dictionary
+    header = hdul[0].header 
+    map_dictionary = hdr2map(header)
+
+    # Extract SR and FWHM values from header
+    psf = hdul[1].data
+    psf_header = hdul[1].header 
+    n_psf = len(psf)
+
+    # Extract SR and FWHM values from the header of the PSF HDU
+    sr_list = [psf_header[f"SR{str(i).zfill(4)}"] for i in range(n_psf)]
+    fwhm_list = [psf_header[f"FWHM{str(i).zfill(4)}"] for i in range(n_psf)]
+
+    # Load PSF profiles (can be in HDU 4 or 5 depending on save options)
+    header4 = hdul[4].header
+    profile = hdul[4].data if header4.get('CONTENT') == 'Final PSFs profiles' else hdul[5].data
+
+    #%% =============================================================================
+    # Compare header SR/FWHM values with computed values
+    print('Compare SR and FWHM from header with computed values:')
+    for i in range(n_psf):
+        zenith = map_dictionary['sources_science']['Zenith'][i]
+        azimuth= map_dictionary['sources_science']['Azimuth'][i]
+        print(f'Zenith: {zenith}, Azimuth: {azimuth}')
+        sr_comp = FourierUtils.getStrehl(psf[i], ao.tel.pupil, sampRef, method='otf')
+        fwhm_comp = FourierUtils.getFWHM(psf[i], ao.cam.psInMas, nargout=1)
+        print(f'     SR (computed)   : {sr_comp:.5f}')
+        print(f'     SR (from header): {sr_list[i]:.5f}')
+        print(f'     FWHM (computed) : {fwhm_comp:.5f}')
+        print(f'     FWHM (from hdr) : {fwhm_list[i]:.5f}')
+
+    #%% =============================================================================
+    # Display PSFs in a square grid
+    # => grid is made by same number of rows and columns
+    max_display = int(np.floor(np.sqrt(n_psf))) ** 2  
+    n_rows = int(np.sqrt(max_display))
+    n_cols = n_rows
+
+    crop_size = 4
+    nx = FourierUtils.cropSupport(psf[0], crop_size).shape[0]
+    axis = np.linspace(-nx//2, nx//2, nx) * pixel_scale_mas * 1e-3
+
+    fig, axs = plt.subplots(n_rows, n_cols, figsize=(12, 12), constrained_layout=True)
+    for i in range(max_display):
+        ax = axs.flat[i]
+        zenith = float(map_dictionary['sources_science']['Zenith'][i])
+        azimuth = float(map_dictionary['sources_science']['Azimuth'][i])
+        img = ax.imshow(FourierUtils.cropSupport(psf[i], crop_size),
+                        cmap='Spectral_r',
+                        extent=[axis[0], axis[-1], axis[0], axis[-1]],
+                        norm=mcolors.LogNorm(vmin=np.max(psf)*1e-4,
+                                            vmax=np.max(psf)))
+        ax.text(0.05, 0.05,
+            f'Zen:{zenith:.0f}", Azi:{azimuth:.0f}°\nSR:{sr_list[i]*100:.1f}%, FWHM:{fwhm_list[i]:.1f} mas',
+            color='white', fontsize=9, transform=ax.transAxes,
+            bbox=dict(facecolor='black', alpha=0.5, lw=0))
+        if i % n_cols == 0:
+            ax.set_ylabel('Arcsec', fontsize=10)
+        else:
+            ax.set_yticks([])
+        if i // n_cols == n_rows - 1:
+            ax.set_xlabel('Arcsec', fontsize=10)
+        else:
+            ax.set_xticks([])
+        # Set tick parameters
+        ax.tick_params(labelsize=10, color='white')
+        # Add a small colorbar to the right of each subplot
+        cbar = plt.colorbar(img, ax=ax, fraction=0.046, pad=0.01)
+        cbar.ax.tick_params(labelsize=6)
+
+    #%% =============================================================================
+    # Plot normalized PSF profiles in log-log scale
+    plt.figure(figsize=(10, 8))
+    colors = plt.cm.tab20(np.linspace(0, 1, n_psf))
+
+    for i in range(n_psf):
+        zenith = float(map_dictionary['sources_science']['Zenith'][i])
+        azimuth = float(map_dictionary['sources_science']['Azimuth'][i])
+        y_norm = profile[1,i,:] / np.max(profile[1,i,:])
+        x = profile[0,i,:]
+        plt.plot(x, y_norm, label=f'Zen: {zenith:.1f}", Azi: {azimuth:.1f}°',
+                color=colors[i], linewidth=1.5)
+    plt.xscale('log')
+    plt.yscale('log')
+    plt.xlabel('Distance [mas]', fontsize=12)
+    plt.ylabel('PSF profile norm. to max', fontsize=12)
+    plt.title('PSF Profiles', fontsize=14)
+    plt.grid(True, which='both', linestyle='--', linewidth=0.5, color='gray', alpha=0.7)
+    plt.legend(loc='lower left',  fontsize=10, ncol=2)
+    plt.tight_layout()
+    plt.show()
+    ```
+
+    </details> 
 
 ✏️**Note:** Results for the different AO instruments presented [**here**](/docs/orion/aoinstruments) 
-were obtained by running this script with the corresponding provided `.ini` files.
-
+were obtained by running the previous two scripts with the corresponding provided `.ini` files.
+</div>
 
 ## Simulation Output {#simulation_output}
 

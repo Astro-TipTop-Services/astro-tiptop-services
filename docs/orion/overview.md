@@ -12,7 +12,7 @@ Here, you’ll find all the resources you need to:
 
 - <span style={{ fontSize: '1.5rem' }}>🏃‍➡️</span> [Get started quickly with TipTop](/docs/orion/usage),
 
-- <span style={{ fontSize: '1.5rem' }}>🚀</span> [Configure your launch scripts](/docs/orion/howtosetuplaunchfile),
+- <span style={{ fontSize: '1.5rem' }}>🚀</span> [Configure your launch scripts and display the results](/docs/orion/howtosetuplaunchfile),
 
 - <span style={{ fontSize: '1.5rem' }}>🔭</span> [Set up TipTop depending on the type of AO system you want to simulate](/docs/orion/howtosetup)
 

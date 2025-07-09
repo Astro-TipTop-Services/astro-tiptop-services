@@ -33,4 +33,13 @@ publications:
   permalink: /publications
   description: Publications tag description
 
+NewRelease:
+  label: ReleaseUpdate
+  permalink: /ReleaseUpdate
+  description: NewRelease tag description
+
+TipTop:
+  label: TipTop
+  permalink: /TipTop
+  description: TipTop tag description
 

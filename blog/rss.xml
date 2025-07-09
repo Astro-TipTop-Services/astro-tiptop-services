@@ -4,10 +4,27 @@
         <title>Astro-TipTop Services Blog</title>
         <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog</link>
         <description>Astro-TipTop Services Blog</description>
-        <lastBuildDate>Wed, 21 May 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 02 Jul 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[📢Tiptop v1.3.26 released!]]></title>
+            <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_v1.3.26</link>
+            <guid>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_v1.3.26</guid>
+            <pubDate>Wed, 02 Jul 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Tiptop v1.3.26 is here! 🎉]]></description>
+            <content:encoded><![CDATA[<p>Tiptop v1.3.26 is here! 🎉<br>
+<!-- -->This version brings you a smoother experience with:</p>
+<p>🐞 Bug fixes
+⚙️ Minor improvements
+🚀 Performance tweaks</p>
+<p>Ready to upgrade?<br>
+<!-- -->Check it out on PyPI 👉 <a href="https://pypi.org/project/astro-tiptop/" target="_blank" rel="noopener noreferrer"><strong>astro-tiptop</strong></a></p>]]></content:encoded>
+            <category>Publications</category>
+            <category>TipTop</category>
+            <category>ReleaseUpdate</category>
+        </item>
         <item>
             <title><![CDATA[Exciting News!]]></title>
             <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_publication</link>

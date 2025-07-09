@@ -2,11 +2,32 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog</id>
     <title>Astro-TipTop Services Blog</title>
-    <updated>2025-05-21T00:00:00.000Z</updated>
+    <updated>2025-07-02T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog"/>
     <subtitle>Astro-TipTop Services Blog</subtitle>
     <icon>https://astro-tiptop-services.github.io/astro-tiptop-services/img/logo_astro-tiptop_cropped.png</icon>
+    <entry>
+        <title type="html"><![CDATA[📢Tiptop v1.3.26 released!]]></title>
+        <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_v1.3.26</id>
+        <link href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_v1.3.26"/>
+        <updated>2025-07-02T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Tiptop v1.3.26 is here! 🎉]]></summary>
+        <content type="html"><![CDATA[<p>Tiptop v1.3.26 is here! 🎉<br>
+<!-- -->This version brings you a smoother experience with:</p>
+<p>🐞 Bug fixes
+⚙️ Minor improvements
+🚀 Performance tweaks</p>
+<p>Ready to upgrade?<br>
+<!-- -->Check it out on PyPI 👉 <a href="https://pypi.org/project/astro-tiptop/" target="_blank" rel="noopener noreferrer"><strong>astro-tiptop</strong></a></p>]]></content>
+        <author>
+            <name>Astro-TipTop Team</name>
+            <uri>https://astro-tiptop-servoces.github.io/astro-tiptop-services/</uri>
+        </author>
+        <category label="Publications" term="Publications"/>
+        <category label="TipTop" term="TipTop"/>
+        <category label="ReleaseUpdate" term="ReleaseUpdate"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Exciting News!]]></title>
         <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_publication</id>

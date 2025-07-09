@@ -34,7 +34,7 @@ const FeatureList = [
     ),
   },
   {
-    title: (<a href="/astro-tiptop-services/faq"> Astro-TipTop Support </a>),
+    title: (<a href="resources/contact"> Astro-TipTop Support </a>),
     img: 'img/tiptop_assistance.png',
     description: (
       <>

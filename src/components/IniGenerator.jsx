@@ -796,7 +796,7 @@ export default function IniGenerator() {
                 <label>
                   {field} <i>(nph/subaperture/frame)</i>:
                   <input
-                  type="number"
+                  type="text"
                   value={
                   Number(
                     String(params.sensor_LO[field]).replace(/[\[\]]/g, '')

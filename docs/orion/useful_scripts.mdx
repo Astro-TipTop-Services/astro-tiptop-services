@@ -53,8 +53,7 @@ outTagBase = "MICADO"
 
 #%% =============================================================================
 # === Define parameters to sweep ===
-# Format: (section_name, key_name, list_of_values : min, max, number of values)
-
+# 💡 Format: (section_name, key_name, list_of_values : min, max, number of values)
 param_sweep = [
     ("atmosphere", "Seeing", np.linspace(0.8, 2.0, 3)),
     ("telescope", "ZenithAngle", np.linspace(0.0, 60.0, 3)),

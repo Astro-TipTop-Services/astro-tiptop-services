@@ -20,6 +20,8 @@ Here, you’ll find all the resources you need to:
 
 - <span style={{ fontSize: '1.5rem' }}>💻</span> [Generate input files with interactive tools](/docs/orion/Interactive_tools.mdx),
 
+- <span style={{ fontSize: '1.5rem' }}>🧑‍💻</span> [Additional scripts and tools for extended functionality](/docs/orion/useful_scripts.mdx),
+
 - <span style={{ fontSize: '1.5rem' }}>💡</span> [Understand the structure and parameters of the input files](/docs/orion/parameterfiles)
 
 Whether you're just getting started or already experienced, these resources will help you make the most of TipTop.

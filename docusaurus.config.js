@@ -156,6 +156,10 @@ const config = {
                 to: '/docs/orion/interactivetools'
               },
               {
+                label: '• Useful Scripts & Companion Tools',
+                to: '/docs/orion/useful_scripts'
+              },
+              {
                 label: '• Parameter files explained',
                 to: '/docs/orion/parameterfiles',
               },

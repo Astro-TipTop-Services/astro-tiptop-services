@@ -81,19 +81,6 @@ const sidebars = {
     },
   ],
 
-  // resourcesSidebar: [
-  //   {
-  //     type: 'link',
-  //     label: 'About us',
-  //     href: '/resources/about_us'
-  //   },
-  //   {
-  //     type: 'link',
-  //     label: 'Contact',
-  //     href: '/resources/contact'
-  //   },
-  // ],
-
 };
 
 export default sidebars;

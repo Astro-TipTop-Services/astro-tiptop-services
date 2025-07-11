@@ -131,10 +131,6 @@ const config = {
                 to: '/docs/orion/overview',
                 className: 'menu-section-header',
               },
-              // {
-              //   label: '• Overview',
-              //   to: '/docs/orion/overview',
-              // },
               {
                 label: '• Quickstart',
                 to: '/docs/orion/usage',
@@ -163,14 +159,6 @@ const config = {
                 label: '• Parameter files explained',
                 to: '/docs/orion/parameterfiles',
               },
-              // {
-              //   label: '• Examples',
-              //   to: '/docs/orion/examples',
-              // },
-              // {
-              //   label: '• API Reference',
-              //   to: '/docs/orion/api_reference',
-              // },
               {
                 label: 'TipTop | Asterism selection',
                 to: '/docs/aquila/overview', 
@@ -188,23 +176,19 @@ const config = {
               },
             ]
           },
-          // {to: '/news', label: 'News & Updates', position: 'left'},
+        
           {to: '/blog', label: 'News & Updates', position: 'left'},
           {
             type: 'dropdown',
             sidebarId: 'Resources',
             position: 'left',
             label: 'Resources',
-            className: 'navbar__item--small',
+            // className: 'menu-section-header',
             items: [
               {
                 label: 'About us',
                 to: 'resources/about_us',
               },
-              // {
-              //   label: 'FAQ',
-              //   to: '/faq',
-              // },
               {
                 label: 'Key Publications & References',
                 to: 'resources/references',
@@ -225,10 +209,6 @@ const config = {
                 label: 'Contact Support',
                 to: 'resources/contact',
               },
-              // {
-              //   label: 'Forum',
-              //   to: '/blog',
-              // },
             ]
           },
           // {to: '/faq', label: 'FAQ & Support', position: 'left'},

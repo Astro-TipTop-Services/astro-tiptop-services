@@ -12,8 +12,8 @@ const FeatureList = [
     img: 'img/tiptop.jpg',
     description: (
       <>
-        This represents the standard way of using <strong> TipTop </strong>: a fast algorithm developed to enable AO PSF prediction for any existing AO observing modes 
-        (Single-Conjugate-AO, Laser-Tomographic-AO, Multi-Conjugate-AO, Ground-Layer-AO) and any atmospheric conditions.
+        This represents the standard way of using <strong> TipTop </strong>: a fast algorithm developed to enable AO PSF prediction for any existing AO observing mode 
+        (Single-Conjugate-AO, Laser-Tomographic-AO, Multi-Conjugate-AO, or Ground-Layer-AO) and for any set of atmospheric conditions.
         It forms the foundation of the TipTop framework.
       </>
     ),

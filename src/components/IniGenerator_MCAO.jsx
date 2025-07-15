@@ -119,6 +119,7 @@ export default function IniGenerator() {
   const [isClient, setIsClient] = useState(false);
   const [Plot, setPlot] = useState(null);
   const [isScienceOpen, setIsScienceOpen] = useState(false);
+  const [zenithWarnings, setZenithWarnings] = useState([]);
 
   useEffect(() => {
       setIsClient(true);
@@ -255,21 +256,19 @@ export default function IniGenerator() {
           marker: { color: 'green', size: sizeHO, symbol: 'star' },
           name: 'HO Sources - LGS ✳️',
         },
-        {
-          type: 'scatterpolar',
-          r: Array(circlePointsCount + 1).fill(fovRadius),
-          theta: thetaCircle,
-          mode: 'lines',
-          line: {
-            color: 'orange',
-            dash: 'line',
-            width: 1.5,
-          },
-          // fill: 'toself',
-          // fillcolor: 'rgba(182, 152, 16, 0.15)',
-          name: `NGS Field of view ${Fov}″Ø`,
-          showlegend: true,
-        },
+        // {
+        //   type: 'scatterpolar',
+        //   r: Array(circlePointsCount + 1).fill(fovRadius),
+        //   theta: thetaCircle,
+        //   mode: 'lines',
+        //   line: {
+        //     color: 'orange',
+        //     dash: 'line',
+        //     width: 1.5,
+        //   },
+        //   name: `NGS Field of view ${Fov}″Ø`,
+        //   showlegend: true,
+        // },
         // {
         //   type: 'scatterpolar',
         //   r: Array(circlePointsCount + 1).fill(Science_FoV_radius),
@@ -312,7 +311,7 @@ export default function IniGenerator() {
           },
           fill: 'toself',
           fillcolor: 'rgba(16, 102, 182, 0.15)',
-          name: `${imager_name} ${imagerSize}″×${imagerSize}″`,
+          name: `${imager_name}<br>${imagerSize}″×${imagerSize}″`,
           showlegend: true,
         },
         {
@@ -327,7 +326,7 @@ export default function IniGenerator() {
           },
           fill: 'toself',
           fillcolor: 'rgba(182, 16, 154, 0.14)',
-          name: `${IFUname} Coarse ${IFUcoarse_width}″×${IFUcoarse_height}″`,
+          name: `${IFUname} Coarse <br>${IFUcoarse_width}″×${IFUcoarse_height}″`,
           showlegend: true,
         },
         {
@@ -342,7 +341,7 @@ export default function IniGenerator() {
           },
           fill: 'toself',
           fillcolor: 'rgba(235, 19, 19, 0.14)',
-          name: `${IFUname} Fine ${IFUfine_width}″×${IFUfine_height}″`,
+          name: `${IFUname} Fine <br> ${IFUfine_width}″×${IFUfine_height}″`,
           showlegend: true,
         },
       ]}
@@ -1176,6 +1175,49 @@ export default function IniGenerator() {
                 );
               })}
 
+              {selectedOption === 'MORFEO_MCAO' && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginTop: '1.5em', fontSize: '0.9em' }}>
+                  {/* <h4>NGS Field Check:</h4> */}
+                  <table style={{ borderCollapse: 'collapse', width: '100%', maxWidth: 400 }}>
+                    <thead style={{ fontWeight: 'normal' }}>
+                      <tr>
+                        <th style={{ border: '1px solid #ccc', padding: '6px' }}></th>
+                        <th style={{ border: '1px solid #ccc', padding: '6px' }}>NGS Field MICADO</th>
+                        <th style={{ border: '1px solid #ccc', padding: '6px' }}>NGS Field HARMONI</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(params.sources_LO?.Zenith ? JSON.parse(params.sources_LO.Zenith) : []).map((val, index) => {
+                        const micadoOk = val >= 40 && val <= 80;
+                        const harmoniOk = val >= 10 && val <= 60;
+
+                        return (
+                          <tr key={index}>
+                            <td style={{ border: '1px solid #ccc', padding: '6px', fontWeight: 'bold' }}>NGS #{index + 1}</td>
+                            <td style={{ border: '1px solid #ccc', padding: '6px', textAlign: 'center' }}>
+                              {micadoOk ? '✅' : '❌'}
+                            </td>
+                            <td style={{ border: '1px solid #ccc', padding: '6px', textAlign: 'center' }}>
+                              {harmoniOk ? '✅' : '❌'}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                  <div style={{ fontSize: '0.9em' }}>
+                  <p>
+                    <span style={{ backgroundColor: '#e6ffe6', padding: '0 0.5em' }}>✅ Within range</span> &nbsp;<br />
+                    <span style={{ backgroundColor: '#ffe6e6', padding: '0 0.5em' }}>❌ Out of range</span>
+                  </p>
+                  <p>
+                    <b>MICADO:</b> 40″ ≤ NGS ≤ 80″<br />
+                    <b>HARMONI:</b> 10″ ≤ NGS ≤ 60″
+                  </p>
+                </div>
+                </div>
+              )}
+<hr />
 <div>
   <ScienceSourcesPlot
       Fov={params.telescope.TechnicalFoV}

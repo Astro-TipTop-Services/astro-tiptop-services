@@ -88,7 +88,7 @@ for i in range(max_display):
                     norm=mcolors.LogNorm(vmin=np.max(psf)*1e-4,
                                         vmax=np.max(psf)))
     ax.text(0.05, 0.05,
-        f'Zen:{zenith:.0f}", Azi:{azimuth:.0f}°\nSR:{sr_list[i]*100:.1f}%, FWHM:{fwhm_list[i]:.1f} mas',
+        f'Distance:{zenith:.0f}", Angle:{azimuth:.0f}°\nSR:{sr_list[i]*100:.1f}%, FWHM:{fwhm_list[i]:.1f} mas',
         color='white', fontsize=9, transform=ax.transAxes,
         bbox=dict(facecolor='black', alpha=0.5, lw=0))
     if i % n_cols == 0:

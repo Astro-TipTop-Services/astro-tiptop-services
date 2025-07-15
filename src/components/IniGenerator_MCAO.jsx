@@ -118,6 +118,7 @@ export default function IniGenerator() {
   const [magnitudes, setMagnitudes] = useState([]);
   const [isClient, setIsClient] = useState(false);
   const [Plot, setPlot] = useState(null);
+  const [isScienceOpen, setIsScienceOpen] = useState(false);
 
   useEffect(() => {
       setIsClient(true);
@@ -744,8 +745,16 @@ export default function IniGenerator() {
 
       {/* SCIENCE */}
       {params.sources_science && (
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1rem', 
+                      backgroundColor: 'rgba(16, 102, 182, 0.15)', 
+                      padding: '0.5rem 1rem',
+                      borderRadius: '8px',
+        }}>
+        {/* En-tête repliable */}
+        <div style={{ marginBottom: '0.5rem' }}>
           <strong>[sources_science] 💫</strong>
+        </div>
+
           <div style={{ marginTop: '0.5em' }}>
           <label>
             Band:&nbsp;
@@ -777,7 +786,7 @@ export default function IniGenerator() {
         </div>
 
         <div style={{ marginTop: '0.5em' }}>
-          <label>
+          <label >
             Number of science sources:&nbsp;
             <input
               type="number"
@@ -803,8 +812,26 @@ export default function IniGenerator() {
               }}
             />
           </label>
+          <div style={{ marginTop: '0.5em' }}>
+          <button
+            onClick={() => setIsScienceOpen(prev => !prev)}
+            style={{
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              background: 'none',
+              border: 'none',
+              color: '#666',
+              fontSize: '0.95em',
+              padding: 0,
+            }}
+          >
+            {isScienceOpen ? '▼ Hide details' : '▶ Show details'}
+          </button>
+          </div>
         </div>
 
+        {isScienceOpen && (
+          <>
         {(params.sources_science?.Zenith ? JSON.parse(params.sources_science.Zenith) : []).map((val, index) => {
           const azVal = params.sources_science?.Azimuth ? JSON.parse(params.sources_science.Azimuth)[index] ?? 0 : 0;
           return (
@@ -869,11 +896,12 @@ export default function IniGenerator() {
                 style={{ width: '5em' }}
               />
             </div>
-            </div>
+           </div>
           </div>
           );
         })}
-
+      </>
+      )}
       </div>
       )}
       

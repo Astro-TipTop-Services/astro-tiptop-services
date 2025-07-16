@@ -12,14 +12,21 @@ import Link from '@docusaurus/Link';
 ✏️ **Note:** We recommend first testing your **TipTop** installation using the provided example files: `TIPTOP-EXAMPLE.py` or `TIPTOP-EXAMPLE.ipynb` (for Jupyter users).
 <hr />
 
-To begin, open a terminal or command prompt and activate the virtual environment you previously created (see the [**TipTop Installation Tutorial**](/docs/general/installation.md)):
-```bash
-conda activate tiptop
-```
-or, on Windows PowerShell:
-```bash
-.\tiptop\Scripts\activate
-```
+To begin, open a terminal or command prompt and activate the tiptop virtual environment you previously created (see the [**TipTop Installation Tutorial**](/docs/general/installation.md)):<br/>
+#### Using conda:
+    ```bash
+    conda activate tiptop
+    ```
+#### Using venv:
+    ```bash
+    # Unix/macOS
+    source ./tiptop/bin/activate
+    ```
+    or:
+    ```powershell
+    # Windows PowerShell
+    .\tiptop\Scripts\activate
+    ```
 </p>
 
 ## Running a Simulation with TipTop

@@ -100,10 +100,9 @@ radii = profiles[0,0,:]
 
 plt.figure(figsize=(8, 6))
 plt.plot(radii, profiles[1,0,:], label='AO profile')
-max_radius = radii.max()
-plt.xlim(0, 0.75 * max_radius)
 plt.xlabel('Radial distance (mas)')
 plt.ylabel('Normalized intensity')
+plt.xscale("log")
 plt.yscale("log")
 plt.title(f'Radial profile - AO corrected PSF - @{int(wvl)} nm')
 plt.legend()

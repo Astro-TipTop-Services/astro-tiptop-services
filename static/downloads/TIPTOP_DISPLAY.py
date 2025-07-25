@@ -77,7 +77,7 @@ crop_size = 4
 nx = FourierUtils.cropSupport(psf[0], crop_size).shape[0]
 axis = np.linspace(-nx//2, nx//2, nx) * pixel_scale_mas * 1e-3
 
-fig, axs = plt.subplots(n_rows, n_cols, figsize=(12, 12), constrained_layout=True)
+fig, axs = plt.subplots(n_rows, n_cols, figsize=(12, 12), constrained_layout=True, squeeze=False)
 for i in range(max_display):
     ax = axs.flat[i]
     zenith = float(map_dictionary['sources_science']['Zenith'][i])

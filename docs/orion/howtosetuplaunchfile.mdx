@@ -72,44 +72,35 @@ The full example script is available for download
     file_in = "ERIS_SCAO_NGS"  # Name of the input parameter file (without extension)
     file_out = "ERIS_SCAO_NGS" # Name to use for the output files
 
-    #%% Define a helper function to extract metrics from the FITS header
-    def get_metric(header, metric_name, index=0):
-        """
-        Retrieve a value from the FITS header with a formatted key.
-
-        :param header: FITS header
-        :param metric_name: name of the metric (e.g., 'SR')
-        :param index: index of the metric (default 0)
-        :return: value or None if key not found
-        """
-        key = f"{metric_name}{index:04d}"
-        return header.get(key)
-
     #%% Run the TIPTOP simulation
     overallSimulation(path_in, file_in, 
                     path_out, file_out)
 
 
     #%% Open the resulting FITS file and extract data 
-    with fits.open(path_out + file_out + '.fits') as hdul:
-        hdul.info()
-        psf_ao = hdul[1].data[0,...] # AO-corrected PSF
-        psf_turb = hdul[2].data      # Seeing-limited PSF
-        psf_dl = hdul[3].data        # Diffraction-limited PSF
-        profiles = hdul[4].data      # PSF profile
+    hdul = fits.open(path_out + file_out + '.fits')
+    hdul.info()
+    psf_ao = hdul[1].data[0,...] # AO-corrected PSF
+    psf_turb = hdul[2].data      # Seeing-limited PSF
+    psf_dl = hdul[3].data        # Diffraction-limited PSF
+    # Load PSF profiles (can be in HDU 4 or 5 depending on save options)
+    header4 = hdul[4].header
+    profiles = hdul[4].data if header4.get('CONTENT') == 'Final PSFs profiles' else hdul[5].data
         
-        header = hdul[1].header      # FITS header for metadata
+    psf_header = hdul[1].header  # FITS header for metadata
 
-        # Extract useful parameters
-        wvl = float(header.get("WL_NM"))       # Wavelength in nm
-        pix_mas = float(header.get("PIX_MAS")) # Pixel scale in milliarcseconds
-        sr = get_metric(header, "SR")          # Strehl ratio
-        fwhm = get_metric(header, "FWHM")      # FWHM in milliarcsecond
+    hdul.close()
 
-        # Print key metrics
-        print("Pixel scale [mas]:", pix_mas)
-        print("Strehl Ratio:", sr)
-        print("FWHMs [mas]:", fwhm)
+    # Extract useful parameters
+    wvl = float(psf_header.get("WL_NM"))       # Wavelength in nm
+    pix_mas = float(psf_header.get("PIX_MAS")) # Pixel scale in milliarcseconds
+    sr = psf_header.get(f"{"SR"}{0:04d}")      # Strehl ratio
+    fwhm = psf_header.get(f"{"FWHM"}{0:04d}")  # FWHM in milliarcsecond
+
+    # Print key metrics
+    print("Pixel scale [mas]:", pix_mas)
+    print("Strehl Ratio:", sr)
+    print("FWHMs [mas]:", fwhm)
 
     #%% Normalize the PSFs so total flux = 1
     psf_ao /= np.sum(psf_ao)

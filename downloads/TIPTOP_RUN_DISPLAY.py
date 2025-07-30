@@ -88,11 +88,12 @@ plot_psf(psf_turb, 'Open loop', 3)
 
 #%% Plot the radial profile
 radii = profiles[0,0,:]
+p_norm = profiles[1,0,:] / np.max(profiles[1,0,:])
 
 plt.figure(figsize=(8, 6))
-plt.plot(radii, profiles[1,0,:], label='AO profile')
+plt.plot(radii, p_norm, label='AO profile')
 plt.xlabel('Radial distance (mas)')
-plt.ylabel('Normalized intensity')
+plt.ylabel('PSF profile norm. to max')
 plt.xscale("log")
 plt.yscale("log")
 plt.title(f'Radial profile - AO corrected PSF - @{int(wvl)} nm')

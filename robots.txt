@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://astro-tiptop-services.github.io/astro-tiptop-services/sitemap.xml

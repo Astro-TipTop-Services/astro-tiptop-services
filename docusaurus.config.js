@@ -84,6 +84,9 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [
+          { name: 'google-site-verification', content: 'xup3nZWe_TurfujsJeQWHBoOL5Vm1eEYYxLbfe1uWso' },
+      ],
       // Replace with your project's social card
       image: 'img/logo_astro_tiptop.png',
       navbar: {

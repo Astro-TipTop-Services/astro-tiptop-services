@@ -36,23 +36,18 @@ const config = {
     locales: ['en'],
   },
 
-  plugins: [
-    [
-      '@docusaurus/plugin-sitemap',
-      {
-        changefreq: 'weekly',
-        priority: 0.5,
-        ignorePatterns: ['/tags/**'],
-        filename: 'sitemap.xml',
-      },
-    ],
-  ],
 
   presets: [
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
+        sitemap: {
+         changefreq: 'weekly',
+         priority: 0.5,
+         ignorePatterns: ['/tags/**'],
+         filename: 'sitemap.xml',
+       },
         docs: {
           sidebarPath: './sidebars.js',
           remarkPlugins: [require('remark-math')],

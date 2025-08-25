@@ -49,17 +49,17 @@ Detailed descriptions of each section are provided below.
 | :--------------- |:---------------|:---------------:|:---------------|
 | `TelescopeDiameter` | Yes | `float` | Set the outer diameter of the telescope pupil in unit of **_meters_**. |
 | `Resolution` | Yes | `integer` |  _Default_: `256`<br /> Number of pixels across the pupil diameter. This value is used in computation of the telescope OTF. |
-| `ObscurationRatio` | No/Yes if LO | `float` | _Default_: `0.0`<br /> Defines the central obstruction due to the secondary as a ratio of the TelescopeDiameter. <br /> _Warning_: `MavisLO.py` does not have a default value for this parameter. |
+| `ObscurationRatio` | No/Yes if LO | `float` | _Default_: `0.0`<br /> Defines the central obstruction due to the secondary as a ratio of the TelescopeDiameter. |
 | `ZenithAngle` | No/Yes if LO | `float` | _Default_: `0.0` <br /> Set the pointing direction of the telescope in degree with respect to the zenith. Used to compute airmass, to scale atmospheric layers and stars altitude. |
-| `PupilAngle` | No | `float` |  _Default_: `0.0`<br /> Unknown effect |
+| `PupilAngle` | No | `float` |  _Default_: `0.0`<br /> Rotation angle of the telescope pupil in degrees. Applied to pupil mask and static aberration maps to match instrument orientation. |
 | `PathPupil` | No | `string` |  _Default_: `''`<br /> Path to the pupil model in .fits file (if provided, the pupil model is interpolated). if absent or `''`, not used.|
-| `PathStaticOn` | No | `string`  | _Default_: `None`<br /> Path to a map of static aberrations (**_nm_**) in .fits file. if absent or `''`, not used.|
-| `zCoefStaticOn` | No | `list of float`  | _Default_: `None`<br /> None, vector with zernike amplitudes (**_nm_**) of a static aberration. if absent not used.|
-| `PathStaticOff` | No | `string`  | _Default_: `None`<br />  No clue what this does. if absent or `''`, not used. From **P3**, not supported in **TipTop**. |
-| `PathStaticPos` | No | `string`  | _Default_: `None`<br /> No clue From **P3**, not supported in **TipTop**. |
-| `PathApodizer` | No | `string`  | _Default_: `''`<br /> Path to a fits file that contain a binary map corresponding to a pupil apodizer (TBC). if absent or `''`, not used. From **P3**, not supported in **TipTop**. |
-| `PathStatModes` | No | `string`  | _Default_: `''`<br /> Path to a .fits file that contain a cube of map of mode in amplitude which lead to a rms of 1 in nanometer of static aberation. if absent or `''`, not used. Unsure how this works. From **P3**, not supported in **TipTop**. |
-| `coefficientOfTheStaticMode` | No used | `string`  | _Default_: `''`<br /> Place holder (TBC) need to find how does the pathStatModes fits file work. From **P3**, not supported in **TipTop**. |
+| `PathStaticOn` | No | `string`  | _Default_: `None`<br /> Path to a map of on-axis static aberrations (**_nm_**) in .fits file. if absent or `''`, not used.|
+| `zCoefStaticOn` | No | `list of float`  | _Default_: `None`<br /> Vector with zernike amplitudes (**_nm_**) of an on-axis static aberration. if absent not used.|
+| `PathStaticOff` | No | `string`  | _Default_: `None`<br />  Path to a fits file that contains field-dependent (off-axis) static aberration maps. Must be provided together with `PathStaticPos` specifying the corresponding positions. If absent or `''`, not used. |
+| `PathStaticPos` | No | `string`  | _Default_: `None`<br /> Required if `PathStaticOff`. Path to a FITS file that contains the field positions [zenith in arcsec, azimuth in rad] corresponding to each off-axis static aberration map in `PathStaticOff`. |
+| `PathApodizer` | No | `string`  | _Default_: `''`<br /> Path to a fits  file that contains an amplitude apodizer map. Used to apply pupil amplitude weighting (transmission mask) in the simulation. if absent or `''`, not used. |
+| `PathStatModes` | No | `string`  | _Default_: `''`<br /> Path to a fits file that contains a cube of static aberration modes. Each mode is normalized to have 1 nm RMS amplitude. If absent or `''`, not used. |
+| `coefficientOfTheStaticMode` | No used | `string`  | _Default_: `''`<br /> Coefficients applied to the static aberration modes loaded from `PathStatModes`. |
 | `windPsdFile` | No | `string`  | _Default_: `''`<br /> File name of a .fits file with a 2D array with a frequency vector and PSD of tip and tilt windshake. |
 | `extraErrorNm` | No | `float` | _Default_: `0.0` <br /> **_nm_** RMS of the additional wavefront error to be added (an error that is not otherwise considered). |
 | `extraErrorExp` | No |  `float` | _Default_: `-2.` <br /> Exponent of the power of spatial frequencies used to generate the PSD associated with `extraErrorNm`. |
@@ -71,7 +71,7 @@ Detailed descriptions of each section are provided below.
 | `extraErrorLoMax`  | No |  `float` | _Default_: `0.0` <br /> Maximum spatial frequency for which PSD associated with `extraErrorLoNm` is > 0 <br /> _Note_: 0 means maximum frequency is the one present in the spatial frequency array of the PSDs. |
 | `jitter_FWHM` | No |  `float` | _Default_: `None` <br /> Additional kernel to be convolved with PSF, it could be a scalar (FWHM in **_mas_**) for a round kernel or a list of three values [FWHM_mas_max, FWHM_mas_min, angle_rad]. |
 | `glFocusOnNGS` | No |  `string` | _Default_: `False` <br /> Global focus control with natural guide stars. Multi-conjugate systems only. Requires `NumberLenslets` >= 2 in `sensor_LO` or a specific global focus sensor (`[sources_Focus]` and `[sensor_Focus]` sections). |
-| `TechnicalFoV` | No/Yes if LO |  `float` | _Default_: `??` <br /> Set the size of the technical field of view (diameter) is Used in laser and multi-conjugate AO systems. <br /> _Warning_: This is not optional in `MavisLO.py` |
+| `TechnicalFoV` | No/Yes if LO |  `float` | _Default_: `0.0` <br /> Diameter of the technical field of view **[arcsec]**. Internally converted to a radius in radians for interaction-matrix and covariance formulas, and used to size DMs vs conjugation height (laser/MCAO). <br/> _Warning:_ Mandatory and no default if LO section is used.|
 
 </details>
 
@@ -82,15 +82,15 @@ Detailed descriptions of each section are provided below.
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `Seeing` | Yes | `float` | Set the seeing at Zenith in **_arcsec_**. If not set **TipTop** uses `ro_Value`. |
-| `Wavelenght` | No/Yes if LO | `float` | _Default_: `500e-9` <br /> Wavelength of definition of the atmosphere statistics. <br /> _Warning_: not optional in `MavisLO.py`|
-| `Lo` | No/Yes if LO | `float` | _Default_: `25.0` <br /> Outer Scale of the atmosphere in meters. <br /> _Warning_: not optional in `MavisLO.py`|
+| `Seeing` | Yes,  unless `r0_value` given | `float` | Set the seeing at Zenith in **_arcsec_**. Used to compute `r0` as `r0 = 0.976 × λ / Seeing(rad)`. If not set, **TipTop** uses `ro_value`. |
+| `ro_value` | Yes, unless `Seeing` given | `float` | Set the atmosphere Fried parameter `r0` in **meters**. Used directly if `Seeing` is not provided. |
+| `Wavelenght` | No/Yes if LO | `float` | _Default_: `500e-9` <br /> Wavelength at which the atmospheric statistics are defined (in meters). <br /> _Warning:_ Mandatory and no default if LO section is used.|
+| `L0` | No/Yes if LO | `float` | _Default_: `25.0` <br /> Outer Scale of the atmosphere in meters. <br />_Warning:_ Mandatory and no default if LO section is used.|
 | `Cn2Weights` | No/Yes if LO | `list of float` | _Default_: `[1.0]` <br /> Relative contribution of each layer. The sum of all the list element must be 1. Must have the same length as `Cn2Heights`, `WindSpeed` and `WindDirection`. <br /> _Warning_: required if `Cn2Heights`, `WindSpeed` or `WindDirection` are defined. <br /> _Warning_: extremely confusing error message if absent when it must be defined. |
 | `Cn2Heights` | No/Yes if LO | `list of float` | _Default_: `[0.0]` <br /> Altitude of layers in **_meters_**. Must have the same length as `Cn2Weights`, `WindSpeed` and `WindDirection`. <br /> _Warning_: required if `Cn2Weights`, `WindSpeed` or `WindDirection` are defined. <br /> _Warning_: extremely confusing error message if absent when it must be defined.|
 | `WindSpeed` | No/Yes if LO | `list of float` | _Default_: `[10.0]` <br />  Wind speed values for each layer in **_m/s_**. Must have the same length as `Cn2Weights`, `Cn2Heights` and `WindDirection`. <br />_Warning_: required if `Cn2Weights`, `Cn2Heights` or `WindDirection` are defined. <br /> _Warning_: extremely confusing error message if absent when it must be defined. |
 | `WindDirection` | No | `list of float` | _Default_: a list of 0 of the length of WindSpeed <br />  Wind direction for each layer in **_degrees_**. 0 degree is along the x axis then anticlockwise. Must have the same length as `Cn2Weights`, `Cn2Heights` and `WindSpeed`.|
-| `ro_Value` | No | `float` | Set the atmospere Fried parameter. If not set **TipTop** uses `Seeing`. |
-| `testWindspeed` | No | `float` | Used only for tests |
+| `testWindspeed` | No | `float` | Used only for tests. |
 
 </details>
 
@@ -131,7 +131,7 @@ Detailed descriptions of each section are provided below.
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `Wavelength` | Yes | `float` | Sensing wavelength for Low Order modes in meters. |
+| `Wavelength` | Yes | `float` | Sensing wavelength for Low Order modes in **meters**. |
 | `Zenith` | Yes | `list of float` | Zenithal coordinate of each guide stars in arcsec (distance from axis). Must be the same length as `Azimuth`. |
 | `Azimuth` | Yes | `list of float` | Azimuthal coordinate in degree (angle from the reference direction: polar axis is x-axis) of each guide stars. Must be the same length as `Zenith`. |
 
@@ -183,7 +183,7 @@ The High Order WaveFront Sensor can be a **Pyramid WFS** or a **Shack-Hartmann**
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `NumberLenslets` | No | `list of int` |  _Default_: `[20]` <br /> Number of WFS lenslets. Used the same way in **Shack-Hartmann** wavefront sensor and **Pyramid**. Also used for noise computation if `NoiseVariance` is not set. |
-| `SizeLenslets` | No | `list of float` |  _Default_: `[Telescope] TelescopeDiameter/[sensor_HO] NumberLenslet` <br /> Lenslet Size of WFS lenslets in **_meters_**. Why a list of float? This overrides the ratio between telescope size and Number of lenslet used to compute the matrix size. |
+| `SizeLenslets` | No | `list of float` |  _Default_: `[Telescope] TelescopeDiameter/[sensor_HO] NumberLenslet` <br /> Lenslet Size of WFS lenslets in **_meters_**. This overrides the ratio between telescope size and Number of lenslet used to compute the matrix size. |
 | `PixelScale` | Yes | `integer` | High Order WFS pixel scale in **_[mas]_**. Not used when a **Pyramid** wavefront sensor has been selected. <br /> _Warning_: gives a confusing error message if missing. |
 | `FieldOfView` | Yes | `integer` | Number of pixels per subaperture. Not used when a **Pyramid** wavefront sensor has been selected (4 pixels are used in this case). <br /> _Warning_: gives a confusing error message if missing. |
 | `WfsType` | No | `string` |  _Default_: `Shack-Hartmann` <br /> Type of wavefront sensor used for the High Order sensing. Other available option: `Pyramid`. |
@@ -246,7 +246,7 @@ In the two following section we list the parameters that are specific to each wa
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `PixelScale` | Yes | `float` | LO WFS pixel scale in **_[mas]_**. |
-| `FieldOfView` | Yes | `integer` | Not used. Number of pixels per subaperture.|
+| `FieldOfView` | Yes | `integer` | Number of pixels per subaperture. Not used when a Pyramid wavefront sensor has been selected (4 pixels are used in this case). |
 | `NumberPhotons` | Yes | `list of int` | Detected flux in **_[nph/frame/subaperture]_**. Must be the same length as `NumberLenslet`. <br /> It can be computed as: `(0-magn-flux [ph/s/m2]) * (size of subaperture [m])**2 * (1/SensorFrameRate_LO) * (total throughput) * (10**(-0.4*magn_source_LO))`.|
 | `NumberLenslets` | Yes | `list of int` | _Default_: `[1]` <br /> Number of WFS lenslets. Must be the same length as `NumberPhotons`.|
 | `SigmaRON` | Yes | `float` | _Default_: `0.0` <br /> Read out noise in **_[e-]_**. |
@@ -302,16 +302,16 @@ In the two following section we list the parameters that are specific to each wa
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `DmPitchs` | Yes | `list of float` | DM actuators pitch in meters, on the meta pupil at the conjugasion altitude, used for fitting error computation. <br />_Warning_: if it smaller than `[sensor_HO]` `SizeLenslets` (=`[Telescope]` `TelescopeDiameter`/`[sensor_HO]` `NumberLenslet` ) aliasing error will be significant. <br />Must be the same length as `NumberActuators`.|
-| `NumberActuators` | No | `list of int` | _Default_: computed from diameter, technical FoV, DM altitude and DM pitch. <br />Number of actuator on the pupil diameter. Must be the same length as `DmPitchs`. <br />_Warning_: not used in **TipTop**! |
-| `InfModel` | No | `string` |  _Default_: `gaussian` <br />DM influence function model. Not used in **TipTop** but used in the psf reconstruction. What are the other possible one? |
-| `InfCoupling` | No | `list of float` | _Default_: `[0.2]` <br />DM influence function model mechanical coupling. Not used in **TipTop** but used in the psf reconstruction. Unclear what this does. Must be the same length as `NumberActuators`?|
+| `NumberActuators` | No | `list of int` | _Default_: computed from `TelescopeDiameter`, `TechnicalFoV`, `DMHeights` and `DMPitchs`. <br />Number of actuator on the pupil diameter. Must be the same length as `DmPitchs`. |
+| `InfModel` | No | `string` |  _Default_: `gaussian` <br /> DM influence function model. Supported values: `'gaussian'` or `'xinetics'`. |
+| `InfCoupling` | No | `list of float` | _Default_: `[0.2]` <br />Mechanical coupling coefficient (0–1) between DM actuators. Controls the width of the influence function. Must have the same length as `NumberActuators` (one value per DM).|
 | `DmHeights` | No/Yes if LO or multi DMs | `list of float` | _Default_: `[0.0]` <br />DM altitude in **_meters_**. Must be the same length as `NumberActuators` and `DmPitchs`. |
 | `OptimizationZenith` | No | `list of float` | _Default_: `[0.0]` <br />Zenith position in arcsec (distance from axis) of the direction in which the AO correction is optimized. Must be the same length as `OptimisationAzimuth` and `OptimizationWeight`. These are for wide field AO system, should be a requirement for MCAO and GLAO. |
 | `OptimizationAzimuth` | No | `list of float` | _Default_: `[0.0]` <br />Azimuth in degrees (angle from the ref. direction: polar axis is x-axis) of the direction in which the AO correction is optimized. Must be the same length as `OptimizationZenith` and `OptimizationWeight`. These are for wide field AO system, should be a requirement for MCAO and GLAO. |
 | `OptimizationWeight` | No | `list of float` | _Default_: `[1.0]` <br />Weights of the optimisation directions. Must be the same length as `OptimizationZenith` and `OptimizationAzimuth`. These are for wide field AO system, should be a requirement for MCAO and GLAO.|
 | `OptimizationConditioning` | No | `float` |  _Default_: `1.0e2` <br />Matrix Conditioning threshold in the truncated SVD inversion.|
-| `NumberReconstructedLayers` | No | `integer` |  _Default_: `10` <br />Only used for wide field AO system, (meaning more than one guide star is defined). Number of reconstructed layers for tomographic systems. Shouldn’t this be defaulted to 1 for SCAO sakes? |
-| `AoArea` | No | `string` |  _Default_: `circle` <br />Shape of the AO-corrected area. Any other options are not defined and will give a squarre correction area. |
+| `NumberReconstructedLayers` | No | `integer` |  _Default_: `10` <br /> Number of reconstructed atmospheric layers for tomographic AO systems (multi-guide-star). |
+| `AoArea` | No | `string` |  _Default_: `circle` <br /> Shape of the AO-corrected area. Any other options are not defined and will give a squarre correction area. |
 
 </details>
 
@@ -324,10 +324,10 @@ In the two following section we list the parameters that are specific to each wa
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `LoopGain_HO` | No | `float` |  _Default_: `0.5` <br /> High Order Loop gain. <br /> _Warning_: if system to be simulated is a multi-conjugate system this parameter is not used. |
+| `LoopGain_HO` | No | `float` |  _Default_: `0.5` <br /> High Order Loop gain.|
 | `SensorFrameRate_HO` | No | `float` |  _Default_: `500.0` <br /> High Order loop frequency in **_[Hz]_**. |
 | `LoopDelaySteps_HO` | No | `integer` |  _Default_: `2` <br /> High Order loop delay in **_[frame]_**. |
-| `LoopGain_LO` | No/Yes if LO | `float` or `string` |  _Default_: `None` <br /> Low Order loop gain, Warning: if set to ‘optimize’, gain is automatically optimized by **TipTop**, otherwise the float value set is used. |
+| `LoopGain_LO` | No/Yes if LO | `float` or `string` |  _Default_: `None` <br /> Low Order loop gain. <br/> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop**, otherwise the float value set is used. |
 | `SensorFrameRate_LO` | No/Yes if LO | `float` |  _Default_: `None` <br /> Loop frequency in **_[Hz]_**. If `[sensor_LO]` section is present it must be set. |
 | `LoopDelaySteps_LO` | No/Yes if LO | `integer` |  _Default_: `None` <br /> Low Order loop delays in **_[frames]_**. If `[sensor_LO]` section is present it must be set. |
 | `LoopGain_Focus` | No/Yes if Focus |  `float` or `string` |  _Default_: `None` <br /> Global focus loop gain. <br /> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop**, otherwise the float value set is used. |

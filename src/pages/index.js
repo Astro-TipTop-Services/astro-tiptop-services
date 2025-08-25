@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      ddescription="Astro TipTop — Astro-TipTop Services: A modular toolkit for PSF simulation and analysis.">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

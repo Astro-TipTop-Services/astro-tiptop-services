@@ -92,6 +92,8 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       metadata: [
+          { name: 'description', content: 'Astro-TipTop Services: A modular toolkit for PSF simulation and analysis'}, 
+          { name: 'application-name', content: 'Astro TipTop Services' },
           { name: 'google-site-verification', content: 'xup3nZWe_TurfujsJeQWHBoOL5Vm1eEYYxLbfe1uWso' },
       ],
       // Replace with your project's social card

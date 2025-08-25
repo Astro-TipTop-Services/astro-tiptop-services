@@ -7,12 +7,19 @@ export default function Root({children}) {
   return (
     <>
       <Head>
+        {/* Organization + Logo */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
             "@id": `${base}#org`,
             "name": "Astro TipTop Services",
+            "alternateName": [
+              "Astro TipTop",
+              "Astro TipTop Services",
+              "Astro-TipTop",
+              "TipTop"
+            ],
             "url": `${base}/`,
             "logo": {
               "@type": "ImageObject",

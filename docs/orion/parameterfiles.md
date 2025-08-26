@@ -82,7 +82,7 @@ Detailed descriptions of each section are provided below.
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `Seeing` | Yes,  unless `r0_value` given | `float` | Set the seeing at Zenith in **_arcsec_**. Used to compute `r0` as `r0 = 0.976 × λ / Seeing(rad)`. If not set, **TipTop** uses `ro_value`. |
+| `Seeing` | Yes,  unless `r0_value` given | `float` | Set the seeing at Zenith in **_arcsec_**. Used to compute `r0` as `r0 = 0.976 × λ / Seeing(rad)`. If not set, **TipTop** uses `r0_value`. |
 | `r0_value` | Yes, unless `Seeing` given | `float` | Set the atmosphere Fried parameter `r0` in **meters**. Used directly if `Seeing` is not provided. |
 | `Wavelenght` | No/Yes if LO | `float` | _Default_: `500e-9` <br /> Wavelength at which the atmospheric statistics are defined (in meters). <br /> _Warning:_ Mandatory and no default if LO section is used.|
 | `L0` | No/Yes if LO | `float` | _Default_: `25.0` <br /> Outer Scale of the atmosphere in meters. <br />_Warning:_ Mandatory and no default if LO section is used.|

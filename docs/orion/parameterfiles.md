@@ -49,7 +49,7 @@ Detailed descriptions of each section are provided below.
 | :--------------- |:---------------|:---------------:|:---------------|
 | `TelescopeDiameter` | Yes | `float` | Set the outer diameter of the telescope pupil in unit of **_meters_**. |
 | `Resolution` | Yes | `integer` |  _Default_: `256`<br /> Number of pixels across the pupil diameter. This value is used in computation of the telescope OTF. |
-| `ObscurationRatio` | No/Yes if LO | `float` | _Default_: `0.0`<br /> Defines the central obstruction due to the secondary as a ratio of the TelescopeDiameter. |
+| `ObscurationRatio` | No | `float` | _Default_: `0.0`<br /> Defines the central obstruction due to the secondary as a ratio of the TelescopeDiameter. |
 | `ZenithAngle` | No/Yes if LO | `float` | _Default_: `0.0` <br /> Set the pointing direction of the telescope in degree with respect to the zenith. Used to compute airmass, to scale atmospheric layers and stars altitude. |
 | `PupilAngle` | No | `float` |  _Default_: `0.0`<br /> Rotation angle of the telescope pupil in degrees. Applied to pupil mask and static aberration maps to match instrument orientation. |
 | `PathPupil` | No | `string` |  _Default_: `''`<br /> Path to the pupil model in .fits file (if provided, the pupil model is interpolated). if absent or `''`, not used.|

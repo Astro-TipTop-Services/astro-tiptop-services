@@ -49,15 +49,15 @@ Detailed descriptions of each section are provided below.
 | :--------------- |:---------------|:---------------:|:---------------|
 | `TelescopeDiameter` | Yes | `float` | Set the outer diameter of the telescope pupil in unit of **_meters_**. |
 | `Resolution` | Yes | `integer` |  _Default_: `256`<br /> Number of pixels across the pupil diameter. This value is used in computation of the telescope OTF. |
-| `ObscurationRatio` | No | `float` | _Default_: `0.0`<br /> Defines the central obstruction due to the secondary as a ratio of the TelescopeDiameter. |
+| `ObscurationRatio` | No | `float` | _Default_: `0.0`<br /> Defines the central obstruction due to the secondary as a ratio of the `TelescopeDiameter`. |
 | `ZenithAngle` | No/Yes if LO | `float` | _Default_: `0.0` <br /> Set the pointing direction of the telescope in degree with respect to the zenith. Used to compute airmass, to scale atmospheric layers and stars altitude. |
 | `PupilAngle` | No | `float` |  _Default_: `0.0`<br /> Rotation angle of the telescope pupil in degrees. Applied to pupil mask and static aberration maps to match instrument orientation. |
 | `PathPupil` | No | `string` |  _Default_: `''`<br /> Path to the pupil model in .fits file (if provided, the pupil model is interpolated). if absent or `''`, not used.|
 | `PathStaticOn` | No | `string`  | _Default_: `None`<br /> Path to a map of on-axis static aberrations (**_nm_**) in .fits file. if absent or `''`, not used.|
 | `zCoefStaticOn` | No | `list of float`  | _Default_: `None`<br /> Vector with zernike amplitudes (**_nm_**) of an on-axis static aberration. if absent not used.|
 | `PathStaticOff` | No | `string`  | _Default_: `None`<br />  Path to a fits file that contains field-dependent (off-axis) static aberration maps. Must be provided together with `PathStaticPos` specifying the corresponding positions. If absent or `''`, not used. |
-| `PathStaticPos` | No | `string`  | _Default_: `None`<br /> Required if `PathStaticOff`. Path to a FITS file that contains the field positions [zenith in arcsec, azimuth in rad] corresponding to each off-axis static aberration map in `PathStaticOff`. |
-| `PathApodizer` | No | `string`  | _Default_: `''`<br /> Path to a fits  file that contains an amplitude apodizer map. Used to apply pupil amplitude weighting (transmission mask) in the simulation. if absent or `''`, not used. |
+| `PathStaticPos` | No | `string`  | _Default_: `None`<br /> Required if `PathStaticOff`. Path to a fits file that contains the field positions [zenith in arcsec, azimuth in rad] corresponding to each off-axis static aberration map in `PathStaticOff`. |
+| `PathApodizer` | No | `string`  | _Default_: `''`<br /> Path to a fits file that contains an amplitude apodizer map. Used to apply pupil amplitude weighting (transmission mask) in the simulation. if absent or `''`, not used. |
 | `PathStatModes` | No | `string`  | _Default_: `''`<br /> Path to a fits file that contains a cube of static aberration modes. Each mode is normalized to have 1 nm RMS amplitude. If absent or `''`, not used. |
 | `coefficientOfTheStaticMode` | No used | `string`  | _Default_: `''`<br /> Coefficients applied to the static aberration modes loaded from `PathStatModes`. |
 | `windPsdFile` | No | `string`  | _Default_: `''`<br /> File name of a .fits file with a 2D array with a frequency vector and PSD of tip and tilt windshake. |
@@ -182,21 +182,21 @@ The High Order WaveFront Sensor can be a **Pyramid WFS** or a **Shack-Hartmann**
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `NumberLenslets` | No | `list of int` |  _Default_: `[20]` <br /> Number of WFS lenslets. Used the same way in **Shack-Hartmann** wavefront sensor and **Pyramid**. Also used for noise computation if `NoiseVariance` is not set. |
-| `SizeLenslets` | No | `list of float` |  _Default_: `[Telescope] TelescopeDiameter/[sensor_HO] NumberLenslet` <br /> Lenslet Size of WFS lenslets in **_meters_**. This overrides the ratio between telescope size and Number of lenslet used to compute the matrix size. |
+| `WfsType` | No | `string` |  _Default_: `Shack-Hartmann` <br /> Type of wavefront sensor used for the High Order sensing. Other available option: `Pyramid`. |
+| `NumberLenslets` | No | `list of int` |  _Default_: `[20]` <br /> Number of WFS lenslets. Used for both **Shack–Hartmann** and **Pyramid** sensors. Also used for noise computation if NoiseVariance is not set. |
+| `SizeLenslets` | No | `list of float` |  _Default_: `[Telescope] TelescopeDiameter/[sensor_HO] NumberLenslet` <br /> Lenslet Size of WFS lenslets in **_meters_**. Overrides the ratio between telescope size and Number of lenslet used to compute the matrix size. |
 | `PixelScale` | Yes | `integer` | High Order WFS pixel scale in **_[mas]_**. Not used when a **Pyramid** wavefront sensor has been selected. <br /> _Warning_: gives a confusing error message if missing. |
 | `FieldOfView` | Yes | `integer` | Number of pixels per subaperture. Not used when a **Pyramid** wavefront sensor has been selected (4 pixels are used in this case). <br /> _Warning_: gives a confusing error message if missing. |
-| `WfsType` | No | `string` |  _Default_: `Shack-Hartmann` <br /> Type of wavefront sensor used for the High Order sensing. Other available option: `Pyramid`. |
 | `NumberPhotons` | No | `list of int` |  _Default_: `[Inf]` <br /> Flux return in **_[nph/frame/subaperture]_**. <br /> It can be computed as: `(0-magn-flux [ph/s/m2]) * (size of sub-aperture [m])^2 * (1/SensorFrameRate_HO) * (total throughput) * (10^(-0.4*magn_source_HO))`|
-| `SpotFWHM` | No | `list of list of float` |  _Default_: `[[0.0,0.0,0.0]]` <br /> High Order spot parameters: two axes scale values in **_milliarcsec_** (only max value is used) and angle (angle is not used). Why list?|
-| `SpectralBandwidth` | No | `float` |  _Default_: `0.0` <br /> Not used, spectral bandwidth of the filter (imaging mode)? Why specific to the imaging mode? What is the effect?|
-| `Transmittance` | No | `list of float` |  _Default_: `[1.0]` <br /> Used for PSF computation and flux scaling but not with noise computation. Transmittance at the considered wavelengths for polychromatic mode. How do you set polychromatic mode? Each element can not have a value superior to 1? |
-| `Dispersion` | No | `list of list of float` |  _Default_: `[[0.0,0.0]]` <br /> Dispersion x/y at the considered wavelength in pixel. Must be the same size than `Transmittance`. Chromatic dispertion for PSF computation only. In HarmoniSCAO_1 first the default and the thing given are not even the same shape but on top the default breaks the must be the same size as the transmitance… Also sorry for my ignorance: dispersion of what? Isn’t this maybe redundant with `SpotFWHM` ? |
-| `Gain` | No | `float` |  _Default_: `1.0` <br /> Pixel gain. Do you mean camera gain or loop goin? |
-| `ExcessNoiseFactor` | No | `float` |  _Default_: `2.0` <br /> Excess noise factor. TODO: default should be 1 |
-| `NoiseVariance`  | No | `unknown` |  _Default_: `None?` <br /> Noise Variance in rad2. If not empty, this value overwrites the analytical noise variance calculation. |
+| `SpotFWHM` | No | `list of list of float` |  _Default_: `[[0.0, 0.0]]` <br /> Intrinsic **Shack–Hartmann** spot size (FWHM) along x and y, in **_milliarcseconds_**. Represents the instrumental broadening of spots without turbulence. If set to [0.0, 0.0], only atmospheric broadening is considered. Not used with a **Pyramid** WFS. |
+| `SpectralBandwidth` | No | `float` |  _Default_: `0.0` <br /> Spectral full width around each central wavelength (in **_[meters]_**). If 0, monochromatic simulation. ||
+| `Transmittance` | No | `list of float` |  _Default_: `[1.0]` <br /> Transmission factors at the considered wavelengths. Each element is expected in the range [0,1]. Values weight the contribution of each wavelength to the final PSF and flux scaling. |
+| `Dispersion` | No | `list of list of float` |  _Default_: `[[0.0],[0.0]]` <br /> Chromatic shift of the image on the detector, in pixels. The first sub-list corresponds to x-offsets, the second to y-offsets. Must have the same number of elements as `Transmittance`. Used only in PSF computation to account for wavelength-dependent shifts (e.g. due to residual atmospheric dispersion). |
+| `Gain` | No | `float` |  _Default_: `1.0` <br /> Detector pixel gain. |
+| `ExcessNoiseFactor` | No | `float` |  _Default_: `1.0` <br /> Excess noise factor. |
+| `NoiseVariance`  | No | `unknown` |  _Default_: `[None]` <br /> Noise Variance in _rad2_. If set, this value overrides the analytical noise variance calculation. |
 | `SigmaRON` | No | `float` |  _Default_: `0.0` <br /> Read-out noise std in **_[e-]_**, used only if the `NoiseVariance` is not set. |
-| `addMcaoWFsensConeError` | No | `string` | _Default_: `False` <br /> Additional error to consider the reduced sensing volume due to the cone effect. Multi-conjugate systems only.|
+| `addMcaoWFsensConeError` | No | `bool` | _Default_: `False` <br /> Additional error to consider the reduced sensing volume due to the cone effect. Multi-conjugate systems only.|
 
 </details>
 
@@ -252,7 +252,7 @@ In the two following section we list the parameters that are specific to each wa
 | `SigmaRON` | Yes | `float` | _Default_: `0.0` <br /> Read out noise in **_[e-]_**. |
 | `Dark` | Yes | `float` | _Default_: `0.0` <br /> Dark current **_[e-/s/pix]_**.|
 | `SkyBackground` | Yes |  `float` | _Default_: `0.0` <br /> Sky background **_[e-/s/pix]_**.|
-| `ExcessNoiseFactor` | Yes |  `float` | _Default_: `2.0` <br /> Excess noise factor.|
+| `ExcessNoiseFactor` | Yes |  `float` | _Default_: `1.0` <br /> Excess noise factor.|
 | `WindowRadiusWCoG` | Yes | `integer` |  _Default_: `1` <br /> Radius in pixel of the HWHM of the weights map of the weighted CoG the low order WFS pixels. <br /> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop** (closest int to half of PSF FWHM), otherwise the float value set is used. |
 | `ThresholdWCoG` | Yes | `float` |  _Default_: `0.0` <br /> Threshold Number of pixels for windowing the low order WFS pixels. |
 | `NewValueThrPix` | Yes | `float` |  _Default_: `0.0` <br /> New value for pixels lower than threshold. |
@@ -264,7 +264,7 @@ In the two following section we list the parameters that are specific to each wa
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Binning` | not used | `integer` | _Default_: `1` <br /> Binning factor of the detector. |
-| `SpotFWHM` | not used | `list of list of int` | _Default_: `[[0.0,0.0,0.0]]` <br /> Low Order spot scale in **_[mas]_**. |
+| `SpotFWHM` | not used | `list of list of int` | _Default_: `[[0.0,0.0]]` <br /> Low Order spot scale in **_[mas]_**. |
 | `Gain` | not used | `float` | _Default_: `1` <br /> Camera gain. |
 | `Algorithm` | not used | `string` | _Default_: `wcog` <br /> CoG computation algorithm. |
 
@@ -287,7 +287,7 @@ In the two following section we list the parameters that are specific to each wa
 | `SigmaRON` | Yes | `float` | _Default_: `0.0` <br /> Read out noise in **_[e-]_**. |
 | `Dark` | Yes | `float` | _Default_: `0.0` <br /> Dark current **_[e-/s/pix]_**.|
 | `SkyBackground` | Yes |  `float` | _Default_: `0.0` <br /> Sky background **_[e-/s/pix]_**.|
-| `ExcessNoiseFactor` | Yes |  `float` | _Default_: `2.0` <br /> Excess noise factor.|
+| `ExcessNoiseFactor` | Yes |  `float` |Excess noise factor.|
 | `WindowRadiusWCoG` | Yes | `integer` |  _Default_: `1` <br /> Radius in pixel of the HWHM of the weights map of the weighted CoG the global focus WFS pixels. <br /> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop** (closest int to half of PSF FWHM), otherwise the float value set is used. |
 | `ThresholdWCoG` | Yes | `float` |  _Default_: `0.0` <br /> Threshold Number of pixels for windowing the global focus WFS pixels. |
 | `NewValueThrPix` | Yes | `float` |  _Default_: `0.0` <br /> New value for pixels lower than threshold. |

@@ -70,7 +70,7 @@ Detailed descriptions of each section are provided below.
 | `extraErrorLoMin` | No |  `float` | _Default_: `0.0` <br /> Mminimum spatial frequency for which PSD associated with `extraErrorLoNm` is > 0 |
 | `extraErrorLoMax`  | No |  `float` | _Default_: `0.0` <br /> Maximum spatial frequency for which PSD associated with `extraErrorLoNm` is > 0 <br /> _Note_: 0 means maximum frequency is the one present in the spatial frequency array of the PSDs. |
 | `jitter_FWHM` | No |  `float` | _Default_: `None` <br /> Additional kernel to be convolved with PSF, it could be a scalar (FWHM in **_mas_**) for a round kernel or a list of three values [FWHM_mas_max, FWHM_mas_min, angle_rad]. |
-| `glFocusOnNGS` | No |  `string` | _Default_: `False` <br /> Global focus control with natural guide stars. Multi-conjugate systems only. Requires `NumberLenslets` >= 2 in `sensor_LO` or a specific global focus sensor (`[sources_Focus]` and `[sensor_Focus]` sections). |
+| `glFocusOnNGS` | No |  `bool` | _Default_: `False` <br /> Global focus control with natural guide stars. Multi-conjugate systems only. Requires `NumberLenslets` >= 2 in `sensor_LO` or a specific global focus sensor (`[sources_Focus]` and `[sensor_Focus]` sections). |
 | `TechnicalFoV` | No/Yes if LO |  `float` | _Default_: `0.0` <br /> Diameter of the technical field of view **[arcsec]**. Internally converted to a radius in radians for interaction-matrix and covariance formulas, and used to size DMs vs conjugation height (laser/MCAO). <br/> _Warning:_ Mandatory and no default if LO section is used.|
 
 </details>
@@ -256,7 +256,7 @@ In the two following section we list the parameters that are specific to each wa
 | `WindowRadiusWCoG` | Yes | `integer` |  _Default_: `1` <br /> Radius in pixel of the HWHM of the weights map of the weighted CoG the low order WFS pixels. <br /> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop** (closest int to half of PSF FWHM), otherwise the float value set is used. |
 | `ThresholdWCoG` | Yes | `float` |  _Default_: `0.0` <br /> Threshold Number of pixels for windowing the low order WFS pixels. |
 | `NewValueThrPix` | Yes | `float` |  _Default_: `0.0` <br /> New value for pixels lower than threshold. |
-| `filtZernikeCov` | No | `string` |  _Default_: `False` <br /> Filter for the zernike covariance. The zernike cov. is used to quantify for the TT tomographic (anisoplanatic) error. This filter accounts for the HO correction of an MCAO system. Multi-conjugate systems only. <br /> _Warning_: Do not use in systems with a single DM. |
+| `filtZernikeCov` | No | `bool` |  _Default_: `False` <br /> Filter for the zernike covariance. The zernike cov. is used to quantify for the TT tomographic (anisoplanatic) error. This filter accounts for the HO correction of an MCAO system. Multi-conjugate systems only. <br /> _Warning_: Do not use in systems with a single DM. |
 
 
 #### Can be set but not used

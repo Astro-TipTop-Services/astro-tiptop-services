@@ -177,6 +177,18 @@ const config = {
                 className: 'menu-section-header',
               },
               {
+                label: '• Parameter files - [ASTERISM_SELECTION]',
+                to: '/docs/aquila/parameterfiles',
+              },
+              {
+                label: '• Running selections',
+                to: '/docs/aquila/running_selection',
+              },
+              {
+                label: '• Heuristic models',
+                to: '/docs/aquila/heuristic_models',
+              },
+              {
                 label: 'TipTop | PSF Fitting / PSF Extrapolation',
                 to: '/docs/lyra/overview',
                 className: 'menu-section-header', 

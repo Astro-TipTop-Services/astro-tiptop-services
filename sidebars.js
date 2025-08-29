@@ -67,7 +67,11 @@ const sidebars = {
     {
       type: 'category',
       label: 'TipTop | Asterism selection',
-      items: ['aquila/overview'],
+      items: ['aquila/overview',
+            'aquila/parameterfiles',
+            'aquila/running_selection',
+            'aquila/heuristic_models'
+      ],
     },
     {
       type: 'category',

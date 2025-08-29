@@ -59,7 +59,6 @@ Detailed descriptions of each section are provided below.
 | `PathStaticPos` | No | `string`  | _Default_: `None`<br /> Required if `PathStaticOff`. Path to a fits file that contains the field positions [zenith in arcsec, azimuth in rad] corresponding to each off-axis static aberration map in `PathStaticOff`. |
 | `PathApodizer` | No | `string`  | _Default_: `''`<br /> Path to a fits file that contains an amplitude apodizer map. Used to apply pupil amplitude weighting (transmission mask) in the simulation. if absent or `''`, not used. |
 | `PathStatModes` | No | `string`  | _Default_: `''`<br /> Path to a fits file that contains a cube of static aberration modes. Each mode is normalized to have 1 nm RMS amplitude. If absent or `''`, not used. |
-| `coefficientOfTheStaticMode` | No used | `string`  | _Default_: `''`<br /> Coefficients applied to the static aberration modes loaded from `PathStatModes`. |
 | `windPsdFile` | No | `string`  | _Default_: `''`<br /> File name of a .fits file with a 2D array with a frequency vector and PSD of tip and tilt windshake. |
 | `extraErrorNm` | No | `float` | _Default_: `0.0` <br /> **_nm_** RMS of the additional wavefront error to be added (an error that is not otherwise considered). |
 | `extraErrorExp` | No |  `float` | _Default_: `-2.` <br /> Exponent of the power of spatial frequencies used to generate the PSD associated with `extraErrorNm`. |
@@ -71,7 +70,9 @@ Detailed descriptions of each section are provided below.
 | `extraErrorLoMax`  | No |  `float` | _Default_: `0.0` <br /> Maximum spatial frequency for which PSD associated with `extraErrorLoNm` is > 0 <br /> _Note_: 0 means maximum frequency is the one present in the spatial frequency array of the PSDs. |
 | `jitter_FWHM` | No |  `float` | _Default_: `None` <br /> Additional kernel to be convolved with PSF, it could be a scalar (FWHM in **_mas_**) for a round kernel or a list of three values [FWHM_mas_max, FWHM_mas_min, angle_rad]. |
 | `glFocusOnNGS` | No |  `bool` | _Default_: `False` <br /> Global focus control with natural guide stars. Multi-conjugate systems only. Requires `NumberLenslets` >= 2 in `sensor_LO` or a specific global focus sensor (`[sources_Focus]` and `[sensor_Focus]` sections). |
-| `TechnicalFoV` | No/Yes if LO |  `float` | _Default_: `0.0` <br /> Diameter of the technical field of view **[arcsec]**. Internally converted to a radius in radians for interaction-matrix and covariance formulas, and used to size DMs vs conjugation height (laser/MCAO). <br/> _Warning:_ Mandatory and no default if LO section is used.|
+| `TechnicalFoV` | No/Yes if LO |  `float` | _Default_: `0.0` <br /> Diameter of the technical field of view in **_[arcsec]_**. In MCAO/LGS configurations, used when `NumberActuators` from `[DM]` section is not set: scales the projected DM size with altitude and derives the actuator count from `DmPitchs`. In LO, also sets the angular range for interpolating additional low-order error terms (`extraErrorLoNm`).<br/> _Warning:_ Mandatory and no default if LO section is used.|
+
+<!-- | `coefficientOfTheStaticMode` | No used | `string`  | _Default_: `''`<br /> Coefficients applied to the static aberration modes loaded from `PathStatModes`. | -->
 
 </details>
 
@@ -82,14 +83,14 @@ Detailed descriptions of each section are provided below.
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `Seeing` | Yes,  unless `r0_value` given | `float` | Set the seeing at Zenith in **_arcsec_**. Used to compute `r0` as `r0 = 0.976 × λ / Seeing(rad)`. If not set, **TipTop** uses `r0_value`. |
-| `r0_value` | Yes, unless `Seeing` given | `float` | Set the atmosphere Fried parameter `r0` in **meters**. Used directly if `Seeing` is not provided. |
+| `Seeing` | Yes,  unless `r0_value` given | `float` | Set the seeing at Zenith in **_[arcsec]_**. Used to compute `r0` as `r0 = 0.976 × λ / Seeing(rad)`. If not set, **TipTop** uses `r0_value`. |
+| `r0_value` | Yes, unless `Seeing` given | `float` | Set the atmosphere Fried parameter `r0` in **[meters]**. Used directly if `Seeing` is not provided. |
 | `Wavelenght` | No/Yes if LO | `float` | _Default_: `500e-9` <br /> Wavelength at which the atmospheric statistics are defined (in meters). <br /> _Warning:_ Mandatory and no default if LO section is used.|
 | `L0` | No/Yes if LO | `float` | _Default_: `25.0` <br /> Outer Scale of the atmosphere in meters. <br />_Warning:_ Mandatory and no default if LO section is used.|
 | `Cn2Weights` | No/Yes if LO | `list of float` | _Default_: `[1.0]` <br /> Relative contribution of each layer. The sum of all the list element must be 1. Must have the same length as `Cn2Heights`, `WindSpeed` and `WindDirection`. <br /> _Warning_: required if `Cn2Heights`, `WindSpeed` or `WindDirection` are defined. <br /> _Warning_: extremely confusing error message if absent when it must be defined. |
-| `Cn2Heights` | No/Yes if LO | `list of float` | _Default_: `[0.0]` <br /> Altitude of layers in **_meters_**. Must have the same length as `Cn2Weights`, `WindSpeed` and `WindDirection`. <br /> _Warning_: required if `Cn2Weights`, `WindSpeed` or `WindDirection` are defined. <br /> _Warning_: extremely confusing error message if absent when it must be defined.|
-| `WindSpeed` | No/Yes if LO | `list of float` | _Default_: `[10.0]` <br />  Wind speed values for each layer in **_m/s_**. Must have the same length as `Cn2Weights`, `Cn2Heights` and `WindDirection`. <br />_Warning_: required if `Cn2Weights`, `Cn2Heights` or `WindDirection` are defined. <br /> _Warning_: extremely confusing error message if absent when it must be defined. |
-| `WindDirection` | No | `list of float` | _Default_: a list of 0 of the length of WindSpeed <br />  Wind direction for each layer in **_degrees_**. 0 degree is along the x axis then anticlockwise. Must have the same length as `Cn2Weights`, `Cn2Heights` and `WindSpeed`.|
+| `Cn2Heights` | No/Yes if LO | `list of float` | _Default_: `[0.0]` <br /> Altitude of layers in **_[meters]_**. Must have the same length as `Cn2Weights`, `WindSpeed` and `WindDirection`. <br /> _Warning_: required if `Cn2Weights`, `WindSpeed` or `WindDirection` are defined. <br /> _Warning_: extremely confusing error message if absent when it must be defined.|
+| `WindSpeed` | No/Yes if LO | `list of float` | _Default_: `[10.0]` <br />  Wind speed values for each layer in **_[m/s]_**. Must have the same length as `Cn2Weights`, `Cn2Heights` and `WindDirection`. <br />_Warning_: required if `Cn2Weights`, `Cn2Heights` or `WindDirection` are defined. <br /> _Warning_: extremely confusing error message if absent when it must be defined. |
+| `WindDirection` | No | `list of float` | _Default_: a list of 0 of the length of WindSpeed <br />  Wind direction for each layer in **_[degrees]_**. 0 degree is along the x axis then anticlockwise. Must have the same length as `Cn2Weights`, `Cn2Heights` and `WindSpeed`.|
 | `testWindspeed` | No | `float` | Used only for tests. |
 
 </details>
@@ -115,7 +116,7 @@ Detailed descriptions of each section are provided below.
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `Wavelength` | Yes |  `float` | Sensing wavelength for Hight Order modes in **_meters__** <br /> _Warning_: gives a confusing error message if absent. |
+| `Wavelength` | Yes |  `float` | Sensing wavelength for Hight Order modes in **_meters_** <br /> _Warning_: gives a confusing error message if absent. |
 | `Zenith` | No | `list of float` | _Default_: `[0.0]` <br /> Zenithal coordinate of each guide stars in arcsec (distance from axis). Must be the same length as `Azimuth`, even if `Azimuth` is defined, this is optional. |
 | `Azimuth` | No | `list of float` | _Default_: `[0.0]` <br /> Azimuthal coordinate in degree (angle from the ref. direction: polar axis is x-axis) of each guide stars. Must be the same length as `Zenith`, even if `Zenith` is defined, this is optional. |
 | `Height` | No | `float` | _Default_: `0.0` <br /> Altitude of the guide stars (0 if infinite). Consider that all guide star are at the same height. |
@@ -188,13 +189,13 @@ The High Order WaveFront Sensor can be a **Pyramid WFS** or a **Shack-Hartmann**
 | `PixelScale` | Yes | `integer` | High Order WFS pixel scale in **_[mas]_**. Not used when a **Pyramid** wavefront sensor has been selected. <br /> _Warning_: gives a confusing error message if missing. |
 | `FieldOfView` | Yes | `integer` | Number of pixels per subaperture. Not used when a **Pyramid** wavefront sensor has been selected (4 pixels are used in this case). <br /> _Warning_: gives a confusing error message if missing. |
 | `NumberPhotons` | No | `list of int` |  _Default_: `[Inf]` <br /> Flux return in **_[nph/frame/subaperture]_**. <br /> It can be computed as: `(0-magn-flux [ph/s/m2]) * (size of sub-aperture [m])^2 * (1/SensorFrameRate_HO) * (total throughput) * (10^(-0.4*magn_source_HO))`|
-| `SpotFWHM` | No | `list of list of float` |  _Default_: `[[0.0, 0.0]]` <br /> Intrinsic **Shack–Hartmann** spot size (FWHM) along x and y, in **_milliarcseconds_**. Represents the instrumental broadening of spots without turbulence. If set to [0.0, 0.0], only atmospheric broadening is considered. Not used with a **Pyramid** WFS. |
-| `SpectralBandwidth` | No | `float` |  _Default_: `0.0` <br /> Spectral full width around each central wavelength (in **_[meters]_**). If 0, monochromatic simulation. ||
-| `Transmittance` | No | `list of float` |  _Default_: `[1.0]` <br /> Transmission factors at the considered wavelengths. Each element is expected in the range [0,1]. Values weight the contribution of each wavelength to the final PSF and flux scaling. |
+| `SpotFWHM` | No | `list of list of float` |  _Default_: `[[0.0, 0.0]]` <br /> Represents the instrumental broadening of **Shack–Hartmann** spot size (FWHM) along x and y, in **_milliarcseconds_** without turbulence. If set to [[0.0, 0.0]], only atmospheric broadening is considered. Not used with a **Pyramid** WFS. |
+| `SpectralBandwidth` | No | `float` |  _Default_: `0.0` <br /> Spectral fullwidth around each central wavelength (in **_[meters]_**). If 0, monochromatic simulation. ||
+| `Transmittance` | No | `list of float` |  _Default_: `[1.0]` <br /> Transmission factors at the WFS plane. Expected in the range [0,1]. |
 | `Dispersion` | No | `list of list of float` |  _Default_: `[[0.0],[0.0]]` <br /> Chromatic shift of the image on the detector, in pixels. The first sub-list corresponds to x-offsets, the second to y-offsets. Must have the same number of elements as `Transmittance`. Used only in PSF computation to account for wavelength-dependent shifts (e.g. due to residual atmospheric dispersion). |
 | `Gain` | No | `float` |  _Default_: `1.0` <br /> Detector pixel gain. |
 | `ExcessNoiseFactor` | No | `float` |  _Default_: `1.0` <br /> Excess noise factor. |
-| `NoiseVariance`  | No | `unknown` |  _Default_: `[None]` <br /> Noise Variance in _rad2_. If set, this value overrides the analytical noise variance calculation. |
+| `NoiseVariance`  | No | `list of float` |  _Default_: `[None]` <br /> Noise Variance in _rad2_. If set, this value overrides the analytical noise variance calculation. |
 | `SigmaRON` | No | `float` |  _Default_: `0.0` <br /> Read-out noise std in **_[e-]_**, used only if the `NoiseVariance` is not set. |
 | `addMcaoWFsensConeError` | No | `bool` | _Default_: `False` <br /> Additional error to consider the reduced sensing volume due to the cone effect. Multi-conjugate systems only.|
 
@@ -205,7 +206,7 @@ The High Order WaveFront Sensor can be a **Pyramid WFS** or a **Shack-Hartmann**
 
 <!-- ### Wavefront sensor requirements -->
 <p align="justify">
-In the two following section we list the parameters that are specific to each wavefront sensor. If you define a parameter for one WFS while another WFS is defined The parameter will be ignired. For example, if you define the parameter `SigmaRON`, while WfsType is `Pyramid`, `SigmaRON` is ignored.
+In the two following section we list the parameters that are specific to each wavefront sensor. If you define a parameter for one WFS while another WFS is defined The parameter will be ignored. For example, if you define the parameter `SigmaRON`, while WfsType is `Pyramid`, `SigmaRON` is ignored.
 </p>
 
 #### Shack-Hartmann requirements
@@ -213,8 +214,8 @@ In the two following section we list the parameters that are specific to each wa
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `Algorithm` | not used | `string` |  _Default_: `wcog` <br /> Other options: `cog` (simple center-of-gravity), `tcog` (center-of-gravity with threshold), `qc` (quad-cell)|
-| `WindowRadiusWCoG` | not used | `int` |  _Default_: `2.0` <br /> FWHM in pixel of the gaussian weighting function. |
+| `Algorithm` | No | `string` |  _Default_: `wcog` <br /> Other options: `cog` (simple center-of-gravity), `tcog` (center-of-gravity with threshold), `qc` (quad-cell)|
+| `WindowRadiusWCoG` | No | `integer` |  _Default_: `5.0` <br /> FWHM in pixel of the gaussian weighting function. |
 
 
 #### Pyramid requirements
@@ -229,10 +230,10 @@ In the two following section we list the parameters that are specific to each wa
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `Dark` | not used | `float` | _Default_: `0.0` <br /> Dark current in **_[e-/s/pix]_**.|
-| `SkyBackground` | not used | `float` | _Default_: `0.0` <br /> Sky background **_[e-/s/pix]_**. |
-| `ThresholdWCoG` | not used | `float`? | _Default_: `0.0` <br /> Threshold Number of pixels for windowing the low order WFS pixels. |
-| `NewValueThrPix` | not used  | `float` | _Default_: `0.0` <br /> New value for pixels lower than `ThresholdWCoG`. Is there a reason to want to force these values to something else? |
+| `Dark` | No | `float` | _Default_: `0.0` <br /> Dark current in **_[e-/s/pix]_**.|
+| `SkyBackground` | No | `float` | _Default_: `0.0` <br /> Sky background **_[e-/s/pix]_**. |
+| `ThresholdWCoG` | No | `float` | _Default_: `0.0` <br /> Threshold Number of pixels for windowing the low order WFS pixels. |
+| `NewValueThrPix` | No  | `float` | _Default_: `0.0` <br /> New value for pixels lower than `ThresholdWCoG`. Is there a reason to want to force these values to something else? |
 
 </details>
 
@@ -253,7 +254,7 @@ In the two following section we list the parameters that are specific to each wa
 | `Dark` | Yes | `float` | _Default_: `0.0` <br /> Dark current **_[e-/s/pix]_**.|
 | `SkyBackground` | Yes |  `float` | _Default_: `0.0` <br /> Sky background **_[e-/s/pix]_**.|
 | `ExcessNoiseFactor` | Yes |  `float` | _Default_: `1.0` <br /> Excess noise factor.|
-| `WindowRadiusWCoG` | Yes | `integer` |  _Default_: `1` <br /> Radius in pixel of the HWHM of the weights map of the weighted CoG the low order WFS pixels. <br /> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop** (closest int to half of PSF FWHM), otherwise the float value set is used. |
+| `WindowRadiusWCoG` | Yes | `integer` or `string` |  _Default_: `1` <br /> Radius in pixel of the FWHM of the weights map of the weighted CoG the low order WFS pixels. <br /> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop** (closest int to half of PSF FWHM), otherwise the float value set is used. |
 | `ThresholdWCoG` | Yes | `float` |  _Default_: `0.0` <br /> Threshold Number of pixels for windowing the low order WFS pixels. |
 | `NewValueThrPix` | Yes | `float` |  _Default_: `0.0` <br /> New value for pixels lower than threshold. |
 | `filtZernikeCov` | No | `bool` |  _Default_: `False` <br /> Filter for the zernike covariance. The zernike cov. is used to quantify for the TT tomographic (anisoplanatic) error. This filter accounts for the HO correction of an MCAO system. Multi-conjugate systems only. <br /> _Warning_: Do not use in systems with a single DM. |
@@ -263,10 +264,10 @@ In the two following section we list the parameters that are specific to each wa
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `Binning` | not used | `integer` | _Default_: `1` <br /> Binning factor of the detector. |
-| `SpotFWHM` | not used | `list of list of int` | _Default_: `[[0.0,0.0]]` <br /> Low Order spot scale in **_[mas]_**. |
-| `Gain` | not used | `float` | _Default_: `1` <br /> Camera gain. |
-| `Algorithm` | not used | `string` | _Default_: `wcog` <br /> CoG computation algorithm. |
+| `Binning` | No | `integer` | _Default_: `1` <br /> Binning factor of the detector. |
+| `SpotFWHM` | No | `list of list of int` | _Default_: `[[0.0,0.0]]` <br /> Low Order spot scale in **_[mas]_**. |
+| `Gain` | No | `float` | _Default_: `1` <br /> Camera gain. |
+| `Algorithm` | No | `string` | _Default_: `wcog` <br /> CoG computation algorithm. |
 
 </details>
 
@@ -288,7 +289,7 @@ In the two following section we list the parameters that are specific to each wa
 | `Dark` | Yes | `float` | _Default_: `0.0` <br /> Dark current **_[e-/s/pix]_**.|
 | `SkyBackground` | Yes |  `float` | _Default_: `0.0` <br /> Sky background **_[e-/s/pix]_**.|
 | `ExcessNoiseFactor` | Yes |  `float` |Excess noise factor.|
-| `WindowRadiusWCoG` | Yes | `integer` |  _Default_: `1` <br /> Radius in pixel of the HWHM of the weights map of the weighted CoG the global focus WFS pixels. <br /> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop** (closest int to half of PSF FWHM), otherwise the float value set is used. |
+| `WindowRadiusWCoG` | Yes | `integer` or `string` |  _Default_: `1` <br /> Radius in pixel of the HWHM of the weights map of the weighted CoG the global focus WFS pixels. <br /> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop** (closest int to half of PSF FWHM), otherwise the float value set is used. |
 | `ThresholdWCoG` | Yes | `float` |  _Default_: `0.0` <br /> Threshold Number of pixels for windowing the global focus WFS pixels. |
 | `NewValueThrPix` | Yes | `float` |  _Default_: `0.0` <br /> New value for pixels lower than threshold. |
 

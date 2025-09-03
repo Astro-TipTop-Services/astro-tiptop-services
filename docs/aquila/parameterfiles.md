@@ -11,50 +11,86 @@ This page describes the `[ASTERISM_SELECTION]` block you must add in your .ini f
 🚧 This page is a work in progress 🚧
 </p>
 
-## Parameters in Detail
+## 🔎 Parameters in Detail
 
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
-| `mode` | Yes | `string` | How asterism data is provided. See [Supported modes](/docs/aquila/parameterfiles#supportedmodes).|
+| `mode` | Yes | `string` | How asterism data is provided. See [**Supported modes**](/docs/aquila/parameterfiles#supportedmodes).|
 | `Zenith` | Yes* | `list of float` or `list of list of float` |Angular distance(s) from axis(_[arcsec]_). Format depends on mode: <br/> - `Sets`: list per asterism (e.g.`[[z1,z2,z3], [z4,z5,z6]]`). <br/> - `SinglesN`: flat list per star (e.g. `[z1, z2, z3...]`). <br/>- `Generate`: one-element list. <br/> Ignored for `File`or `FileMono`. |
 | `Azimuth` | Yes* | `list of float` or `list of list of float` |Angle(s) (degrees). Same format and rules as `Zenith`. <br/> Ignored for `File` or `FileMono`. |
 | `NumberPhotons` | Yes* | `list of float` or `list of list of float` |Flux per star (_[photons / subaperture / frame]_). Format depends on mode. Ignored for `File`/`FileMono` (in those cases it is computed from magnitudes and transmission). |
-| `Frequencies` | No | `list of float` or `list of list of float`  |List of frequencies for the LO loop (_[Hz]_). Ignored forn `File`/`FileMono`. <br/> If missing,  all the frequencies are considered to be equal to the value of `SensorFrameRate_LO`in the `[RTC]` section.   |
+| `Frequencies` | Yes* | `list of float` or `list of list of float`  |List of frequencies for the LO loop (_[Hz]_). Ignored for `File`/`FileMono`. <br/> If missing, all the frequencies are considered to be equal to the value of `SensorFrameRate_LO`in the `[RTC]` section.   |
 | `filename` | Yes** | `string` |Path to a `.npy` NumPy recarray with fields and asterisms (See [File formats](/docs/aquila/parameterfiles#format)). Only for `File` or `FileMono`. |
-| `offset` | No | `integer` |_Default_: 0, First field index to read from `filename`. `File`/`FileMono` only. |
+| `offset` | Yes** | `integer` |_Default_: 0, First field index to read from `filename`. Used only in `File`/`FileMono`. |
 | `fieldsNumber` | No | `integer` |_Default_: all, Maximum number of FoVs to read from filename. If not specified, all available FoV are processed. |
-| `transmissionFactor` | Yes** | `float` |Telescope+instrument transmission factor, used to convert magnitudes to photon flux. Used only in `File`/`FileMono`.|
-| `bands` | Yes** | `list of string` |Photometric bands used to compute magnitudes and thus the flux. `File`/`FileMono` only.|
+| `transmissionFactor` | Yes | `float` |Telescope+instrument transmission factor, used to convert magnitudes to photon flux.<br/> Used only in `File`/`FileMono`.|
+| `bands` | Yes | `list of string` |Photometric bands used to compute magnitudes and thus the flux.<br/> Used only in `File`/`FileMono`.|
 
 
-\* Required only if `mode` = `Sets`, `Singles1`, `Singles3`, or `Generate`.<br/>
+\* Used only if `mode` = `Sets`, `Singles1`, `Singles3`, or `Generate`.<br/>
 \** Required only if `mode` = `File` or `FileMono`.
 
 ### Advanced / optional keys
  Key | Type | Applies to | Meaning |
 |---|---|---|---|
 | `heuristicModel` | `str` | any | Base name of a pre-trained heuristic model to load (mono: spline `.npy`; multi: NN `.pth`). If present and mono, it is auto-loaded from `outputDir/<name>.npy` |
-| `freqRule` | `str` | File/Mono | Frequency rule from magnitude. Supports `'MORFEO'`, `'MORFEO_FA'` else `ERIS` (mono) or MAVIS (multi) defaults are used. |
+| `freqRule` | `str` | File/Mono | Frequency rule from magnitude. Supports `'MORFEO'`, `'MORFEO_FA'` else `ERIS` (mono) or `MAVIS` (multi) defaults are used. |
 | `fluxH0`, `fluxJ0`, `fluxR0`, `fluxI0` | `float` | File/Mono | Zeropoints (photons) per band for mag→flux. If absent, internal defaults are used. |
 | `scalePhotonsFocus`, `scaleFrequenciesFocus` | `float` | any | Optional factors to derive Focus sensor photons/frame and frequency from LO values: we compute `fr_focus = fr_LO * scaleFrequenciesFocus, then ph/frame_focus = (ph/frame_LO) * (fr_LO/fr_focus) * scalePhotonsFocus`. Saved per star. |
 
 ✏️ **DEV note** (used internally):
 `telescope.TechnicalFoV` sets the technical FoV radius used when generating/validating fields; `sensor_LO.NumberLenslets` and `telescope.ObscurationRatio` are used to normalize the photon flux per subaperture (see “Flux scaling” below).
 
-## Supported `mode` values {#supported_modes}
+## ✅ Supported `mode` values {#supportedmodes}
 <p align="justify">
-The `mode` key defines how **TipTop** receives asterism data:
-
-- `Sets` → Provide explicit list of sets of stars (singles or triplets). Only a single FoV considered. See examples [**here**](/docs/aquila/parameterfiles#sets_mode) for ERIS and MAVIS instruments.
-- `SinglesN` → Provide a flat star list, TipTop builds all combinations of size _N_. Only a single FoV considered. ⚠️ Currently only `'Singles1'` (for one star asterism like in ERIS) and `'Singles3'` (for three stars asterism like in MAVIS) are accepted. `'SingleN'`comming soon. <br/> See examples [**here**](/docs/aquila/parameterfiles#single_mode) 
-- `Generate` → Generate synthetic test stars (developer/testing). 
-- `File` → Load multiple fields from a numpy recarray (3 stars per asterism). Multiple FoV considered.
-- `FileMono` → Same as File, but 1 star per asterism. Multiple FoV considered.
+The `mode` key defines how **TipTop** receives asterism data. 
 </p>
 
-✏️ **DEV note**: For Singles#, **TipTop converts** your polar coordinates to Cartesian, enumerates combinations with `itertools.combinations`, and builds packed arrays for fast slicing.
+### Modes overview
+<p align="justify">
 
-## Flux scaling & units 
+- **`Sets`** → Explicit list of asterisms. <br/>
+  One field only. Each entry = 3 stars (MAVIS-like) or 1 star (ERIS-like). <br/>
+  See examples [**here**](/docs/aquila/parameterfiles#sets_mode).
+- **`SinglesN`** → Flat star list; TipTop builds all combinations of size _N_ (`itertools.combinations`).<br/>
+  One field only. ⚠️Currently only **`Singles1`**(for one star asterism like in ERIS) and **`Singles3`** (for three stars asterism like in MAVIS) are supported.<br/>
+  See examples [**here**](/docs/aquila/parameterfiles#single_mode). 
+- **`Generate`** → Synthetic triangles for developer testing. 
+  Generates multiple ''fileds'' of test asterisms. <br/>
+  See example [**here**](/docs/aquila/parameterfiles#generate_mode). 
+  <!-- ⚠️ By default only `cumAstSizes` is filled; for real use, `cumStarSizes` and `allAsterismsIndices` must be completed (otherwise `getSourcesData` will raise `IndexError`).   -->
+- **`File`** → Load multiple fields from a NumPy recarray (`.npy`). <br/>
+  Each entry = 3-star asterism. Fields are looped; flux is computed from magnitudes and `transmissionFactor`. <br/> 
+  See example [**here**](/docs/aquila/parameterfiles#file_mode). 
+- **`FileMono`** → Same as `File`, but each entry is treated as a single-star asterism. <br/>
+  See example [**here**](/docs/aquila/parameterfiles#filemono_mode). 
+</p>
+
+### Internal details / DEV notes
+<details>
+  <summary><strong> IShow internal arrays populated by each mode </strong></summary>
+
+Internally, modes populate:
+- `nfieldsSizes`: number of asterisms per field (list, length = nfields)<br/>
+- `cumAstSizes`: cumulative count of asterisms per field (length = nfields+1)<br/>
+- `cumStarSizes`: cumulative count of distinct stars per field (length = nfields+1)<br/>
+- `allAsterismsIndices`: per asterism, indices of the stars in that field<br/>
+- `asterismsInputDataCartesian/Polar`: packed arrays (shape `[nAst, 4, nNGS]`) with positions, flux, frequency<br/>
+- `isMono` + `nNGS`: whether an asterism is a single star (`nNGS=1`) or a triangle (`nNGS=3`)  
+
+Implementation notes:
+- **Sets**: builds `all_combos` explicitly; updates cum arrays via `addFieldDataCombos`.  
+- **Singles1/3**: builds `all_combos` from star list, updates cum arrays; `cumStarSizes=[0, nStars]`.  
+<!-- - **Generate**: calls `generateTriangles()`, which fills `nfieldsSizes` + `cumAstSizes`. You must also fill `cumStarSizes` (3 per ast) and sequential `allAsterismsIndices`.   -->
+- **FileRandom**: loads from `.npy` files if present; else calls `generateRandom(nfields)` which samples random stars per FoV, computes flux, builds all data arrays, and saves `.npy` for reuse.  
+- **File/Mono Recarray**: uses `generateFromRecArrayMulti` (3 stars) or `generateFromRecArray` (1 star). Handles invalid/skipped fields (zero flux, out of FoV).  
+</details>
+
+## ⭐ Flux scaling & units 
+
+<details>
+  <summary><strong> Show flux normalization details </strong></summary>
+
 When you provide magnitudes (File/FileMono) or photons/frame, TipTop normalizes the per-subaperture flux using telescope/instrument geometry and LO sampling:
 - Total LO subapertures:
 `N_sa_tot_LO = N_lenslets^2` (adjusted for circular pupil & central obscuration if `N_lenslets > 2`)
@@ -64,21 +100,148 @@ with `D = telescope.TelescopeDiameter`, `ε = telescope.ObscurationRatio`.
 - Focus sensor derived values (if you set scaling keys):
 `fr_focus = fr_LO * scaleFrequenciesFocus`
 `ph/frame_focus = (ph/frame_LO) * (fr_LO / fr_focus) * scalePhotonsFocus`
+</details>
 
-
-## File format (for `File`/`FileMono`) {#format}
+## 📄 File format (for `File`/`FileMono`) {#format}
 
 <!-- The file format is the same for  `File` and `FileMono`. It is a numpy recarray (a bit complicated, cominf from the conversion of the dump of an IDL data structure). Each element of an asterism is a dictionnary representing a star, which provides its COORDS (x and y), FLUX and MAG in the various bands. See the function `generateFromRecArray`in the class àsterismSimulation`. -->
-- Input is a NumPy recarray (historical, exported from an IDL structure).
-- Each asterism entry contains per-star data (coordinates, magnitudes per band, flux); 
-- TipTop reads it with helper methods and rejects asterisms with non-positive flux.
-- Mono vs multi are handled by separate readers: `generateFromRecArray()` (mono) and `generateFromRecArrayMulti()` (triplets).
+- The on-disk format is a **NumPy recarray** (historical, exported from an IDL structure).
+- Each asterism entry contains per-star data (coordinates, magnitudes per band, flux).
+- TipTop reads it with:
+  - `generateFromRecArrayMulti` (3-star mode)
+  - `generateFromRecArray` (mono-star mode)
+- Invalid asterisms (flux ≤ 0, out of FoV) are skipped; skipped fields are tracked in `skippedFieldIndexes`.
+
+### Example: generating a `.npy` file
+
+Below is a Python script to create a TipTop `File`/`FileMono`-compatible recarray.  
+It mimics the format expected by TipTop when using `mode = File` (3-star asterisms, MAVIS-like) or `mode = FileMono` (1-star asterisms, ERIS-like):
+
+✏️ **Notes**
+- The on-disk structure is the **same for `File` and `FileMono`**: a **0-D structured NumPy scalar** with fields `N0..N{k-1}`. Each `N#` holds **either** a recarray of asterisms **or** a small integer marker for a skipped field.
+- **Each asterism stores arrays for 3 stars.** In `FileMono`, the *reader* later applies the single-star logic; the file layout itself still contains 3-star entries.
+- Values are **randomly generated** (for demo/testing). To make them reproducible, set a fixed RNG seed.
+- Always load with `allow_pickle=True` (inner fields are stored as `object` pointing to `ndarray`s).
+
+<details>
+  <summary><strong> make_tiptop_file_recarray.py </strong></summary>
+```python
+"""
+Created on Wed Sep 03 13:37:33 2025
+Make TipTop File/FileMono-compatible recarray
+
+@author: astro-tiptop-services
+"""
+
+#%%
+import numpy as np
+
+# -----------------------------------------------------------------------------
+# Inner dtype: one asterism = 3 stars. Each field is stored as "object"
+# (the actual value is a float32 ndarray). This mirrors the files used by
+# TipTop in mode=File / FileMono.
+#   COORD : float32 array of shape (2, 3)  -> X and Y for the 3 stars
+#   *MAG  : float32 array of shape (3,)    -> magnitudes per band  [R, I, J, H]
+#   FLUX* : float32 array of shape (3,)    -> flux per band
+# -----------------------------------------------------------------------------
+INNER_DTYPE = np.dtype([
+    (('coord','COORD'), object),  # ndarray float32 (2,3)
+    (('rmag','RMAG'),   object),  # ndarray float32 (3,)
+    (('imag','IMAG'),   object),
+    (('jmag','JMAG'),   object),
+    (('hmag','HMAG'),   object),
+    (('fluxr','FLUXR'), object),  # ndarray float32 (3,)
+    (('fluxi','FLUXI'), object),
+    (('fluxj','FLUXJ'), object),
+    (('fluxh','FLUXH'), object),
+])
+
+def _mk_inner_recarray(n_asterisms: int, nstars: int = 3) -> np.recarray:
+    """
+    Build the recarray for a single field (N#):
+    - n_asterisms entries (i.e., number of asterisms in that FoV)
+    - each asterism contains data for 'nstars' stars (fixed at 3 to match TipTop files)
+    """
+    inner = np.recarray((n_asterisms,), dtype=INNER_DTYPE)
+    for i in range(n_asterisms):
+        # XY coordinates in arcsec (example values)
+        inner[i]['COORD'] = np.random.uniform(-60, 60, size=(2, nstars)).astype(np.float32)
+        # Magnitudes per band
+        for key in ('RMAG','IMAG','JMAG','HMAG'):
+            inner[i][key] = np.random.uniform(12, 22, size=(nstars,)).astype(np.float32)
+        # Flux per band
+        for key in ('FLUXR','FLUXI','FLUXJ','FLUXH'):
+            inner[i][key] = np.random.uniform(1e2, 1e6, size=(nstars,)).astype(np.float32)
+    return inner
+
+def make_recarray(lengths_per_field, skip_fields=()):
+    """
+    Create a **0-D structured scalar** with fields 'N0'..'N{K-1}'.
+    This exactly matches the structure expected by TipTop for mode=File/FileMono.
+
+    Args
+    ----
+    lengths_per_field : list[int]
+        Number of asterisms for each field (FoV), e.g. 10 values for N0..N9.
+    skip_fields : iterable[int]
+        Indices of fields to mark as "skipped" (stored as a small integer),
+        replicating the original files behavior.
+
+    Returns
+    -------
+    numpy.ndarray
+        A 0-D structured array. Access a field via root[()]['N0'].
+    """
+    fields = [f"N{i}" for i in range(len(lengths_per_field))]
+    values = []
+    skip_set = set(skip_fields)
+    for idx, n_ast in enumerate(lengths_per_field):
+        if idx in skip_set or n_ast == 0:
+            # Skipped field marker (as seen in original files)
+            values.append(np.int16(0))          
+        else:
+            # Field contains a recarray of 'n_ast' asterisms (3 stars per asterism)
+            values.append(_mk_inner_recarray(n_ast, nstars=3))  
+    # Top-level 0-D structured scalar with object fields N0..N{K-1}
+    root_dtype = np.dtype([(f, object) for f in fields])
+    root = np.array(tuple(values), dtype=root_dtype)  # <- scalaire structuré
+    return root  # shape () ; access with root[()]['N0']
+
+#%%----------------------------------------------------------------------------
+# EXAMPLES 
+# -----------------------------------------------------------------------------
+# Multi (triplets) - same counts as rec_array10.npy
+lengths_multi = [1, 10, 64, 10, 22, 4, 10, 13, 7, 10]
+np.save("rec_array10_like.npy", make_recarray(lengths_multi))
+
+# "Mono" file (reader will treat it as mono later) - same counts as rec_array10_e.npy
+lengths_mono = [364, 220, 364, 120, 220, 84, 286, 120, 286, 165]
+np.save("rec_array10_e_like.npy", make_recarray(lengths_mono))
+
+#%%----------------------------------------------------------------------------
+# Load & inspect
+#------------------------------------------------------------------------------
+root = np.load("rec_array10_like.npy", allow_pickle=True)
+
+# get the recarray for field N3
+N3 = root[()]['N3']               # recarray of shape (n_asterisms,)
+print(N3.dtype.names)             # ('COORD','RMAG','IMAG','JMAG','HMAG','FLUXR','FLUXI','FLUXJ','FLUXH')
+
+# first asterism
+a0 = N3[0]
+print(a0['COORD'].shape)          # (2, 3)
+print(a0['JMAG'].shape)           # (3,)
+print(a0['FLUXH'].dtype)          # float32
+
+``` 
+</details>
+
 
 <!-- ✏️ **DEV note**: On load, TipTop builds:
 `asterismsInputDataCartesian` / `asterismsInputDataPolar` → shapes `[nAsterisms, 4, nStars]` = (x or r, y or θ, photons, freq), `plus allAsterismsIndices`, `nfieldsSizes`, cumulatives, etc.  -->
 
 
-## Minimal examples
+## ➡️ Minimal `.ini` examples
 ### `mode = 'Sets'`{#sets_mode}
 
 <details>

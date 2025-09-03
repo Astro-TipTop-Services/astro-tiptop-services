@@ -93,6 +93,15 @@ sr, fw, ee, covs, simul = reloadAsterismSelection(simulName, path2param,
                                                   parametersFile, outputDir, outputFile, ...)
 ```
 
+<!-- Ranking policy (TIPTOP core): asterisms are ranked by the scalar penalty (jitter), lower is better.
+Saved arrays are not sorted; sort them using np.argsort(penalty) (globally) or per field with cumAstSizes.
+SR-based fallback is not implemented in TIPTOP; it’s an optional helper you may use in notebooks. -->
+
+
+
+
+
+
 <!-- 
 ## Ordering & indexing 
 

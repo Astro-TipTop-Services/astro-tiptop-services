@@ -11,34 +11,88 @@ sidebar_label: Overview
 
 ## 🌌 The big picture
 <p align="justify">
-Adaptive optics needs **reference sources** (natural stars or laser beacons) to measure and correct atmospheric distortions. A **set of guide stars** used together is called an **asterism**. <br/>
+Adaptive optics needs **reference sources** (natural stars or laser beacons) to measure and correct atmospheric distortions. A **set of guide stars** used together is an **asterism**. <br/>
 👉 In practice, an asterism can be :
 - **1 star** (mono-NGS) - e.g. ERIS 
 - **3 stars** (multi-NGS) - e.g. MAVIS
+
+**TipTop** lets you evaluate many candidate asterisms and provides the metrics (SR, FWHM, EE, penalty) you need to rank them for your setup
 </p>
 
-## 🤔 What changes in TipTop?
+## 🤔 What TipTop adds
 
-**TipTop** now supports exploring many guide-star configurations. You just need to add a new section in your .ini parameter file:
+Add a single block in your `.ini` file to drive the exploration:
 
 ### [`[ASTERISM_SELECTION]`](/docs/aquila/parameterfiles.md)
 
-This section defines:
+This section tells **TipTop**:
 - how you provide the asterisms (the mode), and
 - the data needed (coordinates, fluxes, or a file with catalogs).
+Supported modes include:
+- `Sets` - you list explicit asterisms
+- `Singles1` / `Singles3` - you give a flat star list; **TipTop** builds all 1-star or 3-star combinations.
+- `Generate` - synthetic data (dev/tests).
+- `File`/ `FileMono` - load many fields from a NumPy recarray (`.npy`) and evaluate each field (triplets vs mono).
+See all the details and examples in [Paramater files - [ASTERISM_SELECTION]](/docs/aquila/parameterfiles.md).
 
-## 💡 Why is this useful?
+## 🔁 How it works (at a glance)
+
+- Build candidates from your chosen mode.
+- Run AO simulations for each asterism.
+- Compute metrics per asterism (and per science target if applicable).
+- Rank candidates in your analysis (by a scalar penalty/jitter, lower is better).
+- Save outputs for fast reload and post-processing.
+For a step-by-step run, see [Running selections](/docs/aquila/running_selection.md).
+
+## 📦 What you get (outputs)
+
+**TipTop** writes arrays to `outputDir` with the `simulName` prefix:
+
+- `sr.npy` – Strehl ratio per asterism (and per target if multi-target).
+- `fw.npy` – FWHM [mas] per asterism (and per target).
+- `ee.npy` – Encircled energy within your radius (or ensquared energy if requested).
+- `covs.npy` – Covariance ellipse parameters.
+- `penalty.npy` – scalar ranking metric (aka jitter); lower = better.
+
+Arrays are saved in the global order of evaluation (fields concatenated). They are not pre-sorted.<br/>
+Use `cumAstSizes` and `nfieldsSizes` from the simulation object to slice per field, `then np.argsort(penalty)` to rank.
+
+You can reload all metrics without recomputation via `reloadAsterismSelection(...)` (see the [Running selections](/docs/aquila/running_selection.md) page).
+
+<!-- ## 🧭 Ranking policy (important)
+
+- Primary: TipTop ranks asterisms by penalty (jitter), ascending (lower is better).
+- Saved arrays are unsorted; perform your own sort in notebooks/tools.
+- If you need a fallback in tooling (not in core): tie-break by higher SR, then smaller FWHM. -->
+
+## 💡 Example use cases
+
+- Compare candidate stars around a target (ERIS-like, Singles1).
+- Explore triplet combinations over a field (MAVIS-like, Singles3).
+- Batch-evaluate catalogue fields (File/FileMono) and pick the best per field.
+- Prototype what-if scenarios with synthetic inputs (Generate).
+
+## 🔧 Requirements & tips
+
+Your INI must include a valid `[ASTERISM_SELECTION]` and the LO loop configuration (see [sensor/RTC sections](/docs/orion/parameterfiles.md)).
+
+For `File`/`FileMono`, use the documented recarray format; a helper script is provided in the docs to create compatible files.
+
+For analysis, the simulation object returned by `asterismSelection` is your friend:
+`simul.cumAstSizes`, `simul.nfieldsSizes`, `simul.asterismsInputDataPolar/Cartesian`, `simul.penalty_Asterism`, etc.
+
+<!-- ## 💡 Why is this useful?
 
 It lets:
 - Compare **performance** of different star sets (Strehl ratio, jitter, FWHM, EE).
 - Test **robustness** (impact of faint or off-axis stars).
 - Automate exploration (all possible combinations from a list or a catalog).
-- Compare **scenarios** (e.g. one bright central star vs. three fainter ones).
+- Compare **scenarios** (e.g. one bright central star vs. three fainter ones). -->
 
 ## ✔️ In Summary
 
-`[ASTERISM_SELECTION]` = a recipe telling TipTop which stars to use, and how to combine them.<br/>
-**Goal** = explore and rank asterisms to choose the best AO configuration.
+`[ASTERISM_SELECTION]` tells **TipTop** which stars to try and how to combine them.
+**TipTop** then simulates, scores, and saves metrics so you can rank and choose the best asterism for your AO configuration.
 
 
 

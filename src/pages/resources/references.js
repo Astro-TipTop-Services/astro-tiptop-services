@@ -96,6 +96,7 @@ the GRAVITY+ project. In this paper, we detail the simulation code and present p
   {
     id: 6,
     title: 'Efficient asterism selection for wide field adaptive optics systems with TIPTOP',
+    link: 'https://www.spiedigitallibrary.org/conference-proceedings-of-spie/13097/130976H/Efficient-asterism-selection-for-wide-field-adaptive-optics-systems-with/10.1117/12.3020159.short',
     authors: 'Rossi, F., Agapito, G., Plantet, C., Neichel, B., Rigaut, F.',
     venue: 'Adaptive Optics Systems IX, Proceedings of the SPIE, Volume 13097, August 2024',
     abstract: `Wide Field Adaptive Optics (WFAO) systems play a pivotal role in enhancing the imaging and spectroscopic 
@@ -110,6 +111,7 @@ the GRAVITY+ project. In this paper, we detail the simulation code and present p
   {
     id: 7,
     title: 'INSPIRE: INvestigating Stellar Populations In RElics. IX. KiDS J0842+0059: the first fully confirmed relic beyond the local Universe',
+    link: 'https://arxiv.org/abs/2505.13611',
     authors: 'Tortora, C., Tozzi, G., Agapito, G., La Barbera, F., Spiniello, C. Li, R., Carlà, G., D`Ago, G., Ghose, E., Mannucci, F., Napolitano, N. R., Pinna, E., Arnaboldi, M., Bevacqua, D., Ferré-Mateu, A., Gallazzi, A., Hartke, J., Hunt, L. K., Maksymowicz-Maciata, M., Pulsoni, C., Saracco, P., Scognamiglio, D., Spavone, M.',
     venue: 'MNRAS, 2025',
     abstract: `Relics are massive, compact and quiescent galaxies that assembled the majority of their stars in the early Universe and lived untouched until today, completely missing any subsequent size-growth caused by mergers and interactions. 

@@ -64,7 +64,7 @@ The `mode` key defines how **TipTop** receives asterism data.
 
 ### Internal details / DEV notes
 <details>
-  <summary><strong> IShow internal arrays populated by each mode </strong></summary>
+  <summary><strong> Show internal arrays populated by each mode </strong></summary>
 
 Internally, modes populate:
 - `nfieldsSizes`: number of asterisms per field (list, length = nfields)<br/>
@@ -117,7 +117,7 @@ It mimics the format expected by TipTop when using `mode = File` (3-star asteris
 - The on-disk structure is the **same for `File` and `FileMono`**: a **0-D structured NumPy scalar** with fields `N0..N{k-1}`. Each `N#` holds **either** a recarray of asterisms **or** a small integer marker for a skipped field.
 - **Each asterism stores arrays for 3 stars.** In `FileMono`, the *reader* later applies the single-star logic; the file layout itself still contains 3-star entries.
 - Values are **randomly generated** (for demo/testing). To make them reproducible, set a fixed RNG seed.
-- Always load with `allow_pickle=True` (inner fields are stored as `object` pointing to `ndarray`s).
+- Always load with `allow_pickle=True` (inner fields are stored as `object` pointing to `ndarrays`).
 
 <details>
   <summary><strong> make_tiptop_file_recarray.py </strong></summary>
@@ -336,3 +336,5 @@ transmissionFactor = 0.334
 bands = ['R', 'I']
 ```
 </details> 
+
+💡 Complete .ini files are available in the astTest directory of our [**GitHub repository**](https://github.com/astro-tiptop/TIPTOP/tree/main/tiptop/astTest).

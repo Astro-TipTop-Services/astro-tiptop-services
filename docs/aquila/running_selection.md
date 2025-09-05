@@ -85,46 +85,13 @@ For convenience and faster reloads, the following arrays are saved with the pref
 
 ⬇️ You can reload them without recomputing via:
 ```python
-sr, fw, ee, covs, simul = reloadAsterismSelection(simulName, path2param,
-                                                  parametersFile, outputDir, outputFile, ...)
+sr, fw, ee, covs, simul = reloadAsterismSelection(simulName=SIMUL_NAME,path2param=PARAMS_DIR,
+                                                  parametersFile=INI_BASENAME, outputDir=OUTPUT_DIR,
+                                                  outputFile='psf', doPlot=False,
+                                                  returnRes=False, returnMetrics=True,
+                                                  addSrAndFwhm=True, verbose=False,
+                                                  getHoErrorBreakDown=False, ensquaredEnergy=False,
+                                                  eeRadiusInMas=50, gpuIndex=GPU_INDEX)
 ```
 
 For a step-by-step run, see [**Tutorial - Asterism Seclection**](/docs/aquila/tuto_ast_select.mdx).
-
-<!-- Ranking policy (TIPTOP core): asterisms are ranked by the scalar penalty (jitter), lower is better.
-Saved arrays are not sorted; sort them using np.argsort(penalty) (globally) or per field with cumAstSizes.
-SR-based fallback is not implemented in TIPTOP; it’s an optional helper you may use in notebooks. -->
-
-
-
-
-
-
-<!-- 
-## Ordering & indexing 
-
-All arrays (`sr`, `fw`, `ee`, `covs`, `penalty`) share the same asterism ordering:
-they are the concatenation of fields, _i.e. field 0 asterisms, then field 1, etc._
-
-Use the simulation object to navigate:
-
-- `simul.nfieldsSizes[f]` → number of asterisms in field f.
-- `simul.cumAstSizes` → cumulative counts (length = nFields+1).
-- Global asterism index range for field f is: `base = simul.cumAstSizes[f]` → `[base, base + simul.nfieldsSizes[f]]`.
-
-To reconstruct the star indices used by each asterism in a field:
-```python
-f = 3
-simul.selectData(f)  # populates current field indices
-local_ast_indices = simul.currentFieldAsterismsIndices  # list of index triplets (or singles)
-```
-
-To access the asterism geometry:
-```python
-base = simul.cumAstSizes[f]
-count = simul.nfieldsSizes[f]
-# Polar (r[arcsec], theta[deg], photons, freq) for all asterisms in this field:
-block = simul.asterismsInputDataPolar[base:base+count]   # shape [count, 4, nNGS]
-# Cartesian (x,y,photons,freq):
-blockC = simul.asterismsInputDataCartesian[base:base+count]
-``` -->

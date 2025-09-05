@@ -7,10 +7,6 @@ sidebar_label: Parameter files - [ASTERISM_SELECTION]
 ## `[ASTERISM_SELECTION]` {#asterism}
 This page describes the `[ASTERISM_SELECTION]` block you must add in your .ini files.
 
-<p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-🚧 This page is a work in progress 🚧
-</p>
-
 ## 🔎 Parameters in Detail
 
 | Parameter | Required? | Type | Description |

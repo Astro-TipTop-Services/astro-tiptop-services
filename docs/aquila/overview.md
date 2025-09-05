@@ -4,11 +4,6 @@ title: Overview
 sidebar_label: Overview
 ---
 
-<p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-🚧 This page is a work in progress 🚧
-</p>
-
-
 ## 🌌 The big picture
 <p align="justify">
 Adaptive optics needs **reference sources** (natural stars or laser beacons) to measure and correct atmospheric distortions. A **set of guide stars** used together is an **asterism**. <br/>
@@ -16,13 +11,12 @@ Adaptive optics needs **reference sources** (natural stars or laser beacons) to 
 - **1 star** (mono-NGS) - e.g. ERIS 
 - **3 stars** (multi-NGS) - e.g. MAVIS
 
-**TipTop** lets you evaluate many candidate asterisms and provides the metrics (SR, FWHM, EE, penalty) you need to rank them for your setup
+**TipTop** lets you evaluate many candidate asterisms and provides the metrics (SR, FWHM, EE, penalty) you need to rank them for your setup.
 </p>
 
 ## 🤔 What TipTop adds
 
 Add a single block in your `.ini` file to drive the exploration:
-
 ### [`[ASTERISM_SELECTION]`](/docs/aquila/parameterfiles.md)
 
 This section tells **TipTop**:
@@ -41,8 +35,8 @@ See all the details and examples in [Paramater files - [ASTERISM_SELECTION]](/do
 - Run AO simulations for each asterism.
 - Compute metrics per asterism (and per science target if applicable).
 - Rank candidates in your analysis (by a scalar penalty/jitter, lower is better).
-- Save outputs for fast reload and post-processing.
-For a step-by-step run, see [Running selections](/docs/aquila/running_selection.md).
+- Save outputs for fast reload and post-processing.<br/>
+For a step-by-step run, see [Tutorial - Asterism Seclection](/docs/aquila/tuto_ast_select.mdx).
 
 ## 📦 What you get (outputs)
 
@@ -55,7 +49,6 @@ For a step-by-step run, see [Running selections](/docs/aquila/running_selection.
 - `penalty.npy` – scalar ranking metric (aka jitter); lower = better.
 
 Arrays are saved in the global order of evaluation (fields concatenated). They are not pre-sorted.<br/>
-Use `cumAstSizes` and `nfieldsSizes` from the simulation object to slice per field, `then np.argsort(penalty)` to rank.
 
 You can reload all metrics without recomputation via `reloadAsterismSelection(...)` (see the [Running selections](/docs/aquila/running_selection.md) page).
 
@@ -67,10 +60,10 @@ You can reload all metrics without recomputation via `reloadAsterismSelection(..
 
 ## 💡 Example use cases
 
-- Compare candidate stars around a target (ERIS-like, Singles1).
-- Explore triplet combinations over a field (MAVIS-like, Singles3).
-- Batch-evaluate catalogue fields (File/FileMono) and pick the best per field.
-- Prototype what-if scenarios with synthetic inputs (Generate).
+- Compare candidate stars around a target (ERIS-like, `Singles1`).
+- Explore triplet combinations over a field (MAVIS-like, `Singles3`).
+- Batch-evaluate catalogue fields (`File`/`FileMono`) and pick the best per field.
+- Prototype what-if scenarios with synthetic inputs (`Generate`).
 
 ## 🔧 Requirements & tips
 

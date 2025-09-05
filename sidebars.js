@@ -70,7 +70,8 @@ const sidebars = {
       items: ['aquila/overview',
             'aquila/parameterfiles',
             'aquila/running_selection',
-            'aquila/heuristic_models'
+            'aquila/heuristic_models',
+            'aquila/tuto_ast_select'
       ],
     },
     {

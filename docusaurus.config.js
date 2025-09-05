@@ -189,6 +189,10 @@ const config = {
                 to: '/docs/aquila/heuristic_models',
               },
               {
+                label: '• Tutorial - Asterism Selection',
+                to: '/docs/aquila/tuto_ast_select',
+              },
+              {
                 label: 'TipTop | PSF Fitting / PSF Extrapolation',
                 to: '/docs/lyra/overview',
                 className: 'menu-section-header', 

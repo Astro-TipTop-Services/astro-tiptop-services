@@ -4,10 +4,6 @@ title: Running asterism selections
 sidebar_label: Running selections 
 ---
 
-<p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-🚧 This page is a work in progress 🚧
-</p>
-
 ## 📑 Pipeline
 
 <p align="center">
@@ -92,6 +88,8 @@ For convenience and faster reloads, the following arrays are saved with the pref
 sr, fw, ee, covs, simul = reloadAsterismSelection(simulName, path2param,
                                                   parametersFile, outputDir, outputFile, ...)
 ```
+
+For a step-by-step run, see [**Tutorial - Asterism Seclection**](/docs/aquila/tuto_ast_select.mdx).
 
 <!-- Ranking policy (TIPTOP core): asterisms are ranked by the scalar penalty (jitter), lower is better.
 Saved arrays are not sorted; sort them using np.argsort(penalty) (globally) or per field with cumAstSizes.

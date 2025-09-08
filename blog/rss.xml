@@ -9,15 +9,16 @@
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <item>
-            <title><![CDATA[📢P3 1.4.4 released!]]></title>
-            <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_p3_1.4.4</link>
-            <guid>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_p3_1.4.4</guid>
+            <title><![CDATA[📢Tiptop v1.3.28 and P3 1.4.4 released!]]></title>
+            <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.28_p3_1.4.4</link>
+            <guid>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.28_p3_1.4.4</guid>
             <pubDate>Mon, 08 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[P3 v1.4.4 is here! 🎉]]></description>
-            <content:encoded><![CDATA[<p>P3 v1.4.4 is here! 🎉</p>
+            <description><![CDATA[Tiptop v1.3.28 and P3 v1.4.4 is here! 🎉]]></description>
+            <content:encoded><![CDATA[<p>Tiptop v1.3.28 and P3 v1.4.4 is here! 🎉</p>
 <p>Update now and enjoy the latest enhancements 🚀</p>
-<p>Check it out on PyPI 👉 <a href="https://pypi.org/project/astro-p3/1.4.3/" target="_blank" rel="noopener noreferrer"><strong>astro-p3</strong></a></p>]]></content:encoded>
+<p>Check it out on PyPI 👉 <a href="https://pypi.org/project/astro-tiptop/" target="_blank" rel="noopener noreferrer"><strong>astro-tiptop</strong></a>, <a href="https://pypi.org/project/astro-p3/1.4.4/" target="_blank" rel="noopener noreferrer"><strong>astro-p3</strong></a></p>]]></content:encoded>
             <category>Publications</category>
+            <category>TipTop</category>
             <category>ReleaseUpdate</category>
             <category>p3</category>
         </item>
@@ -33,6 +34,7 @@
             <category>Publications</category>
             <category>TipTop</category>
             <category>ReleaseUpdate</category>
+            <category>p3</category>
         </item>
         <item>
             <title><![CDATA[📢Tiptop v1.3.26 released!]]></title>

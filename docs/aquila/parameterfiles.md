@@ -337,4 +337,4 @@ bands = ['R', 'I']
 ```
 </details> 
 
-💡 Complete .ini files are available in the astTest directory of our [**GitHub repository**](https://github.com/astro-tiptop/TIPTOP/tree/main/tiptop/astTest).
+💡 Complete `.ini` files are available in the `astTest` directory of our [**GitHub repository**](https://github.com/astro-tiptop/TIPTOP/tree/main/tiptop/astTest).

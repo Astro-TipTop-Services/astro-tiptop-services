@@ -1,8 +1,3 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
-
 hello:
   label: Hello
   permalink: /hello
@@ -12,11 +7,6 @@ docusaurus:
   label: Docusaurus
   permalink: /docusaurus
   description: Docusaurus tag description
-
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
 
 welcome:
   label: Welcome
@@ -42,4 +32,9 @@ TipTop:
   label: TipTop
   permalink: /TipTop
   description: TipTop tag description
+
+p3:
+  label: p3
+  permalink: /p3
+  description: p3 tag description
 

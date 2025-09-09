@@ -4,6 +4,11 @@ title: Overview
 sidebar_label: Overview
 ---
 
+<p align="center">
+![](/img/astro-tiptop.png)
+</p>
+
+
 ## 🌌 The big picture
 <p align="justify">
 Adaptive optics needs **reference sources** (natural stars or laser beacons) to measure and correct atmospheric distortions. A **set of guide stars** used together is an **asterism**. <br/>

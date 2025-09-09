@@ -4,6 +4,10 @@ title: Overview
 sidebar_label: Overview
 ---
 
+<p align="center">
+![](/img/astro-tiptop.png)
+</p>
+
 ## Simulating PSF with TipTop
 <p align="justify">
 Welcome to the section dedicated to using **TipTop** for AO PSF simulation. Astro-TipTop provides tutorials and practical tools to support you in using the **TipTop** algorithm and guide you through AO PSF prediction for all existing adaptive optics observing modes (Single-Conjugate-AO, Laser-Tomographic-AO, Multi-Conjugate-AO, Ground-Layer-AO) and under any atmospheric conditions.

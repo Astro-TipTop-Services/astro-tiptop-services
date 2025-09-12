@@ -190,14 +190,15 @@ The High Order WaveFront Sensor can be a **Pyramid WFS** or a **Shack-Hartmann**
 | `FieldOfView` | Yes | `integer` | Number of pixels per subaperture. Not used when a **Pyramid** wavefront sensor has been selected (4 pixels are used in this case). <br /> _Warning_: gives a confusing error message if missing. |
 | `NumberPhotons` | No | `list of int` |  _Default_: `[Inf]` <br /> Flux return in **_[nph/frame/subaperture]_**. <br /> It can be computed as: `(0-magn-flux [ph/s/m2]) * (size of sub-aperture [m])^2 * (1/SensorFrameRate_HO) * (total throughput) * (10^(-0.4*magn_source_HO))`|
 | `SpotFWHM` | No | `list of list of float` |  _Default_: `[[0.0, 0.0]]` <br /> Represents the instrumental broadening of **Shack–Hartmann** spot size (FWHM) along x and y, in **_milliarcseconds_** without turbulence. If set to [[0.0, 0.0]], only atmospheric broadening is considered. Not used with a **Pyramid** WFS. |
-| `SpectralBandwidth` | No | `float` |  _Default_: `0.0` <br /> Spectral fullwidth around each central wavelength (in **_[meters]_**). If 0, monochromatic simulation. ||
-| `Transmittance` | No | `list of float` |  _Default_: `[1.0]` <br /> Transmission factors at the WFS plane. Expected in the range [0,1]. |
-| `Dispersion` | No | `list of list of float` |  _Default_: `[[0.0],[0.0]]` <br /> Chromatic shift of the image on the detector, in pixels. The first sub-list corresponds to x-offsets, the second to y-offsets. Must have the same number of elements as `Transmittance`. Used only in PSF computation to account for wavelength-dependent shifts (e.g. due to residual atmospheric dispersion). |
 | `Gain` | No | `float` |  _Default_: `1.0` <br /> Detector pixel gain. |
 | `ExcessNoiseFactor` | No | `float` |  _Default_: `1.0` <br /> Excess noise factor. |
 | `NoiseVariance`  | No | `list of float` |  _Default_: `[None]` <br /> Noise Variance in _rad2_. If set, this value overrides the analytical noise variance calculation. |
 | `SigmaRON` | No | `float` |  _Default_: `0.0` <br /> Read-out noise std in **_[e-]_**, used only if the `NoiseVariance` is not set. |
 | `addMcaoWFsensConeError` | No | `bool` | _Default_: `False` <br /> Additional error to consider the reduced sensing volume due to the cone effect. Multi-conjugate systems only.|
+
+<!-- | `SpectralBandwidth` | No | `float` |  _Default_: `0.0` <br /> Spectral fullwidth around each central wavelength (in **_[meters]_**). If 0, monochromatic simulation. ||
+| `Transmittance` | No | `list of float` |  _Default_: `[1.0]` <br /> Transmission factors at the WFS plane. Expected in the range [0,1]. |
+| `Dispersion` | No | `list of list of float` |  _Default_: `[[0.0],[0.0]]` <br /> Chromatic shift of the image on the detector, in pixels. The first sub-list corresponds to x-offsets, the second to y-offsets. Must have the same number of elements as `Transmittance`. Used only in PSF computation to account for wavelength-dependent shifts (e.g. due to residual atmospheric dispersion). | -->
 
 </details>
 
@@ -258,16 +259,21 @@ In the two following section we list the parameters that are specific to each wa
 | `ThresholdWCoG` | Yes | `float` |  _Default_: `0.0` <br /> Threshold Number of pixels for windowing the low order WFS pixels. |
 | `NewValueThrPix` | Yes | `float` |  _Default_: `0.0` <br /> New value for pixels lower than threshold. |
 | `filtZernikeCov` | No | `bool` |  _Default_: `False` <br /> Filter for the zernike covariance. The zernike cov. is used to quantify for the TT tomographic (anisoplanatic) error. This filter accounts for the HO correction of an MCAO system. Multi-conjugate systems only. <br /> _Warning_: Do not use in systems with a single DM. |
-
-
-#### Can be set but not used
-
-| Parameter | Required? | Type | Description |
-| :--------------- |:---------------|:---------------:|:---------------|
 | `Binning` | No | `integer` | _Default_: `1` <br /> Binning factor of the detector. |
 | `SpotFWHM` | No | `list of list of int` | _Default_: `[[0.0,0.0]]` <br /> Low Order spot scale in **_[mas]_**. |
 | `Gain` | No | `float` | _Default_: `1` <br /> Camera gain. |
 | `Algorithm` | No | `string` | _Default_: `wcog` <br /> CoG computation algorithm. |
+
+
+
+<!-- #### Can be set but not used -->
+
+<!-- | Parameter | Required? | Type | Description |
+| :--------------- |:---------------|:---------------:|:---------------|
+| `Binning` | No | `integer` | _Default_: `1` <br /> Binning factor of the detector. |
+| `SpotFWHM` | No | `list of list of int` | _Default_: `[[0.0,0.0]]` <br /> Low Order spot scale in **_[mas]_**. |
+| `Gain` | No | `float` | _Default_: `1` <br /> Camera gain. |
+| `Algorithm` | No | `string` | _Default_: `wcog` <br /> CoG computation algorithm. | -->
 
 </details>
 
@@ -292,6 +298,11 @@ In the two following section we list the parameters that are specific to each wa
 | `WindowRadiusWCoG` | Yes | `integer` or `string` |  _Default_: `1` <br /> Radius in pixel of the HWHM of the weights map of the weighted CoG the global focus WFS pixels. <br /> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop** (closest int to half of PSF FWHM), otherwise the float value set is used. |
 | `ThresholdWCoG` | Yes | `float` |  _Default_: `0.0` <br /> Threshold Number of pixels for windowing the global focus WFS pixels. |
 | `NewValueThrPix` | Yes | `float` |  _Default_: `0.0` <br /> New value for pixels lower than threshold. |
+<!-- | `Binning` | No | `integer` | _Default_: `1` <br /> Binning factor of the detector. |
+| `SpotFWHM` | No | `list of list of int` | _Default_: `[[0.0,0.0]]` <br /> Focus spot scale in **_[mas]_**. |
+| `Gain` | No | `float` | _Default_: `1` <br /> Camera gain. |
+| `Algorithm` | No | `string` | _Default_: `wcog` <br /> CoG computation algorithm. | -->
+
 
 </details>
 

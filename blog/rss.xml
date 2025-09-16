@@ -4,17 +4,31 @@
         <title>Astro-TipTop Services Blog</title>
         <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog</link>
         <description>Astro-TipTop Services Blog</description>
-        <lastBuildDate>Mon, 08 Sep 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 16 Sep 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <item>
-            <title><![CDATA[📢Tiptop v1.3.28 and P3 1.4.4 released!]]></title>
+            <title><![CDATA[📢P3 v1.4.5 and MASTEL v1.3.10 released!]]></title>
+            <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_p3_1.4.5_mastel_1.3.10</link>
+            <guid>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_p3_1.4.5_mastel_1.3.10</guid>
+            <pubDate>Tue, 16 Sep 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[P3 v1.4.5 and MASTEL v1.3.10 are here! 🎉]]></description>
+            <content:encoded><![CDATA[<p><a href="https://github.com/astro-tiptop/P3/releases/tag/v1.4.5" target="_blank" rel="noopener noreferrer">P3 v1.4.5</a> and <a href="https://github.com/astro-tiptop/MASTSEL/releases/tag/v1.3.10" target="_blank" rel="noopener noreferrer">MASTEL v1.3.10</a> are here! 🎉</p>
+<p>Update now and enjoy the latest enhancements 🚀</p>
+<p>Check it out on PyPI 👉 <a href="https://pypi.org/project/astro-p3/1.4.5/" target="_blank" rel="noopener noreferrer"><strong>astro-p3</strong></a></p>]]></content:encoded>
+            <category>Publications</category>
+            <category>mastel</category>
+            <category>ReleaseUpdate</category>
+            <category>p3</category>
+        </item>
+        <item>
+            <title><![CDATA[📢Tiptop v1.3.28 and P3 v1.4.4 released!]]></title>
             <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.28_p3_1.4.4</link>
             <guid>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.28_p3_1.4.4</guid>
             <pubDate>Mon, 08 Sep 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[Tiptop v1.3.28 and P3 v1.4.4 is here! 🎉]]></description>
-            <content:encoded><![CDATA[<p><a href="https://github.com/astro-tiptop/TIPTOP/releases/tag/v1.3.28" target="_blank" rel="noopener noreferrer">Tiptop v1.3.28</a> and P3 v1.4.4 is here! 🎉</p>
+            <description><![CDATA[Tiptop v1.3.28 and P3 v1.4.4 are here! 🎉]]></description>
+            <content:encoded><![CDATA[<p><a href="https://github.com/astro-tiptop/TIPTOP/releases/tag/v1.3.28" target="_blank" rel="noopener noreferrer">Tiptop v1.3.28</a> and P3 v1.4.4 are here! 🎉</p>
 <p>Update now and enjoy the latest enhancements 🚀</p>
 <p>Check it out on PyPI 👉 <a href="https://pypi.org/project/astro-tiptop/" target="_blank" rel="noopener noreferrer"><strong>astro-tiptop</strong></a>, <a href="https://pypi.org/project/astro-p3/1.4.4/" target="_blank" rel="noopener noreferrer"><strong>astro-p3</strong></a></p>]]></content:encoded>
             <category>Publications</category>
@@ -23,7 +37,7 @@
             <category>p3</category>
         </item>
         <item>
-            <title><![CDATA[📢Tiptop v1.3.27 and P3 1.4.3 released!]]></title>
+            <title><![CDATA[📢Tiptop v1.3.27 and P3 v1.4.3 released!]]></title>
             <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.27_p3_1.4.3</link>
             <guid>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.27_p3_1.4.3</guid>
             <pubDate>Tue, 19 Aug 2025 00:00:00 GMT</pubDate>

@@ -6,7 +6,7 @@ Run a TIPTOP simulation and display PSFs
 """
 
 #%% Import necessary libraries
-from tiptop.tiptop import *
+from tiptop.tiptop import overallSimulation
 from astropy.io import fits
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
@@ -14,20 +14,16 @@ import numpy as np
 import os
 
 #%% 💡Set working directory to TIPTOP root (optional)
-# The .ini files may contain relative paths (e.g., "tiptop/data/*.fits")
-# => To ensure those paths resolve correctly, set the current working
-# directory (CWD) to the TIPTOP repository root.
-os.chdir("/my_path_to_TIPTOP/") # Makes relative paths in .ini (tiptop/data/*.fits) valid
-
-# --- Alternative (without chdir) ---
-# Keep your CWD anywhere and put absolute paths directly in the .ini
-# (e.g., '/my_path_to_TIPTOP/tiptop/data/*.fits').
+import tiptop 
+tiptop_path = os.path.dirname(tiptop.__file__)
+print(f"Directory of 'tiptop' is: {tiptop_path}")
+os.chdir(tiptop_path)
 
 #%% Define input and output paths and filenames
 #💡 Adapt these paths to your setup
 # path_in  : Path to the folder containing your .ini parameter file
 # path_out : Path where output files will be saved
-path_in = "tiptop/perfTest/"  # relative to TIPTOP_ROOT (because of chdir)
+path_in = "perfTest/"  # relative to TIPTOP_ROOT (because of chdir)
 path_out = "/my_path_to_SimOutputs/" # Use an absolute path if you want outputs to be saved outside the TIPTOP root
 
 file_in = "ERIS_SCAO_NGS"  # Name of the input parameter file (without extension)

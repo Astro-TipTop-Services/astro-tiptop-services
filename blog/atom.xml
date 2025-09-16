@@ -8,19 +8,20 @@
     <subtitle>Astro-TipTop Services Blog</subtitle>
     <icon>https://astro-tiptop-services.github.io/astro-tiptop-services/img/logo_astro-tiptop_cropped.png</icon>
     <entry>
-        <title type="html"><![CDATA[📢P3 v1.4.5 and MASTEL v1.3.10 released!]]></title>
-        <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_p3_1.4.5_mastel_1.3.10</id>
-        <link href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_p3_1.4.5_mastel_1.3.10"/>
+        <title type="html"><![CDATA[📢TipTop v1.3.29, P3 v1.4.5 and MASTEL v1.3.10 released!]]></title>
+        <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.29_p3_1.4.5_mastel_1.3.10</id>
+        <link href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.29_p3_1.4.5_mastel_1.3.10"/>
         <updated>2025-09-16T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[P3 v1.4.5 and MASTEL v1.3.10 are here! 🎉]]></summary>
-        <content type="html"><![CDATA[<p><a href="https://github.com/astro-tiptop/P3/releases/tag/v1.4.5" target="_blank" rel="noopener noreferrer">P3 v1.4.5</a> and <a href="https://github.com/astro-tiptop/MASTSEL/releases/tag/v1.3.10" target="_blank" rel="noopener noreferrer">MASTEL v1.3.10</a> are here! 🎉</p>
+        <summary type="html"><![CDATA[TipTop v1.3.29, P3 v1.4.5, MASTEL v1.3.10 are here! 🎉]]></summary>
+        <content type="html"><![CDATA[<p><a href="https://github.com/astro-tiptop/TIPTOP/releases/tag/v1.3.29" target="_blank" rel="noopener noreferrer">TipTop v1.3.29</a>, <a href="https://github.com/astro-tiptop/P3/releases/tag/v1.4.5" target="_blank" rel="noopener noreferrer">P3 v1.4.5</a>, <a href="https://github.com/astro-tiptop/MASTSEL/releases/tag/v1.3.10" target="_blank" rel="noopener noreferrer">MASTEL v1.3.10</a> are here! 🎉</p>
 <p>Update now and enjoy the latest enhancements 🚀</p>
-<p>Check it out on PyPI 👉 <a href="https://pypi.org/project/astro-p3/1.4.5/" target="_blank" rel="noopener noreferrer"><strong>astro-p3</strong></a></p>]]></content>
+<p>Check it out on PyPI 👉 <a href="https://pypi.org/project/astro-tiptop/" target="_blank" rel="noopener noreferrer"><strong>astro-tiptop</strong></a>, <a href="https://pypi.org/project/astro-p3/1.4.5/" target="_blank" rel="noopener noreferrer"><strong>astro-p3</strong></a></p>]]></content>
         <author>
             <name>Astro-TipTop Team</name>
             <uri>https://astro-tiptop-servoces.github.io/astro-tiptop-services/</uri>
         </author>
         <category label="Publications" term="Publications"/>
+        <category label="tiptop" term="tiptop"/>
         <category label="mastel" term="mastel"/>
         <category label="ReleaseUpdate" term="ReleaseUpdate"/>
         <category label="p3" term="p3"/>

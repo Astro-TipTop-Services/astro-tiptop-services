@@ -405,7 +405,7 @@ All the parameters that can be passed as arguments are listed and explained belo
 
     - **verbose** (_bool_) – optional default: False, If you want all messages set this to True
 
-    - **returnRes** (_bool_) – optional default: False, The function will return the result in the environment if set to True, else it saves the result only in a .fits file.
+    - **returnRes** (_bool_) – optional default: False, If True, the function will return the High Order residual and the Low Order residual (if LO) in nm RMS.
 
     - **returnMetrics** (_bool_) – optional default: False, The function will return Strehl Ratio, FWHM and encircled energy within eeRadiusInMas if set to True
 
@@ -425,7 +425,7 @@ All the parameters that can be passed as arguments are listed and explained belo
 
     - **gpuIndex** (_int_) – optional default: 0, Target GPU index where the simulation will be run
 
-⚠️ **Note:** if `returnMetrics` is set to `True`, the FITS file is not saved.
+⚠️ **Note:** if `returnMetrics` or `returnRes` are set to `True`, the FITS file is not saved.
 
   </details> 
 

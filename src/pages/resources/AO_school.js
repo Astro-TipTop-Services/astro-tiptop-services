@@ -81,7 +81,7 @@ export default function UsersPage() {
             <div style={{display:'flex', gap:'0.6rem', flexWrap:'wrap', alignItems:'center', marginBottom:'1.2rem'}}>
               <a
                 className="button button--secondary button--lg"
-                href="https://colab.research.google.com/github/Astro-TipTop-Services/astro-tiptop-services/blob/main/tutorials/TIPTOP_Getting_Started_tutorial_colab.ipynb"
+                href="https://colab.research.google.com/drive/1R6FqCkNRn116Sk-wLD55c4nFaYzk41y-?authuser=1"
                 target="_blank"
                 rel="noreferrer"
               >

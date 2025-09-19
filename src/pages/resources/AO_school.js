@@ -67,16 +67,17 @@ export default function UsersPage() {
 
             {/* Step 3 */}
             <p>
-              Download and run the notebook in your activated environment:
+             ✔️ Install TipTop on your machine, download and run the notebook in your activated environment:
             </p>
-            {/* <p>Open the notebook in Google Colab or download it to run locally in your activated environment.</p> */}
 
             <p>
             <a className="button button--primary button--lg" href={notebookUrl} download>
               ⬇️ Download “TIPTOP_Getting_Started_tutorial.ipynb”
             </a>
             </p>
-            <p>Open the notebook in Google Colab: </p>
+            <p> 👉 Optional (Colab): open a Colab-ready copy to <em>cross-check</em> your outputs. It runs in CPU mode 
+                and includes a short bootstrap cell so it works reliably on any Colab session. 
+                Your edits in Colab won’t change the version published on this website. </p>
             <div style={{display:'flex', gap:'0.6rem', flexWrap:'wrap', alignItems:'center', marginBottom:'1.2rem'}}>
               <a
                 className="button button--secondary button--lg"

@@ -233,6 +233,10 @@ const config = {
                 label: 'Wish list',
                 to: 'resources/wishlist',
               },
+               {
+                label: 'AO school',
+                to: 'resources/AO_school',
+              },
               {
                 label: 'Contact Support',
                 to: 'resources/contact',

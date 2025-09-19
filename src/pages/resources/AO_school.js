@@ -3,81 +3,6 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-// /** Reusable embed that prefers JupyterLite and falls back to NBViewer */
-// function NotebookEmbed({
-//   ipynbPath = '/tutorials/TIPTOP_Getting_Started_tutorial.ipynb',
-//   height = 720,
-//   title = 'Getting Started with TipTop - Step-by-Step Tutorial',
-//   description = 'This notebook walks you through running a TIPTOP simulation and visualizing PSFs (AO, diffraction limited, seeing limited).',
-// }) {
-//   const [src, setSrc] = useState(null);
-
-//   useEffect(() => {
-//     // Prefer local JupyterLite if present at /jupyterlite/lab/index.html
-//     if (typeof window === 'undefined') return;
-//     const jl = '/jupyterlite/lab/index.html';
-//     fetch(jl, {method: 'HEAD'})
-//       .then((r) => {
-//         if (r.ok) {
-//           // Interactive preview
-//           const u = `${jl}?path=${encodeURIComponent(ipynbPath)}`;
-//           setSrc(u);
-//         } else {
-//           // Static preview via NBViewer
-//           const abs = window.location.origin + ipynbPath;
-//           const u = `https://nbviewer.org/url/${encodeURIComponent(abs)}`;
-//           setSrc(u);
-//         }
-//       })
-//       .catch(() => {
-//         const abs = window.location.origin + ipynbPath;
-//         const u = `https://nbviewer.org/url/${encodeURIComponent(abs)}`;
-//         setSrc(u);
-//       });
-//   }, [ipynbPath]);
-
-//   return (
-//     <div className="card" style={{marginTop: '1rem'}}>
-//       <div className="card__header" style={{display:'flex', alignItems:'center', justifyContent:'space-between', gap:'1rem', flexWrap:'wrap'}}>
-//         <div>
-//           <h3 style={{margin: 0}}>{title}</h3>
-//           <p style={{margin: '0.25rem 0 0', opacity: 0.8}}>{description}</p>
-//         </div>
-//         <div style={{display:'flex', gap:'0.5rem'}}>
-//           {src && (
-//             <a className="button button--secondary button--sm" href={src} target="_blank" rel="noreferrer">
-//               Open preview ↗
-//             </a>
-//           )}
-//           <a className="button button--primary button--sm" href={ipynbPath}>
-//             ⬇️ Download .ipynb
-//           </a>
-//         </div>
-//       </div>
-//       <div className="card__body" style={{paddingTop: 0}}>
-//         {src ? (
-//           <div style={{borderRadius: '0.5rem', overflow: 'hidden', border: '1px solid var(--ifm-color-emphasis-300)'}}>
-//             <iframe
-//               title={title}
-//               src={src}
-//               loading="lazy"
-//               style={{width: '100%', height, border: 0}}
-//               allow="clipboard-read; clipboard-write; fullscreen"
-//             />
-//           </div>
-//         ) : (
-//           <div className="alert alert--secondary" style={{margin: 0}}>
-//             Loading preview…
-//           </div>
-//         )}
-//       </div>
-//       <div className="card__footer" style={{display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:'0.5rem'}}>
-//         <small style={{opacity: 0.8}}>
-//           Tip: If the preview is static, add <code>/static/jupyterlite/</code> to enable an interactive view.
-//         </small>
-//       </div>
-//     </div>
-//   );
 // }
 
 export default function UsersPage() {
@@ -144,11 +69,29 @@ export default function UsersPage() {
             <p>
               Download and run the notebook in your activated environment:
             </p>
+            {/* <p>Open the notebook in Google Colab or download it to run locally in your activated environment.</p> */}
+
             <p>
             <a className="button button--primary button--lg" href={notebookUrl} download>
               ⬇️ Download “TIPTOP_Getting_Started_tutorial.ipynb”
             </a>
             </p>
+            <p>Open the notebook in Google Colab: </p>
+            <div style={{display:'flex', gap:'0.6rem', flexWrap:'wrap', alignItems:'center', marginBottom:'1.2rem'}}>
+              <a
+                className="button button--secondary button--lg"
+                href="https://colab.research.google.com/github/Astro-TipTop-Services/astro-tiptop-services/blob/main/tutorials/TIPTOP_Getting_Started_tutorial_colab.ipynb"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  src="https://colab.research.google.com/assets/colab-badge.svg"
+                  alt=""
+                  style={{height:'1.1em', verticalAlign:'middle', marginRight:8}}
+                />
+                Open in Colab
+              </a>
+            </div>
 
             {/* Troubleshooting */}
             <h2 id="troubleshooting">Troubleshooting & support</h2>

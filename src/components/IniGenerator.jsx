@@ -43,7 +43,7 @@ const editableFields = {
   sensor_HO: {
     NumberPhotons: 'text',
   },
-    sensor_LO: {
+  sensor_LO: {
     NumberPhotons: 'text',
   },  
 };
@@ -57,54 +57,32 @@ const presetToKey = {
   SPHERE_SCAO_NGS: 'SCAO_NGS',
 };
 
-// const getF0FromWavelength = (lambda) => {
-//   const µm = lambda * 1e6; // µm
-
-//   if (µm >= 0.332 && µm < 0.398) return 4.34e10; // U
-//   if (µm >= 0.398 && µm < 0.492) return 6.4e10;  // B
-//   if (µm >= 0.507 && µm < 0.595) return 3.75e10; // V
-//   if (µm >= 0.589 && µm < 0.727) return 2.2e10; // R
-//   if (µm >= 0.731 && µm < 0.881) return 1.2e10; // I
-//   if (µm >= 1.17 && µm < 1.33) return 3.1e10; // J
-//   if (µm >= 1.505 && µm < 1.795) return 8.17e11; // H
-//   if (µm >= 2.03 && µm <2.37) return 4.66e11; // K
-//   if (µm >= 3.165 && µm < 3.735) return 9.35e10; // L
-//   if (µm >= 4.63 && µm < 4.87) return 2.29e10; // M
-
-//   return null; 
-// };
-
 const getF0FromWavelength = (lambda) => {
   const µm = lambda * 1e6; // µm
-
   if (µm >= 0.390 && µm < 0.455) return 1.24e10;  // B
-  if (µm >= 0.455 && µm < 0.595) return 8.37e9; // V
-  if (µm >= 0.595 && µm < 0.715) return 1.36e10; // R
-  if (µm >= 0.715 && µm < 1.050) return 8.93e9; // I
-  if (µm >= 1.050 && µm < 1.345) return 4.11e9; // J
-  if (µm >= 1.505 && µm < 1.815) return 2.87e9; // H
-  if (µm >= 1.815 && µm <2.384) return 1.70e9; // K
-
+  if (µm >= 0.455 && µm < 0.595) return 8.37e9;   // V
+  if (µm >= 0.595 && µm < 0.715) return 1.36e10;  // R
+  if (µm >= 0.715 && µm < 1.050) return 8.93e9;   // I
+  if (µm >= 1.050 && µm < 1.345) return 4.11e9;   // J
+  if (µm >= 1.505 && µm < 1.815) return 2.87e9;   // H
+  if (µm >= 1.815 && µm < 2.384) return 1.70e9;   // K
   return null; 
 };
 
 const getTotThroughput = (lambda) => {
   const µm = lambda * 1e6;
-
-  if (µm >= 0.390 && µm < 0.455) return 0.07;  // B
-  if (µm >= 0.455 && µm < 0.595) return 0.16; // V
-  if (µm >= 0.595 && µm < 0.715) return 0.19; // R
-  if (µm >= 0.715 && µm < 1.050) return 0.20; // I
-  if (µm >= 1.050 && µm < 1.345) return 0.24; // J
-  if (µm >= 1.505 && µm < 1.815) return 0.264; // H
-  if (µm >= 1.815 && µm <2.384) return 0.26; // K
-
+  if (µm >= 0.390 && µm < 0.455) return 0.07;   // B
+  if (µm >= 0.455 && µm < 0.595) return 0.16;   // V
+  if (µm >= 0.595 && µm < 0.715) return 0.19;   // R
+  if (µm >= 0.715 && µm < 1.050) return 0.20;   // I
+  if (µm >= 1.050 && µm < 1.345) return 0.24;   // J
+  if (µm >= 1.505 && µm < 1.815) return 0.264;  // H
+  if (µm >= 1.815 && µm < 2.384) return 0.26;   // K
   return null; 
 };
 
 const getBandFromWavelength = (lambda) => {
   const µm = lambda * 1e6;
-  // if (µm >= 0.332 && µm < 0.398) return 'U';
   if (µm >= 0.390 && µm < 0.455) return 'B';
   if (µm >= 0.455 && µm < 0.595) return 'V';
   if (µm >= 0.595 && µm < 0.715) return 'R';
@@ -114,9 +92,27 @@ const getBandFromWavelength = (lambda) => {
   if (µm >= 1.345 && µm < 1.815) return 'H';
   if (µm >= 1.815 && µm < 2.317) return 'Ks';
   if (µm >= 2.317 && µm < 2.384) return 'K';
-  // if (µm >= 3.165 && µm < 3.735) return 'L';
-  // if (µm >= 4.63 && µm < 4.87) return 'M';
   return 'Unknown';
+};
+
+/* --- helpers pour parser & N_sa_tot (cohérent backend) --- */
+const parseNumericMaybeArray = (val) => {
+  if (typeof val === 'string') {
+    const cleaned = val.replace(/[\[\]]/g, '').split(',')[0];
+    const n = Number(cleaned);
+    return isNaN(n) ? undefined : n;
+  }
+  const n = Number(val);
+  return isNaN(n) ? undefined : n;
+};
+
+const effectiveSubapertures = (N_lenslet, obscRatio) => {
+  const Ngrid = N_lenslet * N_lenslet;
+  if (N_lenslet > 2) {
+    const Neff = Math.floor(Ngrid * (Math.PI / 4) * (1 - obscRatio * obscRatio));
+    return Math.max(1, Neff);
+  }
+  return Math.max(1, Ngrid);
 };
 
 const wavelengthByBand = {
@@ -130,8 +126,6 @@ const wavelengthByBand = {
   K: 2.10e-6,
   L: 3.32e-6,
   M: 4.78e-6,
-  // N: 10e-6,
-  // Q: 20e-6,
 };
 
 const availableBandsByInstrument = {
@@ -150,24 +144,13 @@ export default function IniGenerator() {
   const [magnitude, setMagnitude] = useState('');
   const [downloadUrl, setDownloadUrl] = useState(null);
   const [expanded, setExpanded] = useState(false);
-  // const [loPart, setLoPart] = useState(false); // for SCAO LGS only
-
   const filename = `${selectedOption || selectedOption}.ini`;
-
   const systemKey = presetToKey[selectedOption];
-  // const systemKey = useMemo(() => {
-  //   if (params.sensor_HO && params.sources_HO) return 'SCAO_NGS';
-  //   if (params.sensor_LO && params.sources_LO) return 'SCAO_LGS';
-  //   return 'UNKNOWN';
-  // }, [params]);
 
   const handleChange = (section, field, value) => {
     setParams((prev) => ({
       ...prev,
-      [section]: {
-        ...prev[section],
-        [field]: value,
-      },
+      [section]: { ...prev[section], [field]: value },
     }));
   };
 
@@ -175,10 +158,10 @@ export default function IniGenerator() {
     const opt = e.target.value;
     setSelectedOption(opt);
     setParams({ ...configPresets[opt] });
-    // setLoPart(true);
     setMagnitude('');
   };
 
+  /* ================== FORMULES corrigées ================== */
   const magnitudeToPhotons = (mag) => {
     try {
       if (mag == null || isNaN(mag)) return '[0]';
@@ -186,70 +169,45 @@ export default function IniGenerator() {
       let sensorKey = 'sensor_HO';
       let wavelengthKey = 'sources_HO';
       let rtcFrameRateKey = 'SensorFrameRate_HO';
-
       if (systemKey === 'SCAO_LGS') {
         sensorKey = 'sensor_LO';
         wavelengthKey = 'sources_LO';
         rtcFrameRateKey = 'SensorFrameRate_LO';
       }
 
-      const D = Number(params.telescope.TelescopeDiameter);
-      const OR = Number(params.telescope.ObscurationRatio);
-      let N_lenslet_raw = params[sensorKey]?.NumberLenslets;
-      let N_lenslet = 20;
+      const D  = parseNumericMaybeArray(params.telescope?.TelescopeDiameter);
+      const OR = Number(params.telescope?.ObscurationRatio ?? 0);
+      const N_lenslet =
+        parseNumericMaybeArray(params[sensorKey]?.NumberLenslets) ?? 20;
+      const sensorFrameRate =
+        parseNumericMaybeArray(params.RTC?.[rtcFrameRateKey]) ?? 1000;
 
-      if (typeof N_lenslet_raw === 'string' && N_lenslet_raw.trim() !== '') {
-        const parsed = N_lenslet_raw.replace(/[\[\]]/g, '').split(',')[0];
-        const num = Number(parsed);
-        if (!isNaN(num) && num > 0) {
-          N_lenslet = num;
-        }
-      } else if (typeof N_lenslet_raw === 'number' && N_lenslet_raw > 0) {
-        N_lenslet = N_lenslet_raw;
-      }
-
-      const sensorFrameRate = Number(params.RTC?.[rtcFrameRateKey]) || 1000;
-
-    let lambda_raw = params[wavelengthKey]?.Wavelength;
-    let lambda = 0;
-    if (typeof lambda_raw === 'string') {
-      lambda = Number(lambda_raw.replace(/[\[\]]/g, ''));
-    } else {
-      lambda = Number(lambda_raw);
-    }
-
+      const lambda = parseNumericMaybeArray(params[wavelengthKey]?.Wavelength);
       if (!D || !N_lenslet || !sensorFrameRate || !lambda) return '[0]';
 
       const F0 = getF0FromWavelength(lambda);
       const Tot_throughput = getTotThroughput(lambda);
-
-      if (!F0 || !Tot_throughput) {
-        console.warn("missing values: ", { F0, Tot_throughput });
-        return '[0]';
-      }
+      if (!F0 || !Tot_throughput) return '[0]';
 
       const band = getBandFromWavelength(lambda);
-      const bandCorrection = { //M0V
-        B: 1.37,
-        V: 0,
-        R: -1.26,
-        I: -2.15,
-        Iz: -2.15,
-        J: -2.49,
-        H: -3.03,
-        Ks: -3.29,
-        K: -3.29,
-      }
+      const bandCorrection = { // M0V
+        B: 1.37, V: 0, R: -1.26, I: -2.15, Iz: -2.15,
+        J: -2.49, H: -3.03, Ks: -3.29, K: -3.29,
+      };
+      const magCorr = Math.round((Number(mag) + (bandCorrection[band] ?? 0)) * 100) / 100;
 
-      const magCorr =  Math.round((mag + (bandCorrection[band] ?? 0)) * 100) / 100;
+      // surface pupille circulaire obscurée
+      const Apupil = Math.PI * Math.pow(D / 2, 2) * (1 - OR * OR);
+      // nombre effectif de sous-pupilles
+      const N_sa_tot = effectiveSubapertures(N_lenslet, OR);
 
-      const photons =  F0 * (Tot_throughput / sensorFrameRate) * (Math.pow(D, 2) - Math.pow(D*OR, 2)) 
-      * Math.pow(1/N_lenslet, 2) * Math.pow(10, -0.4 * magCorr);
-      // F0 * (Tot_throughput / sensorFrameRate) * 
-      // Math.PI/4 * (Math.pow(D, 2) - Math.pow(D*OR, 2)) * Math.pow(10, -0.4 * magCorr);
-        // F0 * Math.pow(D / N_lenslet, 2) * (1 / sensorFrameRate) * Math.pow(10, -0.4 * mag);    
+      // photons / subap / frame
+      const photons =
+        (F0 * Math.pow(10, -0.4 * magCorr)) *
+        (Tot_throughput * Apupil) /
+        (N_sa_tot * sensorFrameRate);
 
-      return `[${photons.toFixed(2)}]`;
+      return `[${Number.isFinite(photons) ? photons.toFixed(2) : 0}]`;
     } catch {
       return '[0]';
     }
@@ -257,52 +215,50 @@ export default function IniGenerator() {
 
   const photonsToMagnitude = (photonsVal) => {
     try {
-    let sensorKey = 'sensor_HO';
-    let wavelengthKey = 'sources_HO';
-    let rtcFrameRateKey = 'SensorFrameRate_HO';
+      let sensorKey = 'sensor_HO';
+      let wavelengthKey = 'sources_HO';
+      let rtcFrameRateKey = 'SensorFrameRate_HO';
+      if (systemKey === 'SCAO_LGS') {
+        sensorKey = 'sensor_LO';
+        wavelengthKey = 'sources_LO';
+        rtcFrameRateKey = 'SensorFrameRate_LO';
+      }
 
-    if (systemKey === 'SCAO_LGS') {
-      sensorKey = 'sensor_LO';
-      wavelengthKey = 'sources_LO';
-      rtcFrameRateKey = 'SensorFrameRate_LO';
+      const D  = parseNumericMaybeArray(params.telescope?.TelescopeDiameter);
+      const OR = Number(params.telescope?.ObscurationRatio ?? 0);
+      const sensorFrameRate =
+        parseNumericMaybeArray(params.RTC?.[rtcFrameRateKey]) ?? 1000;
+
+      const lambda = parseNumericMaybeArray(params[wavelengthKey]?.Wavelength);
+      const N_lenslet =
+        parseNumericMaybeArray(params[sensorKey]?.NumberLenslets) ?? 20;
+
+      const F0 = getF0FromWavelength(lambda);
+      const Tot_throughput = getTotThroughput(lambda);
+      const band = getBandFromWavelength(lambda);
+      const bandCorrection = {
+        B: 1.37, V: 0, R: -1.26, I: -2.15, Iz: -2.15,
+        J: -2.49, H: -3.03, Ks: -3.29, K: -3.29,
+      };
+
+      if (!F0 || !Tot_throughput || !D || !N_lenslet || !sensorFrameRate || !lambda) return '';
+
+      const photons = Number(photonsVal);
+      if (isNaN(photons) || photons <= 0) return '';
+
+      const Apupil = Math.PI * Math.pow(D / 2, 2) * (1 - OR * OR);
+      const N_sa_tot = effectiveSubapertures(N_lenslet, OR);
+      const preFactor = (F0 * Tot_throughput * Apupil) / (N_sa_tot * sensorFrameRate);
+
+      const magCorr = -2.5 * Math.log10(photons / preFactor);
+      const mag = magCorr - (bandCorrection[band] ?? 0);
+
+      return Number.isFinite(mag) ? mag.toFixed(2) : '';
+    } catch {
+      return '';
     }
-
-    const D = Number(params.telescope.TelescopeDiameter);
-    const OR = Number(params.telescope.ObscurationRatio);
-    const sensorFrameRate = Number(params.RTC?.[rtcFrameRateKey]) || 1000;
-
-    let lambda_raw = params[wavelengthKey]?.Wavelength;
-    let lambda = typeof lambda_raw === 'string'
-      ? Number(lambda_raw.replace(/[\[\]]/g, ''))
-      : Number(lambda_raw);
-
-    let N_lenslet_raw = params[sensorKey]?.NumberLenslets;
-    let N_lenslet = typeof N_lenslet_raw === 'string'
-      ? Number(N_lenslet_raw.replace(/[\[\]]/g, '').split(',')[0])
-      : Number(N_lenslet_raw);
-
-    const F0 = getF0FromWavelength(lambda);
-    const Tot_throughput = getTotThroughput(lambda);
-    const band = getBandFromWavelength(lambda);
-    const bandCorrection = {
-      B: 1.37, V: 0, R: -1.26, I: -2.15, Iz: -2.15,
-      J: -2.49, H: -3.03, Ks: -3.29, K: -3.29
-    };
-
-    if (!F0 || !Tot_throughput || !D || !N_lenslet || !sensorFrameRate || !lambda) return '';
-
-    const photons = Number(photonsVal);
-    if (isNaN(photons) || photons <= 0) return '';
-
-    const preFactor = F0 * (Tot_throughput / sensorFrameRate) * (Math.pow(D, 2) - Math.pow(D * OR, 2)) * Math.pow(1 / N_lenslet, 2);
-    const magCorr = -2.5 * Math.log10(photons / preFactor);
-    const mag = magCorr - (bandCorrection[band] ?? 0);
-
-    return mag.toFixed(2);
-  } catch {
-    return '';
-  }
-};
+  };
+  /* ======================================================= */
 
   const onMagnitudeChange = (magValue) => {
     setMagnitude(magValue);
@@ -311,9 +267,6 @@ export default function IniGenerator() {
       const section = systemKey === 'SCAO_LGS' ? 'sensor_LO' : 'sensor_HO';
       handleChange(section, 'NumberPhotons', '[0]');
       return;
-      // handleChange('sensor_HO', 'NumberPhotons', params.sensor_HO.NumberPhotons);
-      // handleChange('sensor_LO', 'NumberPhotons', params.sensor_LO.NumberPhotons);
-      // return;
     }
 
     const photons = magnitudeToPhotons(Number(magValue));
@@ -330,14 +283,10 @@ export default function IniGenerator() {
 
   useEffect(() => {
     if (!generatedIni) return;
-
     const blob = new Blob([generatedIni], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     setDownloadUrl(url);
-
-    return () => {
-      URL.revokeObjectURL(url); // Cleans up old URL
-    };
+    return () => { URL.revokeObjectURL(url); };
   }, [generatedIni]);
 
 

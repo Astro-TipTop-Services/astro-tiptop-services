@@ -406,129 +406,134 @@ export default function IniGenerator() {
     setMagnitude('');
   };
 
+  // Aire collectrice de la pupille circulaire avec obstruction centrale
+  const collectingArea = (D, OR) => {
+    if (!D || D <= 0) return 0;
+    const eps2 = (OR ?? 0) * (OR ?? 0);
+    return (Math.PI / 4) * (D * D) * (1 - eps2);
+  };
+
+  // Nombre effectif de sous-pupilles éclairées
+  const effectiveSubapertures = (N, OR) => {
+    if (!N || N <= 0) return 0;
+    if (N <= 2) return N * N;
+    const eps2 = (OR ?? 0) * (OR ?? 0);
+    const diskFactor = Math.PI / 4 * (1 - eps2);
+    return Math.max(1, Math.floor(N * N * diskFactor));
+  };
+
   const magnitudeToPhotons = (mag) => {
     try {
-      if (mag == null || isNaN(mag)) return '[0]';
+      if (mag == null || isNaN(mag)) return 0;
 
-      let sensorKey = 'sensor_LO';
-      let wavelengthKey = 'sources_LO';
-      let rtcFrameRateKey = 'SensorFrameRate_LO';
+      // LO (MCAO) : NGS utilisés par la boucle basse fréquence
+      const sensorKey = 'sensor_LO';
+      const wavelengthKey = 'sources_LO';
+      const rtcFrameRateKey = 'SensorFrameRate_LO';
 
       const D = Number(params.telescope.TelescopeDiameter);
       const OR = Number(params.telescope.ObscurationRatio);
+
+      // Nombre de lenslets (on prend la 1re valeur si tableau)
       let N_lenslet_raw = params[sensorKey]?.NumberLenslets;
       let N_lenslet = 20;
-
       if (typeof N_lenslet_raw === 'string' && N_lenslet_raw.trim() !== '') {
         const parsed = N_lenslet_raw.replace(/[\[\]]/g, '').split(',')[0];
         const num = Number(parsed);
-        if (!isNaN(num) && num > 0) {
-          N_lenslet = num;
-        }
+        if (!isNaN(num) && num > 0) N_lenslet = num;
       } else if (typeof N_lenslet_raw === 'number' && N_lenslet_raw > 0) {
         N_lenslet = N_lenslet_raw;
       } else if (Array.isArray(N_lenslet_raw) && N_lenslet_raw.length > 0) {
         const num = Number(N_lenslet_raw[0]);
-        if (!isNaN(num) && num > 0) {
-          N_lenslet = num;
-        }
+        if (!isNaN(num) && num > 0) N_lenslet = num;
       }
 
       const sensorFrameRate = Number(params.RTC?.[rtcFrameRateKey]) || 1000;
 
-    let lambda_raw = params[wavelengthKey]?.Wavelength;
-    let lambda = 0;
-    if (typeof lambda_raw === 'string') {
-      lambda = Number(lambda_raw.replace(/[\[\]]/g, ''));
-    } else {
-      lambda = Number(lambda_raw);
-    }
+      let lambda_raw = params[wavelengthKey]?.Wavelength;
+      let lambda = 0;
+      if (typeof lambda_raw === 'string') {
+        lambda = Number(lambda_raw.replace(/[\[\]]/g, ''));
+      } else {
+        lambda = Number(lambda_raw);
+      }
 
-      if (!D || !N_lenslet || !sensorFrameRate || !lambda) return '[0]';
+      if (!D || !N_lenslet || !sensorFrameRate || !lambda) return 0;
 
       const F0 = getF0FromWavelength(lambda);
       const Tot_throughput = getTotThroughput(lambda);
+      if (!F0 || !Tot_throughput) return 0;
 
-      if (!F0 || !Tot_throughput) {
-        console.warn("missing values: ", { F0, Tot_throughput });
-        return '[0]';
-      }
-
+      // Correction (M0V)
       const band = getBandFromWavelength(lambda);
-      const bandCorrection = { //M0V
-        B: 1.37,
-        V: 0,
-        R: -1.26,
-        I: -2.15,
-        Iz: -2.15,
-        J: -2.49,
-        H: -3.03,
-        Ks: -3.29,
-        K: -3.29,
-      }
+      const bandCorrection = { B: 1.37, V: 0, R: -1.26, I: -2.15, Iz: -2.15, J: -2.49, H: -3.03, Ks: -3.29, K: -3.29 };
+      const magCorr = Math.round((Number(mag) + (bandCorrection[band] ?? 0)) * 100) / 100;
 
-      const magCorr =  Math.round((mag + (bandCorrection[band] ?? 0)) * 100) / 100;
+      // F0 * (T / fps) * (A_pupil / N_sa_tot) * 10^{-0.4 Mag_corr}
+      const A = collectingArea(D, OR);
+      const Nsa = effectiveSubapertures(N_lenslet, OR);
+      if (!A || !Nsa) return 0;
 
-      const photons =  F0 * (Tot_throughput / sensorFrameRate) * (Math.pow(D, 2) - Math.pow(D*OR, 2)) 
-      * Math.pow(1/N_lenslet, 2) * Math.pow(10, -0.4 * magCorr);
-
-    return Number(photons.toFixed(2));
-  } catch {
-    return 0;
+      const photons = F0 * (Tot_throughput / sensorFrameRate) * (A / Nsa) * Math.pow(10, -0.4 * magCorr);
+      return Number(photons.toFixed(2));
+    } catch {
+      return 0;
     }
   };
 
   const photonsToMagnitude = (photonsVal) => {
     try {
-    let sensorKey = 'sensor_LO';
-    let wavelengthKey = 'sources_LO';
-    let rtcFrameRateKey = 'SensorFrameRate_LO';
+      const sensorKey = 'sensor_LO';
+      const wavelengthKey = 'sources_LO';
+      const rtcFrameRateKey = 'SensorFrameRate_LO';
 
-    const D = Number(params.telescope.TelescopeDiameter);
-    const OR = Number(params.telescope.ObscurationRatio);
-    const sensorFrameRate = Number(params.RTC?.[rtcFrameRateKey]) || 1000;
+      const D = Number(params.telescope.TelescopeDiameter);
+      const OR = Number(params.telescope.ObscurationRatio);
+      const sensorFrameRate = Number(params.RTC?.[rtcFrameRateKey]) || 1000;
 
-    let lambda_raw = params[wavelengthKey]?.Wavelength;
-    let lambda = typeof lambda_raw === 'string'
-      ? Number(lambda_raw.replace(/[\[\]]/g, ''))
-      : Number(lambda_raw);
+      let lambda_raw = params[wavelengthKey]?.Wavelength;
+      let lambda = typeof lambda_raw === 'string'
+        ? Number(lambda_raw.replace(/[\[\]]/g, ''))
+        : Number(lambda_raw);
 
-    let N_lenslet_raw = params[sensorKey]?.NumberLenslets;
-    let N_lenslet = 20; 
+      let N_lenslet_raw = params[sensorKey]?.NumberLenslets;
+      let N_lenslet = 20;
+      if (typeof N_lenslet_raw === 'string' && N_lenslet_raw.trim() !== '') {
+        const parsed = N_lenslet_raw.replace(/[\[\]]/g, '').split(',')[0];
+        const num = Number(parsed);
+        if (!isNaN(num) && num > 0) N_lenslet = num;
+      } else if (typeof N_lenslet_raw === 'number' && N_lenslet_raw > 0) {
+        N_lenslet = N_lenslet_raw;
+      } else if (Array.isArray(N_lenslet_raw) && N_lenslet_raw.length > 0) {
+        const num = Number(N_lenslet_raw[0]);
+        if (!isNaN(num) && num > 0) N_lenslet = num;
+      }
 
-    if (typeof N_lenslet_raw === 'string') {
-      const parsed = N_lenslet_raw.replace(/[\[\]]/g, '').split(',')[0];
-      const num = Number(parsed);
-      if (!isNaN(num) && num > 0) N_lenslet = num;
-    } else if (typeof N_lenslet_raw === 'number' && N_lenslet_raw > 0) {
-      N_lenslet = N_lenslet_raw;
-    } else if (Array.isArray(N_lenslet_raw) && N_lenslet_raw.length > 0) {
-      const num = Number(N_lenslet_raw[0]);
-      if (!isNaN(num) && num > 0) N_lenslet = num;
+      const F0 = getF0FromWavelength(lambda);
+      const Tot_throughput = getTotThroughput(lambda);
+      const band = getBandFromWavelength(lambda);
+      const bandCorrection = { B: 1.37, V: 0, R: -1.26, I: -2.15, Iz: -2.15, J: -2.49, H: -3.03, Ks: -3.29, K: -3.29 };
+
+      if (!F0 || !Tot_throughput || !D || !N_lenslet || !sensorFrameRate || !lambda) return '';
+
+      const photons = Number(photonsVal);
+      if (isNaN(photons) || photons <= 0) return '';
+
+      const A = collectingArea(D, OR);
+      const Nsa = effectiveSubapertures(N_lenslet, OR);
+      if (!A || !Nsa) return '';
+
+      // Inversion de la formule : Mag_corr = -2.5 log10( photons / [F0*(T/fps)*(A/Nsa)] )
+      const preFactor = F0 * (Tot_throughput / sensorFrameRate) * (A / Nsa);
+      const magCorr = -2.5 * Math.log10(photons / preFactor);
+
+      const mag = magCorr - (bandCorrection[band] ?? 0);
+      return mag.toFixed(2);
+    } catch {
+      return '';
     }
+  };
 
-    const F0 = getF0FromWavelength(lambda);
-    const Tot_throughput = getTotThroughput(lambda);
-    const band = getBandFromWavelength(lambda);
-    const bandCorrection = {
-      B: 1.37, V: 0, R: -1.26, I: -2.15, Iz: -2.15,
-      J: -2.49, H: -3.03, Ks: -3.29, K: -3.29
-    };
-
-    if (!F0 || !Tot_throughput || !D || !N_lenslet || !sensorFrameRate || !lambda) return '';
-
-    const photons = Number(photonsVal);
-    if (isNaN(photons) || photons <= 0) return '';
-
-    const preFactor = F0 * (Tot_throughput / sensorFrameRate) * (Math.pow(D, 2) - Math.pow(D * OR, 2)) * Math.pow(1 / N_lenslet, 2);
-    const magCorr = -2.5 * Math.log10(photons / preFactor);
-    const mag = magCorr - (bandCorrection[band] ?? 0);
-
-    return mag.toFixed(2);
-  } catch {
-    return '';
-  }
-};
 
   const onMagnitudeChange = (magValue) => {
     setMagnitude(magValue);

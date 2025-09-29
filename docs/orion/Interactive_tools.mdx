@@ -20,11 +20,41 @@ Use the interactive tools below to generate custom `.ini` configuration files by
 <InteractiveToolsSelector />
 
 ## Conversion from Magnitude to Number of Photons per Subaperture per Frame {#mag-to-photons}
-The value of the parameter `NumberPhotons` in (expressed in photons per subaperture per frame) for a natural guide star 
-of a given magnitude is calculated using the following formula:
+The value of the parameter `NumberPhotons` (expressed in photons per subaperture per frame) for a natural guide star of a given magnitude is calculated using the following formula:
+
 $$
-\text{NumberPhotons} = ZP \left(\frac{Tot_{throughput}}{Sensor_{framerate}}\right) \left(\frac{D^{2}-(D*ObscurationRatio)^2}{N_{lenslets}^2}\right) 10^{\textstyle -\frac{Mag}{2.5}}
+\boxed{
+\text{NumberPhotons}
+=
+ZP \Big(\frac{Tot_{\mathrm{throughput}}}{\mathrm{Sensor}_{\mathrm{framerate}}}\Big)\;
+\Big(\frac{A_{\mathrm{pupil}}}{N_{\mathrm{sa,tot}}}\Big)\;
+10^{-0.4\,Mag}
+}
 $$
+
+with
+
+$$
+A_{\mathrm{pupil}}=\pi\Big(\tfrac{D}{2}\Big)^2\bigl(1-\mathrm{ObscurationRatio}^2\bigr),
+\qquad
+Mag = Mag_V + \mathrm{extinction\_correction}.
+$$
+
+#### Effective number of subapertures
+
+Let $N_{lenslet}$ be the number of lenslets across the pupil (square grid). 
+The total **effective** number of illuminated subapertures is
+
+$$
+N_{{sa,tot}}=
+\begin{cases}
+N_{lenslet}^2, & \text{if } N_{lenslet}\le 2,\\[4pt]
+\left\lfloor N_{lenslet}^2 \,\tfrac{\pi}{4}\,\bigl(1-\mathrm{ObscurationRatio}^2\bigr)\right\rfloor, & \text{if } N_{lenslet}>2~,
+\end{cases}
+$$
+
+which approximates the circular pupil (disk-in-square factor $\pi/4$) and the central obscuration $(1-\epsilon^2)$, then floors to an integer.
+
 #### Parameter definitions
 <div style={{ display: 'flex', justifyContent: 'center'}}>
 |                     | B band     | V band    | R band   | I band    | J band   | H band  | K band  |

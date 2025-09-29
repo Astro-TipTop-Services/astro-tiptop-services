@@ -7,6 +7,24 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function UsersPage() {
   const notebookUrl = useBaseUrl('tutorials/TIPTOP_Getting_Started_tutorial.ipynb');
+  const notebookUrl2 = useBaseUrl('tutorials/TIPTOP_Papyrus_Tutorial.ipynb');
+  const iniUrl = useBaseUrl('tutorials/papyrus.ini');
+  const [pw, setPw] = React.useState('');
+  const [unlocked, setUnlocked] = React.useState(false);
+  React.useEffect(() => {
+    // garde l’état d’ouverture pour la session
+    if (sessionStorage.getItem('aoSchoolUnlocked') === '1') setUnlocked(true);
+  }, []);
+
+  const tryUnlock = (e) => {
+    e.preventDefault();
+    if (pw === 'ilovetiptop') {
+      setUnlocked(true);
+      sessionStorage.setItem('aoSchoolUnlocked', '1');
+    } else {
+      alert('⛔ Incorrect password');
+    }
+  };
   return (
     <Layout title="AO school" description="AO school">
       <div className="container margin-vert--lg">
@@ -120,6 +138,68 @@ export default function UsersPage() {
           </div>
         </div>
       </div>
+
+  {/* ===== Section protégée (faible sécurité) ===== */}
+      <div className="container margin-vert--lg">
+        <hr style={{margin:'2rem 0'}}/>
+        <h2>PAPYRUS Tutorial</h2>
+        {!unlocked ? (
+          <form onSubmit={tryUnlock} style={{maxWidth:420}}>
+            <p>This section will only be available during the AO School:</p>
+            <input
+              type="password"
+              value={pw}
+              onChange={(e)=>setPw(e.target.value)}
+              className="input"
+              placeholder="Enter password"
+              style={{padding:'0.5rem', width:'100%', marginBottom:'0.5rem'}}
+            />
+            <button className="button button--primary" type="submit">
+              Unlock
+            </button>
+          </form>
+        ) : (
+          <div style={{marginTop:'1rem'}}>
+            <p>
+              ✔️ Download the notebook and follow the instructions:<br/><br/>
+            <a className="button button--primary button--lg" href={notebookUrl2} download>
+              ⬇️ Download “TIPTOP_Papyrus_Tutorial.ipynb”
+            </a>
+            </p>
+            <p> 👉 Optional (Colab): open a Colab-ready copy to <em>cross-check</em> your outputs. It runs in CPU mode 
+                and includes a short bootstrap cell so it works reliably on any Colab session. 
+                Your edits in Colab won’t change the version published on this website. </p>
+            <div style={{display:'flex', gap:'0.6rem', flexWrap:'wrap', alignItems:'center', marginBottom:'1.2rem'}}>
+              <a
+                className="button button--secondary button--lg"
+                href="https://colab.research.google.com/drive/1A37qsFc_bHnafwCwIkx_4oW-QrVoBwNq?authuser=1"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  src="https://colab.research.google.com/assets/colab-badge.svg"
+                  alt=""
+                  style={{height:'1.1em', verticalAlign:'middle', marginRight:8}}
+                />
+                Open in Colab
+              </a>
+            </div>
+
+            <p>
+              💡 Download the Papyrus base INI file:
+            <a className="button button--primary button--lg" href={iniUrl} download>
+              ⬇️ Download “papyrus.ini”
+            </a>
+            </p>
+
+
+          </div>
+        )}
+      </div>
+
+
+
+
     </Layout>
   );
 }

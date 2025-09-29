@@ -39,6 +39,7 @@ const sidebars = {
         'general/whatistiptop',
         'general/howdoestiptopwork',
         'general/whatcanitbeusedfor',
+        'general/error_breakdown',
         'general/installation',
       ],
     },

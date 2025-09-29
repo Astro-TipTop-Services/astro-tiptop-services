@@ -126,6 +126,10 @@ const config = {
                 to: '/docs/general/whatcanitbeusedfor'
               },
               {
+                label: 'What is included in TipTop?',
+                to: '/docs/general/error_breakdown'
+              },
+              {
                 label: 'How to install TipTop?',
                 to: '/docs/general/installation'
               },

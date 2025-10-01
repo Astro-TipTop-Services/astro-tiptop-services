@@ -123,7 +123,7 @@ It mimics the format expected by TipTop when using `mode = File` (3-star asteris
   <summary><strong> make_tiptop_file_recarray.py </strong></summary>
 ```python
 """
-Created on Wed Sep 03 13:37:33 2025
+Created on Wed Oct 01 18:00:23 2025
 Make TipTop File/FileMono-compatible recarray
 
 @author: astro-tiptop-services
@@ -152,15 +152,15 @@ INNER_DTYPE = np.dtype([
     (('fluxh','FLUXH'), object),
 ])
 
-def _mk_inner_recarray(n_asterisms: int, nstars: int = 3) -> np.recarray:
+def _mk_inner_struct(n_asterisms: int, nstars: int = 3) -> np.recarray:
     """
     Build the recarray for a single field (N#):
     - n_asterisms entries (i.e., number of asterisms in that FoV)
     - each asterism contains data for 'nstars' stars (fixed at 3 to match TipTop files)
     """
-    inner = np.recarray((n_asterisms,), dtype=INNER_DTYPE)
+    inner = np.zeros((n_asterisms,), dtype=INNER_DTYPE)
     for i in range(n_asterisms):
-        # XY coordinates in arcsec (example values)
+        # XY coordinates (example values)
         inner[i]['COORD'] = np.random.uniform(-60, 60, size=(2, nstars)).astype(np.float32)
         # Magnitudes per band
         for key in ('RMAG','IMAG','JMAG','HMAG'):
@@ -188,20 +188,15 @@ def make_recarray(lengths_per_field, skip_fields=()):
     numpy.ndarray
         A 0-D structured array. Access a field via root[()]['N0'].
     """
-    fields = [f"N{i}" for i in range(len(lengths_per_field))]
     values = []
     skip_set = set(skip_fields)
     for idx, n_ast in enumerate(lengths_per_field):
         if idx in skip_set or n_ast == 0:
-            # Skipped field marker (as seen in original files)
-            values.append(np.int16(0))          
+            values.append(np.int16(0))
         else:
-            # Field contains a recarray of 'n_ast' asterisms (3 stars per asterism)
-            values.append(_mk_inner_recarray(n_ast, nstars=3))  
-    # Top-level 0-D structured scalar with object fields N0..N{K-1}
-    root_dtype = np.dtype([(f, object) for f in fields])
-    root = np.array(tuple(values), dtype=root_dtype)  # <- scalaire structuré
-    return root  # shape () ; access with root[()]['N0']
+            values.append(_mk_inner_struct(n_ast, nstars=3))  # ⬅️ struct NDArray
+    root = np.array(values, dtype=object)   # ⬅️ top-level indexable
+    return root
 
 #%%----------------------------------------------------------------------------
 # EXAMPLES 
@@ -213,21 +208,6 @@ np.save("rec_array10_like.npy", make_recarray(lengths_multi))
 # "Mono" file (reader will treat it as mono later) - same counts as rec_array10_e.npy
 lengths_mono = [364, 220, 364, 120, 220, 84, 286, 120, 286, 165]
 np.save("rec_array10_e_like.npy", make_recarray(lengths_mono))
-
-#%%----------------------------------------------------------------------------
-# Load & inspect
-#------------------------------------------------------------------------------
-root = np.load("rec_array10_like.npy", allow_pickle=True)
-
-# get the recarray for field N3
-N3 = root[()]['N3']               # recarray of shape (n_asterisms,)
-print(N3.dtype.names)             # ('COORD','RMAG','IMAG','JMAG','HMAG','FLUXR','FLUXI','FLUXJ','FLUXH')
-
-# first asterism
-a0 = N3[0]
-print(a0['COORD'].shape)          # (2, 3)
-print(a0['JMAG'].shape)           # (3,)
-print(a0['FLUXH'].dtype)          # float32
 
 ``` 
 </details>

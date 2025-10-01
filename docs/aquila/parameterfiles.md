@@ -132,14 +132,16 @@ Make TipTop File/FileMono-compatible recarray
 #%%
 import numpy as np
 
-# -----------------------------------------------------------------------------
-# Inner dtype: one asterism = 3 stars. Each field is stored as "object"
-# (the actual value is a float32 ndarray). This mirrors the files used by
-# TipTop in mode=File / FileMono.
-#   COORD : float32 array of shape (2, 3)  -> X and Y for the 3 stars
-#   *MAG  : float32 array of shape (3,)    -> magnitudes per band  [R, I, J, H]
-#   FLUX* : float32 array of shape (3,)    -> flux per band
-# -----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# INNER_DTYPE describes one asterism (a group of stars) as a structured
+# ndarray, with object fields storing float32 arrays:
+#
+#   COORD  : shape (2, nstars), x/y coordinates
+#   RMAG..HMAG : shape (nstars,) magnitudes
+#   FLUXR..FLUXH : shape (nstars,) flux
+#
+# The fields are defined as 'object' so each entry holds a separate ndarray.
+# ---------------------------------------------------------------------------
 INNER_DTYPE = np.dtype([
     (('coord','COORD'), object),  # ndarray float32 (2,3)
     (('rmag','RMAG'),   object),  # ndarray float32 (3,)
@@ -154,9 +156,9 @@ INNER_DTYPE = np.dtype([
 
 def _mk_inner_struct(n_asterisms: int, nstars: int = 3) -> np.recarray:
     """
-    Build the recarray for a single field (N#):
-    - n_asterisms entries (i.e., number of asterisms in that FoV)
-    - each asterism contains data for 'nstars' stars (fixed at 3 to match TipTop files)
+    Create a structured ndarray with n_asterisms entries.
+    Each entry has the fields defined in INNER_DTYPE.
+    The data is randomly generated here (example only).
     """
     inner = np.zeros((n_asterisms,), dtype=INNER_DTYPE)
     for i in range(n_asterisms):
@@ -172,21 +174,20 @@ def _mk_inner_struct(n_asterisms: int, nstars: int = 3) -> np.recarray:
 
 def make_recarray(lengths_per_field, skip_fields=()):
     """
-    Create a **0-D structured scalar** with fields 'N0'..'N{K-1}'.
-    This exactly matches the structure expected by TipTop for mode=File/FileMono.
+    Build a 1-D object array of length K, one entry per field of view.
 
-    Args
-    ----
+    Parameters
+    ----------
     lengths_per_field : list[int]
-        Number of asterisms for each field (FoV), e.g. 10 values for N0..N9.
+        Number of asterisms per field.
     skip_fields : iterable[int]
-        Indices of fields to mark as "skipped" (stored as a small integer),
-        replicating the original files behavior.
+        Fields to mark as skipped.
 
     Returns
     -------
     numpy.ndarray
-        A 0-D structured array. Access a field via root[()]['N0'].
+        Shape (K,), dtype object. Each element is either an integer or a
+        structured ndarray with the fields in INNER_DTYPE.
     """
     values = []
     skip_set = set(skip_fields)

@@ -345,6 +345,11 @@ In the two following section we list the parameters that are specific to each wa
 | `LoopGain_Focus` | No/Yes if Focus |  `float` or `string` |  _Default_: `None` <br /> Global focus loop gain. <br /> _Warning_: if set to ‘optimize’, gain is automatically optimized by **TipTop**, otherwise the float value set is used. |
 | `SensorFrameRate_Focus` | No/Yes if Focus | `float` |  _Default_: `None` <br /> Global focus loop frequency in **_[Hz]_**. If `[sensor_Focus]` section is present it must be set. |
 | `LoopDelaySteps_Focus` | No/Yes if Focus | `integer` |  _Default_: `None` <br /> Global focus loop delays in **_[frames]_**. If `[sensor_Focus]` section is present it must be set. |
+| `MMSE_Rec_LO` | No | `bool` |  _Default_: `True` <br /> Enables the **MMSE** reconstructor for the LO loop. If `False`, a **Tikhonov** reconstruction is used with λ = 0.05 (empirical value chosen to remove unseen modes when fewer than 3 stars or poor asterism geometry are present). Ignored if only one guide star.|
+
+<!-- | `MMSE_Rec_LO` | No | `bool` |  _Default_: `True` <br /> Enables the **MMSE** reconstructor for the LO loop, more robust in low SNR conditions. If `False`, a **Tikhonov** reconstruction is used with λ = 0.05 (value inherited from MASTSEL tests with pseudo-inverse, chosen to remove unseen modes when fewer than 3 stars or poor asterism geometry are present; reasonably conservative but could be tuned if needed). Ignored if only one guide star.|  -->
+<!-- Does not affect `LoopGain_LO`, only how LO measurements are combined. | -->
+
 
 </details>
 

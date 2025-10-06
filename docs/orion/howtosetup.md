@@ -1,7 +1,7 @@
 ---
 id: howtosetup
-title: Set Up TipTop According to the OA Mode
-sidebar_label: Set Up TipTop According to the OA Mode
+title: Set Up TipTop According to the AO Mode
+sidebar_label: Set Up TipTop According to the AO Mode
 ---
 
 <p align="justify">

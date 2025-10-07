@@ -131,6 +131,8 @@ export default function AboutPage() {
                 </li>
                 <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/AO_school">🔭 AO school</Link></li>
+                <li style={{ marginBottom: '0.3rem' }}>
+                    <Link to="/resources/internship_opportunities">💼 Intership Opportunities</Link></li>
                 <li style={{ marginBottom: '1rem' }}>
                   <Link to="/resources/contact">📬 Contact Support </Link>
                 </li>

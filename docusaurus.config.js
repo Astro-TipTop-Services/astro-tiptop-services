@@ -241,6 +241,10 @@ const config = {
                 label: 'AO school',
                 to: 'resources/AO_school',
               },
+               {
+                label: 'Internship Opportunities',
+                to: 'resources/intership_opportunities',
+              },
               {
                 label: 'Contact Support',
                 to: 'resources/contact',

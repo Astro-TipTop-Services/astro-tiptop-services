@@ -243,7 +243,7 @@ const config = {
               },
                {
                 label: 'Internship Opportunities',
-                to: 'resources/intership_opportunities',
+                to: 'resources/internship_opportunities',
               },
               {
                 label: 'Contact Support',

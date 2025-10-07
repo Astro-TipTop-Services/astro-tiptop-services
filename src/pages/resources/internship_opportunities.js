@@ -1,16 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 
-// }
 
-export default function InternshipSubject({
-  contactEmail = "lisa-marie.mazzolo@lam.fr",
-  applyUrl = "#",
-}) {
-  const hasApplyUrl = applyUrl && applyUrl !== "#";
-  const hasContact = Boolean(contactEmail);
+export default function ReferencesPage() {
 
   return (
     <Layout title="Internship Opportunities" description="Internship Opportunities">
@@ -209,4 +202,4 @@ export default function InternshipSubject({
           </div>
           </Layout>
           );
-          }
+        }

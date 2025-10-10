@@ -241,8 +241,8 @@ def summarize(simul, sr, fw, outdir: str, simul_name: str,
               include_all: bool = False,
               reduce: str = "mean"):
     """
-    Affiche un résumé par champ (meilleur asterism par jitter croissant).
-    Optionnel: écrit un JSON soit avec les meilleurs par champ, soit tous les asterisms triés.
+    Displays a summary by field (best asterism by increasing jitter).
+    Optional: writes a JSON file with either the best by field or all asterisms ranked.
     """
     penalty = getattr(simul, 'penalty_Asterism', None)
     cum     = getattr(simul, 'cumAstSizes', None)

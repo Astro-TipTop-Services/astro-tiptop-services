@@ -74,6 +74,7 @@ export default function ReferencesPage() {
             </nav>
 
               <section id="context" style={{ marginTop: '1rem' }}>
+              <p><i>Last update: October 10, 2025</i></p>
               <h3>Context and Motivation</h3>
                 <p align='justify'>
                   Adaptive Optics (AO) systems are crucial for high-resolution astronomical observations, compensating for atmospheric turbulence. 
@@ -168,7 +169,7 @@ export default function ReferencesPage() {
               <section id="supervision">
               <h3>Supervision and Collaboration</h3>
               <p align='justify'>
-                The intern will be supervised by <strong>Lisa-Marie Mazzolo</strong> and <strong>Benoit Neichel</strong>. Collaboration with the TipTop development team and other researchers working on AO systems and galaxy science is encouraged.
+                The intern will be supervised by <a href="https://www.linkedin.com/in/lisa-marie-mazzolo-a70b551b7/" target="_blank" rel="noreferrer noopener"> <strong>Lisa-Marie Mazzolo</strong></a> and <a href="https://www.linkedin.com/in/benoit-neichel-7225a383/" target="_blank" rel="noreferrer noopener"> <strong>Benoit Neichel</strong></a>. Collaboration with the TipTop development team and other researchers working on AO systems and galaxy science is encouraged.
               </p>
               </section>
 

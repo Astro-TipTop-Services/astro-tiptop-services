@@ -9,7 +9,7 @@ To facilitate the prediction and estimation of Adaptive Optics (AO; see [https:/
 </p>
 
 <p align="center">
-![](/img/whatisTipTop.png)
+![](/img/whatisTipTop2.png)
 </p>
 
 <p align="justify">

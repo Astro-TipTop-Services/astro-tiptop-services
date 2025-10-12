@@ -5,5 +5,5 @@ sidebar_label: What can TipTop be used for?
 ---
 
 <p align="center">
-![](/img/whatcanTipTopbeusedfor.png)
+![](/img/whatcanTipTopbeusedfor2.png)
 </p>

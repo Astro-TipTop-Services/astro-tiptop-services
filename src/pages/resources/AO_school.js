@@ -145,7 +145,7 @@ export default function UsersPage() {
       <div className="container margin-vert--lg">
         <hr style={{margin:'2rem 0'}}/>
         <h2>PAPYRUS Tutorial</h2>
-        {!unlocked ? (
+        {/* {!unlocked ? (
           <form onSubmit={tryUnlock} style={{maxWidth:420}}>
             <p>This section will only be available during the AO School:</p>
             <input
@@ -160,7 +160,7 @@ export default function UsersPage() {
               Unlock
             </button>
           </form>
-        ) : (
+        ) : ( */}
           <div style={{marginTop:'1rem'}}>
             <p>
               ✔️ Download the notebook and follow the instructions:<br/><br/>
@@ -196,7 +196,7 @@ export default function UsersPage() {
 
 
           </div>
-        )}
+        {/* )} */}
       </div>
 
 

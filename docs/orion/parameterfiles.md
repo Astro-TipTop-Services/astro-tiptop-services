@@ -25,8 +25,8 @@ The following table resume the what the parameter file should contain and what i
 | [`[telescope]`](/docs/orion/parameterfiles#telescope) | Yes |
 | [`[atmosphere]`](/docs/orion/parameterfiles#atmosphere) | Yes |
 | [`[sources_science]`](/docs/orion/parameterfiles#sources_science)| Yes |
-| [`[source_HO]`](/docs/orion/parameterfiles#sources_HO) | Yes |
-| [`[source_LO]`](/docs/orion/parameterfiles#sources_LO) | No/Yes if `[sensor_LO defined]` |
+| [`[sources_HO]`](/docs/orion/parameterfiles#sources_HO) | Yes |
+| [`[sources_LO]`](/docs/orion/parameterfiles#sources_LO) | No/Yes if `[sensor_LO defined]` |
 | [`[sources_Focus]`](/docs/orion/parameterfiles#sources_Focus) | No/Yes if `[sensor_Focus defined]` |
 | [`[sensor_science]`](/docs/orion/parameterfiles#sensor_science) | Yes |
 | [`[sensor_HO]`](/docs/orion/parameterfiles#sensor_HO) | Yes |
@@ -37,6 +37,11 @@ The following table resume the what the parameter file should contain and what i
 | [`[Computation]`](/docs/orion/parameterfiles#COMPUTATION) | No |
 	
 Detailed descriptions of each section are provided below.
+
+## Explanation of `Zenith` and `Azimuth` parameters in the [sources_science], [sources_HO], [sources_LO] sections {#ZA_schemes}
+<p align="center">
+![ZA_schemes](/img/ZA_schemes.png) 
+</p>
 
 ## Parameter Sections in Detail
 
@@ -108,11 +113,6 @@ Detailed descriptions of each section are provided below.
 | `Azimuth` | Yes | `list of float` | Azimuthal coordinate in **_degree_** (angle from the ref. direction: polar axis is x-axis) of science sources. Must be the same length as `Zenith`. <br/>See [**here**](#ZA_schemes) for more details. |
 
 </details>
-
-### Explanation of `Zenith` and `Azimuth` Parameters {#ZA_schemes}
-<p align="center">
-![ZA_schemes](/img/ZA_schemes.png) 
-</p>
 
 ### `[sources_HO]` {#sources_HO}
 

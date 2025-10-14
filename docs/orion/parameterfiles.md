@@ -104,7 +104,7 @@ Detailed descriptions of each section are provided below.
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Wavelength` | Yes | `list of float` or `float` | List of wavelengths in **_meters_**. <br /> When more than one elements is present the output PSF saved in the fits file is a 4D array with dimension (Nw, Ns, Npix, Npix), where Nw is the number of wavelengths required (`[sources_science] Wavelength`), Ns is the number of directions required ([sources_science] Zenith and Azimuth) and Npix is the size required for the PSFs (`[sensor_science] FieldOfView`). If a single elements is present the fits file is a 3D array with dimension (Ns, Npix, Npix). Instead the profiles will be a 3D array (fourth fits file extension) with dimensions (2*Nw, Ns, Npix/2). The first Nw elements contain the radius and the second Nw elements the profile values (the first radius and profile pair is radius=data[0,0,:] profile=data[Nw,0,:], the second is radius=data[1,0,:] profile=data[Nw+1,0,:], …) json file: two lists, radius and psf with dimensions (Nw, Ns, Npix/2). <br /> In this case more memory is required and small differences with respect to monochromatic PSF will be present because: (1) errors Differential refractive anisoplanatism and Chromatism from **P3** are computed for a single wavelength (the shortest one) (2) effective field-of-view of the PSF is typically larger to guarantee that the PSF at the shortest wavelength has the required field-of-view (3) The PSF is typically computed with a higher sampling to guarantee that the longest wavelength has the required sampling and then the PSFs at the shorter wavelengths are rebinned. |
-| `Zenith` | Yes | `list of float` | Zenithal coordinate in arcsec (distance from axis) of science sources. Must be the same length as `Azimut`. <br/>See [**here**](#ZA_schemes) for more details. |
+| `Zenith` | Yes | `list of float` | Zenithal coordinate in **_arcsec_** (distance from axis) of science sources. Must be the same length as `Azimut`. <br/>See [**here**](#ZA_schemes) for more details. |
 | `Azimuth` | Yes | `list of float` | Azimuthal coordinate in **_degree_** (angle from the ref. direction: polar axis is x-axis) of science sources. Must be the same length as `Zenith`. <br/>See [**here**](#ZA_schemes) for more details. |
 
 </details>
@@ -122,8 +122,8 @@ Detailed descriptions of each section are provided below.
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Wavelength` | Yes |  `float` | Sensing wavelength for Hight Order modes in **_meters_** <br /> _Warning_: gives a confusing error message if absent. |
-| `Zenith` | No | `list of float` | _Default_: `[0.0]` <br /> Zenithal coordinate of each guide stars in arcsec (distance from axis). Must be the same length as `Azimuth`, even if `Azimuth` is defined, this is optional. <br/>See [**here**](#ZA_schemes) for more details. |
-| `Azimuth` | No | `list of float` | _Default_: `[0.0]` <br /> Azimuthal coordinate in degree (angle from the ref. direction: polar axis is x-axis) of each guide stars. Must be the same length as `Zenith`, even if `Zenith` is defined, this is optional. <br/>See [**here**](#ZA_schemes) for more details.|
+| `Zenith` | No | `list of float` | _Default_: `[0.0]` <br /> Zenithal coordinate of each guide stars in **_arcsec_** (distance from axis). Must be the same length as `Azimuth`, even if `Azimuth` is defined, this is optional. <br/>See [**here**](#ZA_schemes) for more details. |
+| `Azimuth` | No | `list of float` | _Default_: `[0.0]` <br /> Azimuthal coordinate in **_degree_** (angle from the ref. direction: polar axis is x-axis) of each guide stars. Must be the same length as `Zenith`, even if `Zenith` is defined, this is optional. <br/>See [**here**](#ZA_schemes) for more details.|
 | `Height` | No | `float` | _Default_: `0.0` <br /> Altitude of the guide stars (0 if infinite). Consider that all guide star are at the same height. |
 
 </details>
@@ -138,8 +138,8 @@ Detailed descriptions of each section are provided below.
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `Wavelength` | Yes | `float` | Sensing wavelength for Low Order modes in **meters**. |
-| `Zenith` | Yes | `list of float` | Zenithal coordinate of each guide stars in **arcsec** (distance from axis). Must be the same length as `Azimuth`. <br/>See [**here**](#ZA_schemes) for more details. |
-| `Azimuth` | Yes | `list of float` | Azimuthal coordinate in degree (angle from the reference direction: polar axis is x-axis) of each guide stars. Must be the same length as `Zenith`. <br/>See [**here**](#ZA_schemes) for more details. |
+| `Zenith` | Yes | `list of float` | Zenithal coordinate of each guide stars in **_arcsec_** (distance from axis). Must be the same length as `Azimuth`. <br/>See [**here**](#ZA_schemes) for more details. |
+| `Azimuth` | Yes | `list of float` | Azimuthal coordinate in **_degree_** (angle from the reference direction: polar axis is x-axis) of each guide stars. Must be the same length as `Zenith`. <br/>See [**here**](#ZA_schemes) for more details. |
 
 </details>
 

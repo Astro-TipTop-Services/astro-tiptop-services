@@ -1313,7 +1313,7 @@ export default function IniGenerator() {
         <>
           ⚠️ Do not confuse this with the <code>ZenithAngle</code> parameter in 
         <code> [telescope]</code> section, which refers to the angle between the 
-          telescope’s pointing direction and the zenith. <br/>
+          telescope’s pointing direction and the zenith. <Link to="/docs/orion/parameterfiles#ZA_schemes"><strong> See here for more details. </strong></Link> <br/>
           {/* The <code>Zenith</code> (Distance<sup>(1)</sup>) value represents the distance (in arcseconds) between 
           the guide star (or science source) and the telescope’s pointing axis.<br /> */}
           <sup>(2)</sup> Angle corresponds to the <code>Azimuth</code> parameter in the 

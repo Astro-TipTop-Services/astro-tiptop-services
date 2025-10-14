@@ -826,7 +826,7 @@ export default function IniGenerator() {
           the guide star (or science source) and the telescope’s pointing axis.<br />
           For instance, if both <code>Zenith</code> and <code>Azimuth</code> parameters, 
           in the <code>[sources_science]</code> section are set to [0.0], the science source is 
-          located at the telescope’s pointing position.{" "}
+          located at the telescope’s pointing position. <Link to="/docs/orion/parameterfiles#ZA_schemes"><strong> See here for more details. </strong></Link>{" "}
           {/* The <code>Zenith</code> value represents the radial component (in arcseconds) 
             of the position of science sources or guide stars in polar coordinates, relative to the telescope’s pointing direction<br/> */}
           <span 

@@ -8,7 +8,8 @@ import IniViewer from '@site/src/components/IniViewer';
 
 <!-- import IniGenerator from '@site/src/components/IniGenerator'; -->
 
-🗂️ This page provides `.ini` configuration files tailored for various instruments: [ERIS](#eris), [HARMONI](#harmoni), [MAVIS](#mavis), [MICADO](#micado), [MORFEO](#morfeo), [MUSE](#muse), [SOUL](#soul), [SPHERE](#sphere).
+🗂️ This page provides `.ini` configuration files tailored for various instruments: [ERIS](#eris), [HARMONI](#harmoni), [MAVIS](#mavis), 
+[METIS](#metis), [MICADO](#micado), [MORFEO](#morfeo), [MUSE](#muse), [SOUL](#soul), [SPHERE](#sphere).
 
 Click here to access an interface that lets you generate custom `.ini` files by selecting your instrument and parameter values.
 
@@ -135,6 +136,33 @@ _(Text sourced from: [https://www.eso.org/sci/facilities/develop/instruments/MAV
 <span style={{ display: 'block', textAlign: 'center', fontSize: '1.2em' }}>MAVIS MCAO - AO PSFs - 
 $\lambda_{science} = 550nm$</span>
 ![OUTPUT_MAVIS](/img/MAVIS_grid.png)
+
+
+
+## ➡️**METIS** (Mid-infrared ELT Imager and Spectrograph) {#metis}
+
+METIS will be one of the first-generation ELT instruments. It will cover the infrared wavelength range 
+and make full use of the giant, 39-metre main mirror of the telescope to study a wide range of science topics, from objects in our Solar System to distant active galaxies. <br/>
+_(Text sourced from: [https://elt.eso.org/instrument/METIS/](https://elt.eso.org/instrument/METIS/))_ <br />
+
+<span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>
+  AO mode used:
+</span>
+  🔵 [**Single Conjugate Adaptive Optics (SCAO)**](https://www.eso.org/sci/facilities/develop/ao/ao_modes/.html#scao)
+
+
+### Parameter file (.ini format) - 🔵**SCAO NGS**✴️
+
+<details>
+  <summary><strong>View parameter file contents (.ini)</strong></summary>
+
+<IniViewer filePath="/configs/METIS.ini" />
+
+</details> 
+
+<span style={{ display: 'block', textAlign: 'center', fontSize: '1.2em' }}>METIS SCAO NGS - PSFs</span>
+![OUTPUT_METIS](/img/output_metis_cropped.png)
+
 
 ## ➡️**MICADO** (Multi-AO Imaging Camera for Deep Observations) {#micado}
 

@@ -38,7 +38,7 @@ The following table resume the what the parameter file should contain and what i
 	
 Detailed descriptions of each section are provided below.
 
-## Explanation of `Zenith` and `Azimuth` parameters in the [sources_science], [sources_HO], [sources_LO] sections {#ZA_schemes}
+### Explanation of `Zenith` and `Azimuth` parameters in the [sources_science], [sources_HO], [sources_LO] sections {#ZA_schemes}
 <p align="center">
 ![ZA_schemes](/img/ZA_schemes.png) 
 </p>

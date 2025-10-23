@@ -11,12 +11,23 @@ sidebar_label: Overview
 
 ## 🌌 The big picture
 <p align="justify">
-Adaptive optics needs **reference sources** (natural stars or laser beacons) to measure and correct atmospheric distortions. A **set of guide stars** used together is an **asterism**. <br/>
-👉 In practice, an asterism can be :
-- **1 star** (mono-NGS) - e.g. ERIS 
-- **3 stars** (multi-NGS) - e.g. MAVIS
+The AO performance depends on the chosen set of Natural Guide Stars (NGSs).
+A set of guide stars used simultaneously forms an asterism, whose geometry and brightness directly impact the AO correction quality. <br/>
+Depending on the instrument and AO architecture, an asterism may involve:
+- Mono-NGS - a single reference star (e.g. ERIS)
+- Multi-NGS - several stars combined (e.g. MAVIS with 3 NGS)
 
-**TipTop** lets you evaluate many candidate asterisms and provides the metrics (SR, FWHM, EE, penalty) you need to rank them for your setup.
+The Asterism Selection feature in TipTop aims to automatically determine the _best possible asterism_ for a given instrument configuration, atmospheric forecast, and field of view.
+
+TipTop lets you evaluate many candidate asterisms and provides the metrics (SR, FWHM, EE, penalty) - to rank them for your setup.
+</p>
+
+## 🌟 Why it matters
+<p align="justify">
+Asterism selection is a key step in observation preparation, as it directly impacts image quality and scientific return.
+With TipTop, you can evaluate many candidate configurations quickly and objectively, using consistent performance metrics such as Strehl Ratio (SR), FWHM, Encircled Energy (EE), and jitter.
+
+The **TipTop** Guide Star selection algorithm is currently being implemented into the standard ESO P2 tool, in particular in [ObsPrep](https://www.eso.org/sci/observing/phase2/p2intro/P2Tutorial-ObsPrep.html).
 </p>
 
 ## 🤔 What TipTop adds

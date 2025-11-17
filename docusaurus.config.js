@@ -168,7 +168,7 @@ const config = {
                 to: '/docs/orion/interactivetools'
               },
               {
-                label: '• Useful Scripts & Companion Tools',
+                label: '• Tutorials & Useful Scriptss',
                 to: '/docs/orion/useful_scripts'
               },
               {

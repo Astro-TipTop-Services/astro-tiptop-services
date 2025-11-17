@@ -1,16 +1,474 @@
 ---
 id: useful_scripts
-title: Useful Scripts & Companion Tools
-sidebar_label: Useful Scripts & Companion Tools
+title: Tutorials Useful & Scripts
+sidebar_label: Tutorials & Useful Scripts
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 <div style={{ textAlign: "justify" }}>
-This section offers external tools and scripts developed 
-to extend functionality, enhance, or automate **TipTop** workflows.
+This section provides a collection of useful scripts and detailed tutorials designed to help you
+run, extend, and better understand <b>TipTop</b> simulations for your own applications.
 </div>
 
-## Run <i>N</i> **TipTop** Simulations with Different Parameter Values
+## 📝 Tutorials
+
+### 🔵 Understanding Additional Error Terms in TipTop (Jitter, Extra Error and Static aberrations)
+
+<div style={{ textAlign: "justify" }}> 
+This tutorial introduces the optional parameters that can be activated in <b>TipTop</b>
+to enrich simulated PSFs with additional, user-defined error contributions.  
+These parameters allow you to represent effects that are not otherwise considered by **TipTop**, such as 
+non common path aberrations (NCPA), manufacturing tolerances, phasing errors in pupil segmented systems, or residual vibrations, ...
+
+These configurable parameters can help you to produce more realistic PSFs, test “what-if” error budgets, or reproduce measured PSFs for specific analyses.
+
+Part of the purpose of this tutorial is therefore to illustrate which regions of the PSF 
+(core width, halo level, asymmetry, etc.) are most sensitive to each additional error term.  
+However, several effects can overlap, and the impact of individual parameters is sometimes 
+difficult to distinguish by eye. As a result, manual tuning often requires iterating and 
+revisiting parameters more than once.
+
+Because some error terms may <b>compensate</b> or <b>mask</b> each other, caution is recommended.  
+Before introducing new aberrations, users should refer to the page 
+<i>“[What is included in TipTop?](/docs/general/error_breakdown)”</i> to avoid adding errors that TipTop already models internally.
+
+<p><b>Note on wavelength:</b> the sensitivity of PSF features to these parameters 
+depends on the simulation wavelength. Users should perform comparisons at the wavelength(s) 
+most relevant for their science case, as different wavelengths emphasise different spatial 
+frequency ranges of the PSF.</p>
+
+</div>
+
+---
+
+#### Overview of the main parameters
+
+| Parameter | Required? | Type | Description |
+| :--------------- |:---------------|:---------------:|:---------------|
+| `jitter_FWHM` | No | `float` | _Default:_ `None`, Additional kernel to be convolved with PSF, it could be a scalar (FWHM in **mas**) for a round kernel or a list of three values `[FWHM_mas_max, FWHM_mas_min, angle_rad]`.|
+| `extraErrorNm ` | No | `float` | _Default:_ `0`, **nm RMS** of the additional wavefront error to be added (an error that is not otherwise considered).|
+| `extraErrorExp` | No | `float` | _Default:_ `-2`, Exponent of the power of spatial frequencies used to generate the PSD associated with `extraErrorNm`. |
+| `extraErrorMin` | No | `float` | _Default:_ `0`, Minimum spatial frequency <code>[m<sup>−1</sup>]</code> for which PSD associated with `extraErrorNm` is `> 0` |
+| `extraErrorMax` | No | `float` | _Default:_ `0`, Maximum spatial frequency <code>[m<sup>−1</sup>]</code> for which PSD associated with `extraErrorNm` is `> 0`. Note: `0` means maximum frequency is the one present in the spatial frequency array of the PSDs.|
+| `PathStaticOn`  | No | `string`| _Default:_ `None`, Path to a map of static aberrations (**nm**) in .fits file. If absent or `‘’`, not used.|
+| `zCoefStaticOn` | No | `list`| _Default:_ `None`, Vector with zernike amplitudes of a static aberration. Coefficients are in **nm RMS**. If absent not used.|
+
+---
+
+### 1. Jitter (`jitter_FWHM`)
+
+<div style={{ textAlign: "justify" }}> 
+The parameter `jitter_FWHM` defines a Gaussian kernel (FWHM in _mas_) that is convolved with the final PSF.
+It is used to model an additional tip/tilt jitter ( e.g. vibrations, PSF drifts, ...).
+</div>
+
+<div style={{ textAlign: 'justify' }}> 
+The parameter <code>jitter_FWHM</code> applies an additional Gaussian blur (FWHM in milliarcseconds) to the final PSF. certain de la terminologie blur ? 
+It represents residual tip–tilt jitter such as vibrations, PSF drifts...
+</div>
+
+<div style={{
+  borderLeft: "4px solid #4ea3f1",
+  background: "#e8f4ff",
+  padding: "10px 14px",
+  margin: "12px 0",
+  borderRadius: "4px",
+  textAlign: 'justify'
+}}>
+✏️ **<i>Implementation note:</i>** <br/> This Gaussian convolution is applied at the final stage of 
+TipTop’s pipeline (in <code>baseSimulation.finalConvolution()</code>), 
+unlike other parameters such as <code>extraError*</code> which modify the AO residual PSD earlier in the process.
+
+</div>
+
+How to define it: 
+ - Circular jitter
+ ```python
+ [telescope]
+ jitter_FWHM = 30.0   ; in mas
+ ```
+
+ - Elliptical jitter:
+ ```python
+ [telescope]
+ jitter_FWHM = [4.0, 2.0, 30.0]  ; FWHM_X, FWHM_Y [mas], angle [deg]
+ ```
+    
+**Effects of `jitter_FWHM`** : 
+<div style={{ textAlign: 'justify' }}> 
+<ul> 
+<li><b>Broadens the PSF core</b> (direct effect). </li> 
+<li><b>Increases the PSF FWHM</b> as the jitter amplitude grows.</li>
+<li><b>Reduces the Strehl ratio</b>, since energy leaves the core.</li> 
+<li><b>Slightly smooths the halo</b></li> 
+</ul>
+
+Because <code>jitter_FWHM</code> corresponds to tip–tilt–dominated residuals, it mainly acts on
+the lowest spatial frequencies: it widens the core while having minimal effect on the
+shape of the outer AO halo.
+</div>
+
+<p align="center">
+![jitter_FWHMa](/img/jitter_fwhm_0.jpg) 
+</p>
+
+<div style={{
+  borderLeft: "4px solid #2ed373ff",
+  background: "#f1ffe8ff",
+  padding: "10px 14px",
+  margin: "12px 0",
+  borderRadius: "4px",
+  textAlign: 'justify'
+}}>
+**Example of tuning** 
+
+<div style={{ textAlign: 'justify' }}> 
+In practice, this parameter is often adjusted first, then its value is then refined after introducing <code>extraError*</code> and 
+<code>zCoefStaticOn</code>, since these parameters also modify the core–halo energy balance 
+(although through different physical mechanisms).
+
+Below is an illustration of the effect of jitter on the MUSE PSF:
+<p align="center"> <img src="/img/MUSE_jitter_comparison.jpg" width="70%" /> </p>
+</div>
+</div>
+
+###  2. Extra high-order error (`extraErrorNm`, `extraErrorExp`, `extraErrorMin`, `extraErrorMax`)
+
+<div style={{ textAlign: "justify" }}> 
+
+The `extraError*` parameters allow you to ontroduce an additional, user-defined wavefront error 
+described by a simple spatial-frequency power law. <br/>
+This term is useful to model high-order aberrations not otherwise represented in **TipTop**, such as 
+residual manufacturing erros, residual telescope contributions, or any unmodelled generic high-order 
+static term.  
+{/* e.g. PFRO residuals, high-order telescope WFE (M1 & M2), or WFS spot-truncation effects */}
+
+</div>
+
+<div style={{
+  borderLeft: "4px solid #4ea3f1",
+  background: "#e8f4ff",
+  padding: "10px 14px",
+  margin: "12px 0",
+  borderRadius: "4px",
+  textAlign: 'justify'
+}}>
+✏️ **<i>Implementation note:</i>** <br/>
+TipTop computes an additional PSD from these
+parameters inside <code>p3.fourierModel.extraErrorPSD()</code>, and this PSD is then
+<b>added to the AO PSD</b> in <code>p3.fourierMOdel.powerSpectrumDensity()</code>
+(after aliasing, noise, temporal and other AO contributions).<br/>
+This provides a straightforward way to inject a generic static high-order
+aberration PSD into the error budget.
+
+</div>
+
+**Meaning of the parameters**
+
+<div style={{ textAlign: "justify" }}> 
+<ul> <li><code>extraErrorNm</code> – total RMS amplitude (in nm) of the additional error</li> 
+<li><code>extraErrorExp</code> – exponent of the power-law spectrum (default –2)</li> 
+<li><code>extraErrorMin</code> / <code>extraErrorMax</code> – optional lower/upper spatial-frequency limits (in m<sup>−1</sup>).</li> </ul> 
+</div>
+
+
+**Effects of the `extraError*` parameters**
+
+<div style={{ textAlign: "justify" }}>
+
+ - <b>Strehl ratio reduction</b>  
+  Increasing <code>extraErrorNm</code> increases the total WFE and transfers energy 
+  from the PSF core into the halo.
+ - <b>Encircled-energy modification</b>  
+  Higher <code>extraErrorNm</code> values decrease EE at small radii and increase it at larger radii.
+- <b>Halo-shape variation</b>  
+  The power-law exponent <code>extraErrorExp</code> controls how energy is distributed across spatial frequencies:  
+  <ul>
+    <li>steeper (more negative) slopes → more low-frequency power → broader halo</li>
+    <li>shallower slopes → more high-frequency power → sharper halo edge</li>
+  </ul>
+</div>
+
+<p align="center">
+![ExtraErrorNm](/img/extra_errora.jpg) 
+</p>
+
+<div style={{ textAlign: "justify" }}>
+The exponent <code>extraErrorExp</code> determines how quickly the PSD decreases with frequency.  
+Both the Strehl ratio and the radial profile are sensitive to it: modifying the exponent 
+changes how energy is redistributed between intermediate and high spatial frequencies, 
+which directly affects the core–to–halo balance.
+
+<code>extraErrorMin</code> and <code>extraErrorMax</code> further allow you to restrict 
+the spatial-frequency range over which the additional error is applied.
+</div>
+
+<p align="center">
+![ExtraErrorM](/img/extra_errorb.jpg) 
+</p>
+
+<div style={{
+  borderLeft: "4px solid #2ed373ff",
+  background: "#f1ffe8ff",
+  padding: "10px 14px",
+  margin: "12px 0",
+  borderRadius: "4px",
+  textAlign: 'justify'
+}}>
+**Example of tuning** 
+
+<div style={{ textAlign: "justify" }}>
+In practice, after adjusting <code>jitter_FWHM</code> to match the core width, the 
+<code>extraError*</code> parameters are typically used to adjust the level and shape of the 
+halo.  
+Increasing <code>extraErrorNm</code> lowers the Strehl ratio, while 
+<code>extraErrorExp</code> is used to refine the halo slope.  
+
+These adjustments are iterative and must remain consistent with any static aberrations 
+introduced through <code>zCoefStaticOn</code> or <code>PathStaticOn</code>.
+
+<p align="center"> ![ExtraErrorExp](/img/extraErrorExp.jpg)  </p>
+
+</div>
+</div>
+
+### 3. Static aberrations (<code>PathStaticOn</code>, <code>zCoefStaticOn</code>)
+
+<div style={{ textAlign: "justify" }}>
+
+Static aberrations correspond to wavefront errors that are fixed in time and do not evolve
+during the simulation.  
+In <b>TipTop</b>, to introduce such static terms you can define:
+<ul>
+<li>a user-provided OPD map (<code>PathStaticOn</code>)</li>
+<li>a set of Zernike coefficients (<code>zCoefStaticOn</code>)</li>
+</ul>
+
+</div>
+
+<div style={{
+  borderLeft: "4px solid #4ea3f1",
+  background: "#e8f4ff",
+  padding: "10px 14px",
+  margin: "12px 0",
+  borderRadius: "4px",
+  textAlign: 'justify'
+}}>
+✏️ <i><b>Implementation note:</b></i>  <br/>
+Both contributions are combined into an on-axis OPD map (in nm) inside the
+<code>telescope</code> class (attribute <code>tel.opdMap_on</code>).
+This OPD map is then applied in the pupil plane when computing the final PSFs, on top of the AO residual
+wavefront error.
+</div>
+
+---
+
+**1. Using an OPD map (PathStaticOn)**
+
+<div style={{ textAlign: "justify" }}>
+<code>PathStaticOn</code> allows you to load a static optical path difference map (in _nm_)
+from a `FITS` file.  
+It adds a static aberration (it can be used to add any kind of static aberrations).
+
+This is the recommended approach when you have a measured or simulated aberration map.<br/>
+The OPD map is rescaled/rotated to match the telescope pupil resolution and geometry and is then
+used as an additional phase term during PSF computation.
+</div>
+
+One example is the static aberration given by ELT M1 ([available here](https://github.com/astro-tiptop/TIPTOP/blob/main/tiptop/data/ELT_M1_MORFEO_DMs_static_wfe_480px.fits)).
+
+<p align="center">
+![PathStaticOn](/img/PathStaticOn.jpg) 
+</p>
+
+---
+
+**2. Using Zernike coefficienrs (`zCoefStaticOn`)**
+<div style={{ textAlign: "justify" }}>
+`zCoefStaticOn` provides a compact way to introduce a combination of zernike modes that model a static aberration. 
+The values are given in <b>nm RMS</b> and follow the standard <b>Noll index</b> ordering (Z2 = tilt, Z3 = tilt, Z4 = defocus, Z5–Z6 = astigmatism, …).
+
+</div>
+
+<div style={{
+  borderLeft: "4px solid #4ea3f1",
+  background: "#e8f4ff",
+  padding: "10px 14px",
+  margin: "12px 0",
+  borderRadius: "4px",
+  textAlign: 'justify'
+}}>
+✏️ <i><b>Implementation note:</b></i>  
+Inside <code>telescope.init</code>, TipTop:
+<ul> 
+<li>builds the corresponding Zernike basis on the pupil,</li> 
+<li>orthonormalizes the modes on the actual pupil support,</li> 
+<li>normalizes each mode to 1 nm RMS,</li> 
+<li>and finally forms <code>opdMap_on</code> by summing the modes weighted by the coefficients in <code>zCoefStaticOn</code>.</li> 
+</ul> 
+</div>
+
+Examples:
+
+| Mode | `zCoefStaticOn`  | 
+| :--------------- |:---------------|
+| Focus | [0, 0, 100] | 
+| Astigmastism | [0, 0, 0, 100] |
+| Trefoil | [0, 0, 0, 0, 0, 0, 0, 100] |
+| Spherical| [0, 0, 0, 0, 0, 0, 0, 0, 0, 100] |
+
+<p align="center">
+![Zernike_modes](/img/zernike_poly.png) 
+</p>
+
+
+**Effects of static aberrations**
+<div style={{ textAlign: "justify" }}> 
+<ul> 
+<li><b>Strehl ratio degradation</b> — depending on the total RMS and the Zernike content.</li> 
+<li><b>PSF shape modification</b> — low-order modes introduce directional features (e.g. astigmatism, coma), while arbitrary OPD maps can create more complex patterns.</li> 
+<li><b>Energy redistribution</b> — static aberrations alter both the PSF core and halo, with characteristic signatures depending on the aberration type.</li> 
+<li><b>No temporal averaging</b> — these aberrations are fixed and present in all simulated PSFs.</li> 
+</ul> 
+</div>
+
+
+**Typical use**
+<div style={{ textAlign: "justify" }}> 
+Use <code>PathStaticOn</code> when you have a known, structured pupil-plane aberration (e.g. calibration-derived NCPA, optics maps, segmented mirror errors).
+
+Use <code>zCoefStaticOn</code> to explore the impact of specific modes (focus, astigmatism, trefoil, …)
+or to test simple static error scenarios in a controlled way.
+
+</div>
+
+<div style={{
+  borderLeft: "4px solid #2ed373ff",
+  background: "#f1ffe8ff",
+  padding: "10px 14px",
+  margin: "12px 0",
+  borderRadius: "4px",
+  textAlign: 'justify'
+}}>
+**Example of tuning**
+
+In the MUSE tuning example, a small set of Zernike coefficients was used to reproduce the
+observed PSF asymmetry after <code>jitter_FWHM</code> and <code>extraError*</code> had been adjusted
+to match the core width and halo level.
+</div> 
+
+
+
+
+
+
+{/* ### 4. Recommended Workflow for Tuning Additional Error Terms
+ <details>
+  <summary><strong> Click here to read more. </strong></summary> 
+
+<div style={{ textAlign: "justify" }}> 
+This section provides a practical step-by-step approach for tuning the optional parameters (<code>jitter_FWHM</code>, 
+<code>extraError*</code>, <code>PathStaticOn</code>, <code>zCoefStaticOn</code>) when refining a PSF or exploring a specific error budget. 
+The key principle is to adjust one contribution at a time. 
+</div>
+
+**Step-by-step procedure**
+
+1. **Start from a “clean” AO simulation**
+
+<div style={{ textAlign: "justify" }}> 
+Set all additional error terms to zero: 
+<ul> 
+<li><code>jitter_FWHM = None</code></li> 
+<li><code>extraErrorNm = 0</code></li> 
+<li><code>PathStaticOn = None</code></li> 
+<li><code>zCoefStaticOn = None</code></li> 
+</ul> 
+
+Run a simulation and record the basic metrics: FWHM, SR, EE and inspect radial profile. 
+</div>
+
+2. **Tune the jitter contribution**
+
+<div style={{ textAlign: "justify" }}> 
+Increase <code>jitter_FWHM</code> to adjust the broadening of the PSF core. This step isolates the contribution of tip/tilt-like 
+residual motion. 
+</div>
+
+3. **Add high-order extra error**
+
+<div style={{ textAlign: "justify" }}> 
+Adjust <code>extraErrorNm</code> (and, if needed, <code>extraErrorExp</code>) to modify the halo level and the 
+encircled-energy distribution. This step accounts for additional high-order wavefront error not included in the AO model. 
+</div>
+
+4. **Add static aberrations if needed**
+
+<div style={{ textAlign: "justify" }}> 
+If the PSF exhibits a characteristic static shape (e.g. astigmatism, coma, trefoil), introduce: 
+<ul> 
+<li>simple Zernike modes via <code>zCoefStaticOn</code>, or</li> 
+<li>a more detailed aberration map via <code>PathStaticOn</code> if one is available.</li> 
+</ul> 
+
+These terms capture structured, time-independent aberrations. 
+</div>
+
+5. **Iterate**
+
+<div style={{ textAlign: "justify" }}> 
+Repeat steps 2–4, modifying <b>only one parameter group at a time</b>, until the overall PSF shape and metrics are 
+consistent with the targeted behaviour. Progressive, isolated adjustments make each contribution easier to interpret. 
+</div>
+
+6. **Check global consistency**
+
+<div style={{ textAlign: "justify" }}> 
+Use the global error budget (e.g. from <code>errorBreakDown()</code>) to ensure that the total WFE and the relative 
+contributions (AO residuals, static terms, extra error, jitter) remain physically plausible for the instrument configuration 
+being simulated. 
+</div>
+*/}
+{/* </details> */}
+
+
+{/* <p align="center">
+<b>TipTop AO Simulation</b><br/>
+↓<br/>
+<b>Jitter</b> (<code>jitter_FWHM</code>) – broadens the PSF core<br/>
+↓<br/>
+<b>Extra high-order error</b> (<code>extraError*</code>) – modifies halo & EE<br/>
+↓<br/>
+<b>Static aberrations</b> (<code>PathStaticOn</code>, <code>zCoefStaticOn</code>) – adds fixed structure<br/>
+↓<br/>
+<b>Final PSF</b>
+</p> */}
+
+
+
+
+
+
+
+
+{/* #### 1. Where do these parameters act?
+The high-order AO part is handled by p3.aoSystem.fourierModel, which computes the HO residual PSD
+(fitting, aliasing, noise, temporal error, cone effect, etc.).
+In this step, extraErrorNm and related parameters are injected via
+extraErrorPSD() / extraErrorLoPSD(), and static aberrations are applied
+through the telescope OPD map (NCPA).
+
+The PSF generation and final convolution are handled by baseSimulation:
+the HO PSD is converted to PSFs, combined with the LO error model (if enabled),
+and then optionally convolved with a jitter kernel defined by jitter_FWHM. */}
+
+
+
+
+
+## 📄 Useful Scripts 
+
+### 🔵 Run <i>N</i> **TipTop** Simulations with Different Parameter Values
 
 <div style={{ textAlign: "justify" }}>
 Here, we provide an example script to run <i>N</i> **TipTop** simulations with different values of two parameters:
@@ -105,7 +563,7 @@ for combo in product(*param_values):
 
 </details>
 
-## Rename Output FITS Files and Keep Backups
+### 🔵 Rename Output FITS Files and Keep Backups
 
 <div style={{ textAlign: "justify" }}>
 This script renames PSF FITS files (e.g., those generated by the previous script)
@@ -184,7 +642,7 @@ print(f"\n✅ Process complete. {len(output_files)} files renamed and backed up.
 </details>
 
 
-## Sum rotated PSF
+### 🔵 Sum rotated PSF
 
 <div style={{ textAlign: "justify" }}>
 This script combines multiple PSFs into a single image by rotating each individual PSF 

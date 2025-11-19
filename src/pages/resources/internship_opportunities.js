@@ -160,7 +160,7 @@ export default function ReferencesPage() {
                   <li><strong>Duration:</strong> 4–6 months.</li>
                   <li><strong>Preferred start:</strong> between February and May 2026.</li>
                   <li><strong>Location:</strong> <a href="https://www.lam.fr/" target="_blank" rel="noreferrer noopener">Laboratoire d’Astrophysique de Marseille</a>.</li>
-                  <li><strong>Application deadline:</strong> late November 2025.</li>
+                  <li><strong>Application deadline:</strong> late December 2025.</li>
                 </ul>
               </section>
 

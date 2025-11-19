@@ -126,7 +126,7 @@ The residual jitter is considered as the quadratic sum of 3 independent terms: *
 
 ###  ✔️ Windshake & Vibrations
 <p align="justify">  
-**TipTop** can ingest a vibration PSD and filter it through the LO control loop ([`telescope.windPsdFile`](https://astro-tiptop-services.github.io/astro-tiptop-services/docs/orion/parameterfiles#telescope) parameter). If no vibration file is provided, the vibration term is set to zero (Absence of vibration input ⇒ 0 nm residuals).
+**TipTop** can ingest a PSD of tip/tilt disturbances due to wind shake/vibration (see ([`telescope.windPsdFile`](https://astro-tiptop-services.github.io/astro-tiptop-services/docs/orion/parameterfiles#telescope) parameter)). These disturbances are filtered by the closed-loop transfer function. <br/> If no vibration file is provided, the vibration term is set to zero (Absence of vibration input ⇒ 0 nm residuals).
 </p>
 
 ---

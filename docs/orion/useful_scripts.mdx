@@ -25,20 +25,14 @@ to enrich simulated PSFs with additional, user-defined error contributions.
 These parameters allow you to represent effects that are not otherwise considered by **TipTop**, such as 
 non common path aberrations (NCPA), manufacturing tolerances, phasing errors in pupil segmented systems, or residual vibrations, ...
 
-These configurable parameters can help you to produce more realistic PSFs, test “what-if” error budgets, or reproduce measured PSFs for specific analyses.
-
+These configurable parameters can help you to produce more realistic PSFs, test “what-if” error budgets, or reproduce measured PSFs for specific analyses. <br/>
 Part of the purpose of this tutorial is therefore to illustrate which regions of the PSF 
 (core width, halo level, etc.) are most sensitive to each additional error term.  
 However, several effects can overlap, and the impact of individual parameters is sometimes 
 difficult to distinguish by eye. As a result, manual tuning often requires iterating and 
-revisiting parameters more than once. Because some error terms may compensate or mask each other, caution is recommended. <br/> 
+revisiting parameters more than once. Because some error terms may compensate or mask each other, caution is recommended. 
 Before introducing new aberrations, users should refer to the page 
 <i>“[What is included in TipTop?](/docs/general/error_breakdown)”</i> to avoid adding errors that are already taken into account.
-
-<p><b>Note on wavelength:</b> the sensitivity of PSF features to these parameters 
-depends on the simulation wavelength. Users should perform comparisons at the wavelength(s) 
-most relevant for their science case, as different wavelengths emphasise different spatial 
-frequency ranges of the PSF.</p>
 
 </div>
 
@@ -190,9 +184,7 @@ aberration PSD into the error budget.
 
 <div style={{ textAlign: "justify" }}>
 The exponent <code>extraErrorExp</code> determines how quickly the PSD decreases with frequency.  
-Both the Strehl ratio and the radial profile are sensitive to it: modifying the exponent 
-changes how energy is redistributed between intermediate and high spatial frequencies, 
-which directly affects the core–to–halo balance.
+Changing this exponent modifies how energy is redistributed between intermediate and high spatial frequencies, which directly affects the core–to–halo balance.
 
 <code>extraErrorMin</code> and <code>extraErrorMax</code> further allow you to restrict 
 the spatial-frequency range over which the additional error is applied.
@@ -230,7 +222,7 @@ consistent with any static aberrations introduced through
 <code>zCoefStaticOn</code> or <code>PathStaticOn</code>.
 
 
-In the "MUSE PSF-fitting" example shown below (for a science wavelength of 500_nm_), 
+In the "MUSE PSF-fitting" example shown below (for a science wavelength of 500<i>nm</i>), 
 the effect of <code>extraErrorNm</code> and <code>extraErrorExp</code> 
 on the radial and directional profiles can be inspected to determine which combination best reproduces the observed halo amplitude and slope. 
 The plots illustrate how varying these parameters affect the PSF shape during manual tuning. 
@@ -266,7 +258,7 @@ In <b>TipTop</b>, to introduce such static terms you can define:
   textAlign: 'justify'
 }}>
 ✏️ <i><b>Implementation note:</b></i>  <br/>
-Both contributions are combined into an on-axis OPD map (in nm) inside the
+Both contributions are combined into an on-axis OPD map (in _nm_) inside the
 <code>telescope</code> class (attribute [<code>tel.opdMap_on</code>](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/telescope.py#L122)).
 This OPD map is then applied in the pupil plane when computing the final PSFs, on top of the AO residual
 wavefront error.
@@ -337,7 +329,7 @@ Examples:
 <div style={{ textAlign: "justify" }}> 
 <ul> 
 <li><b>Strehl ratio degradation</b> — depending on the total RMS and the Zernike content.</li> 
-<li><b>PSF shape modification</b> — ZErnike modes introduce directional features (e.g. astigmatism, coma), while arbitrary OPD maps can create more complex patterns.</li> 
+<li><b>PSF shape modification</b> — Zernike modes introduce directional features (e.g. astigmatism, coma), while arbitrary OPD maps can create more complex patterns.</li> 
 <li><b>Energy redistribution</b> — static aberrations alter both the PSF core and halo, with characteristic signatures depending on the aberration type.</li> 
 {/* <li><b>No temporal averaging</b> — these aberrations are fixed and present in all simulated PSFs.</li> */}
 </ul> 
@@ -373,7 +365,10 @@ The example below illustrates the impact of adding a simple defocus term via
 </p>
 </div> 
 
-
+<p><b>Note on wavelength:</b> the sensitivity of PSF features to these parameters 
+depends on the simulation wavelength. Users should perform comparisons at the wavelength(s) 
+most relevant for their science case, as different wavelengths emphasise different spatial 
+frequency ranges of the PSF.</p>
 
 
 {/* ### 4. Recommended Workflow for Tuning Additional Error Terms

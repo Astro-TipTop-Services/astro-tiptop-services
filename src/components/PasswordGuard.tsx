@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const PASSWORD = 'tiptop123'; 
+const PASSWORD = 'TiptOptimo'; 
 
 export default function PasswordGuard({children}) {
   const [input, setInput] = useState('');

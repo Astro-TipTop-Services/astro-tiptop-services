@@ -212,10 +212,11 @@ Each line corresponds to a specific term of the HO or LO model we described earl
 | **Aliasing error**           | High frequencies folded by WFS sampling                                     | [`aliasingPSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L808) (SCAO approximation) | HO                      |
 | **Noise error**              | Photon + detector noise propagated through reconstructor + controller       | [`noisePSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L909)                         | HO                      |
 | **Spatio-temporal error**    | Combined reconstruction + servo filtering (tomography + lag)                | Inside [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L650)      | HO                      |
-| **Wind-shake error**         | Telescope vibrations filtered by LO controller                              | Only if [`windPsdFile`](/docs/orion/parameterfiles.md) provided       | LO (optional)           |
-| **Additionnal jitter**       | Extra jitter added manually (FWHM or nm)                                    | [`jitter_FWHM`](/docs/orion/useful_scripts.mdx) parameter              | LO (user)               |
 | **Mcao Cone**                | MCAO LGS volume loss term                                                   | Automatic in MCAO mode               | HO                      |
 | **Extra error**              | User extra PSD added to HO halo    | [`extraError*`](/docs/orion/useful_scripts.mdx)     | HO (user)    |
+<!-- | **Wind-shake error**         | Telescope vibrations filtered by LO controller                              | Only if [`windPsdFile`](/docs/orion/parameterfiles.md) provided       | LO (optional)           |
+| **Additionnal jitter**       | Extra jitter added manually (FWHM or nm)                                    | [`jitter_FWHM`](/docs/orion/useful_scripts.mdx) parameter              | LO (user)               | -->
+
 
 | Bottom lines  |Meaning  | Notes  |
 | --------------------------------------------------------------------------- | ------------------------------------ | ----------------------- |

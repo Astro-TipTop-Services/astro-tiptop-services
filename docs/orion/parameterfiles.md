@@ -268,6 +268,7 @@ In the two following section we list the parameters that are specific to each wa
 | `SpotFWHM` | No | `list of list of int` | _Default_: `[[0.0,0.0]]` <br /> Low Order spot scale in **_[mas]_**. |
 | `Gain` | No | `float` | _Default_: `1` <br /> Camera gain. |
 | `Algorithm` | No | `string` | _Default_: `wcog` <br /> CoG computation algorithm. |
+| `addAliasError` | No | `bool` | _Default_: `False` <br /> Add aliasing error as a function of the spot size. |
 
 
 

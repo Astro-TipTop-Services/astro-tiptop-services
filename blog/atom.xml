@@ -2,11 +2,29 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog</id>
     <title>Astro-TipTop Services Blog</title>
-    <updated>2026-01-05T00:00:00.000Z</updated>
+    <updated>2026-01-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog"/>
     <subtitle>Astro-TipTop Services Blog</subtitle>
     <icon>https://astro-tiptop-services.github.io/astro-tiptop-services/img/logo_astro-tiptop_cropped.png</icon>
+    <entry>
+        <title type="html"><![CDATA[TipTop Meeting at ESO – Moving Forward Together ✨]]></title>
+        <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/tiptop_meeting_eso</id>
+        <link href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/tiptop_meeting_eso"/>
+        <updated>2026-01-26T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[On January 26, 2026, the TipTop team was delighted to take part in a dedicated TipTop Meeting held at ESO Headquarters in Garching.]]></summary>
+        <content type="html"><![CDATA[<p>On January 26, 2026, the TipTop team was delighted to take part in a dedicated TipTop Meeting held at ESO Headquarters in Garching.</p>
+<p>This meeting was a great opportunity to bring together developers and ESO stakeholders to discuss the current status of TipTop, its ongoing integration into ESO tools for observation preparation, and the exciting perspectives for future use, including upcoming instruments and the ELT. We also had fruitful discussions on possible improvements and new use cases for the tool.</p>
+<p>👉 More details about the meeting, its scope, and context are available here: <a href="https://www.eso.org/sci/meetings/2026/tiptop.html" target="_blank" rel="noopener noreferrer">https://www.eso.org/sci/meetings/2026/tiptop.html</a></p>
+<p align="center"></p><p><img decoding="async" loading="lazy" alt="ESO Astro-TipTop logo" src="https://astro-tiptop-services.github.io/astro-tiptop-services/assets/images/eso_astrotiptop_logo-5c31c09a4354c6eca590abaec7fc6cc4.png" width="369" height="126" class="img_ev3q"></p><p></p>]]></content>
+        <author>
+            <name>Astro-TipTop Team</name>
+            <uri>https://astro-tiptop-servoces.github.io/astro-tiptop-services/</uri>
+        </author>
+        <category label="Publications" term="Publications"/>
+        <category label="ESO" term="ESO"/>
+        <category label="TipTop" term="TipTop"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[📢TipTop v1.3.32, P3 v1.4.8 and MASTEL v1.3.12 released!]]></title>
         <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.32_p3_1.4.8_mastel_1.3.12</id>

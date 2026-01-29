@@ -43,3 +43,8 @@ mastel:
   permalink: /mastel
   description: mastel tag description
 
+ESO:
+  label: ESO
+  permalink: /ESO
+  description: ESO tag description
+

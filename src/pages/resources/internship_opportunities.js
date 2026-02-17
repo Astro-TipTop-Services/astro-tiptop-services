@@ -74,7 +74,8 @@ export default function ReferencesPage() {
             </nav>
 
               <section id="context" style={{ marginTop: '1rem' }}>
-              <p><i>Last update: October 10, 2025</i></p>
+              <p><i>Last update: February 16, 2026</i></p>
+              <p><i>(This internship opportunity is no longer available)</i></p>
               <h3>Context and Motivation</h3>
                 <p align='justify'>
                   Adaptive Optics (AO) systems are crucial for high-resolution astronomical observations, compensating for atmospheric turbulence. 

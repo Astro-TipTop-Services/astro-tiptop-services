@@ -4,10 +4,35 @@
         <title>Astro-TipTop Services Blog</title>
         <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog</link>
         <description>Astro-TipTop Services Blog</description>
-        <lastBuildDate>Mon, 26 Jan 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 17 Feb 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[📢TipTop v1.3.33 and P3 v1.4.13 released!]]></title>
+            <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.33_p3_1.4.13</link>
+            <guid>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.3.33_p3_1.4.13</guid>
+            <pubDate>Tue, 17 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[TipTop v1.3.33, P3 v1.4.13 are here! 🎉]]></description>
+            <content:encoded><![CDATA[<p><a href="https://github.com/astro-tiptop/TIPTOP/releases/tag/v1.3.32" target="_blank" rel="noopener noreferrer">TipTop v1.3.33</a>, <a href="https://github.com/astro-tiptop/P3/releases/tag/v1.4.13" target="_blank" rel="noopener noreferrer">P3 v1.4.13</a> are here! 🎉</p>
+<p>This release improves memory usage in P3, especially in the aliasing PSD computation that previously dominated memory in large simulations.</p>
+<p>✨ What’s new</p>
+<ul>
+<li>
+<p>Improved memory management in the <code>p3.ao.fourierModel</code> module: more intermediate variables are now released via the <code>reduce_memory</code> option (enabled by default in TipTop).</p>
+</li>
+<li>
+<p>Reworked aliasing PSD computation with more memory-efficient array handling.</p>
+</li>
+</ul>
+<p>👉 Heavy TipTop/P3 cases that previously required large amounts of RAM should now run more easily and reliably.</p>
+<p>Update now and enjoy the latest enhancements 🚀</p>
+<p>Check it out on PyPI 👉 <a href="https://pypi.org/project/astro-tiptop/" target="_blank" rel="noopener noreferrer"><strong>astro-tiptop</strong></a>, <a href="https://pypi.org/project/astro-p3/1.4.13/" target="_blank" rel="noopener noreferrer"><strong>astro-p3</strong></a></p>]]></content:encoded>
+            <category>Publications</category>
+            <category>tiptop</category>
+            <category>ReleaseUpdate</category>
+            <category>p3</category>
+        </item>
         <item>
             <title><![CDATA[TipTop Meeting at ESO – Moving Forward Together ✨]]></title>
             <link>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/tiptop_meeting_eso</link>

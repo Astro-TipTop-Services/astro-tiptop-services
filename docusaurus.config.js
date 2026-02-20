@@ -237,6 +237,10 @@ const config = {
                 label: 'Wish list',
                 to: 'resources/wishlist',
               },
+              {label: "SkyCov GUI",
+                to:'gui_SkyCov' 
+              },
+
                {
                 label: 'AO school',
                 to: 'resources/AO_school',

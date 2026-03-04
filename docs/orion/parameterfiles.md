@@ -371,5 +371,6 @@ In the two following section we list the parameters that are specific to each wa
 | `platform` | No | `string` |  _Default_: `GPU` <br /> Set to it to `CPU` to forcy the library to use numpy instead of cupy.|
 | `integralDiscretization1` | No | `float` |  _Default_: `1000.0` <br /> Discretization used in the integrals (`astro-tiptop/SEEING library`).|
 | `integralDiscretization2` | No | `float` |  _Default_: `4000.0` <br /> Discretization used in the integrals (`astro-tiptop/SEEING library`).|
+| `precision` | No | `string` |  _Default_: `'double'` <br /> Precision used in computations, 'single' or 'double'. Using single precision improves speed and reduces memory usage, albeit at the cost of precision.|
 
 </details>

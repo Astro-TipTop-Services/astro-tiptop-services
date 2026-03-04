@@ -246,8 +246,8 @@
       "ZenithAngle": "30.0",
       "ObscurationRatio": "0.28",
       "Resolution": "320",
-      "PathPupil": "/home/frossi/dev/TIPTOP/P3/aoSystem/data/ELT_CALIBRATION/EELT480pp0.0813spider.fits",
-      "PathStaticOn": "/home/frossi/dev/TIPTOP/P3/aoSystem/data/ELT_CALIBRATION/CombinedError_Wavefront_nm.fits",
+      "PathPupil": "tiptop/data/EELT480pp0.0803m_obs0.283_spider2023.fits",
+      "PathStaticOn": "tiptop/data/CombinedError_Wavefront_nm.fits",
       "TechnicalFoV": "120"
     },
     "atmosphere": {
@@ -274,8 +274,8 @@
     },
     "sources_LO": {
       "Wavelength": "850e-9",
-      "Zenith": "[0.0, 10.0, 0.0]",
-      "Azimuth": "[0.0, 0.0, 10.0]"
+      "Zenith": "[0.0, 10.0]",
+      "Azimuth": "[0.0, 0.0]"
     },
     "sensor_science": {
       "PixelScale": "4.0",
@@ -309,14 +309,14 @@
       "PixelScale": "5.0",
       "FieldOfView": "200",
       "Binning": "1",
-      "NumberPhotons": "[1000, 1000, 1000]",
+      "NumberPhotons": "[1000, 1000]",
       "SpotFWHM": "[[0.0,0.0,0.0]]",
       "SigmaRON": "1.0",
       "Dark": "30.0",
       "SkyBackground": "35.0",
       "Gain": "1.0",
       "ExcessNoiseFactor": "1.3",
-      "NumberLenslets": "[1, 1, 1]",
+      "NumberLenslets": "[1, 1]",
       "Algorithm": "wcog",
       "WindowRadiusWCoG": "2",
       "ThresholdWCoG": "0.0",
@@ -350,8 +350,8 @@
       "ZenithAngle": "30.0",
       "ObscurationRatio": "0.28",
       "Resolution": "320",
-      "PathPupil": "/home/frossi/dev/TIPTOP/P3/aoSystem/data/ELT_CALIBRATION/EELT480pp0.0813spider.fits",
-      "PathStaticOn": "/home/frossi/dev/TIPTOP/P3/aoSystem/data/ELT_CALIBRATION/CombinedError_Wavefront_nm.fits",
+      "PathPupil": "tiptop/data/EELT480pp0.0803m_obs0.283_spider2023.fits",
+      "PathStaticOn": "tiptop/data/CombinedError_Wavefront_nm.fits",
       "TechnicalFoV": "120"
     },
     "atmosphere": {
@@ -454,8 +454,8 @@
       "ZenithAngle": "30.0",
       "ObscurationRatio": "0.28",
       "Resolution": "320",
-      "PathPupil": "/home/frossi/dev/TIPTOP/P3/aoSystem/data/ELT_CALIBRATION/EELT480pp0.0813spider.fits",
-      "PathStaticOn": "/home/frossi/dev/TIPTOP/P3/aoSystem/data/ELT_CALIBRATION/CombinedError_Wavefront_nm.fits",
+      "PathPupil": "tiptop/data/EELT480pp0.0803m_obs0.283_spider2023.fits",
+      "PathStaticOn": "tiptop/data/CombinedError_Wavefront_nm.fits",
       "TechnicalFoV": "120"
     },
     "atmosphere": {

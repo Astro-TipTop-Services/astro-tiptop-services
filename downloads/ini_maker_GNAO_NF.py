@@ -226,7 +226,7 @@ def build_atmosphere(opts: SimulationOptions):
         "Cn2Heights": cn2_heights,
         "WindSpeed": wind_speed,
         "WindDirection": wind_direction,
-        "Cn2Weights_mod1": cn2_weights_mod,
+        #"Cn2Weights_mod1": cn2_weights_mod,
     }
 
 

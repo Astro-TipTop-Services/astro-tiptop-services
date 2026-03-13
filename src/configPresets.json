@@ -324,7 +324,7 @@
       "PixelScale": "250.0",
       "FieldOfView": "4",
       "Binning": "1",
-      "NumberPhotons": "[np.float64(8567160.0)]",
+      "NumberPhotons": "[8567160.0]",
       "SpotFWHM": "[[0.0, 0.0, 0.0]]",
       "SigmaRON": "0.5",
       "Dark": "0.0",

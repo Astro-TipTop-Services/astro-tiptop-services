@@ -240,6 +240,9 @@ const config = {
               {label: "SkyCov GUI",
                 to:'gui_SkyCov' 
               },
+              {label: "HARMONI MCAO Launcher",
+                to:'HRM_MCAO_Launcher' 
+              },
 
                {
                 label: 'AO school',

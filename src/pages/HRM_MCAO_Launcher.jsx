@@ -205,8 +205,10 @@ export default function GUI() {
           <li>Please wait for completion before launching a new run</li>
           {/* <li>Temporary files are automatically cleaned after download</li> */}
         </ul>
-
-       
+        <p>
+          If you have any questions or need assistance, feel free to contact:
+          <a href="mailto:lisa-marie.mazzolo@lam.fr">lisa-marie.mazzolo@lam.fr</a>.
+        </p>
       </div>
     </Layout>
   );

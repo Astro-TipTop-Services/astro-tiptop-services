@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunktiptop_site=globalThis.webpackChunktiptop_site||[]).push([[1903],{1912(t){t.exports=JSON.parse('{"blogBasePath":"/astro-tiptop-services/blog","blogTitle":"Blog","authorsListPath":"/astro-tiptop-services/blog/authors"}')}}]);

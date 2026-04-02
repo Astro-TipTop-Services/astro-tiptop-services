@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunktiptop_site=globalThis.webpackChunktiptop_site||[]).push([[5670],{1648(t){t.exports=JSON.parse('{"metadata":{"permalink":"/astro-tiptop-services/blog","page":1,"postsPerPage":10,"totalPages":2,"totalCount":11,"nextPage":"/astro-tiptop-services/blog/page/2","blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

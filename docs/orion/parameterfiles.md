@@ -168,7 +168,7 @@ Note that the coordinates (Zenith and Azimuth) of the NGSs are the same of the `
 | Parameter | Required? | Type | Description |
 | :--------------- |:---------------|:---------------:|:---------------|
 | `PixelScale` | Yes | `float` | Pixel/spaxel scale in **_milliarcsec_**. <br /> _Warning_: confusing error message if missing. |
-| `FieldOfView` | Yes | `integer` | Field of view of the camera in pixel/spaxel. <br /> _Warning_: confusing error message if missing. |
+| `FieldOfView` | Yes | `integer` | Field of view of the camera in pixel/spaxel. If -1 the automatic choice uses the maximum between twice the AO-corrected size and twice the seeing. <br /> _Warning_: confusing error message if missing. |
 | `Super_Sampling` | No | `float`| Desired radial interpolation sampling step in **_milliarcsec_**. <br /> If provided, TipTop performs a 2D polar interpolation of the PSF to produce a radial profile resampled at the requested scale. |
 
 <p align="justify">

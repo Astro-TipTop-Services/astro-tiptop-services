@@ -15,6 +15,18 @@ export default function GUI() {
           performance metrics and outputs.
         </p>
 
+        <img
+          src="/astro-tiptop-services/img/logo_hrm.png"
+          alt="HARMONI logo"
+          style={{
+            width: "100%",
+            maxWidth: 450,
+            display: "block",
+            margin: "16px auto",
+            borderRadius: 12,
+          }}
+        />
+
         <h2>Overview</h2>
         <p>The workflow is organized into three main steps:</p>
         <ul>

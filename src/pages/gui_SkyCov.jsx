@@ -17,6 +17,9 @@ export default function GUI() {
             Open full app ↗
           </a>
         </p>
+        <p>⚠️ The app may take a few seconds to update 
+          after changing parameters. Thanks for your patience.
+        </p>
 
         <iframe
           src="https://lmazzolo-skycov-app.hf.space"

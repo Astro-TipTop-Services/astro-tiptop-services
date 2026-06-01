@@ -118,6 +118,47 @@ const effectiveSubapertures = (N_lenslet, obscRatio) => {
   return Math.max(1, Ngrid);
 };
 
+const MAS_PER_RAD = (180 / Math.PI) * 3600 * 1000;
+
+const formatIniScalarValue = (value, digits = 6) => {
+  if (!Number.isFinite(value)) return 0;
+  return Number(value.toPrecision(digits));
+};
+
+const computeNyquistPixelScaleMas = (currentPixelScaleMas, wavelength, diameter) => {
+  if (!currentPixelScaleMas || !wavelength || !diameter) return undefined;
+
+  const nyquistMas = (wavelength / diameter / 2) * MAS_PER_RAD;
+
+  if (currentPixelScaleMas <= nyquistMas) {
+    return currentPixelScaleMas;
+  }
+
+  return Math.floor(nyquistMas);
+};
+
+const applyNyquistPixelScale = (iniSections) => {
+  const wavelength = parseNumericMaybeArray(iniSections.sources_science?.Wavelength);
+  const diameter = parseNumericMaybeArray(iniSections.telescope?.TelescopeDiameter);
+  const currentPixelScaleMas = parseNumericMaybeArray(iniSections.sensor_science?.PixelScale);
+
+  const pixelScaleMas = computeNyquistPixelScaleMas(
+    currentPixelScaleMas,
+    wavelength,
+    diameter
+  );
+
+  if (pixelScaleMas === undefined) return iniSections;
+
+  return {
+    ...iniSections,
+    sensor_science: {
+      ...iniSections.sensor_science,
+      PixelScale: formatIniScalarValue(pixelScaleMas),
+    },
+  };
+};
+
 const wavelengthByBand = {
   B: 0.422e-6,
   V: 0.55e-6,
@@ -284,6 +325,7 @@ export default function IniGenerator() {
   };
 
   const [selectedBand, setSelectedBand] = useState('');
+  const [autoNyquistPixelScale, setAutoNyquistPixelScale] = useState(true);
   const availableBands = availableBandsByInstrument[selectedOption] || Object.keys(wavelengthByBand);
 
   useEffect(() => {
@@ -298,7 +340,9 @@ export default function IniGenerator() {
   ///////////////////////////////////////////////////
   //******************generateIni********************
   const generateIni = () => {
-  const iniSections = { ...params };
+  const iniSections = autoNyquistPixelScale
+    ? applyNyquistPixelScale({ ...params })
+    : { ...params };
   let iniString = '';
 
   for (const section in iniSections) {
@@ -504,6 +548,21 @@ export default function IniGenerator() {
           )}
           </label>
         </div>
+        {/* <div style={{ marginTop: '0.5em' }}>
+          <label>
+            <input
+              type="checkbox"
+              checked={autoNyquistPixelScale}
+              onChange={(e) => setAutoNyquistPixelScale(e.target.checked)}
+              style={{ marginRight: 8 }}
+            />
+            Auto-update <code>PixelScale</code> to satisfy Nyquist sampling <br/>
+          </label>
+          <span style={{ marginLeft: '12px', fontSize: '0.9rem', color: '#555' }}>
+            ℹ️ If <code>PixelScale &gt; λ<sub>science</sub>/(2D)</code>, it is automatically set to <code>⌊λ<sub>science</sub>/(2D)⌋</code> mas.
+          </span>
+        </div> */}
+
         <div style={{ marginTop: '0.5em' }}>
         <label>
           Distance<sup>(1)</sup> (arcsec):

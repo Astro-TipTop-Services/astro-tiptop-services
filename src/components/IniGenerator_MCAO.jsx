@@ -96,7 +96,7 @@ const wavelengthByBand = {
   Iz: 0.95e-6,
   J: 1.20e-6, 
   H: 1.66e-6,
-  K: 2.10e-6,
+  K: 2.20e-6,
   L: 3.32e-6,
   M: 4.78e-6,
   // N: 10e-6,
@@ -106,6 +106,52 @@ const wavelengthByBand = {
 const availableBandsByInstrument = {
   MAVIS_MCAO: ['B','V','R','I'],
   MORFEO_MCAO: ['I','J','H','K'],
+};
+
+const MAS_PER_RAD = (180 / Math.PI) * 3600 * 1000;
+
+const parseNumericMaybeArray = (val) => {
+  if (typeof val === 'string') {
+    const cleaned = val.replace(/[\[\]]/g, '').split(',')[0];
+    const n = Number(cleaned);
+    return isNaN(n) ? undefined : n;
+  }
+  const n = Number(val);
+  return isNaN(n) ? undefined : n;
+};
+
+const computeNyquistPixelScaleMas = (currentPixelScaleMas, wavelength, diameter) => {
+  if (!currentPixelScaleMas || !wavelength || !diameter) return undefined;
+
+  const nyquistMas = (wavelength / diameter / 2) * MAS_PER_RAD;
+
+  if (currentPixelScaleMas <= nyquistMas) {
+    return currentPixelScaleMas;
+  }
+
+  return Math.floor(nyquistMas);
+};
+
+const applyNyquistPixelScale = (iniSections) => {
+  const wavelength = parseNumericMaybeArray(iniSections.sources_science?.Wavelength);
+  const diameter = parseNumericMaybeArray(iniSections.telescope?.TelescopeDiameter);
+  const currentPixelScaleMas = parseNumericMaybeArray(iniSections.sensor_science?.PixelScale);
+
+  const pixelScaleMas = computeNyquistPixelScaleMas(
+    currentPixelScaleMas,
+    wavelength,
+    diameter
+  );
+
+  if (pixelScaleMas === undefined) return iniSections;
+
+  return {
+    ...iniSections,
+    sensor_science: {
+      ...iniSections.sensor_science,
+      PixelScale: pixelScaleMas,
+    },
+  };
 };
 
 export default function IniGenerator() {
@@ -120,6 +166,7 @@ export default function IniGenerator() {
   const [Plot, setPlot] = useState(null);
   const [isScienceOpen, setIsScienceOpen] = useState(false);
   const [zenithWarnings, setZenithWarnings] = useState([]);
+  const [autoPixelScale, setAutoPixelScale] = useState(true);
 
   useEffect(() => {
       setIsClient(true);
@@ -584,7 +631,10 @@ export default function IniGenerator() {
   ///////////////////////////////////////////////////
   //******************generateIni********************
   const generateIni = () => {
-  const iniSections = { ...params };
+  let iniSections = { ...params };
+  if (autoPixelScale) {
+    iniSections = applyNyquistPixelScale(iniSections);
+  }
   let iniString = '';
 
   for (const section in iniSections) {
@@ -745,6 +795,23 @@ export default function IniGenerator() {
             ℹ️ defined at Zenith (<code>[Telescope] ZenithAngle = 0</code>)
           </span>
         </label>
+      </div>
+
+
+      {/* Auto PixelScale */}
+      <div style={{ marginBottom: 16 }}>
+        <label>
+          <input
+            type="checkbox"
+            checked={autoPixelScale}
+            onChange={(e) => setAutoPixelScale(e.target.checked)}
+            style={{ marginRight: 8 }}
+          />
+          Auto-update <code>PixelScale</code> to satisfy Nyquist sampling
+        </label>
+        <span style={{ marginLeft: '12px', fontSize: '0.9rem', color: '#555' }}>
+          ℹ️ If <code>PixelScale &gt; λ<sub>science</sub>/(2D)</code>, it is automatically set to <code>⌊λ<sub>science</sub>/(2D)⌋</code> mas.
+        </span>
       </div>
 
       {/* SCIENCE */}

@@ -32,8 +32,8 @@ Spectral Density (PSD) of the the AO-corrected residual phase. This PSD is decom
 ### ✔️ Fitting error
 Uncorrected high-spatial frequencies outside the AO/DM control region, i.e. above the DM cutoff set by the actuator pitch. Depends mainly on the actuator pitch and on the atmospheric seeing (through r0) at the AO reference wavelength, and is only weakly sensitive to the outer scale (L0).
 
-Implemented in → [`fittingPSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L799) <br/>
-Added to total PSD in → [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L650)
+Implemented in → [`fittingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L799) <br/>
+Added to total PSD in → [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L650)
 
 --- 
 
@@ -41,8 +41,8 @@ Added to total PSD in → [`powerSpectrumDensity()`](https://github.com/astro-ti
 High-spatial frequencies that are aliased owing to the WFS spatial sampling. Appears at lower spatial frequencies in the reconstructed phase.
 The aliasing PSD is computed using a SCAO formulation and reused for all directions without explicit projection through the tomographic reconstructor or DM projector. This is an approximation, but in practice the PSF shape is weakly sensitive to it.
 
-Implemented in → [`aliasingPSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L808)<br/>
-Added to total PSD in → [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L650)
+Implemented in → [`aliasingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L808)<br/>
+Added to total PSD in → [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L650)
 
 --- 
 
@@ -58,7 +58,7 @@ The noise variance is either computed from WFS characteristics or provided direc
 2. Filtered by the controller’s noise transfer function 
 3. Added to the total HO PSD -->
 
-Implemented in → [`noisePSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L909)
+Implemented in → [`noisePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L909)
 
 --- 
 
@@ -90,7 +90,7 @@ depending on:
     - integration time
     - controller type  -->
 
-All applied inside [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L650) before summation. <br/>
+All applied inside [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L650) before summation. <br/>
 _**TipTop** does not output a separate “tomography term” in HO breakdown (it only exists inside the spatio-temporal PSD)._
 
 --- 
@@ -101,11 +101,11 @@ _**TipTop** does not output a separate “tomography term” in HO breakdown (it
 
 - **Chromatism**  
     Models the phase error due to the refractive-index difference between: (1) WFS/GS wavelength, and (2) science PSF wavelength. <br/>
-    Implemented in → [`chromatismPSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L1128C9-L1128C22)
+    Implemented in → [`chromatismPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1128C9-L1128C22)
 
 - **Differential atmospheric refraction**  
-    Anisoplanatic-like PSD arising when science and guide stars are observed at different wavelengths and zenith angles. <br/>
-    Implemented in → [`differentialRefractionPSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L1077)
+    Anisoplanatic-like PSD arising when science and guide stars are observed at different wavelengths and zenith angles. The refractive index of humid air is computed using a rigorous two-model approach introduced in [P3 v1.5.2](/blog/new_release_tiptop_1.4.3_p3_1.5.4_mastsel_1.4.7): the **[Ciddor (1996)](https://doi.org/10.1364/AO.35.001566)** model for wavelengths below 1.3 µm, and the **[Mathar (2006)](https://arxiv.org/abs/physics/0610256)** model for longer wavelengths (J/H/K through N bands), both accounting for temperature, pressure, and relative humidity. This replaces the earlier simplified dispersion approximation. <br/>
+    Implemented in → [`differentialRefractionPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1077) using [`airRefraction.MatharAirRefraction`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/airRefraction.py)
 
 Both are added to the HO PSD only when the configuration activates them.
 
@@ -171,7 +171,7 @@ After summing windshake, tomographic error, and propagated noise, **TipTop** con
 | | WFS Noise | ✔️ | Propagated through reconstructor + controller |
 | | Spatio-Temporal Reconstruction | ✔️ | MMSE/POLC + controller filtering |
 | | Chromatism | ✔️ | WFS/science λ refractive index mismatch |
-| | Differential Refraction | ✔️ | Wavelength + zenith angle anisoplanatism |
+| | Differential Refraction | ✔️ | Wavelength + zenith angle anisoplanatism — rigorous Ciddor/Mathar model (since P3 v1.5.2) |
 | | Cone Effect | ✔️ | Layer stretching + volume loss PSD |
 | | LGS cone effect / MCAO volume | ✔️ | Dedicated PSD |
 | | Telescope / Instrument Static | ⚙️ User | If user supplies static OTF/OPD maps |
@@ -206,12 +206,17 @@ Each line corresponds to a specific term of the HO or LO model we described earl
 | **Maréchal Strehl**          | Strehl computed using the Maréchal approximation at science λ               | Uses total WFE                       | Output metric           |
 | **Residual wavefront error** | Quadratic sum of all HO + LO residuals in nm                                | After HO+LO modeling                 | Total                   |
 | **NCPA residual**            | Static uncorrected aberration provided by user ([`zCoefStaticOn`](/docs/orion/useful_scripts.mdx) or OPD map) | Added as static OTF/OPD              | Static (user-specified) |
-| **Fitting error**            | DM cutoff (uncontrolled HF turbulence)                                      | [`fittingPSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L799)                       | HO                      |
-| **Differential refraction**  | Chromatic anisoplanatism (different λ, zenith angle)                        | [`differentialRefractionPSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L1077)        | HO                      |
-| **Chromatic error**          | Refractive index mismatch between WFS and science wavelengths               | [`chromatismPSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L1128C9-L1128C22)                    | HO                      |
-| **Aliasing error**           | High frequencies folded by WFS sampling                                     | [`aliasingPSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L808) (SCAO approximation) | HO                      |
-| **Noise error**              | Photon + detector noise propagated through reconstructor + controller       | [`noisePSD()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L909)                         | HO                      |
-| **Spatio-temporal error**    | Combined reconstruction + servo filtering (tomography + lag)                | Inside [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/c074643ffa6ddb4b5b2424749a5f10e7d413b6f7/p3/aoSystem/fourierModel.py#L650)      | HO                      |
+| **Fitting error**            | DM cutoff (uncontrolled HF turbulence) | 
+[`fittingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L799)                       | HO   |
+| **Differential refraction**  | Chromatic anisoplanatism (different λ, zenith angle). Refractive index computed with Ciddor (1996) for λ < 1.3 µm and Mathar (2006) for λ ≥ 1.3 µm, accounting for T, P and humidity. | 
+[`differentialRefractionPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1077)        | HO                      |
+| **Chromatic error**          | Refractive index mismatch between WFS and science wavelengths               | 
+[`chromatismPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1128C9-L1128C22)                    | HO                      |
+| **Aliasing error**           | High frequencies folded by WFS sampling                                     | 
+[`aliasingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L808) (SCAO approximation) | HO                      |
+| **Noise error**              | Photon + detector noise propagated through reconstructor + controller       | 
+[`noisePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L909)                         | HO                      |
+| **Spatio-temporal error**    | Combined reconstruction + servo filtering (tomography + lag)                | Inside [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L650)      | HO                      |
 | **Mcao Cone**                | MCAO LGS volume loss term                                                   | Automatic in MCAO mode               | HO                      |
 | **Extra error**              | User extra PSD added to HO halo    | [`extraError*`](/docs/orion/useful_scripts.mdx)     | HO (user)    |
 <!-- | **Wind-shake error**         | Telescope vibrations filtered by LO controller                              | Only if [`windPsdFile`](/docs/orion/parameterfiles.md) provided       | LO (optional)           |

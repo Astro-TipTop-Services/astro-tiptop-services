@@ -95,6 +95,18 @@ If you have a GPU and want to take advantage of hardware acceleration, you can i
   nvidia-smi
   ```
 
+<!-- ### GPU warmup (optional, for low-latency services)
+
+If you are running TipTop as a service (e.g. ETC) and want to minimise response latency, you can instruct P3 to initialise CuPy at import time rather than on the first simulation call. Set the following environment variables before starting your service:
+
+```bash
+export P3_GPU_WARMUP=TRUE       # Enables GPU warmup on import
+export P3_GPU_WARMUP_IDX=0      # GPU device index to initialise (default: 0)
+```
+
+When `P3_GPU_WARMUP=TRUE`, P3 runs a lightweight dummy simulation during import to pay the CuPy initialisation cost upfront. Subsequent simulation calls will then return results with minimal latency.
+
+✏️**Note**: This has no effect if CuPy is not installed or if `P3_DISABLE_GPU=TRUE` is set. -->
 
 ## Step 3: Install Dependencies
 
@@ -149,14 +161,14 @@ git clone https://github.com/astro-tiptop/TIPTOP.git
 ```
 2. Navigate to the folder where you cloned TipTop and install it (remove --user to install for all users):
 ```bash
-pip install -e --user .
+pip install --user -e .
 ```
 
 ## Step 5: (Optional) Development Setup
 If you plan to do your own development or fix bugs, you will need to download and install the following libraries:
-- [MASTSEL] https://github.com/astro-tiptop/MASTSEL
-- [SYMAO] https://github.com/astro-tiptop/SYMAO
-- [SEEING] https://github.com/astro-tiptop/SEEING
-- [P3] https://github.com/astro-tiptop/P3/
+- [MASTSEL](https://github.com/astro-tiptop/MASTSEL)
+- [SYMAO](https://github.com/astro-tiptop/SYMAO)
+- [SEEING](https://github.com/astro-tiptop/SEEING)
+- [P3](https://github.com/astro-tiptop/P3/)
 
 ## Now you're ready to explore TipTop!

@@ -1,16 +1,64 @@
 ---
 id: howdoestiptopwork
-title: How does TipTop work ?
-sidebar_label: How does TipTop work ?
+title: How does TipTop work?
+sidebar_label: How does TipTop work?
 ---
+
+## The analytical approach
 
 <p align="justify">
 
-The code is basically splitted over 2 main branches, one estimating the performance related to the High-Order (HO) part of the PSF, and the other focusing on the Low-Order (LO) part. The HO part is mostly a function of the Laser Guide Star (LGS) geometry and atmospheric conditions, while the LO part (also refer to as jitter) mostly depends on the Natural Guide Star choice (for a NGS only system, only the HO part is used). The final PSF is then produced by convolving the HO PSF with the jitter kernel. The HO part is computed based on an estimation of the Power Spectral Density (PSD) of the residual (after AO correction) phase. <br/>
-<em><small>(_[source: Neichel et al., "TIPTOP: a new tool to efficiently predict your favorite AO PSF", Adaptive Optics Systems VII, 2021](https://arxiv.org/abs/2101.06486))_</small></em>
+TipTop is based on an analytical description of AO residual errors in the Fourier domain _([Rigaut et al. 1998](https://doi.org/10.1117/12.321649), [Neichel et al. 2009](https://doi.org/10.1364/JOSAA.26.000219), [Jolissaint et al. 2010](https://doi.org/10.2971/jeos.2010.10055))_. This approach allows a compact and efficient representation of the different contributions to the PSF, while preserving the essential physical behaviour of the system. Because the model is analytical, it naturally lends itself to fast computation — typically a fraction of a second per PSF — making it suitable for applications where large parameter spaces must be explored or where real-time response is required.
+
+</p>
+
+## The HO / LO split
+
+<p align="justify">
+
+The model separates the PSF into two main components:
+
+**High-Order (HO) PSF** — derived from the power spectral density (PSD) of the residual wavefront phase after AO correction. It captures the main error terms: fitting error, temporal error, noise propagation, aliasing, and chromatic effects. These contributions are computed independently in the spatial frequency domain and summed to produce the HO PSD, which is then converted into the HO PSF.
+
+**Low-Order (LO) kernel** — residual tip–tilt and jitter effects including vibrations, windshake, off-axis/tomographic propagation, and measurement noise associated with the Natural Guide Stars.
+ <!-- It is computed by MASTSEL from the Natural Guide Star asterism geometry and brightness. -->
+
+The **final PSF** is obtained by convolving the HO PSF with the LO jitter kernel. For NGS-only systems (SCAO without laser guide stars), only the HO part is used (see the [**Set up TipTop According to the AO mode**](/docs/orion/howtosetup.md) page).
 
 </p>
 
 <p align="center">
 ![](/img/howdoesTipTopwork.png)
+</p>
+
+<p align="justify">
+
+This formulation allows TipTop to model a wide range of AO systems, including configurations based on Shack–Hartmann or Pyramid wavefront sensors, single-conjugate and tomographic systems, and multiple deformable mirrors with arbitrary conjugation altitudes.
+
+A detailed breakdown of all error terms and where they are computed is available on the [**TipTop Error Terms Coverage**](/docs/general/error_breakdown) page.
+
+</p>
+
+## The three-module architecture
+
+<p align="justify">
+
+TipTop is implemented as a set of three collaborating Python packages, each responsible for a distinct part of the computation:
+
+</p>
+
+<!-- <p align="center">
+![](/img/astro_tiptop_modules.jpg)
+</p> -->
+
+<p align="justify">
+
+- **[TIPTOP](https://github.com/astro-tiptop/TIPTOP)** — the core orchestration layer. It loads the configuration, manages the simulation lifecycle (via `baseSimulation` / `AbstractSimulation`), saves FITS outputs, computes performance metrics (SR, FWHM, EE), and coordinates calls to P3 and MASTSEL.
+
+- **[P3](https://github.com/astro-tiptop/P3)** — the High-Order Fourier model. Given the telescope, atmosphere, WFS, DM, and RTC parameters, P3 computes all HO error PSDs and produces the HO PSF. 
+
+- **[MASTSEL](https://github.com/astro-tiptop/MASTSEL)** — the Low-Order jitter model. Given the NGS asterism geometry and sensor parameters, MASTSEL computes the tip-tilt covariance and produces the LO jitter kernel.
+
+Since [v1.5.1](/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2), this architecture is made explicitly extensible through the `AbstractSimulation` base class: the core simulation lifecycle (configuration loading, FITS output, metrics, PSF profiles) is shared, while the computation backend can be swapped out. This makes it possible to integrate alternative backends — such as [TipTorch](https://github.com/astro-tiptop/TipTorch) or [AOPERA](https://gitlab.lam.fr/lam-grd-public/aopera) — without duplicating the surrounding infrastructure.
+
 </p>

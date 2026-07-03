@@ -2,11 +2,132 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog</id>
     <title>Astro-TipTop Services Blog</title>
-    <updated>2026-03-03T00:00:00.000Z</updated>
+    <updated>2026-06-22T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog"/>
     <subtitle>Astro-TipTop Services Blog</subtitle>
     <icon>https://astro-tiptop-services.github.io/astro-tiptop-services/img/logo_astro-tiptop_cropped.png</icon>
+    <entry>
+        <title type="html"><![CDATA[📢 TipTop v1.5.1, P3 v1.6.2 and MASTSEL v1.5.2 released!]]></title>
+        <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2</id>
+        <link href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2"/>
+        <updated>2026-06-22T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[TipTop v1.5.1, P3 v1.6.2 and MASTSEL v1.5.2 are now available! 🎉]]></summary>
+        <content type="html"><![CDATA[<p><a href="https://github.com/astro-tiptop/TIPTOP/releases/tag/v1.5.1" target="_blank" rel="noopener noreferrer">TipTop v1.5.1</a>, <a href="https://github.com/astro-tiptop/P3/releases/tag/v1.6.2" target="_blank" rel="noopener noreferrer">P3 v1.6.2</a> and <a href="https://github.com/astro-tiptop/MASTSEL/releases/tag/v1.5.2" target="_blank" rel="noopener noreferrer">MASTSEL v1.5.2</a> are now available! 🎉</p>
+<p>This release focuses on improving the software architecture and interoperability of the TipTop ecosystem while reducing latency for service-oriented deployments. These developments provide the software foundations required to support the growing range of scientific and operational applications built around TipTop, including exposure-time calculation, observation preparation, and future PSF reconstruction services.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-whats-new">✨ What's new<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2#-whats-new" class="hash-link" aria-label="Direct link to ✨ What's new" title="Direct link to ✨ What's new">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="️-modular-software-architecture">🏗️ Modular software architecture<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2#%EF%B8%8F-modular-software-architecture" class="hash-link" aria-label="Direct link to 🏗️ Modular software architecture" title="Direct link to 🏗️ Modular software architecture">​</a></h3>
+<p>The main evolution of this release is the introduction of an abstract simulation layer through the new <code>AbstractSimulation</code> base class.</p>
+<p>The simulation workflow—configuration handling, orchestration, FITS generation, PSF profiles, and performance metrics—is now implemented once within the common infrastructure, while individual simulation backends only need to implement the physical computations specific to their analytical model.</p>
+<p>This modular design considerably simplifies maintenance, reduces code duplication, and makes it straightforward to integrate alternative PSF engines while preserving the same user interface.</p>
+<p>The first applications of this architecture are already underway with:</p>
+<ul>
+<li><a href="https://github.com/astro-tiptop/TipTorch" target="_blank" rel="noopener noreferrer"><strong>TipTorch</strong></a>, a differentiable analytical PSF model</li>
+<li><a href="https://gitlab.lam.fr/lam-grd-public/aopera" target="_blank" rel="noopener noreferrer"><strong>AOPERA</strong></a> <em>(coming soon)</em>, providing advanced descriptions of Fourier-filtering wavefront sensors and optical-gain effects.</li>
+</ul>
+<p>Developers creating their own backend only need to implement a small number of abstract methods while reusing the complete TipTop infrastructure.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-improved-interoperability">🔄 Improved interoperability<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2#-improved-interoperability" class="hash-link" aria-label="Direct link to 🔄 Improved interoperability" title="Direct link to 🔄 Improved interoperability">​</a></h3>
+<p>TipTop, P3 and MASTSEL now exchange their configuration directly through a shared <code>config_dict</code> object instead of relying on configuration files and path discovery.</p>
+<p>This simplification:</p>
+<ul>
+<li>reduces unnecessary I/O,</li>
+<li>removes the need for automatic path detection,</li>
+<li>improves robustness,</li>
+<li>simplifies embedding TipTop inside external applications and services.</li>
+</ul>
+<p>This mechanism is now used throughout the TipTop ecosystem.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-faster-service-deployments">⚡ Faster service deployments<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2#-faster-service-deployments" class="hash-link" aria-label="Direct link to ⚡ Faster service deployments" title="Direct link to ⚡ Faster service deployments">​</a></h3>
+<p>P3 now supports optional <strong>GPU warm-up</strong> through two environment variables:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">export P3_GPU_WARMUP=TRUE</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>When enabled, CuPy is initialised during package import by running a lightweight dummy simulation. Subsequent simulations therefore start immediately without paying the usual GPU initialisation overhead.</p>
+<p>This feature is particularly useful for low-latency services such as exposure-time calculators or observation-preparation tools.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-numerical-improvements">🧮 Numerical improvements<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2#-numerical-improvements" class="hash-link" aria-label="Direct link to 🧮 Numerical improvements" title="Direct link to 🧮 Numerical improvements">​</a></h3>
+<p>Several numerical improvements have also been introduced in MASTSEL, including:</p>
+<ul>
+<li>improved handling of multi-wavelength PSF generation,</li>
+<li>more robust support for odd and even sampling grids,</li>
+<li>various performance optimisations.</li>
+</ul>
+<p>These changes further improve the stability and reliability of the analytical PSF generation pipeline.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-looking-ahead">🚀 Looking ahead<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2#-looking-ahead" class="hash-link" aria-label="Direct link to 🚀 Looking ahead" title="Direct link to 🚀 Looking ahead">​</a></h2>
+<p>This release represents an important step in the evolution of TipTop from a standalone AO PSF simulator into a modular analytical framework supporting a broad ecosystem of scientific and operational applications.</p>
+<p>Future releases will continue extending both the analytical capabilities and the operational deployment of the framework.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-update-now">🚀 Update now<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2#-update-now" class="hash-link" aria-label="Direct link to 🚀 Update now" title="Direct link to 🚀 Update now">​</a></h2>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">pip install --upgrade astro-tiptop</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>Check it out on PyPI 👉</p>
+<ul>
+<li><a href="https://pypi.org/project/astro-tiptop/" target="_blank" rel="noopener noreferrer"><strong>astro-tiptop</strong></a></li>
+<li><a href="https://pypi.org/project/astro-p3/" target="_blank" rel="noopener noreferrer"><strong>astro-p3</strong></a></li>
+<li><a href="https://pypi.org/project/mastsel/" target="_blank" rel="noopener noreferrer"><strong>mastsel</strong></a></li>
+</ul>]]></content>
+        <author>
+            <name>Astro-TipTop Team</name>
+            <uri>https://astro-tiptop-servoces.github.io/astro-tiptop-services/</uri>
+        </author>
+        <category label="tiptop" term="tiptop"/>
+        <category label="ReleaseUpdate" term="ReleaseUpdate"/>
+        <category label="p3" term="p3"/>
+        <category label="mastsel" term="mastsel"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[📢 TipTop v1.5.0, P3 v1.6.0 and MASTSEL v1.5.0 released!]]></title>
+        <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.0_p3_1.6.0_mastsel_1.5.0</id>
+        <link href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.0_p3_1.6.0_mastsel_1.5.0"/>
+        <updated>2026-04-17T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[TipTop v1.5.0, P3 v1.6.0 and MASTSEL v1.5.0 are now available! 🎉]]></summary>
+        <content type="html"><![CDATA[<p><a href="https://github.com/astro-tiptop/TIPTOP/releases/tag/v1.5.0" target="_blank" rel="noopener noreferrer">TipTop v1.5.0</a>, <a href="https://github.com/astro-tiptop/P3/releases/tag/v1.6.0" target="_blank" rel="noopener noreferrer">P3 v1.6.0</a> and <a href="https://github.com/astro-tiptop/MASTSEL/releases/tag/v1.5.0" target="_blank" rel="noopener noreferrer">MASTSEL v1.5.0</a> are now available! 🎉</p>
+<p>This release focuses on improving the numerical robustness and spatial consistency of TipTop's analytical engine. These developments are particularly important for operational applications, where PSFs must remain reliable over a broad range of observing conditions, detector samplings, and wavelength ranges.</p>
+<p>Highlights include improved multi-wavelength PSF generation, robust handling of odd and even Fourier grids, physically consistent atmospheric refraction modelling, and enhanced spatial resampling of PSFs.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-whats-new">✨ What's new<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.0_p3_1.6.0_mastsel_1.5.0#-whats-new" class="hash-link" aria-label="Direct link to ✨ What's new" title="Direct link to ✨ What's new">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-rigorous-atmospheric-refraction-modelling">🌍 Rigorous atmospheric refraction modelling<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.0_p3_1.6.0_mastsel_1.5.0#-rigorous-atmospheric-refraction-modelling" class="hash-link" aria-label="Direct link to 🌍 Rigorous atmospheric refraction modelling" title="Direct link to 🌍 Rigorous atmospheric refraction modelling">​</a></h3>
+<p>TipTop now includes an improved wavelength-dependent atmospheric refraction model.</p>
+<p>The implementation combines:</p>
+<ul>
+<li><strong><a href="https://doi.org/10.1364/AO.35.001566" target="_blank" rel="noopener noreferrer">Ciddor (1996)</a></strong> formulation at visible and near-infrared wavelengths,</li>
+<li><strong><a href="https://arxiv.org/abs/physics/0610256" target="_blank" rel="noopener noreferrer">Mathar (2006)</a></strong> formulation in the infrared.</li>
+</ul>
+<p>while accounting for atmospheric pressure, temperature, and humidity.</p>
+<p>This provides a more realistic description of differential atmospheric refraction between guide-star and science wavelengths, particularly for infrared observations and broadband simulations.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="️-consistent-multi-wavelength-psf-generation">🖼️ Consistent multi-wavelength PSF generation<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.0_p3_1.6.0_mastsel_1.5.0#%EF%B8%8F-consistent-multi-wavelength-psf-generation" class="hash-link" aria-label="Direct link to 🖼️ Consistent multi-wavelength PSF generation" title="Direct link to 🖼️ Consistent multi-wavelength PSF generation">​</a></h3>
+<p>Several improvements have been introduced to ensure consistent PSF generation across multiple wavelengths.</p>
+<p>The internal pixel scale is now defined uniquely from the shortest simulated wavelength and propagated consistently throughout the computation. PSFs computed at different wavelengths are automatically remapped onto a common output grid while preserving their total flux.</p>
+<p>The generation pipeline also determines the optimal internal grid size automatically, preventing field-of-view truncation at short wavelengths and ensuring consistent spatial sampling across all spectral channels.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-robust-fourier-handling-for-odd-and-even-sampling-grids">📐 Robust Fourier handling for odd and even sampling grids<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.0_p3_1.6.0_mastsel_1.5.0#-robust-fourier-handling-for-odd-and-even-sampling-grids" class="hash-link" aria-label="Direct link to 📐 Robust Fourier handling for odd and even sampling grids" title="Direct link to 📐 Robust Fourier handling for odd and even sampling grids">​</a></h3>
+<p>The internal Fourier conventions have been revised to correctly support both odd and even computational grids.</p>
+<p>These changes eliminate the sub-pixel registration offsets that can otherwise appear when switching between parity conventions, ensuring that generated PSFs remain accurately centred regardless of the chosen detector sampling.</p>
+<p>Dedicated unit tests now verify the consistency of the Fourier transforms for both grid types.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-improved-psf-extrapolation-and-spatial-resampling">🌠 Improved PSF extrapolation and spatial resampling<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.0_p3_1.6.0_mastsel_1.5.0#-improved-psf-extrapolation-and-spatial-resampling" class="hash-link" aria-label="Direct link to 🌠 Improved PSF extrapolation and spatial resampling" title="Direct link to 🌠 Improved PSF extrapolation and spatial resampling">​</a></h3>
+<p>The PSF resampling pipeline has also been refined.</p>
+<p>PSFs generated on different internal grids are spatially remapped onto the requested output sampling, while a new radial profile extrapolation algorithm extends the PSF halo beyond the computed field of view using a physically motivated power-law model.</p>
+<p>These improvements reduce truncation artefacts and provide a more realistic description of the PSF wings for large fields of view.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-why-this-matters">🚀 Why this matters<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.0_p3_1.6.0_mastsel_1.5.0#-why-this-matters" class="hash-link" aria-label="Direct link to 🚀 Why this matters" title="Direct link to 🚀 Why this matters">​</a></h2>
+<p>Together, these developments significantly improve the numerical stability and robustness of TipTop across a broad range of observing configurations.</p>
+<p>They provide the foundations required for demanding applications such as exposure-time calculators, observation preparation, multi-wavelength simulations, and PSF reconstruction, where reliable PSF generation is essential.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-update-now">🚀 Update now<a href="https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.5.0_p3_1.6.0_mastsel_1.5.0#-update-now" class="hash-link" aria-label="Direct link to 🚀 Update now" title="Direct link to 🚀 Update now">​</a></h2>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">pip install --upgrade astro-tiptop</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>Check it out on PyPI 👉</p>
+<ul>
+<li><a href="https://pypi.org/project/astro-tiptop/" target="_blank" rel="noopener noreferrer"><strong>astro-tiptop</strong></a></li>
+<li><a href="https://pypi.org/project/astro-p3/" target="_blank" rel="noopener noreferrer"><strong>astro-p3</strong></a></li>
+<li><a href="https://pypi.org/project/mastsel/" target="_blank" rel="noopener noreferrer"><strong>mastsel</strong></a></li>
+</ul>]]></content>
+        <author>
+            <name>Astro-TipTop Team</name>
+            <uri>https://astro-tiptop-servoces.github.io/astro-tiptop-services/</uri>
+        </author>
+        <category label="tiptop" term="tiptop"/>
+        <category label="ReleaseUpdate" term="ReleaseUpdate"/>
+        <category label="p3" term="p3"/>
+        <category label="mastsel" term="mastsel"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[📢TipTop v1.4.0,  P3 v1.5.1 and MASTSEL 1.4.3 released!]]></title>
         <id>https://astro-tiptop-services.github.io/astro-tiptop-services/blog/new_release_tiptop_1.4.0_p3_1.5.1_mastsel_1.4.3</id>

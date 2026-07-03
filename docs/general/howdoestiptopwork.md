@@ -60,7 +60,7 @@ TipTop is implemented as a set of three collaborating Python packages, each resp
 
 - **[MASTSEL](https://github.com/astro-tiptop/MASTSEL)** — the Low-Order jitter model. Given the NGS asterism geometry and sensor parameters, MASTSEL computes the tip-tilt covariance and produces the LO jitter kernel.
 
-Since [v1.5.1](/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2), the software architecture has been refactored around the [`AbstractSimulation`](docs/orion/api_reference) base class. Common tasks such as configuration handling, simulation orchestration, metric computation, and FITS generation are now implemented once within the abstract layer, while individual backends only implement the analytical computations specific to their model.
+Since [v1.5.1](/blog/new_release_tiptop_1.5.1_p3_1.6.2_mastsel_1.5.2), the software architecture has been refactored around the [`AbstractSimulation`](/docs/orion/api_reference) base class. Common tasks such as configuration handling, simulation orchestration, metric computation, and FITS generation are now implemented once within the abstract layer, while individual backends only implement the analytical computations specific to their model.
 
 This modular design simplifies maintenance, reduces code duplication, and enables alternative PSF engines—such as [TipTorch](https://github.com/astro-tiptop/TipTorch) or [AOPERA](https://gitlab.lam.fr/lam-grd-public/aopera)—to reuse the same simulation workflow while preserving a common user interface.
 <!-- This makes it possible to integrate alternative backends — such as [TipTorch](https://github.com/astro-tiptop/TipTorch) or [AOPERA](https://gitlab.lam.fr/lam-grd-public/aopera) — without duplicating the surrounding infrastructure. -->

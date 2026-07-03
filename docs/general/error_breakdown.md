@@ -104,7 +104,7 @@ _**TipTop** does not output a separate “tomography term” in HO breakdown (it
     Implemented in → [`chromatismPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1128C9-L1128C22)
 
 - **Differential atmospheric refraction**  
-    Anisoplanatic-like PSD arising when science and guide stars are observed at different wavelengths and zenith angles. The refractive index of humid air is computed using a rigorous two-model approach introduced in [P3 v1.5.2](/blog/new_release_tiptop_1.4.3_p3_1.5.4_mastsel_1.4.7): the **[Ciddor (1996)](https://doi.org/10.1364/AO.35.001566)** model for wavelengths below 1.3 µm, and the **[Mathar (2006)](https://arxiv.org/abs/physics/0610256)** model for longer wavelengths (J/H/K through N bands), both accounting for temperature, pressure, and relative humidity. This replaces the earlier simplified dispersion approximation. <br/>
+    Anisoplanatic-like PSD arising when science and guide stars are observed at different wavelengths and zenith angles. The refractive index of humid air is computed using a rigorous two-model approach introduced in [P3 v1.5.2]: the **[Ciddor (1996)](https://doi.org/10.1364/AO.35.001566)** model for wavelengths below 1.3 µm, and the **[Mathar (2006)](https://arxiv.org/abs/physics/0610256)** model for longer wavelengths (J/H/K through N bands), both accounting for temperature, pressure, and relative humidity. This replaces the earlier simplified dispersion approximation. <br/>
     Implemented in → [`differentialRefractionPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1077) using [`airRefraction.MatharAirRefraction`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/airRefraction.py)
 
 Both are added to the HO PSD only when the configuration activates them.
@@ -190,6 +190,7 @@ After summing windshake, tomographic error, and propagated noise, **TipTop** con
 <!-- </details> -->
 
 ---
+🚧 This page is currently being updated.  
 
 ### 📌 Interpreting the TipTop Error Breakdown Output
 
@@ -235,7 +236,7 @@ _*The “Sole …” diagnostic lines are not added to the total wavefront error
 
 ---
 
-🚧 This page is currently being updated.  
+
 
 <details style={{display: "none"}}>
 

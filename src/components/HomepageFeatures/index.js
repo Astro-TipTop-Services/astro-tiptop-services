@@ -34,7 +34,7 @@ const FeatureList = [
   },
   {
     title: (
-      <a href="/astro-tiptop-services/docs/orion/interactivetools">
+      <a href="/astro-tiptop-services/interactive_tools">
         Interactive Services
       </a>
     ),

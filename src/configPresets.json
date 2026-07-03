@@ -2,22 +2,22 @@
   "dummy": {
     "telescope": {
       "TelescopeDiameter": "8.0",
-      "ZenithAngle": "45",
+      "ZenithAngle": "30",
       "ObscurationRatio": "0.14",
-      "Resolution": "16",
+      "Resolution": "128",
       "TechnicalFoV": "120"
     },
     "atmosphere": {
       "Wavelength": "500e-9",
       "Seeing": "1.0",
-      "L0": "27.44",
+      "L0": "25",
       "Cn2Weights": "[0.9, 0.1]",
       "Cn2Heights": "[0, 10000.0]",
       "WindSpeed": "[7.0, 2.0]",
       "WindDirection": "[14.0, 4.0]"
     },
     "sources_science": {
-      "Wavelength": "[4.944374722981593e-07, 5.274375212138693e-07]",
+      "Wavelength": "[5e-07, 6e-07]",
       "Zenith": "[0]",
       "Azimuth": "[0]"
     },
@@ -33,8 +33,8 @@
       "Azimuth": "[0.0]"
     },
     "sensor_science": {
-      "PixelScale": "20.0",
-      "FieldOfView": "200"
+      "PixelScale": "5.0",
+      "FieldOfView": "64"
     },
     "sensor_HO": {
       "WfsType": "Shack-Hartmann",
@@ -52,8 +52,8 @@
       "SkyBackground": "0.0",
       "Gain": "1.0",
       "ExcessNoiseFactor": "1.0",
-      "NumberLenslets": "[40,40]",
-      "SizeLenslets": "[0.2,0.2]",
+      "NumberLenslets": "[10,10]",
+      "SizeLenslets": "[0.8,0.8]",
       "NoiseVariance": "[None]",
       "Algorithm": "wcog",
       "WindowRadiusWCoG": "6",
@@ -78,8 +78,8 @@
       "NewValueThrPix": "0.0"
     },
     "DM": {
-      "NumberActuators": "[36]",
-      "DmPitchs": "[0.2]",
+      "NumberActuators": "[10]",
+      "DmPitchs": "[0.8]",
       "InfModel": "gaussian",
       "InfCoupling": "[0.4]",
       "DmHeights": "[0.0]",
@@ -95,7 +95,7 @@
       "SensorFrameRate_HO": "1000.0",
       "LoopDelaySteps_HO": "2",
       "LoopGain_LO": "0.5",
-      "SensorFrameRate_LO": "200.0",
+      "SensorFrameRate_LO": "1000.0",
       "LoopDelaySteps_LO": "2"
     }
   },

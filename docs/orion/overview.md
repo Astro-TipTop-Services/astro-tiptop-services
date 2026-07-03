@@ -4,29 +4,44 @@ title: Overview
 sidebar_label: Overview
 ---
 
-<p align="center">
+<!-- <p align="center">
 ![](/img/astro-tiptop.png)
-</p>
+</p> -->
 
-## Simulating PSF with TipTop
+## AO PSF Simulation
+
 <p align="justify">
-Welcome to the section dedicated to using **TipTop** for AO PSF simulation. Astro-TipTop provides tutorials and practical tools to support you in using the **TipTop** algorithm and guide you through AO PSF prediction for all existing adaptive optics observing modes (Single-Conjugate-AO, Laser-Tomographic-AO, Multi-Conjugate-AO, Ground-Layer-AO) and under any atmospheric conditions.
 
-Here, you’ll find all the resources you need to:
+This section covers the core functionality of **TipTop**: the fast analytical simulation of Adaptive Optics (AO) Point Spread Functions (PSFs).
 
-- <span style={{ fontSize: '1.5rem' }}>🏃‍➡️</span> [Get started quickly with TipTop](/docs/orion/usage),
+Based on a Fourier-domain analytical model, TipTop predicts long-exposure AO PSFs and associated performance metrics (Strehl ratio, FWHM, encircled energy, etc.) for a broad range of observing configurations. The framework supports all major AO architectures—including SCAO, LTAO, MCAO, and GLAO—as well as both Shack–Hartmann and Pyramid wavefront sensors, arbitrary atmospheric profiles, telescope geometries, and instrument configurations.
 
-- <span style={{ fontSize: '1.5rem' }}>🚀</span> [Configure your launch scripts and display the results](/docs/orion/howtosetuplaunchfile),
+Whether you are running your first simulation or developing more advanced workflows, this section provides all the documentation required to configure, launch, and analyse TipTop simulations.
 
-- <span style={{ fontSize: '1.5rem' }}>🔭</span> [Set up TipTop depending on the type of AO system you want to simulate](/docs/orion/howtosetup)
-
-- <span style={{ fontSize: '1.5rem' }}>🔎</span> [Adapt your input files to available AO instruments and explore examples](/docs/orion/AO_instruments.mdx),
-
-- <span style={{ fontSize: '1.5rem' }}>💻</span> [Generate input files with interactive tools](/docs/orion/Interactive_tools.mdx),
-
-- <span style={{ fontSize: '1.5rem' }}>🧑‍💻</span> [Additional scripts and tools for extended functionality](/docs/orion/useful_scripts.mdx),
-
-- <span style={{ fontSize: '1.5rem' }}>💡</span> [Understand the structure and parameters of the input files](/docs/orion/parameterfiles)
-
-Whether you're just getting started or already experienced, these resources will help you make the most of TipTop.
 </p>
+
+## Documentation
+
+Here you'll find everything you need to get started with AO PSF simulation:
+
+- <span style={{ fontSize: '1.5rem' }}>🏃‍➡️</span> **[Quickstart](/docs/orion/usage)** — Run your first TipTop simulation in just a few minutes.
+
+- <span style={{ fontSize: '1.5rem' }}>💡</span> **[Parameter Files](/docs/orion/parameterfiles)** — Understand the structure and meaning of the simulation parameters.
+
+- <span style={{ fontSize: '1.5rem' }}>🔭</span> **[AO System Setup](/docs/orion/howtosetup)** — Configure TipTop for the different AO observing modes.
+
+- <span style={{ fontSize: '1.5rem' }}>🚀</span> **[Running Simulations](/docs/orion/howtosetuplaunchfile)** — Launch simulations and visualise the results.
+
+- <span style={{ fontSize: '1.5rem' }}>🔎</span> **[Available AO Instruments](/docs/orion/aoinstruments)** — Explore validated configurations for existing AO facilities.
+
+<!-- - <span style={{ fontSize: '1.5rem' }}>⚙️</span> **[Interactive Tools](/docs/orion/interactivetools)** — Generate configuration files through graphical interfaces. -->
+
+- <span style={{ fontSize: '1.5rem' }}>🧑‍💻</span> **[Tutorials & Useful Scripts](/docs/orion/useful_scripts)** — Additional examples, utilities, and helper scripts.
+
+- <span style={{ fontSize: '1.5rem' }}>📚</span> **[API Reference](/docs/orion/api_reference)** — Documentation of the Python API.
+
+---
+
+Need a broader introduction to TipTop?
+
+➡️ Start with **[What is TipTop?](/docs/general/whatistiptop)** or explore **[What can TipTop be used for?](/docs/general/whatcanitbeusedfor)**.

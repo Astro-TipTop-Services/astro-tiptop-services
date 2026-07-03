@@ -1,127 +1,95 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 
-export default function Contact_us() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
+export default function ContactPage() {
+  return (
+    <Layout title="Contact" description="Get in touch with the Astro-TipTop team.">
+      <div className="container margin-vert--lg">
+        <div className="row">
+          <div className="col col--3">
+            <nav style={{ position: 'sticky', top: '4rem' }}>
+              <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+                <li style={{ marginBottom: '0.3rem' }}><Link to="/resources/about_us">🪪 About us</Link></li>
+                <li style={{ marginBottom: '0.3rem' }}><Link to="/resources/references">📘 Key Publications & References</Link></li>
+                <li style={{ marginBottom: '0.3rem' }}><Link to="/resources/contributors">🔑 Contributors Area</Link></li>
+                <li style={{ marginBottom: '0.3rem' }}><Link to="/resources/AO_school">🔭 AO school</Link></li>
+                <li style={{ marginBottom: '0.3rem' }}><Link to="/resources/internship_opportunities">💼 Internship Opportunities</Link></li>
+                <li style={{ marginBottom: '1rem' }}><Link to="/resources/contact">📬 Contact</Link></li>
+              </ul>
+            </nav>
+          </div>
 
-    const handleChange = (e) => {
-        setFormData({...formData, [e.target.name]: e.target.value});
-      };
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert("Message sent!");
-        console.log(formData);
-      };
+          <div className="col col--7">
+            <h1 style={{ textAlign: 'center' }}>📬 Contact</h1>
 
-      return (
-        <Layout title="Contact" description="Get in touch with the Astro-TipTop team.">
-          <div className="container margin-vert--lg">
-            <div className="row">
-              {/* Sidebar */}
-              <div className="col col--3">
-                <nav style={{ position: 'sticky', top: '4rem' }}>
-                  <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                  <li style={{ marginBottom: '0.3rem' }}>
-                      <Link to="/resources/about_us">🪪 About us</Link>
-                    </li>
-                    <li style={{ marginBottom: '0.3rem' }}>
-                       <Link to="/resources/references">📘 Key Publications & References </Link>
-                    </li>
-                <li style={{ marginBottom: '0.3rem' }}>
-                    <Link to="/resources/users">👥 Users Area </Link>
-                </li>
-                <li style={{ marginBottom: '0.3rem' }}>
-                    <Link to="/resources/contributors">🔑 Contributors Area </Link>
-                </li>
-                <li style={{ marginBottom: '0.3rem' }}>
-                    <Link to="/resources/wishlist">✨ Wish list</Link>
-                </li>
-                <li style={{ marginBottom: '0.3rem' }}>
-                    <Link to="/resources/AO_school">🔭 AO school</Link></li>
-                <li style={{ marginBottom: '0.3rem' }}>
-                    <Link to="/resources/internship_opportunities">💼 Intership Opportunities</Link></li>
-                <li style={{ marginBottom: '1rem' }}>
-                    <Link to="/resources/contact">📬 Contact Support </Link>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-    
-              {/* Main Content */}
-              <div className="col col--7">
-                <h1 style={{ textAlign: 'center', marginTop: '0.rem' }}>📬 Contact Support</h1>
-                <p style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                Need help with Astro-TipTop? Our support team is ready to assist you. Whether you're facing installation issues, 
-                running simulations, or have any general questions about the software, we are here to help.
-                </p>
-                <form  action="https://formspree.io/f/xgvkqplw"
-                method="POST"
-                >
-                  {['👤Name', '📧Email', '💡Subject'].map((field) => (
-                    <div key={field} style={{ marginBottom: '1rem' }}>
-                      <label htmlFor={field} style={{ display: 'block', marginBottom: '.5rem' }}>
-                        {field.charAt(0).toUpperCase() + field.slice(1)}
-                      </label>
-                      <input
-                        type={field === 'email' ? 'email' : 'text'}
-                        name={field}
-                        value={formData[field]}
-                        onChange={handleChange}
-                        required
-                        style={{
-                          width: '100%',
-                          padding: '0.5rem',
-                          fontSize: '1rem',
-                          borderRadius: '4px',
-                          border: '1px solid #ccc',
-                        }}
-                      />
-                    </div>
-                  ))}
-    
-                  <div style={{ marginBottom: '1rem' }}>
-                    <label htmlFor="message" style={{ display: 'block', marginBottom: '.5rem' }}>🗨️Message</label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows="5"
-                      style={{
-                        width: '100%',
-                        padding: '0.5rem',
-                        fontSize: '1rem',
-                        borderRadius: '4px',
-                        border: '1px solid #ccc',
-                      }}
-                    />
-                  </div>
-    
-                  <button
-                    type="submit"
-                    style={{
-                      padding: '0.7rem 1.2rem',
-                      fontSize: '1rem',
-                      backgroundColor: '#0078e7',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '4px',
-                      cursor: 'pointer',
-                    }}
+            <p style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              For questions about Astro-TipTop Services, TipTop simulations,
+              documentation, collaborations, or specific scientific applications,
+              please contact the relevant team member directly.
+            </p>
+
+            <div
+              style={{
+                padding: '1.5rem',
+                border: '1px solid #ddd',
+                borderRadius: '10px',
+                backgroundColor: '#f9f9f9',
+                textAlign: 'center',
+                marginBottom: '1.5rem',
+              }}
+            >
+              <h2>Team contacts</h2>
+              <p>
+                Contact details for the Astro-TipTop team are listed on the
+                <strong> About us</strong> page.
+              </p>
+
+              <Link
+                className="button button--primary button--lg"
+                to="/resources/about_us"
+              >
+                Go to About us
+              </Link>
+            </div>
+
+            <div
+              style={{
+                padding: '1.5rem',
+                border: '1px solid #ddd',
+                borderRadius: '10px',
+                backgroundColor: '#f9f9f9',
+              }}
+            >
+              <h2>Technical issues</h2>
+              <p>
+                For bugs, feature requests, or installation problems, you can also
+                open an issue on GitHub:
+              </p>
+              <ul>
+                <li>
+                  <a
+                    href="https://github.com/astro-tiptop/TIPTOP/issues"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                  <strong>⌯⌲</strong> Send
-                  </button>
-                </form>
-              </div>
+                    TipTop issues
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/astro-tiptop"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Astro-TipTop GitHub organisation
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
-        </Layout>
-      );
+        </div>
+      </div>
+    </Layout>
+  );
 }

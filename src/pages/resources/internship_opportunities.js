@@ -17,12 +17,12 @@ export default function ReferencesPage() {
                     <Link to="/resources/about_us">🪪 About us</Link></li>
                 <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/references">📘 Key Publications & References</Link></li>
-                <li style={{ marginBottom: '0.3rem' }}>
-                    <Link to="/resources/users">👥 Users Area</Link></li>
+                {/* <li style={{ marginBottom: '0.3rem' }}>
+                    <Link to="/resources/users">👥 Users Area</Link></li> */}
                 <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/contributors">🔑 Contributors Area</Link></li>
-                <li style={{ marginBottom: '0.3rem' }}>
-                    <Link to="/resources/wishlist">✨ Wish list</Link></li>
+                {/* <li style={{ marginBottom: '0.3rem' }}>
+                    <Link to="/resources/wishlist">✨ Wish list</Link></li> */}
                 <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/AO_school">🔭 AO school</Link></li>
                 <li style={{ marginBottom: '0.3rem' }}>

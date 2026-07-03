@@ -52,7 +52,7 @@ To run a simulation with **TipTop**, you will need:
     ✏️ **Note:**     
     <div style={{marginTop:'-1.0rem'}}>    
         - The first and second arguments of `overallSimulation` are the path to the folder containing the input `.ini` file and the name of that file (without the extension).
-        - The third and fourth arguments specify where to save the output results (in `.fits` format) and and the name of the resulting `.fits` file.
+        - The third and fourth arguments specify where to save the output results (in `.fits` format) and the name of the resulting `.fits` file.
 
     A detailed documentation on the `overallSimulation` function can be found [**here**](/docs/orion/howtosetuplaunchfile#overallSimulation). 
     </div>

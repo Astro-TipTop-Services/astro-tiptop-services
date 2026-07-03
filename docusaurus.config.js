@@ -103,14 +103,14 @@ const config = {
         logo: {
           alt: 'Astro-TipTop Logo',
           src: 'img/logo_astro-tiptop_cropped.png',
-          height: 100,
+          // height: 100,
         },
         items: [
           {
             type: 'dropdown',
             sidebarId: 'generalSidebar',
             position: 'left',
-            label: 'General Documentation',
+            label: 'General',
             to: '/docs/general/whatistiptop',
             items: [
               {
@@ -118,19 +118,19 @@ const config = {
                 to: '/docs/general/whatistiptop',
               },
               {
-                label: 'How does TipTop work?',
-                to: '/docs/general/howdoestiptopwork'
-              },
-              {
                 label: 'What can it be used for?',
                 to: '/docs/general/whatcanitbeusedfor'
               },
               {
-                label: 'What is included in TipTop?',
+                label: 'How does TipTop work?',
+                to: '/docs/general/howdoestiptopwork'
+              },
+              {
+                label: 'Error terms coverage',
                 to: '/docs/general/error_breakdown'
               },
               {
-                label: 'How to install TipTop?',
+                label: 'Installation',
                 to: '/docs/general/installation'
               },
             ]
@@ -139,49 +139,54 @@ const config = {
             type: 'dropdown',
             sidebarId: 'tipTopSidebar',  
             position: 'left',
-            label: 'Astro-TipTop Features',
-            to: '/astro-tiptop-services/astro_tiptop_modules',
+            label: 'PSF Simulation',
+            to: '/docs/orion/overview',
             items: [
               {
-                label: 'TipTop | Core Functionality',
-                to: '/docs/orion/overview',
-                className: 'menu-section-header',
-              },
-              {
-                label: '• Quickstart',
+                label: 'Quickstart',
                 to: '/docs/orion/usage',
               },
               {
-                label: '• Set Up a Launch Script for TipTop and Display Results',
-                to: '/docs/orion/howtosetuplaunchfile',
-              },
-              {
-                label: '• Set Up TipTop According to the OA Mode',
-                to: '/docs/orion/howtosetup',
-              },
-              {
-                label: '• Available AO instruments - Input Files and Corresponding Results ',
-                to: '/docs/orion/aoinstruments'
-              },
-              {
-                label: '• Interactive tools - Generate Input Files & Convert Parameters',
-                to: '/docs/orion/interactivetools'
-              },
-              {
-                label: '• Tutorials & Useful Scripts',
-                to: '/docs/orion/useful_scripts'
-              },
-              {
-                label: '• Parameter files explained',
+                label: 'Parameter files',
                 to: '/docs/orion/parameterfiles',
               },
               {
-                label: 'TipTop | Asterism selection',
+                label: 'Set Up According to AO Mode',
+                to: '/docs/orion/howtosetup',
+              },
+              {
+                label: 'Run & display results',
+                to: '/docs/orion/howtosetuplaunchfile',
+              },
+              {
+                label: 'Available AO instruments ',
+                to: '/docs/orion/aoinstruments'
+              },
+              {
+                label: 'Tutorials & Useful Scripts',
+                to: '/docs/orion/useful_scripts'
+              },   
+              {
+                label: 'API Reference',
+                to: '/docs/orion/api_reference',
+              },
+            ]
+          },
+        
+           {
+            type: 'dropdown',
+            sidebarId: 'tipTopSidebar',  
+            position: 'left',
+            label: 'Applications',
+            to: '/astro_tiptop_modules',
+            items: [
+              {
+                label: 'Asterism selection',
                 to: '/docs/aquila/overview', 
                 className: 'menu-section-header',
               },
               {
-                label: '• Parameter files - [ASTERISM_SELECTION]',
+                label: '• Parameter files',
                 to: '/docs/aquila/parameterfiles',
               },
               {
@@ -197,19 +202,44 @@ const config = {
                 to: '/docs/aquila/tuto_ast_select',
               },
               {
-                label: 'TipTop | PSF Fitting / PSF Extrapolation',
+                label: 'Click & Fit',
                 to: '/docs/lyra/overview',
                 className: 'menu-section-header', 
               },
               {
-                label: 'TipTop | PSF-R service',
+                label: 'PSF reconstruction',
                 className: 'menu-section-header', 
                 to: '/docs/phoenix/overview',
               },
             ]
           },
-        
-          {to: '/blog', label: 'News & Updates', position: 'left'},
+
+          {
+            type: 'dropdown',
+            sidebarId: 'tipTopSidebar',  
+            position: 'left',
+            label: 'Interactive Services',
+            to: '/interactive_tools',
+            items: [
+              {
+                label: 'Input File Generator',
+                to: '/docs/orion/interactivetools',
+                className: 'menu-section-header',
+              },
+              {
+                label: 'HARMONI MCAO Launcher',
+                to: 'HRM_MCAO_Launcher', 
+                className: 'menu-section-header',
+              },
+              {
+                label: "HARMONI Sky Coverage",
+                to:'gui_SkyCov',
+                className: 'menu-section-header' 
+              },
+            ]
+          },
+
+          {to: '/blog', label: 'News', position: 'left'},
           {
             type: 'dropdown',
             sidebarId: 'Resources',
@@ -225,25 +255,18 @@ const config = {
                 label: 'Key Publications & References',
                 to: 'resources/references',
               },
-              {
-                label: 'Users Area',
-                to: 'resources/users',
-              },
+              // {
+              //   label: 'Users Area',
+              //   to: 'resources/users',
+              // },
               {
                 label: 'Contributors Area',
                 to: 'resources/contributors',
               },
-              {
-                label: 'Wish list',
-                to: 'resources/wishlist',
-              },
-              {label: "SkyCov GUI",
-                to:'gui_SkyCov' 
-              },
-              {label: "HARMONI MCAO Launcher",
-                to:'HRM_MCAO_Launcher' 
-              },
-
+              // {
+              //   label: 'Wish list',
+              //   to: 'resources/wishlist',
+              // },
                {
                 label: 'AO school',
                 to: 'resources/AO_school',
@@ -258,9 +281,7 @@ const config = {
               },
             ]
           },
-          // {to: '/faq', label: 'FAQ & Support', position: 'left'},
-          // {to: '/about_contact', label: 'About / Contact', position: 'left'},
-          // {to: '/blog', label: 'Blog', position: 'left'},
+
           {to: '/terms', label: 'Terms & Conditions', position: 'left'},
           {
             href: 'https://github.com/astro-tiptop/TIPTOP',
@@ -278,63 +299,58 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Tutorials',
+            title: 'Documentation',
             items: [
               {
-                label: 'TipTop Installation Tutorial',
-                to: '/docs/intro',
+                label: 'Getting Started',
+                to: '/docs/general/whatistiptop',
               },
               {
-                label: 'TipTop Quickstart Tutorial',
-                to: '/docs/quickstart',
-              },
-            ],
-          },
-          // {
-          //   title: 'Community',
-          //   items: [
-          //     {
-          //       label: 'Stack Overflow',
-          //       href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-          //     },
-          //     {
-          //       label: 'Discord',
-          //       href: 'https://discordapp.com/invite/docusaurus',
-          //     },
-          //   ],
-          // },
-          {
-            title: 'About',
-            items: [
-              {
-                label: 'Terms & Conditions',
-                to: '/astro-tiptop-services/terms',
+                label: 'AO PSF Simulation',
+                to: '/docs/orion/overview',
               },
               {
-                label: 'Contact us',
-                to: '/astro-tiptop-services/resources/contact',
+                label: 'Applications',
+                to: '/astro_tiptop_modules',
               },
             ],
           },
           {
-            title: 'More',
+            title: 'Community',
             items: [
-              // {
-              //   label: 'Blog',
-              //   to: '/blog',
-              // },
+              {
+                label: 'News',
+                to: '/blog',
+              },
+              {
+                label: 'Publications',
+                to: '/resources/references',
+              },
+              {
+                label: 'Contact',
+                to: '/resources/contact',
+              },
+            ],
+          },
+          {
+            title: 'Links',
+            items: [
               {
                 label: 'GitHub',
                 href: 'https://github.com/astro-tiptop/TIPTOP',
               },
               {
-                label: 'PyPi',
+                label: 'PyPI',
                 href: 'https://pypi.org/project/astro-tiptop/',
+              },
+              {
+                label: 'Terms & Conditions',
+                to: '/terms',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Astro-TipTop-Services. Built with Docusaurus.`,
+        copyright: `© ${new Date().getFullYear()} Astro-TipTop Services`,
       },
       prism: {
         theme: prismThemes.github,

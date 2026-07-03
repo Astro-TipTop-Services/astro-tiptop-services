@@ -4,7 +4,7 @@
  */
 
 .heroBanner {
-  background-image: url('/img/eso1242a.jpg');
+  background-image: url('/img/eso1208a.jpg');
   padding: 4rem 0;
   text-align: center;
   position: relative;
@@ -13,7 +13,7 @@
 }
 
 .heroBanner::after {
-  content: "Image © ESO/VVV Survey/D. Minniti — CC BY 4.0";
+  content: "Image © ESO/T. Preibisch — CC BY 4.0";
   position: absolute;
   bottom: 0.1rem;
   left: 0;
@@ -35,9 +35,10 @@
 
 .buttons {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  gap: 1rem;          /* espace entre les boutons */
+  flex-wrap: wrap;    /* passe à la ligne sur mobile */
+  margin-top: 1.5rem;
 }
 
 /* <p style={{ fontSize: '0.8rem', color: '#666', marginTop: '0.3rem' }}>

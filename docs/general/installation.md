@@ -95,18 +95,20 @@ If you have a GPU and want to take advantage of hardware acceleration, you can i
   nvidia-smi
   ```
 
-<!-- ### GPU warmup (optional, for low-latency services)
+:::tip GPU warm-up for service deployments
 
-If you are running TipTop as a service (e.g. ETC) and want to minimise response latency, you can instruct P3 to initialise CuPy at import time rather than on the first simulation call. Set the following environment variables before starting your service:
+For long-running services where response latency matters, such as exposure-time calculators or observation-preparation tools, P3 supports optional **GPU warm-up**.
+
+Setting the environment variable `P3_GPU_WARMUP=TRUE` causes P3 to initialise CuPy during package import by running a lightweight dummy simulation. Subsequent simulations then start immediately without paying the GPU initialisation overhead.
+
+<!-- The GPU device is selected through the standard `CUDA_VISIBLE_DEVICES` environment variable.
 
 ```bash
-export P3_GPU_WARMUP=TRUE       # Enables GPU warmup on import
-export P3_GPU_WARMUP_IDX=0      # GPU device index to initialise (default: 0)
-```
+export CUDA_VISIBLE_DEVICES=0
+export P3_GPU_WARMUP=TRUE
+```` -->
+:::
 
-When `P3_GPU_WARMUP=TRUE`, P3 runs a lightweight dummy simulation during import to pay the CuPy initialisation cost upfront. Subsequent simulation calls will then return results with minimal latency.
-
-✏️**Note**: This has no effect if CuPy is not installed or if `P3_DISABLE_GPU=TRUE` is set. -->
 
 ## Step 3: Install Dependencies
 

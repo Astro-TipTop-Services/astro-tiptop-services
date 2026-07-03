@@ -33,12 +33,12 @@ const sidebars = {
   generalSidebar: [
     {
       type: 'category',
-      label: 'General Documentation',
+      label: 'General',
       collapsed: false,
       items: [
         'general/whatistiptop',
-        'general/howdoestiptopwork',
         'general/whatcanitbeusedfor',
+        'general/howdoestiptopwork',
         'general/error_breakdown',
         'general/installation',
       ],
@@ -46,28 +46,36 @@ const sidebars = {
   ],
 
   tipTopSidebar: [
+    // {
+    //   type: 'link',
+    //   label: 'Astro-TipTop Features',
+    //   href: '/astro-tiptop-services/astro_tiptop_modules',
+    // },
+    {
+      type: 'category',
+      label: 'AO PSF Simulation',
+      items: [
+        'orion/overview',
+        'orion/usage',
+        'orion/parameterfiles',
+        'orion/howtosetup',
+        'orion/howtosetuplaunchfile',
+        'orion/aoinstruments',
+        'orion/useful_scripts',
+        'orion/api_reference',
+      ],
+    },
+  ],
+
+  appliSidebar: [
     {
       type: 'link',
-      label: 'Astro-TipTop Features',
+      label: 'Applications',
       href: '/astro-tiptop-services/astro_tiptop_modules',
     },
     {
       type: 'category',
-      label: 'TipTop | Core Functionality',
-      items: [
-        'orion/overview',
-        'orion/usage',
-        'orion/howtosetuplaunchfile',
-        'orion/howtosetup',
-        'orion/aoinstruments',
-        'orion/interactivetools',
-        'orion/useful_scripts',
-        'orion/parameterfiles',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'TipTop | Asterism selection',
+      label: 'Asterism selection',
       items: ['aquila/overview',
             'aquila/parameterfiles',
             'aquila/running_selection',
@@ -77,12 +85,12 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'TipTop | PSF Fitting / PSF Extrapolation',
+      label: 'Click & Fit',
       items: ['lyra/overview'],
     },
     {
       type: 'category',
-      label: 'TipTop | PSF-R Service',
+      label: 'PSF Reconstruction',
       items: ['phoenix/overview'],
     },
   ],

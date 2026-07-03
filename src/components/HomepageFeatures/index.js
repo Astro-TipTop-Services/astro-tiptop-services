@@ -5,42 +5,44 @@ import styles from './styles.module.css';
 const FeatureList = [
   {
     title: (
-      <a href='docs/orion/overview'>
-        TipTop | Core Functionality
+      <a href="/astro-tiptop-services/docs/orion/overview">
+        AO PSF Simulation
       </a>
     ),
     img: 'img/tiptop.jpg',
     description: (
       <>
-        This represents the standard way of using <strong> TipTop </strong>: a fast algorithm developed to enable AO PSF prediction for any existing AO observing mode 
-        (Single-Conjugate-AO, Laser-Tomographic-AO, Multi-Conjugate-AO, or Ground-Layer-AO) and for any set of atmospheric conditions.
-        It forms the foundation of the TipTop framework.
+        Run fast analytical AO PSF simulations for a broad range of observing modes,
+        atmospheric conditions, telescope geometries, and instrument configurations.
       </>
     ),
   },
   {
     title: (
-      <a href="/astro-tiptop-services/astro_tiptop_modules">
-        Astro-TipTop Features
+      <a href="/astro-tiptop-services/docs/general/whatcanitbeusedfor">
+        TipTop Applications
       </a>
     ),
-    img: 'img/astro_tiptop_modules.jpg',
+    img: 'img/applications.jpg',
     description: (
       <>
-        <strong>Astro-TipTop Services</strong> offers a suite of advanced features, all powered by the core <strong>TipTop</strong> framework.{' '} 
-        Each feature builds on TipTop’s fast algorithm for AO PSF prediction, extending its capabilities to meet a variety of scientific and technical needs. <br /> 
-        Explore the available features <a href="/astro-tiptop-services/astro_tiptop_modules">here</a>. 
+        Explore how TipTop supports instrument design, exposure-time calculations,
+        observation preparation, asterism selection, sky-coverage studies,
+        quality control, and PSF reconstruction.
       </>
     ),
   },
   {
-    title: (<a href="resources/contact"> Astro-TipTop Support </a>),
-    img: 'img/tiptop_assistance.png',
+    title: (
+      <a href="/astro-tiptop-services/docs/orion/interactivetools">
+        Interactive Services
+      </a>
+    ),
+    img: 'img/geom_ex.jpg',
     description: (
       <>
-        Need help with Astro-TipTop? <br /> <a href="resources/about_us"> Our support team </a> ready to assist you. 
-        Whether you're facing installation issues, running simulations, or have any general questions about the software, 
-        we are here to help. 
+        Access online tools to generate input files, explore instrument configurations,
+        and run dedicated services such as the HARMONI MCAO launcher and sky-coverage interface.
       </>
     ),
   },
@@ -71,16 +73,16 @@ export default function HomepageFeatures() {
       <div className="container">
         <div className="row">
           <div className="col col--12">
-            <Heading as="h2" className={styles.introTitle}>Welcome to Astro-TipTop Services!</Heading>
+            <Heading as="h2" className={styles.introTitle}>
+              Welcome to Astro-TipTop Services
+            </Heading>
+
             <p className={styles.introText}>
-            A dedicated website for the presentation, documentation, and dissemination of <strong>Astro-TipTop services</strong> based on the <strong>TipTop</strong> algorithm. 
-            The site provides easy access to the source code, usage examples, and technical documentation. <br />
-            <strong>TipTop</strong> is an innovative tool designed to simplify the prediction of Adaptive Optics <a href="https://en.wikipedia.org/wiki/Adaptive_optics" target="_blank">(AO)</a> system performance, 
-            which is heavily influenced by factors such as the availability of Natural Guide Stars (NGSs) and atmospheric conditions like seeing, Cn2, and windspeed. 
-            Understanding the Point Spread Function (PSF) is crucial for scientific observations using AO, as the PSF exhibits complex spatial, spectral, and temporal variability. <br />
-            By predicting how the AO PSF will behave, <strong>TipTop</strong> helps researchers optimize their AO systems and improve the accuracy of their scientific observations. Whether you're working 
-            with a specific AO system or exploring different atmospheric scenarios, <strong>TipTop</strong> offers a simple yet powerful tool to enhance your understanding and predictions of AO performance. <br />
-            <u>Reference:</u> <a href="https://doi.org/10.48550/arXiv.2101.06486" target="_blank">https://doi.org/10.48550/arXiv.2101.06486</a>
+              <strong>Astro-TipTop Services</strong> is the documentation and community platform
+              for the <strong><a href="https://doi.org/10.48550/arXiv.2101.06486" target="_blank">TipTop</a></strong> ecosystem. 
+              TipTop is an analytical framework for
+              adaptive-optics (AO) PSF modelling, originally developed for fast AO PSF prediction
+              and now supporting a broader range of scientific and operational applications.
             </p>
             <div className="text--center">
               <img src="img/logo_astro_tiptop.png" alt="logo astro_tiptop_services" 
@@ -89,14 +91,11 @@ export default function HomepageFeatures() {
                 Image generated with the assistance of an AI model.
               </p> */}
             </div>
-            <p className={styles.introText} style={{ marginBottom: '0.05rem' }}>
-            Powered by the core <strong>TipTop</strong> algorithm, 
-            Astro-TipTop offers several advanced features tailored for different needs: <br /> 
-            <a href="docs/orion/overview"><strong> PSF Simulation </strong></a> (standard way of using <strong>TipTop</strong>), 
-            <a href="docs/aquila/overview"><strong> Asterism selection</strong></a>, 
-            <a href="docs/lyra/overview"><strong> PSF Fitting / PSF Extrapolation </strong></a>, 
-            and <a href="docs/phoenix/overview"><strong>PSF-R service</strong></a>. <br />
-            Building on TipTop’s core PSF delivery, each feature provides specialized functionality for advanced and diverse applications.
+            <p className={styles.introText}>
+              The platform provides access to installation guides, tutorials, validated
+              instrument configurations, interactive tools, and documentation for applications
+              such as AO PSF simulation, guide-star selection, observation preparation,
+              PSF reconstruction, and data analysis.
             </p>
           </div>
         </div>

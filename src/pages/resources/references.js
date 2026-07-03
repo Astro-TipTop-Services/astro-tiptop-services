@@ -124,6 +124,45 @@ the GRAVITY+ project. In this paper, we detail the simulation code and present p
     of a high-redshift compact and massive galaxy, which assembled all of its mass at z>2, and completely missed the merger phase of the galaxy evolution. `,
     collapsedHeight: '11.5rem'
   },
+  {
+    id: 8,
+    title: 'Data-calibrated point spread function prediction - General description of the method and demonstration on MUSE-NFM',
+    link: 'https://doi.org/10.1051/0004-6361/202557297',
+    authors: 'Kuznetsov, A., Neichel, B., Oberti, S., Fusco, T.',
+    venue: 'A&A, 2026',
+    abstract: `Context. Precise knowledge of the point spread function (PSF) underpins many data analysis steps in astronomy, from photometry and astrometry to source de-blending and deconvolution. In adaptive optics (AO) observations, however, the PSF is highly variable with wavelength, field position, and observing conditions, making it difficult to model. Traditional PSF reconstruction (PSF-R) requires full AO telemetry and 
+    complex infrastructures, limiting its routine use, especially for tomographic systems.
+    Aims. We present a practical framework for fast, accurate, and data-calibrated PSF modeling that captures the spatial and spectral variability of AO-corrected PSFs without relying on complete AO telemetry.
+    Methods. Our approach builds on a Fourier-based PSF model inspired by astro-TIPTOP. As inputs, our model uses only a compact set of physically meaningful parameters retrievable from the ESO archive. A lightweight neural network corrects these inputs to achieve the best match with real data. It is trained end to end with the PSF model, allowing it to learn any miscalibrations directly from on-sky data.
+    Results. The framework achieves high accuracy on on-sky data. On a test set of MUSE-NFM standard stars, it yields median errors of 13.5% in the Strehl ratio and 10.9% in the core full width at half maximum (FWHM). In crowded MUSE-NFM observations of ω Centauri, the method predicts dozens of off-axis, wavelength-dependent PSFs with a Strehl error of <5% and a FWHM error of 4.6%, enabling source separation without per-star PSF extraction.
+    Conclusions. Our compact, physics-informed, and data-calibrated model delivers accurate, polychromatic, and field-varying PSFs without relying on full AO telemetry. While demonstrated on MUSE-NFM, the method is still transferable to other AO-assisted instruments.`,
+    collapsedHeight: '11.5rem'
+  },
+  {
+    id: 9,
+    title: 'TipTop: a fast and versatile analytical tool for AO PSF prediction',
+    link: 'https://spie.org/astronomical-telescopes-instrumentation/presentation/TipTop--a-fast-and-versatile-analytical-tool-for-AO/14150-303',
+    authors: 'Mazzolo, L.-M., Neichel, B., Agapito, G., Kuznetsov, A., Rossi, F., Plantet, C., Manara, C. F., Fétick, R., Concas, A., Vernet, J., Hainaut, O., Bierwirth, T., Carlà, G., Sauvage, J.-F., Cirasuolo, M., Correia, C., Héritier, C. T., Fusco, T.',
+    venue: 'SPIE, 2026',
+    abstract: `Adaptive Optics (AO) systems are becoming increasingly central to the operation of modern astronomical facilities,
+    from current 8–10 m class telescopes to the future Extremely Large Telescope. As AO architectures grow in
+    complexity, accurate Point Spread Function (PSF) prediction is no longer required solely for instrument design,
+    but throughout the full lifecycle of an observation, including observation preparation, operational support, and
+    scientific data analysis.
+    TipTop is a fast analytical framework for AO-performance prediction based on a Fourier-domain description
+    of residual wavefront errors. Originally developed as a standalone PSF simulator, it has progressively evolved
+    into a broader ecosystem supporting multiple operational and scientific applications. The same analytical core is
+    now used for instrument design studies, observation preparation, guide-star selection, exposure-time calculations,
+    AO-performance forecasting, and PSF reconstruction across several current and future ESO instruments.
+    In this paper, we present the current status of the TipTop framework and its recent developments. We describe
+    its analytical foundations together with recent computational developments addressing performance, numerical
+    robustness, large-scale guide-star evaluation, and software architecture. We then present its integration into
+    ESO operational tools, including the Exposure Time Calculator and observation-preparation workflows, as well
+    as recent developments in data-calibrated PSF reconstruction and Astro-TipTop Services, a platform providing
+    documentation, instrument configurations, interactive tools, and community resources supporting the broader
+    TipTop ecosystem.`,
+    collapsedHeight: '11.5rem'
+  },
 ];
 
 
@@ -152,15 +191,15 @@ export default function ReferencesPage() {
                 <li style={{ marginBottom: '0.3rem' }}>
                   <Link to="/resources/references">📘 Key Publications & References </Link>
                 </li>
-                <li style={{ marginBottom: '0.3rem' }}>
+                {/* <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/users">👥 Users Area </Link>
-                </li>
+                </li> */}
                 <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/contributors">🔑 Contributors Area </Link>
                 </li>
-                <li style={{ marginBottom: '0.3rem' }}>
+                {/* <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/wishlist">✨ Wish list</Link>
-                </li>
+                </li> */}
                 <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/AO_school">🔭 AO school</Link></li>
                 <li style={{ marginBottom: '0.3rem' }}>

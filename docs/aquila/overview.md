@@ -4,46 +4,67 @@ title: Overview
 sidebar_label: Overview
 ---
 
-<p align="center">
+<!-- <p align="center">
 ![](/img/astro-tiptop.png)
-</p>
+</p> -->
 
 
 ## 🌌 The big picture
 <p align="justify">
-The AO performance depends on the chosen set of Natural Guide Stars (NGSs).
-A set of guide stars used simultaneously forms an asterism, whose geometry and brightness directly impact the AO correction quality. <br/>
-Depending on the instrument and AO architecture, an asterism may involve:
-- Mono-NGS - a single reference star (e.g. ERIS)
-- Multi-NGS - several stars combined (e.g. MAVIS with 3 NGS)
 
-The Asterism Selection feature in TipTop aims to automatically determine the _best possible asterism_ for a given instrument configuration, atmospheric forecast, and field of view.
 
-TipTop lets you evaluate many candidate asterisms and provides the metrics (SR, FWHM, EE, penalty) - to rank them for your setup.
+The quality of the AO correction depends on the available Natural Guide Stars (NGSs). The choice of guide stars affects wavefront sensing, tip-tilt correction, tomographic reconstruction, and ultimately the delivered Point Spread Function (PSF).
+
+A set of guide stars used simultaneously forms an **asterism**. Depending on the AO architecture, an asterism may consist of:
+
+- **Single NGS** — one guide star (e.g. ERIS NGS)
+- **Multiple NGSs** — several guide stars combined (e.g. MAVIS)
+
+Finding the optimal asterism is not straightforward, as the best solution depends on the guide-star brightness, their spatial distribution, the observing conditions, and the AO system itself.
+
+The TipTop **Asterism Selection** module automatically evaluates large numbers of candidate guide-star configurations and predicts their expected AO performance using the analytical AO model.
+
 </p>
 
 ## 🌟 Why it matters
-<p align="justify">
-Asterism selection is a key step in observation preparation, as it directly impacts image quality and scientific return.
-With TipTop, you can evaluate many candidate configurations quickly and objectively, using consistent performance metrics such as Strehl Ratio (SR), FWHM, Encircled Energy (EE), and jitter.
 
-The **TipTop** Guide Star selection algorithm is currently being implemented into the standard ESO P2 tool, in particular in [ObsPrep](https://www.eso.org/sci/observing/phase2/p2intro/P2Tutorial-ObsPrep.html).
+<p align="justify">
+
+Guide-star selection is a key step during observation preparation, particularly for laser-assisted AO systems where many possible NGS constellations may exist around a science target.
+
+Because TipTop predicts AO performance in a fraction of a second, it becomes practical to evaluate hundreds or even thousands of candidate asterisms and rank them using physically meaningful metrics such as Strehl ratio (SR), Full width at half maximum (FWHM), encircled energy (EE), and residual jitter.
+
+These capabilities are currently being integrated into ESO observation-preparation tools, including the [ObsPrep](https://www.eso.org/sci/observing/phase2/p2intro/P2Tutorial-ObsPrep.html) environment within **p2**.
+
+The same capability also enables large-scale **sky coverage studies**, where the best guide-star configuration is evaluated over thousands of randomly distributed fields to estimate the fraction of the sky accessible to a given AO system (see the interactive **HARMONI MCAO Sky Coverage** example [here](/gui_SkyCov)).
+
 </p>
 
 ## 🤔 What TipTop adds
 
-Add a single block in your `.ini` file to drive the exploration:
-### [`[ASTERISM_SELECTION]`](/docs/aquila/parameterfiles.md)
+TipTop supports two complementary guide-star selection workflows:
 
-This section tells **TipTop**:
-- how you provide the asterisms (the mode), and
-- the data needed (coordinates, fluxes, or a file with catalogs).
-Supported modes include:
-- `Sets` - you list explicit asterisms
-- `Singles1` / `Singles3` - you give a flat star list; **TipTop** builds all 1-star or 3-star combinations.
-- `Generate` - synthetic data (dev/tests).
-- `File`/ `FileMono` - load many fields from a NumPy recarray (`.npy`) and evaluate each field (triplets vs mono).
-See all the details and examples in [Paramater files - [ASTERISM_SELECTION]](/docs/aquila/parameterfiles.md).
+| AO configuration | Function | Configuration block |
+| --- | --- | --- |
+| **LGS-assisted systems** (SCAO-LGS, LTAO, MCAO, GLAO...) | `asterismSelection` | `[ASTERISM_SELECTION]` |
+| **NGS-only high-order systems** (e.g. ERIS NGS mode) | `hoAsterismSelection` | `[HO_ASTERISM_SELECTION]` |
+
+Both workflows rely on the same analytical AO model and follow the same general principle:
+
+- Generate or import candidate guide-star configurations.
+- Compute the expected AO performance for each candidate.
+- Rank the candidates using objective performance metrics.
+- Save the results for subsequent analysis or operational use.
+
+Different strategies are available to generate candidate asterisms:
+
+- **`Sets`** — evaluate explicitly defined guide-star constellations.
+- **`Singles1` / `Singles3`** — automatically build all one-star or three-star combinations from a list of candidate stars.
+- **`File` / `FileMono`** — evaluate large catalogues or multiple sky fields.
+- **`Generate`** — create synthetic datasets for testing and benchmarking.
+
+The detailed description of each mode, together with the corresponding parameters and examples, is available on the **[Parameter Files](/docs/aquila/parameterfiles)** page.
+
 
 ## 🔁 How it works (at a glance)
 
@@ -52,39 +73,52 @@ See all the details and examples in [Paramater files - [ASTERISM_SELECTION]](/do
 - Compute metrics per asterism (and per science target if applicable).
 - Rank candidates in your analysis (by a scalar penalty/jitter, lower is better).
 - Save outputs for fast reload and post-processing.<br/>
-For a step-by-step run, see [Tutorial - Asterism Seclection](/docs/aquila/tuto_ast_select.mdx).
 
-## 📦 What you get (outputs)
+<p align="center">
+![](/img/pipeline_ast.png)
+</p>
 
-**TipTop** writes arrays to `outputDir` with the `simulName` prefix:
+For a step-by-step run, see [Tutorial - Asterism Selection](/docs/aquila/tuto_ast_select.mdx).
 
-- `sr.npy` – Strehl ratio per asterism (and per target if multi-target).
-- `fw.npy` – FWHM [mas] per asterism (and per target).
-- `ee.npy` – Encircled energy within your radius (or ensquared energy if requested).
-- `covs.npy` – Covariance ellipse parameters.
-- `penalty.npy` – scalar ranking metric (aka jitter); lower = better.
+## 📦 Outputs
 
-Arrays are saved in the global order of evaluation (fields concatenated). They are not pre-sorted.<br/>
+For each evaluated guide-star configuration, TipTop computes and stores a set of AO-performance metrics that can be analysed immediately or reloaded later without recomputation.
 
-You can reload all metrics without recomputation via `reloadAsterismSelection(...)` (see the [Running selections](/docs/aquila/running_selection.md) page).
+The main outputs are:
 
-## 💡 Example use cases
+| File | Description |
+| --- | --- |
+| `simulName`+`sr.npy` | Strehl ratio |
+| `simulName`+`fw.npy` | Full Width at Half Maximum (FWHM) |
+| `simulName`+`ee.npy` | Encircled (or ensquared) energy |
+| `simulName`+`covs.npy` | Covariance ellipse parameters (LGS-assisted mode only) |
+| `simulName`+`penalty.npy` | Scalar ranking metric used to compare candidate asterisms |
 
-- Compare candidate stars around a target (ERIS-like, `Singles1`).
-- Explore triplet combinations over a field (MAVIS-like, `Singles3`).
-- Batch-evaluate catalogue fields (`File`/`FileMono`) and pick the best per field.
-- Prototype what-if scenarios with synthetic inputs (`Generate`).
+For **NGS-only high-order selection** (`hoAsterismSelection`), the same metrics are produced using the `_ho_` prefix (e.g. `simulName_ho_sr.npy`). Since no low-order loop is involved, covariance ellipses and penalty values are not generated.
 
-## 🔧 Requirements & tips
+The saved outputs can be reloaded at any time using `reloadAsterismSelection(...)`, making it easy to perform additional analyses without rerunning the AO simulations (see the [Running selections](/docs/aquila/running_selection.md) page).
 
-Your INI must include a valid `[ASTERISM_SELECTION]` and the LO loop configuration (see [sensor/RTC sections](/docs/orion/parameterfiles.md)).
+<!-- ## 💡 Example use cases
 
-For `File`/`FileMono`, use the documented recarray format; a helper script is provided in the docs to create compatible files.
+Typical applications of the Asterism Selection module include:
 
-For analysis, the simulation object returned by `asterismSelection` is your friend:
-`simul.cumAstSizes`, `simul.nfieldsSizes`, `simul.asterismsInputDataPolar/Cartesian`, `simul.penalty_Asterism`, etc.
+- **Observation preparation** — identify the guide-star configuration expected to deliver the best AO performance for a given science target.
+- **Operational support** — generate guide-star rankings for tools such as ESO [ObsPrep](www.eso.org/p2).
+- **Sky coverage studies** — estimate the fraction of the sky accessible to an AO system by evaluating thousands of randomly distributed fields.
+- **Instrument performance studies** — compare different AO architectures, wavefront-sensor configurations, or observing strategies.
+- **Large catalogue exploration** — automatically evaluate thousands of candidate asterisms using the `File` or `FileMono` modes. -->
 
-## ✔️ In Summary
 
-`[ASTERISM_SELECTION]` tells **TipTop** which stars to try and how to combine them.
-**TipTop** then simulates, scores, and saves metrics so you can rank and choose the best asterism for your AO configuration.
+## 🔧 Requirements
+
+- `asterismSelection` requires a valid `[ASTERISM_SELECTION]` section together with the corresponding low-order AO configuration.
+
+- `hoAsterismSelection` only requires a `[HO_ASTERISM_SELECTION]` section.
+
+- Candidate guide stars can be provided explicitly, generated automatically, or loaded from external catalogues.
+
+## ✔️ Summary
+
+The Asterism Selection module extends TipTop from AO PSF prediction to **decision support**.
+
+Using the same analytical AO model employed throughout the TipTop ecosystem, it automatically evaluates large numbers of candidate guide-star configurations, predicts their expected AO performance, and ranks them using objective image-quality metrics. This makes guide-star selection practical for both individual observations and large-scale operational studies such as observation preparation and sky-coverage analyses.

@@ -30,7 +30,7 @@ available in the `examples/` folder of our [GitHub repository](https://github.co
 
 where:
 - The first and second arguments of `overallSimulation` are the path to the folder containing the input `.ini` file and the name of that file (without the extension).
-- The third and fourth arguments specify where to save the output results (in `.fits` format) and and the name of the resulting `.fits` file.
+- The third and fourth arguments specify where to save the output results (in `.fits` format) and the name of the resulting `.fits` file.
 
 A detailed documentation on the `overallSimulation` function is available [**below**](/docs/orion/howtosetuplaunchfile#overallSimulation).
 
@@ -104,7 +104,7 @@ The full example script is available for download
     wvl = float(psf_header.get("WL_NM"))       # Wavelength in nm
     pix_mas = float(psf_header.get("PIX_MAS")) # Pixel scale in milliarcseconds
     sr = psf_header.get(f"{"SR"}{0:04d}")      # Strehl ratio
-    fwhm = psf_header.get(f"{"FWHM"}{0:04d}")  # FWHM in milliarcsecond
+    fwhm = psf_header.get(f"{"FWHM"}{0:04d}")  # FWHM in milliarcseconds
 
     # Print key metrics
     print("Pixel scale [mas]:", pix_mas)
@@ -331,16 +331,14 @@ download="TIPTOP_DISPLAY.py">**here**<span style={{ fontSize: '1.5em' }}>📥</s
 were obtained by running the previous two scripts with the corresponding provided `.ini` files.
 </div>
 
-## 📍 Simulation Output: {#simulation_output}
+## 📍 Simulation Output {#simulation_output}
 
-The output of a TipTop simulation consists of Point Spread Functions (PSFs) computed using the parameters specified in your `.ini` file. 
+The output of a TipTop simulation consists of Point Spread Functions (PSFs) computed using the parameters specified in your `.ini` file.
 
-<!-- Outputs also includes seeing limited PSF, diffraction limited PSF and some useful metrics (SR, EE, FWHM, …) -->
-
-If the `doPlot` parameter of the overallSimulation function is set to `True`, the following PSFs will be displayed after the simulation runs:
+If the `doPlot` parameter of the `overallSimulation` function is set to `True`, the following PSFs will be displayed after the simulation runs:
 - The AO-corrected PSF(s)
 - The seeing-limited PSF
-- The diffraction limited PSF
+- The diffraction-limited PSF
 
 ### 💾 Saving to a `FITS` file
 
@@ -352,19 +350,17 @@ The FITS file contains multiple HDUs (Header/Data Units), each storing different
 - **HDU 0 – PRIMARY**<br/>
     Contains metadata about the simulation, the instrument, and observational parameters. It does not contain image data but provides essential contextual information.
 - **HDU 1 – AO-Corrected PSF**<br/>
-    Stores the cube of AO-corrected PSFs as a multi-dimensional image array with dimensions (`FieldOfView`, `FieldOfView`, `Nsrc`, `Nwvl`), where `FieldOfView` corresponds to the camera’s field of view in pixels as defined in the `[sensor_science]` section of your `.ini` file, `Nsrc` is the number of science sources, and `Nwvl` is the number of wavelengths specified in the `Wavelength` parameter of the `[sources_science]` section.
+    Stores the cube of AO-corrected PSFs as a multi-dimensional image array with dimensions (`FieldOfView`, `FieldOfView`, `Nsrc`, `Nwvl`), where `FieldOfView` corresponds to the camera's field of view in pixels as defined in the `[sensor_science]` section of your `.ini` file, `Nsrc` is the number of science sources, and `Nwvl` is the number of wavelengths specified in the `Wavelength` parameter of the `[sources_science]` section.
 - **HDU 2 – Seeing-Limited PSF** <br/>
     Contains the seeing-limited (open-loop) PSF in a 2D image array of size (`FieldOfView`, `FieldOfView`).
 - **HDU 3 – Diffraction-Limited PSF**<br/>
-    Contains the diffraction-limited PSF, also stored as a 2D image array of size  (`FieldOfView`, `FieldOfView`). 
-    <!-- It represents the theoretical best-case optical response limited only by the telescope’s aperture and diffraction. -->
+    Contains the diffraction-limited PSF, also stored as a 2D image array of size (`FieldOfView`, `FieldOfView`).
 - **HDU 4 – PSDs (if `savePSDs=True`)**<br/>
     Contains the Power Spectral Density (PSD), stored as a 3D array.
-    <!-- (`FieldOfView`, `FieldOfView`, `Nsrc`). -->
 - **HDU 4 or 5 – Final PSFs Radial Profiles**<br/>
-    Contains the 1D radial profiles of the PSFs, stored as an 3D array.<br/> ✏️Note: The HDU number depends on whether the PSDs are saved.
+    Contains the 1D radial profiles of the PSFs, stored as a 3D array.<br/> ✏️Note: The HDU number depends on whether the PSDs are saved.
 
-Here is an example FITS structure produced with the minimalPar.ini configuration:
+Here is an example FITS structure produced with the `minimalPar.ini` configuration:
 ```python
 No.    Name      Ver    Type      Cards   Dimensions   Format
   0  PRIMARY       1 PrimaryHDU      84   ()      
@@ -373,150 +369,180 @@ No.    Name      Ver    Type      Cards   Dimensions   Format
   3                1 ImageHDU        10   (256, 256)      float64 #Diffraction limited PSF
   4                1 ImageHDU        11   (256, 256, 1)   float64 #High Order PSD (if saved)  
   5                1 ImageHDU        11   (128, 1, 2)     float64 #PSFs profiles
-
 ```
 
 </details>
+
 ✏️**Note:** Results for the different AO instruments are presented [**here**](/docs/orion/aoinstruments). <br/>
 By default, the FITS file header includes the SR and FWHM values for each PSF (the `addSrAndFwhm` 
 parameter of the `overallSimulation` function is set to `True` by default). <br/>
-To retrieve and display the SR, FWHM and Encircled energy metrics  directly in your terminal, set the 
+To retrieve and display the SR, FWHM and encircled energy metrics directly in your terminal, set the 
 `returnMetrics` option to `True` (see the documentation on the [**`overallSimulation`**](/docs/orion/howtosetuplaunchfile#overallSimulation) function below).<br/>
-⚠️ **If `returnMetrics` is set to `True`, the FITS file is not saved.** 
+⚠️ **If `returnMetrics=True` or `returnRes=True`, the FITS file is not saved.**
 
-## 📍 In-memory workflow - skip output `FITS` file {#in-memory}
+## 📍 In-memory workflow — skip output `FITS` file {#in-memory}
 
-If you want to access the **output PSFs and metrics as Python objects** (e.g., for easier integration in your software) and **avoid writing and opening** the result `FITS` file
-you can: <br/>
-✔️ Use the path with `BaseSimulation`: instantiate → `doOverallSimulation()` → `computeMetrics()`; and, if needed,
-convert to NumPy with `cpuArray`. See the [**`baseSimulation`**](/docs/orion/howtosetuplaunchfile#baseSimulation) documentation below. <br/>
-❌ instead of calling `overallSimulation`.
+If you want to access the **output PSFs and metrics as Python objects** (e.g., for easier integration in your software) and **avoid writing and reading** the result `FITS` file,
+you can use `baseSimulation` directly: instantiate → `doOverallSimulation()` → `computeMetrics()`. <br/>
+✔️ Use `baseSimulation` (see [**documentation below**](/docs/orion/howtosetuplaunchfile#baseSimulation)).<br/>
+❌ Instead of calling `overallSimulation`.
 
 <details>
-  <summary><strong>Minimal example: `BaseSimulation` → `doOverallSimulation()` → `computeMetrics()`</strong></summary>
+  <summary><strong>Minimal example: `baseSimulation` → `doOverallSimulation()` → `computeMetrics()`</strong></summary>
+
 ```python
-from tiptop.tiptop import *
+from tiptop.tiptop import baseSimulation
+from tiptop.tiptopUtils import cpuArray
 
-path_in = "/my_path_to_SimIutputs/"  
+path_in  = "/my_path_to_SimInputs/"
 path_out = "/my_path_to_SimOutputs/"
-
-file_in = "IniName"  
+file_in  = "IniName"
 file_out = file_in
 
-
-#%% 1) Instantiate the simulation
+# 1) Instantiate the simulation
 sim = baseSimulation(path_in, file_in, path_out, file_out)
 
-#%% 2) Run the full pipeline
+# 2) Run the full pipeline
 sim.doOverallSimulation()
 
-#%% 3) Compute metrics (fills sim.sr, sim.fwhm, sim.ee)
+# 3) Compute metrics (fills sim.sr, sim.fwhm, sim.ee)
 sim.computeMetrics()
 
-#%% (optional) Ensure NumPy arrays (avoid NumPy/CuPy mixing)
-if getattr(sim, "psfOL", None) is not None:
-    sim.psfOL.sampling = cpuArray(sim.psfOL.sampling)
-if getattr(sim, "psfDL", None) is not None:
-    sim.psfDL.sampling = cpuArray(sim.psfDL.sampling)
-if getattr(sim, "psf1d_data", None) is not None:
-    sim.psf1d_data = cpuArray(sim.psf1d_data)
-if hasattr(sim, 'PSD') and sim.PSD is not None:
-    sim.PSD = cpuArray(sim.PSD)
+# 4) Use results directly, in memory
+psf_ao   = sim.cubeResultsArray   # AO-corrected PSF(s)  — numpy array
+psf_ol   = sim.psf_ol_array       # Seeing-limited PSF   — numpy array
+psf_dl   = sim.psf_dl_array       # Diffraction-limited PSF — numpy array
+profiles = sim.psf1d_data         # PSF radial profiles  — numpy array
+psd      = cpuArray(sim.PSD)      # PSD (may be on GPU if CuPy is used)
 
-#%% 4) Use results directly, in memory
-psf_ao   = sim.cubeResultsArray   # AO-corrected PSF
-psf_ol   = sim.psfOL.sampling     # Seeing-limited PSF
-psf_dl   = sim.psfDL.sampling     # Diffraction-limited PSF
-profiles = sim.psf1d_data         # PSFs profiles
-psd      = sim.PSD                # PSD
-
-#%% Extract useful parameter 
-wvl     = sim.wvl       # Wavelength in m
-pix_mas = sim.psInMas   # Pixel scale in milliarcseconds
+# 5) Extract useful parameters
+wvl     = sim.wvl       # Wavelength(s) in m
+pix_mas = sim.psInMas   # Pixel scale in mas
 sr      = sim.sr        # Strehl ratio
-fwhm    = sim.fwhm      # FWHM in milliarcsecond
+fwhm    = sim.fwhm      # FWHM in mas
 ee      = sim.ee        # Encircled energy
 
 print("SR:", sr)
 print("FWHM [mas]:", fwhm)
 print("EE:", ee)
 
-# If you eventually want a FITS later:
+# To also write a FITS file:
 # sim.saveResults()
-
 ```
+
 </details>
 
-### Class `baseSimulation` — constructor parameters{#basesimulation}
+✏️**Note:** `psf_ol_array`, `psf_dl_array`, and `psf1d_data` are already NumPy arrays — no `cpuArray` conversion needed. Only `sim.PSD` may reside on the GPU when CuPy is enabled.
+
+### Parameter sweep without re-reading the `.ini` file {#param-sweep}
+
+Since v1.5.1, `baseSimulation` passes its internal config dictionary (`my_data_map`) directly to P3 and MASTSEL on each run. This means you can modify any parameter in memory between calls — no file I/O on each iteration. Before v1.5.1, `fourierModel` re-read the `.ini` file on every call, so a clean in-memory sweep was not possible.
+
+<details>
+  <summary><strong>Example: telescope zenith angle sweep using `my_data_map`</strong></summary>
 
 ```python
-sim = baseSimulation(path2param, parametersFile, outputDir, outputFile, doConvolve, doPlot, 
-                     addSrAndFwhm, verbose, getHoErrorBreakDown, savePSDs, ensquaredEnergy, eeRadiusInMas)
+import copy
+from tiptop.tiptop import baseSimulation
+
+path_in  = "/my_path_to_SimInputs/"
+path_out = "/my_path_to_SimOutputs/"
+file_in  = "IniName"
+
+# 1) Load config from disk once
+sim = baseSimulation(path_in, file_in, path_out, file_in)
+base_config = copy.deepcopy(sim.my_data_map)
+
+# Sweep telescope ZenithAngle (affects airmass and atmospheric layer scaling)
+zenith_angles = [0, 15, 30, 45, 60]  # degrees from zenith
+results = {}
+
+for za in zenith_angles:
+    # 2) Modify config dict in memory — no file I/O
+    sim.my_data_map = copy.deepcopy(base_config)
+    sim.my_data_map['telescope']['ZenithAngle'] = float(za)
+
+    # 3) Run — _prepare_static_PSF_state always re-runs when astIndex=None (default)
+    sim.doOverallSimulation()
+    sim.computeMetrics()
+
+    results[za] = {
+        'sr':   sim.sr[0],
+        'fwhm': sim.fwhm[0],
+        'psf':  sim.cubeResultsArray.copy(),
+    }
+    print(f"ZenithAngle = {za:2d}°  →  SR = {sim.sr[0]:.3f},  FWHM = {sim.fwhm[0]:.1f} mas")
+```
+
+</details>
+
+The same pattern works for any parameter in `my_data_map`, for example `sim.my_data_map['atmosphere']['Seeing']` or `sim.my_data_map['sources_HO']['NumberPhotons']`.
+
+### Class `baseSimulation` — constructor parameters {#baseSimulation}
+
+```python
+sim = baseSimulation(path2param, parametersFile, outputDir, outputFile, doConvolve=True, doPlot=False, 
+                     addSrAndFwhm=True, verbose=False, getHoErrorBreakDown=False,
+                     savePSDs=False, ensquaredEnergy=False, eeRadiusInMas=50)
 ```
 
 <details>
   <summary><strong>Parameters:</strong></summary>
 
-- **path2param** (_str_, required) — Path to the parameter file.
-- **paramFileName** (_str_, required) - Name of the parameter file to be used without the extention.
-- **outputDir** (_str_, required) — Path to the folder in which to write the output (used if `sim.saveResults()` called).
-- **outputFile** (str, required) — Prefix for output files (`.fits`, `.json`) when saving.
-- **doConvolve** (_bool_, optional, default: `True`) — If you want to use the natural convolution operation set to `True`.
-- **doPlot** (_bool_, optional, default: `False`) —  If you want to see the result in python set this to `True`.
-- **addSrAndFwhm** (_bool_, optional, default: `True`) — The function will add in the header of the fits file SR, FWHM, and EE within eeRadiusInMas for each PSF.
-- **verbose** (_bool_, optional, default: `False`) – If you want all messages set this to `True`.
-- **getHoErrorBreakDown** (_bool_, optional, default: `False`) — If you want HO error breakdown set this to `True`.
-- **savePSDs** (_bool_, optional, default: `False`) – If you want to save PSD in the output fits file set this to `True`.
-- **ensquaredEnergy** (_bool_, optional, default: `False`) – If you want ensquared energy instead of encircled energy set this to `True`.
-- **eeRadiusInMas** (_float_, optional, default: 50) – Radius used for the computation of the encirlced energy 
- (if `ensquaredEnergy` is selected, this is half the side of the square.)
+- **path2param** (_str_, required) — Path to the folder containing the parameter file.
+- **parametersFile** (_str_, required) — Name of the parameter file without the extension.
+- **outputDir** (_str_, required) — Path to the folder where output files will be written (used when `sim.saveResults()` is called).
+- **outputFile** (_str_, required) — Prefix for output files (`.fits`, `.json`) when saving.
+- **doConvolve** (_bool_, optional, default: `True`) — If `True`, uses the natural convolution operation.
+- **doPlot** (_bool_, optional, default: `False`) — If `True`, displays the PSFs after the simulation.
+- **addSrAndFwhm** (_bool_, optional, default: `True`) — Adds SR, FWHM, and EE within `eeRadiusInMas` to the FITS header for each PSF.
+- **verbose** (_bool_, optional, default: `False`) — If `True`, prints all messages.
+- **getHoErrorBreakDown** (_bool_, optional, default: `False`) — If `True`, computes the HO error breakdown.
+- **savePSDs** (_bool_, optional, default: `False`) — If `True`, saves the PSD in the output FITS file.
+- **ensquaredEnergy** (_bool_, optional, default: `False`) — If `True`, computes ensquared energy instead of encircled energy.
+- **eeRadiusInMas** (_float_, optional, default: `50`) — Radius in mas for the encircled energy computation (if `ensquaredEnergy=True`, this is half the side of the square).
 </details> 
 
 ## 📍 OverallSimulation function documentation {#overallSimulation}
 
-tiptop.**overallSimulation** runs a complete TipTop simulation based on an input parameter file.
-The function accepts several optional arguments to enable or disable specific features and select desired outputs. <br/>
-All the parameters that can be passed as arguments are listed and explained below: <br/>
+`tiptop.overallSimulation` runs a complete TipTop simulation based on an input parameter file.
+The function accepts several optional arguments to enable or disable specific features and select desired outputs.
 
 <details>
   <summary><strong>Parameters:</strong></summary>
 
+- **path2param** (_str_, required) — Path to the folder containing the parameter file.
 
-    - **path2param** (_str_) – required, path to the parameter file.
+- **paramFileName** (_str_, required) — Name of the parameter file without the extension.
 
-    - **paramFileName** (_str_) – required, name of the parameter file to be used without the extention.
+- **outputDir** (_str_, required) — Path to the folder in which to write the output.
 
-    - **outpuDir** – required, path to the folder in which to write the output.
+- **outputFile** (_str_, required) — Prefix for output files (`.fits`, `.json`) when saving.
 
-    - **doConvolve** (_bool_) – optional – default: `True`, if you want to use the natural convolution operation set to `True`.
+- **doConvolve** (_bool_, optional, default: `True`) — If `True`, uses the natural convolution operation.
 
-    - **doPlot** (_bool_) – optional – default: `False`, if you want to see the result in python set this to `True`.
+- **doPlot** (_bool_, optional, default: `False`) — If `True`, displays the result in Python after the simulation.
 
-    - **verbose** (_bool_) – optional – default: `False`, If you want all messages set this to `True`.
+- **verbose** (_bool_, optional, default: `False`) — If `True`, prints all messages.
 
-    - **returnRes** (_bool_) – optional – default: `False`, If `True`, the function will return the High Order residual and the Low Order residual (if LO) in nm RMS.
+- **returnRes** (_bool_, optional, default: `False`) — If `True`, returns the HO residual (and LO residual if applicable) in nm RMS. No FITS file is written.
 
-    - **returnMetrics** (_bool_) – optional – default: `False`, The function will return Strehl Ratio, FWHM and encircled energy within eeRadiusInMas if set to `True`.
+- **returnMetrics** (_bool_, optional, default: `False`) — If `True`, returns Strehl Ratio, FWHM, and encircled energy within `eeRadiusInMas`. No FITS file is written.
 
-    - **addSrAndFwhm** (_bool_) – optional – default: `True`, The function will add in the header of the fits file SR, FWHM, and EE within eeRadiusInMas for each PSF.
+- **addSrAndFwhm** (_bool_, optional, default: `True`) — Adds SR, FWHM, and EE within `eeRadiusInMas` to the FITS header for each PSF.
 
-    - **verbose** – optional – default: `False`, If you want all messages set this to `True`.
+- **getHoErrorBreakDown** (_bool_, optional, default: `False`) — If `True`, computes HO error breakdown (`verbose` must also be `True`).
 
-    - **getHoErrorBreakDown** (_bool_) – optional – default: False, If you want HO error breakdown set this to `True` (**verbose** must also to be set to `True`).
+- **ensquaredEnergy** (_bool_, optional, default: `False`) — If `True`, computes ensquared energy instead of encircled energy.
 
-    - **ensquaredEnergy** (_bool_) – optional – default: `False`, If you want ensquared energy instead of encircled energy set this to `True`.
+- **eeRadiusInMas** (_float_, optional, default: `50`) — Radius in mas for the encircled energy computation (if `ensquaredEnergy=True`, this is half the side of the square).
 
-    - **eeRadiusInMas** (_float_) – optional – default: `50`, used together with returnMetrics, radius used for the computation of the encirlced energy (if ensquaredEnergy is selected, this is half the side of the square)
+- **savePSDs** (_bool_, optional, default: `False`) — If `True`, saves the PSD in the output FITS file.
 
-    - **savePSDs** (_bool_) – optional – default: `False`, If you want to save PSD in the output fits file set this to `True`.
+- **saveJson** (_bool_, optional, default: `False`) — If `True`, saves the PSF radial profile in a JSON file.
 
-    - **saveJson** (_bool_) – optional – default: `False`, If you want to save the PSF profile in a json file.
+- **gpuIndex** (_int_, optional, default: `0`) — Target GPU device index.
 
-    - **gpuIndex** (_int_) – optional – default: `0`, Target GPU index where the simulation will be run.
+⚠️ **Note:** If `returnMetrics=True` or `returnRes=True`, no FITS file is written.
 
-⚠️ **Note:** If `returnMetrics=True` or `returnRes=True`, no `FITS` file is written. Use both flags as `False` to save the `FITS`.
-
-  </details> 
-
-
-
+</details>

@@ -13,8 +13,6 @@ The model predicts a **jitter/penalty** score and derives **Strehl, FWHM,** and 
 
 ---
 
-## Quick start
-
 ## ⚙️​ Train
 
 ```python
@@ -40,7 +38,7 @@ If `doTest=True`, a hold-out split is used. **TipTop** prints:
 - RMS error,
 - how often the model’s ranking matches the AO ranking (where separations are significant).
 
-You can also call the low-level tester yourself (see below).
+You can also call the low-level tester yourself (see the [Tutorial - Asterism Selection](/docs/aquila/tuto_ast_select.mdx) for a worked example with output).
 
 ## ▶️ Run
 
@@ -57,20 +55,7 @@ results = simul.runHeuristicModel()
 heuristicModel = mycase_hmodel   ; basename (no extension); looked up in outputDir
 ```
 
-For mono, TIPTOP loads `outputDir/mycase_hmodel.npy`.
+For mono, TipTop loads `outputDir/mycase_hmodel.npy`.
 For multi, use the `.pth` equivalent.
 
-
---- 
-<!-- 
-## Low-level API (advanced)
-
-`generateHeuristicModel(...)` (high-level convenience)
-
-Runs selection + reload + training (+ optional testing). Returns the `asterismSimulation` instance with model attached.
-
-`asterismSimulation.fitHeuristicModel(fieldStart, fieldEnd, modelName, num_epochs=500, steps=[1e-4], geom=[128]*8)`
-
-Train manually on a slice of fields.
-- Mono: fits 3 frequency-bucketed splines on (NGS distance, log(flux)).
-- Multi: trains an MLP on engineered features (r, angle, log(flux), freq). -->
+➡️ For a complete step-by-step example including training output and tips on data requirements, see [**Tutorial - Asterism Selection §5**](/docs/aquila/tuto_ast_select.mdx).

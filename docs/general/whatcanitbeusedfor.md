@@ -27,8 +27,7 @@ TipTop supports all major AO observing modes:
 
 and handles any atmospheric profile, telescope geometry, WFS type (Shack-Hartmann or Pyramid), and guide star configuration. Typical computation times are of the order of a fraction of a second per PSF, making it practical for applications where large parameter spaces must be explored.
 
-TipTop has been extensively validated against end-to-end simulation tools including COMPASS, OOMAO, PASSATA, SPECULA, and OOPAO, with agreement typically at the percent level across a wide range of AO configurations _([Neichel et al. 2024](https://doi.org/10.1117/12.3015061))_. Further validation using on-sky data from SPHERE and MUSE-NFM demonstrates the ability to reproduce PSF profiles with errors of a few percent _([Kuznetsov et al. 2022]( 	
-https://doi.org/10.1117/12.2628616)_).
+TipTop has been extensively validated against end-to-end simulation tools including COMPASS, OOMAO, SPECULA, PASSATA _([Rossi et al. 2026](https://doi.org/10.1117/1.JATIS.12.1.019001))_, and [OOPAO](https://github.com/cheritier/OOPAO), with agreement typically at the percent level across a wide range of AO configurations _([Neichel et al. 2024](https://doi.org/10.1117/12.3015061))_. Further validation using on-sky data from SPHERE and MUSE-NFM demonstrates the ability to reproduce PSF profiles with errors of a few percent _([Kuznetsov et al. 2022](https://doi.org/10.1117/12.2628616)_).
 
 ➡️ [Get started with the Quickstart Tutorial](/docs/orion/usage)
 
@@ -40,7 +39,7 @@ https://doi.org/10.1117/12.2628616)_).
 
 TipTop has been extensively used for AO system design to derive first-order performance estimates, explore instrument trade-offs, and optimise system architectures _([Neichel et al. 2020](https://doi.org/10.1117/12.2561533))_. Because each simulation runs in a fraction of a second, it is practical to sweep over large parameter grids — actuator pitch, guide star brightness, loop frequency, number of LGS, detector noise — and study the resulting performance landscape.
 
-The framework is currently used in studies supporting the definition of the MCAO performance specifications for **HARMONI**, enabling extensive sky-coverage analyses and performance assessments over a broad range of observing conditions.
+The framework is currently used in studies supporting the definition of the MCAO performance specifications for [**HARMONI**](/HRM_MCAO_Launcher), enabling extensive sky-coverage analyses and performance assessments over a broad range of observing conditions.
 
 <!-- section hrm ?  -->
 ---
@@ -55,7 +54,7 @@ TipTop is currently being integrated into ESO's Exposure Time Calculator (ETC) _
 
 ## 📋 Observation Preparation (ObsPrep)
 
-TipTop is being integrated into ESO's web-based observation preparation environment [p2](https://www.eso.org/p2), through the [ObsPrep](https://www.eso.org/sci/observing/phase2/p2intro/P2Tutorial-ObsPrep.html) interface.
+TipTop is being integrated into ESO's web-based observation preparation environment [_p2_](https://www.eso.org/p2), through the [ObsPrep](https://www.eso.org/sci/observing/phase2/p2intro/P2Tutorial-ObsPrep.html) interface.
 
 Within this workflow, TipTop provides quantitative AO-performance estimates for candidate guide-star configurations. Candidate guide-star asterisms are automatically generated from astronomical catalogues and ranked according to AO-performance metrics such as Strehl ratio, FWHM, encircled energy, and residual jitter.
 
@@ -101,6 +100,17 @@ This functionality is currently under development.
 
 ---
 
+## 🔁 PSF Reconstruction (PSF-R) *(coming soon)*
+
+TOne of the recent directions enabled by the TipTop analytical framework is data-calibrated PSF reconstruction. In this approach, the objective is no longer to predict the PSF before an observation, but to estimate the PSF associated with an existing dataset using a compact set of atmospheric, AO, and instrument parameters.
+
+Recent work has demonstrated that combining a Fourier-based analytical model with data-driven calibration provides accurate PSF predictions without relying on complete AO telemetry, considerably reducing the operational complexity of PSF reconstruction. The approach has been successfully demonstrated on MUSE-NFM, achieving PSF accuracies at the level of a few percent _([Kuznetsov et al. 2026](https://doi.org/10.1051/0004-6361/202557297))_.
+
+These developments are currently implemented within [TipTorch](https://github.com/astro-tiptop/TipTorch), the differentiable branch of the Astro-TipTop ecosystem, and will progressively be exposed through documented user services.
+
+➡️ [PSF-R Service](/docs/phoenix/overview)
+
+---
 
 ## 📐 Click & Fit *(coming soon)*
 
@@ -111,16 +121,6 @@ This "Click & Fit" workflow forms one component of TipTop's broader data-calibra
 ➡️ [Click & Fit](/docs/lyra/overview)
 
 ---
-
-## 🔁 PSF Reconstruction (PSF-R) *(coming soon)*
-
-TipTop provides a data-calibrated approach to PSF reconstruction based on its analytical AO model. Rather than relying on complete AO telemetry streams, the method uses a reduced set of physically meaningful parameters describing the atmosphere, the AO system, and the instrument. These quantities can typically be retrieved from science-data headers, observatory logs, or calibration databases.
-
-When suitable stars are present in the field, the model parameters can be calibrated directly from the observations (Click & Fit). Otherwise, the PSF can be reconstructed from AO telemetry-derived parameters.
-
-First results obtained on **MUSE-NFM** demonstrate PSF reconstruction accuracies at the level of only a few percent, while maintaining a significantly lighter operational footprint than traditional telemetry-based approaches _([Kuznetsov et al. 2026](https://doi.org/10.1051/0004-6361/202557297))_.
-
-➡️ [PSF-R Service](/docs/phoenix/overview)
 
 ## 🚀 Recent developments
 
@@ -135,4 +135,3 @@ Highlights include:
 - 🌍 Rigorous atmospheric refraction modelling
 - ⭐ Scalable guide-star evaluation
 - 🏗️ Modular software architecture
-- 🌐 Astro-TipTop Services

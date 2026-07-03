@@ -1,7 +1,7 @@
 ---
 id: parameterfiles
 title: Parameter files 
-sidebar_label: Parameter files - [ASTERISM_SELECTION]
+sidebar_label: Parameter files
 ---
 
 ## `[ASTERISM_SELECTION]` {#asterism}
@@ -60,6 +60,8 @@ The `mode` key defines how **TipTop** receives asterism data.
   See example [**here**](/docs/aquila/parameterfiles#file_mode). 
 - **`FileMono`** → Same as `File`, but each entry is treated as a single-star asterism. <br/>
   See example [**here**](/docs/aquila/parameterfiles#filemono_mode). 
+- **`FileRandom`** → Randomly generates multi-star (3-star) asterism fields; no input recarray required. On first run, TipTop generates the fields and saves them to `outputDir` as `.npy` files (suffixed `C`, `P`, `F`, `S`, `ST`, `IDX`). Subsequent runs reload from disk automatically. Uses `fieldsNumber` and `filename` (as a base name for the cached files). Typical use case: large-scale sky-coverage studies. <br/>
+- **`FileRandomMono`** → Same as `FileRandom`, but generates single-star (mono-NGS) fields. Corresponds to `ERISastRandom`-style configurations. <br/>
 </p>
 
 ### Internal details / DEV notes
@@ -224,7 +226,7 @@ np.save("rec_array10_e_like.npy", make_recarray(lengths_mono))
 <details>
   <summary><strong> ERIS - mode : `Sets` </strong></summary>
 ```python
-[ASTERSIM_SELECTION]
+[ASTERISM_SELECTION]
 mode = 'Sets'
 Zenith = [[5], [20], [5], [7], [22], [17], [20], [17]]
 Azimuth = [[0.0], [45.0], [90.0], [60.0], [145.0], [190.0], [145.0], [90.0]]
@@ -235,7 +237,7 @@ NumberPhotons = [[900], [21000], [190], [5100], [10800], [1800], [210], [180000]
 <details>
   <summary><strong> MAVIS - mode : `Sets` </strong></summary>
 ```python
-[ASTERSIM_SELECTION]
+[ASTERISM_SELECTION]
 mode = 'Sets'
 Zenith = [[10, 40, 30], [15, 45, 35], [10, 40, 35]]
 Azimuth = [[0.0, 45.0, 90.0], [60.0, 145.0, 190.0], [0.0, 45.0, 90.0]]
@@ -245,10 +247,10 @@ NumberPhotons = [[1900, 2100, 1900], [1100, 1800, 1800], [1900, 2100, 1800]]
 
 ### `mode = 'Singles1'` or `mode = 'Singles3'`{#single_mode}
 <details>
-  <summary><strong> ERIS - mode : `Single1` </strong></summary>
+  <summary><strong> ERIS - mode : `Singles1` </strong></summary>
 ```python
-[ASTERSIM_SELECTION]
-mode = 'Single1'
+[ASTERISM_SELECTION]
+mode = 'Singles1'
 Zenith = [60.0, 40.0, 10.0, 50.0, 30.0, 20.0, 10.0]
 Azimuth = [0.0, 45.0, 95.0, 135.0, 190.0, 242.0, 177.0]
 NumberPhotons = [1900, 1800, 700, 2000, 200, 1110, 400]
@@ -259,9 +261,9 @@ bands = ['R', 'I']
 </details>
 
 <details>
-  <summary><strong> MAVIS - mode : `Single3` </strong></summary>
+  <summary><strong> MAVIS - mode : `Singles3` </strong></summary>
 ```python
-[ASTERSIM_SELECTION]
+[ASTERISM_SELECTION]
 mode = 'Singles3'
 Zenith = [60.0, 40, 10, 50, 30, 20, 10]
 Azimuth = [0.0, 45, 95, 135, 190, 242, 177]
@@ -276,7 +278,7 @@ bands = ['J', 'H']
 <details>
   <summary><strong> ERIS - mode : `Generate` </strong></summary>
 ```python
-[ASTERSIM_SELECTION]
+[ASTERISM_SELECTION]
 mode = 'Generate'
 Zenith = [60.0]
 Azimuth = [0.0]
@@ -288,7 +290,7 @@ NumberPhotons = [1900]
 <details>
   <summary><strong> MAVIS - mode : `File` </strong></summary>
 ```python
-[ASTERSIM_SELECTION]
+[ASTERISM_SELECTION]
 mode = 'File'
 filename = 'astTest/rec_array1000.npy'
 fieldsNumber = 10
@@ -305,7 +307,7 @@ bands = ['J', 'H']
 <details>
   <summary><strong> ERIS - mode : `FileMono` </strong></summary>
 ```python
-[ASTERSIM_SELECTION]
+[ASTERISM_SELECTION]
 mode = 'FileMono'
 filename = 'astTest/rec_array1000_e.npy'
 fieldsNumber = 10
@@ -319,3 +321,7 @@ bands = ['R', 'I']
 </details> 
 
 💡 Complete `.ini` files are available in the `astTest` directory of our [**GitHub repository**](https://github.com/astro-tiptop/TIPTOP/tree/main/tiptop/astTest).
+
+:::note NGS-only HO systems
+For instruments using a Natural Guide Star for HO correction (e.g. ERIS NGS mode), use `[HO_ASTERISM_SELECTION]` instead of `[ASTERISM_SELECTION]`. This mode does not require a `[sensor_LO]` section. See the [Running selections](/docs/aquila/running_selection#hoAsterismSelection) page for the full parameter reference and an example.
+:::

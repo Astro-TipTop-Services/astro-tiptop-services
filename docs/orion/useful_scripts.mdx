@@ -32,7 +32,7 @@ However, several effects can overlap, and the impact of individual parameters is
 difficult to distinguish by eye. As a result, manual tuning often requires iterating and 
 revisiting parameters more than once. Because some error terms may compensate or mask each other, caution is recommended. 
 Before introducing new aberrations, users should refer to the page 
-<i>“[What is included in TipTop?](/docs/general/error_breakdown)”</i> to avoid adding errors that are already taken into account.
+<i>“[Error terms coverage](/docs/general/error_breakdown)”</i> to avoid adding errors that are already taken into account.
 
 </div>
 
@@ -481,6 +481,8 @@ and then optionally convolved with a jitter kernel defined by jitter_FWHM. */}
 <div style={{ textAlign: "justify" }}>
 Here, we provide an example script to run <i>N</i> **TipTop** simulations with different values of two parameters:
 `ZenithAngle` and `Seeing`. The script can easily be adapted to sweep over a single parameter or more than two.
+
+✏️ **Note:** This script uses the high-level `overallSimulation` function and writes a temporary `.ini` file for each run. If you need in-memory parameter sweeps without disk I/O (e.g. in a service context), see the [parameter sweep example using `baseSimulation` and `my_data_map`](/docs/orion/howtosetuplaunchfile#param-sweep) instead.
 </div>
 
 **Download the script:**

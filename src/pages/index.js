@@ -13,21 +13,21 @@ function HomepageHeader() {
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <Heading as="h1" className="hero__title">
-          {siteConfig.title}
+          Astro-TipTop Services
         </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <p className="hero__subtitle">
+          Analytical AO PSF modelling, documentation, tutorials, and interactive services
+        </p>
+
         <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            TipTop Installation Tutorial - 10min ⏱️
+          <Link className="button button--secondary button--lg" to="/docs/general/whatistiptop">
+            What is TipTop?
           </Link>
-        </div>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/quickstart">
-            TipTop Quickstart Tutorial - 5min ⏱️
+          <Link className="button button--secondary button--lg" to="/docs/general/installation">
+            Installation Tutorial
+          </Link>
+          <Link className="button button--secondary button--lg" to="/docs/orion/usage">
+            Quickstart Tutorial
           </Link>
         </div>
       </div>
@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      ddescription="Astro TipTop — Astro-TipTop Services: A modular toolkit for PSF simulation and analysis.">
+      description="Astro-TipTop Services is the documentation and community platform for the Astro-TipTop ecosystem. ">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

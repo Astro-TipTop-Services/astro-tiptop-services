@@ -1,40 +1,62 @@
 ---
 id: tuto_ast_select
-title: TipTop Asterism Selection — Hands-on Tutorial (VS Code / Jupyter)
-sidebar_label: Tutorial - Asterism Selection
+title: Tutorials
+sidebar_label: Tutorials
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-<p align="justify">
-This page walks you through a Jupyter Notebook shows how to run `asterismSelection` with **TipTop**, inspecting and save metrics, reload results later without recomputing, and (optionally) train a **heuristic model** for fast ranking.
+# Tutorials
 
-It’s meant as a practical guide: pick the parts you need—no need to follow every step end-to-end.
+This page gathers all the resources available to learn and use the TipTop Asterism Selection module.
+
+Whether you simply want to reproduce one of the existing examples or understand the complete workflow, you will find both the official examples distributed with TipTop and a detailed step-by-step tutorial.
+
+## 📚 Available examples
+
+Several complete examples are distributed with the TipTop repository and illustrate the different guide-star selection workflows. <br/>
+These notebooks provide ready-to-run configurations.
+
+| Example | AO system | Purpose |
+|----------|-----------|---------|
+| [`TIPTOP-AST-EXAMPLE-ERIS.ipynb`](https://github.com/astro-tiptop/TIPTOP/blob/main/examples/TIPTOP-AST-EXAMPLE-ERIS.ipynb) | ERIS LGS | Low-order guide-star selection |
+| [`TIPTOP-AST-EXAMPLE-ERIS-HO.ipynb`](https://github.com/astro-tiptop/TIPTOP/blob/main/examples/TIPTOP-AST-EXAMPLE-ERIS-HO.ipynb) | ERIS NGS | High-order guide-star selection (`hoAsterismSelection`) |
+| [`TIPTOP-AST-EXAMPLE-MAVIS.ipynb`](https://github.com/astro-tiptop/TIPTOP/blob/main/examples/TIPTOP-AST-EXAMPLE-MAVIS.ipynb) | MAVIS | Three-star asterism selection |
+| [`ERIS_Asterism.py`](https://github.com/astro-tiptop/TIPTOP/blob/main/examples/ERIS_Asterism.py) | Random fields | Heuristic-model training & benchmarking |
+
+👉 All examples are available in the [examples directory](https://github.com/astro-tiptop/TIPTOP/tree/main/examples)
+of the TipTop repository.
+
+
+
+## 🚀 Step-by-step Tutorial
+
+<p align="justify">
+The following notebook illustrates the complete Asterism Selection workflow, from configuring an input file to identifying the optimal guide-star configuration and running the final AO simulation.
 </p>
 
-**Download the full Notebook:**
+**Download the complete notebook:**
 <a href={`${useBaseUrl('/downloads/TIPTOP_Asterism_Selection_Tutorial.ipynb')}`} download="TIPTOP_Asterism_Selection_Tutorial.ipynb">**here**<span style={{ fontSize: '1.5em' }}>📥</span></a>.
 
-**Mono** (ERIS) vs. **Multi** (MAVIS)
-- ERIS (mono): 1 star per asterism
-- MAVIS (multi): 3 stars per asterism 
+### This tutorial covers
 
-**What you'll learn**
-1. Point **TipTop** to an `.ini` file with `[ASTERISM_SELECTION]`.
-2. Run `tiptop.asterismSelection(...)` and interpret outputs.
-3. Rank and print the **best asterism per field** (with optionnal JSON export).
-4. Run `tiptop.overallSimulation(...)` on the global best asterism.
-5. Reload metrics later via **reloadAsterismSelection(...)** (no recomputation).
-6. (Optional) Train/test a **heuristic model** for fast ranking (splines for mono, NN for multi).
+1. Configure an `.ini` file with an `[ASTERISM_SELECTION]` block.
+2. Run `asterismSelection(...)`.
+3. Analyse and rank candidate asterisms.
+4. Export results to JSON.
+5. Re-run the best configuration with `overallSimulation(...)`.
+6. Reload previous simulations.
+7. Train and use a heuristic model (optional).
+
 
 **What this notebook saves**
-- Arrays/metrucs in your `OUTPUT_DIR`.
+- Arrays/metrics in your `OUTPUT_DIR`.
 - Optional **JSON** snapshots of the best (or all) asterisms, including the star inputs (_zenith, azimuth, photons, freq_)
 - Optional heuristic model files (`.npy`/ `.pth`) when training is enabled.
 
 
 ## 0) Prerequisites
 - Python 3.11+ recommended
-- `astro-tiptop` version 1.3.25 or higher
+- `astro-tiptop` version 1.5.0 or higher
 
 # Check environment
 ```python
@@ -142,7 +164,7 @@ This step produces a quick, human-readable summary and (optionally) a JSON snaps
     - `include_all=True` → all asterisms, globally sorted by penalty (ascending).
 
 ### Multi-mode note (e.g., MAVIS)
-FWHM (and parfois EE) can be an array per asterism (several science points).
+FWHM (and sometimes EE) can be an array per asterism (several science points).
 The  `reduce=` option controls how we turn that array into a single number for printing and the `metrics` block in the JSON:
 - `"mean"` (default): average across positions
 - `"median"`: robust central tendency
@@ -332,7 +354,7 @@ def summarize(simul, sr, fw, outdir: str, simul_name: str,
 <p style={{ fontFamily: "Consolas" ,  fontSize: '0.8rem',  backgroundColor: '#D1FAE5' }}>
 === METRICS SHAPES === <br/>
   SR : (39, 1)<br/>
-  FWHM: (39, 1, 1)<br/>
+  FWHM: (39, 1)<br/>
 
 Fields: 10<br/>
 Field 000 → best asterism (global index=2) [penalty=218.2, SR=0.5014, FWHM=48.49]<br/>
@@ -592,7 +614,7 @@ for i in range(max_display):
 
 <p style={{ backgroundColor: '#D1FAE5', textAlign:'center' }} > ![](/img/psf_eris_ast.png) </p>
 
-## 4) Reload previously computed metrics
+## 5) Reload previously computed metrics
 Use this helper when you only need the arrays (e.g., for a dashboard or after a long run).
 
 **Goal**. Bring the arrays (`sr`, `fwhm`, `ee`, `covs`) and a lightweight simulation object back into memory without rerunning the AO engine.
@@ -626,7 +648,7 @@ Reloaded arrays: SR FW EE <br/>
 </p>
 ---
 
-## 5) (Optional) Train & test a heuristic model
+## 6) (Optional) Train & test a heuristic model
 **Goal**. Learn a fast surrogate that can rank asterisms without running the full AO simulation each time.
 - Mono (ERIS) → spline-based model
 - Multi (MAVIS) → small neural network
@@ -634,7 +656,7 @@ Reloaded arrays: SR FW EE <br/>
 ### What this cell does
 - Ensures asterism metrics exist (computes or reloads them internally).
 - Splits data into train/test (default `share=0.9` → 90% train, 10% test).
-- Trains the model and, if `doTest=Tru`e, reports accuracy and ranking quality.
+- Trains the model and, if `doTest=True`, reports accuracy and ranking quality.
 - Saves a model file (typically under `OUTPUT_DIR`) named like `<INI_BASENAME>_hmodel.npy` (mono) or `.pth` (multi).
 ```python
 # Enable training only when there are enough asterisms to learn from.
@@ -668,7 +690,7 @@ Heuristic model generated. You can now set heuristicModel in the INI to reuse it
 Add the path to your INI so subsequent `asterismSelection(...)` runs can skip the heavy AO step and rank instantly:
 ```python
 [ASTERISM_SELECTION]
-heuristicModel = outputs/ERISastRandom_hmodel.npy  ; or MAVIS..._hmodel.pth
+heuristicModel = 'ERISastRandom_hmodel'  
 ```
 
 ### Inputs to keep consistent

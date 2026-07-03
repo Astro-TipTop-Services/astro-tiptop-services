@@ -77,11 +77,13 @@ const authors = [
     location: "Marseille, France",
     email: "lisa-marie.mazzolo@lam.fr",
     linkedin: "https://www.linkedin.com/in/lisa-marie-mazzolo-a70b551b7/",
+    bio: "Lisa-Marie Mazzolo is an engineer at the Laboratoire d’Astrophysique de Marseille (LAM) and at ONERA (France), where she contributes to research and development activities in high-resolution space observation. She obtained her PhD in 2024 at ONERA, focusing on advanced numerical modelling and simulation methods for radar cross-section evaluation. She then conducted a postdoctoral fellowship at LAM, working on the modelling of multi-conjugate adaptive optics systems for extremely large telescopes. Her current work focuses on high-resolution space observation, with applications in space situational awareness and astronomical instrumentation."
   },
   {
     name: "Fabio Rossi",
     role: "INAF - Istituto Nazionale di Astrofisica",
-    location: "Florence, Italy"
+    location: "Florence, Italy",
+    bio: "Fabio Rossi is a software engineer and PhD in Computer Science. For almost a decade, he has been working at INAF, Arcetri Astrophysical Observatory, as a member of the Adaptive Optics group. He was involved in the design, development and commissioning of SOUL, AO system for LBT, and he is currently involved in ELT ANDES and VLT MAVIS. His research interests include Adaptive Optics simulation and software design, High Performance Computing, and Machine Learning. He is one of the main developers of the analytical AO simulation framework TipTop and of the end-to-end AO simulation framework SPECULA."
   }
 ];
 
@@ -120,15 +122,15 @@ export default function AboutPage() {
                 <li style={{ marginBottom: '0.3rem' }}>
                   <Link to="/resources/references">📘 Key Publications & References </Link>
                 </li>
-                <li style={{ marginBottom: '0.3rem' }}>
+                {/* <li style={{ marginBottom: '0.3rem' }}>
                   <Link to="/resources/users">👥 Users Area </Link>
-                </li>
+                </li> */}
                 <li style={{ marginBottom: '0.3rem' }}>
                   <Link to="/resources/contributors">🔑 Contributors Area </Link>
                 </li>
-                <li style={{ marginBottom: '0.3rem' }}>
-                  <Link to="/resources/wishlist">✨ Wish list</Link>
-                </li>
+                {/* <li style={{ marginBottom: '0.3rem' }}>
+                  <Link to="/resources/wishlist">✨ Wish list</Link> */}
+                {/* </li> */}
                 <li style={{ marginBottom: '0.3rem' }}>
                     <Link to="/resources/AO_school">🔭 AO school</Link></li>
                 <li style={{ marginBottom: '0.3rem' }}>

@@ -26,7 +26,7 @@ const FeatureList = [
     img: 'img/applications.jpg',
     description: (
       <>
-        Explore how TipTop supports instrument design, exposure-time calculations,
+        Explore how TipTop supports AO design, exposure-time calculations,
         observation preparation, asterism selection, sky-coverage studies,
         quality control, and PSF reconstruction.
       </>

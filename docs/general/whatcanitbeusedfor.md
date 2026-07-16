@@ -102,7 +102,7 @@ This functionality is currently under development.
 
 ## 🔁 PSF Reconstruction (PSF-R) *(coming soon)*
 
-TOne of the recent directions enabled by the TipTop analytical framework is data-calibrated PSF reconstruction. In this approach, the objective is no longer to predict the PSF before an observation, but to estimate the PSF associated with an existing dataset using a compact set of atmospheric, AO, and instrument parameters.
+One of the recent directions enabled by the TipTop analytical framework is data-calibrated PSF reconstruction. In this approach, the objective is no longer to predict the PSF before an observation, but to estimate the PSF associated with an existing dataset using a compact set of atmospheric, AO, and instrument parameters.
 
 Recent work has demonstrated that combining a Fourier-based analytical model with data-driven calibration provides accurate PSF predictions without relying on complete AO telemetry, considerably reducing the operational complexity of PSF reconstruction. The approach has been successfully demonstrated on MUSE-NFM, achieving PSF accuracies at the level of a few percent _([Kuznetsov et al. 2026](https://doi.org/10.1051/0004-6361/202557297))_.
 

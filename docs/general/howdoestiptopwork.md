@@ -8,7 +8,8 @@ sidebar_label: How does TipTop work?
 
 <p align="justify">
 
-TipTop is based on an analytical description of AO residual errors in the Fourier domain _([Rigaut et al. 1998](https://doi.org/10.1117/12.321649), [Neichel et al. 2009](https://doi.org/10.1364/JOSAA.26.000219), [Jolissaint et al. 2010](https://doi.org/10.2971/jeos.2010.10055))_. This approach allows a compact and efficient representation of the different contributions to the PSF, while preserving the essential physical behaviour of the system. Because the model is analytical, it naturally lends itself to fast computation — typically a fraction of a second per PSF — making it suitable for applications where large parameter spaces must be explored or where real-time response is required.\\
+TipTop is based on an analytical description of AO residual errors in the Fourier domain _([Rigaut et al. 1998](https://doi.org/10.1117/12.321649), [Neichel et al. 2009](https://doi.org/10.1364/JOSAA.26.000219), [Jolissaint et al. 2010](https://doi.org/10.2971/jeos.2010.10055))_. This approach allows a compact and efficient representation of the different contributions to the PSF, while preserving the essential physical behaviour of the system. Because the model is analytical, it naturally lends itself to fast computation — typically a fraction of a second per PSF — making it suitable for applications where large parameter spaces must be explored or where real-time response is required. 
+
 The implementation supports both CPU and GPU execution, allowing computationally demanding workflows to benefit from hardware acceleration when available.
 
 </p>

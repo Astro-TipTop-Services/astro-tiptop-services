@@ -190,47 +190,40 @@ After summing windshake, tomographic error, and propagated noise, **TipTop** con
 <!-- </details> -->
 
 ---
-🚧 This page is currently being updated.  
 
 ### 📌 Interpreting the TipTop Error Breakdown Output
 
 When a TipTop simulation finishes, if the key word [`getHoErrorBreakDown`](/docs/orion/howtosetuplaunchfile#overallSimulation) is set to `True`, the console prints a detailed wavefront error budget.
-Each line corresponds to a specific term of the HO or LO model we described earlier.
 
 🧩 Meaning of Each Term
 
 <details>
   <summary><strong> 🔽 Expand Table </strong></summary>
 
-| Breakdown Line  | Meaning     | Model Source    | Type  |
-| ---------------------------- | ------------------------------- | --------------- | ----------------------- |
-| **Maréchal Strehl**          | Strehl computed using the Maréchal approximation at science λ               | Uses total WFE                       | Output metric           |
-| **Residual wavefront error** | Quadratic sum of all HO + LO residuals in nm                                | After HO+LO modeling                 | Total                   |
-| **NCPA residual**            | Static uncorrected aberration provided by user ([`zCoefStaticOn`](/docs/orion/useful_scripts.mdx) or OPD map) | Added as static OTF/OPD              | Static (user-specified) |
-| **Fitting error**            | DM cutoff (uncontrolled HF turbulence) | 
-[`fittingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L799)                       | HO   |
-| **Differential refraction**  | Chromatic anisoplanatism (different λ, zenith angle). Refractive index computed with Ciddor (1996) for λ < 1.3 µm and Mathar (2006) for λ ≥ 1.3 µm, accounting for T, P and humidity. | 
-[`differentialRefractionPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1077)        | HO                      |
-| **Chromatic error**          | Refractive index mismatch between WFS and science wavelengths               | 
-[`chromatismPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1128C9-L1128C22)                    | HO                      |
-| **Aliasing error**           | High frequencies folded by WFS sampling                                     | 
-[`aliasingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L808) (SCAO approximation) | HO                      |
-| **Noise error**              | Photon + detector noise propagated through reconstructor + controller       | 
-[`noisePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L909)                         | HO                      |
-| **Spatio-temporal error**    | Combined reconstruction + servo filtering (tomography + lag)                | Inside [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L650)      | HO                      |
-| **Mcao Cone**                | MCAO LGS volume loss term                                                   | Automatic in MCAO mode               | HO                      |
-| **Extra error**              | User extra PSD added to HO halo    | [`extraError*`](/docs/orion/useful_scripts.mdx)     | HO (user)    |
-<!-- | **Wind-shake error**         | Telescope vibrations filtered by LO controller                              | Only if [`windPsdFile`](/docs/orion/parameterfiles.md) provided       | LO (optional)           |
-| **Additionnal jitter**       | Extra jitter added manually (FWHM or nm)                                    | [`jitter_FWHM`](/docs/orion/useful_scripts.mdx) parameter              | LO (user)               | -->
-
+| Breakdown Line  | Meaning     | Model Source    | 
+| ---------------------------- | ------------------------------- | ----------------------- |
+| **Maréchal Strehl**   | Strehl ratio estimated from the total residual WFE via the Maréchal approximation.  | `SRmar = 100·exp(-(2π·wfeTot/λ)²)`     |
+| **Residual wavefront error** | Total residual WFE. | Quadratic sum of every HO + LO term below.                   |
+| **NCPA residual**            | Static, uncorrected aberration supplied by the user ([`zCoefStaticOn`](/docs/orion/useful_scripts.mdx) or an [OPD map](/docs/orion/useful_scripts.mdx).) | Added as static OTF/OPD (user-specified).         |
+| **Fitting error**            | DM correction cutoff: spatial frequencies beyond the DM's actuator pitch are never corrected. | [`fittingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L939)      |
+| **Differential refraction**  | Chromatic anisoplanatism between the science and reference wavelengths, driven by zenith angle ([Ciddor 1996](https://doi.org/10.1364/AO.35.001566) below 1.3 µm, [Mathar 2006](https://doi.org/10.48550/arXiv.physics/0610256) above, both accounting for temperature, pressure and humidity). | [`differentialRefractionPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1394) |
+| **Chromatic error**          | Refractive-index mismatch between the WFS and science wavelengths  | [`chromatismPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1420)                    | 
+| **Aliasing error**           | High spatial frequencies folded back into the correction band by the WFS's finite sampling.    | [`aliasingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1149)  | 
+| **Noise error**              | WFS photon and detector noise, propagated through the reconstructor and controller | [`noisePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1184)            |
+| **Spatio-temporal error**    | Combined reconstruction, anisoplanatism and servo-lag (loop bandwidth) contribution  | [`spatioTemporalPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1303)       |
+| **Wind-shake error**         | Telescope/structure vibrations left uncorrected by the tip-tilt loop, from a measured vibration PSD.      | [`windShakePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1254), only if [`windPsdFile`](/docs/orion/parameterfiles.md) is provided.       | 
+| **Additionnal jitter**       | Extra image jitter specified by the user (FWHM in mas), converted to nm of WFE.   | derived from [`spotFWHM`](/docs/orion/useful_scripts.mdx).  |
+| **Mcao Cone**                | MCAO laser-guide-star cone effect: reduced WFS-sensing volume.    | [`mcaoWFsensConePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1522), automatic in MCAO mode.  |
+| **Extra error**              | Additional user-defined PSD budget added to the total HO PSD.   | [`extraErrorPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1635) / [`extraError*`](/docs/orion/useful_scripts.mdx). |
 
 | Bottom lines  |Meaning  | Notes  |
 | --------------------------------------------------------------------------- | ------------------------------------ | ----------------------- |
-| **Sole servoLag error**       | Temporal part ONLY of HO error (ideal infinite reconstructor) | Helps tune controller                    |
-| **Sole reconstruction error** | Pure spatial tomography ONLY (no controller effect)           | Useful for reconstructor performance     |
-| **Sole tomographic error**    | MCAO/NGS/LGS geometry + reconstructor *without lag or noise*  | Matches Plantet et al. “pure tomography” |
+| **Sole servoLag error**       | Reconstruction (SCAO approximation) and loop temporal/bandwidth response combined, assuming an on-axis target (no anisoplanatism). | Isolates the loop+reconstructor part; `wfeTomo = sqrt(wfeST² − wfeS²)` uses it to recover the pure tomographic term when `nGs>1`.  |
+| **Sole reconstruction error** | Same reconstructor as above, but assuming an ideal, infinitely fast loop (no delay, no temporal term)  | Isolates pure spatial-reconstruction mismatch, with no temporal/lag effect. |
+| **Sole anisoplanatism error** | Angular-separation error between the NGS and the science target only, no lag or noise | SCAO / single-NGS case (`nGs=1`); zero for an on-axis target. |
+| **Sole tomographic error**    | MCAO/NGS/LGS geometry + reconstructor error, without lag or noise.  | Matches Plantet et al. "pure tomography"; replaces the anisoplanatism line when `nGs>1` |
 
-_*The “Sole …” diagnostic lines are not added to the total wavefront error. They are isolated components useful for AO tuning and performance analysis.*_
+_*The "Sole …" diagnostic lines are not added to the total wavefront error. They are isolated components useful for AO tuning and performance analysis.*_
 
 </details>
 

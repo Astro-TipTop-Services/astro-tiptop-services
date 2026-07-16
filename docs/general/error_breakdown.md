@@ -32,8 +32,8 @@ Spectral Density (PSD) of the the AO-corrected residual phase. This PSD is decom
 ### ✔️ Fitting error
 Uncorrected high-spatial frequencies outside the AO/DM control region, i.e. above the DM cutoff set by the actuator pitch. Depends mainly on the actuator pitch and on the atmospheric seeing (through r0) at the AO reference wavelength, and is only weakly sensitive to the outer scale (L0).
 
-Implemented in → [`fittingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L799) <br/>
-Added to total PSD in → [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L650)
+Implemented in → [`fittingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L939) <br/>
+Added to total PSD in → [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L778)
 
 --- 
 
@@ -41,8 +41,8 @@ Added to total PSD in → [`powerSpectrumDensity()`](https://github.com/astro-ti
 High-spatial frequencies that are aliased owing to the WFS spatial sampling. Appears at lower spatial frequencies in the reconstructed phase.
 The aliasing PSD is computed using a SCAO formulation and reused for all directions without explicit projection through the tomographic reconstructor or DM projector. This is an approximation, but in practice the PSF shape is weakly sensitive to it.
 
-Implemented in → [`aliasingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L808)<br/>
-Added to total PSD in → [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L650)
+Implemented in → [`aliasingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1149)<br/>
+Added to total PSD in → [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L778)
 
 --- 
 
@@ -58,7 +58,7 @@ The noise variance is either computed from WFS characteristics or provided direc
 2. Filtered by the controller’s noise transfer function 
 3. Added to the total HO PSD -->
 
-Implemented in → [`noisePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L909)
+Implemented in → [`noisePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1184)
 
 --- 
 
@@ -90,7 +90,7 @@ depending on:
     - integration time
     - controller type  -->
 
-All applied inside [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L650) before summation. <br/>
+All applied inside [`powerSpectrumDensity()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L778) before summation. <br/>
 _**TipTop** does not output a separate “tomography term” in HO breakdown (it only exists inside the spatio-temporal PSD)._
 
 --- 
@@ -101,11 +101,11 @@ _**TipTop** does not output a separate “tomography term” in HO breakdown (it
 
 - **Chromatism**  
     Models the phase error due to the refractive-index difference between: (1) WFS/GS wavelength, and (2) science PSF wavelength. <br/>
-    Implemented in → [`chromatismPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1128C9-L1128C22)
+    Implemented in → [`chromatismPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1420)
 
 - **Differential atmospheric refraction**  
-    Anisoplanatic-like PSD arising when science and guide stars are observed at different wavelengths and zenith angles. The refractive index of humid air is computed using a rigorous two-model approach introduced in [P3 v1.5.2]: the **[Ciddor (1996)](https://doi.org/10.1364/AO.35.001566)** model for wavelengths below 1.3 µm, and the **[Mathar (2006)](https://arxiv.org/abs/physics/0610256)** model for longer wavelengths (J/H/K through N bands), both accounting for temperature, pressure, and relative humidity. This replaces the earlier simplified dispersion approximation. <br/>
-    Implemented in → [`differentialRefractionPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1077) using [`airRefraction.MatharAirRefraction`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/airRefraction.py)
+    Anisoplanatic-like PSD arising when science and guide stars are observed at different wavelengths and zenith angles. The refractive index of humid air is computed using a rigorous two-model approach introduced in vP3 1.5.2: the **[Ciddor (1996)](https://doi.org/10.1364/AO.35.001566)** model for wavelengths below 1.3 µm, and the **[Mathar (2006)](https://arxiv.org/abs/physics/0610256)** model for longer wavelengths (J/H/K through N bands), both accounting for temperature, pressure, and relative humidity. This replaces the earlier simplified dispersion approximation. <br/>
+    Implemented in → [`differentialRefractionPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1394).
 
 Both are added to the HO PSD only when the configuration activates them.
 
@@ -126,7 +126,8 @@ The residual jitter is considered as the quadratic sum of 3 independent terms: *
 
 ###  ✔️ Windshake & Vibrations
 <p align="justify">  
-**TipTop** can ingest a PSD of tip/tilt disturbances due to wind shake/vibration (see ([`telescope.windPsdFile`](https://astro-tiptop-services.github.io/astro-tiptop-services/docs/orion/parameterfiles#telescope) parameter)). These disturbances are filtered by the closed-loop transfer function. <br/> If no vibration file is provided, the vibration term is set to zero (Absence of vibration input ⇒ 0 nm residuals).
+**TipTop** can ingest a PSD of tip/tilt disturbances due to wind shake/vibration (see ([`telescope.windPsdFile`](https://astro-tiptop-services.github.io/astro-tiptop-services/docs/orion/parameterfiles#telescope) parameter)). These disturbances are filtered by the closed-loop transfer function. <br/> If no vibration file is provided, the vibration term is set to zero (Absence of vibration input ⇒ 0 nm residuals). <br/>
+_Note: `windPsdFile` feeds either this LO term or the HO breakdown's Wind-shake error, never both. When the AO system has a dedicated LO/tip-tilt loop, the vibration PSD is processed here. When it doesn't (no separate LO loop, tip-tilt handled directly by the HO loop), the same file instead feeds_ `windShakePSD()` _inside the HO model (see Section "Interpreting the TipTop Error Breakdown Output" below)._
 </p>
 
 ---
@@ -150,7 +151,7 @@ For a single NGS, this filtered noise is used directly; for multiple NGS, the no
 
 ### 🟢 Final Jitter Kernel
 <p align="justify"> 
-After summing windshake, tomographic error, and propagated noise, **TipTop** converts the total Tip-Tilt variance into a Gaussian kernel (circular or elliptical based on the covariance). This kernel is expressed in milliarcseconds (FWHM), and it is **convolved with the HO PSF** (in [`tiptop.baseSimulation.finalConvolution()`](https://github.com/astro-tiptop/TIPTOP/blob/d5cceb2d215e81004218b67bca10b6ef87dc8b92/tiptop/baseSimulation.py#L530C5-L530C9)) to produce the **final AO PSF** delivered to the user.
+After summing windshake, tomographic error, and propagated noise, **TipTop** converts the total Tip-Tilt variance into a Gaussian kernel (circular or elliptical based on the covariance). This kernel is expressed in milliarcseconds (FWHM), and it is **convolved with the HO PSF** to produce the **final AO PSF** delivered to the user.
 </p>
 
 </details>
@@ -176,7 +177,7 @@ After summing windshake, tomographic error, and propagated noise, **TipTop** con
 | | LGS cone effect / MCAO volume | ✔️ | Dedicated PSD |
 | | Telescope / Instrument Static | ⚙️ User | If user supplies static OTF/OPD maps |
 | | Extra PSD | ⚙️ User | Via optional [**extra error parameters**](/docs/orion/useful_scripts.mdx) |
-| **LO** | Windshake & vibrations | ⚙️ Optional | Requires PSD file ([`telescope.windPsdFile`](/docs/orion/parameterfiles.md))|
+| **LO** | Windshake & vibrations | ⚙️ Optional | Requires PSD file ([`telescope.windPsdFile`](/docs/orion/parameterfiles.md)); only handled here when a dedicated LO loop is active — otherwise it's an HO-side term instead (see note in Section 2)|
 |  | Noise Propagation | ✔️ | Noise estimated using PSF from HO |
 | | Tomography | ✔️ | Reduces to anisoplanatism if single NGS |
 | | Extra Jitter | ⚙️ User | [`jitter_FWHM`](/docs/orion/useful_scripts.mdx) manual input in _mas_, convolved as a kernel|
@@ -203,7 +204,7 @@ When a TipTop simulation finishes, if the key word [`getHoErrorBreakDown`](/docs
 | Breakdown Line  | Meaning     | Model Source    | 
 | ---------------------------- | ------------------------------- | ----------------------- |
 | **Maréchal Strehl**   | Strehl ratio estimated from the total residual WFE via the Maréchal approximation.  | `SRmar = 100·exp(-(2π·wfeTot/λ)²)`     |
-| **Residual wavefront error** | Total residual WFE. | Quadratic sum of every HO + LO term below.                   |
+| **Residual wavefront error** | Total residual WFE. | Quadratic sum of every term below.                   |
 | **NCPA residual**            | Static, uncorrected aberration supplied by the user ([`zCoefStaticOn`](/docs/orion/useful_scripts.mdx) or an [OPD map](/docs/orion/useful_scripts.mdx).) | Added as static OTF/OPD (user-specified).         |
 | **Fitting error**            | DM correction cutoff: spatial frequencies beyond the DM's actuator pitch are never corrected. | [`fittingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L939)      |
 | **Differential refraction**  | Chromatic anisoplanatism between the science and reference wavelengths, driven by zenith angle ([Ciddor 1996](https://doi.org/10.1364/AO.35.001566) below 1.3 µm, [Mathar 2006](https://doi.org/10.48550/arXiv.physics/0610256) above, both accounting for temperature, pressure and humidity). | [`differentialRefractionPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1394) |
@@ -211,8 +212,8 @@ When a TipTop simulation finishes, if the key word [`getHoErrorBreakDown`](/docs
 | **Aliasing error**           | High spatial frequencies folded back into the correction band by the WFS's finite sampling.    | [`aliasingPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1149)  | 
 | **Noise error**              | WFS photon and detector noise, propagated through the reconstructor and controller | [`noisePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1184)            |
 | **Spatio-temporal error**    | Combined reconstruction, anisoplanatism and servo-lag (loop bandwidth) contribution  | [`spatioTemporalPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1303)       |
-| **Wind-shake error**         | Telescope/structure vibrations left uncorrected by the tip-tilt loop, from a measured vibration PSD.      | [`windShakePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1254), only if [`windPsdFile`](/docs/orion/parameterfiles.md) is provided.       | 
-| **Additionnal jitter**       | Extra image jitter specified by the user (FWHM in mas), converted to nm of WFE.   | derived from [`spotFWHM`](/docs/orion/useful_scripts.mdx).  |
+| **Wind-shake error**         | Telescope/structure vibrations left uncorrected by the tip-tilt loop, from a measured vibration PSD.      | [`windShakePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1254), only if [`windPsdFile`](/docs/orion/parameterfiles.md) is provided and no dedicated LO loop is active — otherwise this vibration term is handled by the LO module instead (Section 2).       | 
+| **Additionnal jitter**       | Extra image jitter specified by the user (FWHM in mas), converted to nm of WFE.   | derived from [`jitter_FWHM`](/docs/orion/useful_scripts.mdx).  |
 | **Mcao Cone**                | MCAO laser-guide-star cone effect: reduced WFS-sensing volume.    | [`mcaoWFsensConePSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1522), automatic in MCAO mode.  |
 | **Extra error**              | Additional user-defined PSD budget added to the total HO PSD.   | [`extraErrorPSD()`](https://github.com/astro-tiptop/P3/blob/main/p3/aoSystem/fourierModel.py#L1635) / [`extraError*`](/docs/orion/useful_scripts.mdx). |
 
